@@ -6,115 +6,141 @@ import numpy as np
         
         self.list[n][0] = Card name → string
         self.list[n][1] = Card ID → int
+        self.list[n][1] = Card cost → int
 """
 
-
+# Standard set -> 0-6
 
 kingdom_cards_ed2_base = [
     [
         "Cellar",
-        0
+        7,
+        2
     ],
     [
         "Chapel",
-        1
+        8,
+        2
     ],
     [
         "Moat",
+        9,
         2
     ],
     [
         "Village",
+        10,
         3
     ],
     [
         "Workshop",
-        4
+        11,
+        3
     ],
     [
         "Bureaucrat",
-        5
+        12,
+        4
     ],
     [
         "Gardens",
-        6
+        13,
+        4
     ],
     [
-        "Milita",
-        7
+        "Militia",
+        14,
+        4
     ],
     [
         "Moneylender",
-        8
+        15,
+        4
     ],
     [
         "Remodel",
-        9
+        16,
+        4
     ],
     [
         "Smithy",
-        10
+        17,
+        4
     ],
     [
         "Throne room",
-        11
+        18,
+        4
     ],
     [
         "Council room",
-        12
+        19,
+        5
     ],
     [
         "Festival",
-        13
+        20,
+        5
     ],
     [
         "Laboratory",
-        14
+        21,
+        5
     ],
     [
         "Library",
-        15
+        22,
+        5
     ],
     [
         "Market",
-        16
+        23,
+        5
     ],
     [
         "Mine",
-        17
+        24,
+        5
     ],
     [
         "Witch",
-        18
+        25,
+        5
     ],
     [
         "Harbinger",
-        19
+        26,
+        3
     ],
     [
         "Merchant",
-        20
+        27,
+        3
     ],
     [
         "Vassal",
-        21
+        28,
+        3
     ],
     [
         "Poacher",
-        22
+        29,
+        3
     ],
     [
         "Bandit",
-        23
+        30,
+        5
     ],
     [
         "Sentry",
-        24
+        31,
+        5
     ],
     [
         "Artisan",
-        25
+        32,
+        6
     ]
 ]
-
 

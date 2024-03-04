@@ -1,0 +1,237 @@
+
+from Deck_generator import deck_generator
+from Player_AI import random_player
+import numpy as np
+from cards_base_ed2 import kingdom_cards_ed2_base
+from standard_cards import standard_set
+from card_effects import card_effects
+
+deck = deck_generator()
+
+class Dominion:
+    def __init__(self) -> None:
+
+        self.deck = deck_generator()
+
+
+        # Standard supply [Copper, Silver, Gold, Estate, Duchy, Province, Curse]
+        self.standard_supply = np.array([30, 30, 30, 30, 30, 8, 30])
+
+        self.game_state = self.__initialize_game_state()
+        
+    
+    
+
+
+    def __initialize_game_state(self):
+        # This datatype is the object that holds all information regarding the game
+        state = {
+            # ----- GAME END -----
+        "Player_won": -1,
+
+
+            # ----- SUPPLY RELATED -----
+        "kingdom_cards": self.deck.get_rand_kingdom_set(),
+        "Standard_cards": self.deck.get_standard_set(),
+        "supply_kingdom_amount": np.ones(10) * 10,
+        "supply_standard_amount": self.standard_supply,
+
+            # ----- MAIN PLAYER -----
+        "cards_in_hand": np.array([]),
+        "cards_in_deck": 0,
+        "cards_in_discard": np.array([]),
+        "owned_cards": np.array([]),
+        "actions": 0,
+        "buys": 0,
+        "value": 0,
+        "Victory_points": 0,
+
+            # ----- ADVERSARY PLAYER -----
+        "adv_cards_in_hand": 0,
+        "adv_cards_in_deck": 0,
+        "adv_cards_in_discard": 0,
+        "adv_owned_cards": np.array([]),
+        "Victory_points": 0,
+        }
+        return state
+
+
+
+    def __startup_player_state(self):
+        player_state_start = {
+            "cards_in_hand": np.array([]),
+            "cards_in_deck": 10,
+            "cards_in_discard": np.array([]),
+            "owned_cards": np.array([0, 0, 0, 0, 0, 0, 0, 3, 3, 3]), # 7 coppers and 3 estates
+            "actions": 0,
+            "buys": 0,
+            "value": 0,
+            "Victory_points": 0,
+        }
+
+        return player_state_start
+
+
+    def play_loop_AI(self, player1, player2):
+        ''' [Summary]
+        This function is the main loop of the game. It will keep running until the game is over.
+
+        ARGS:
+            player1 player: This type object must be capable of choosing which cards to play and when.
+            player2 player: This is also a player type 
+        '''
+        players_amount = 2
+
+        player1_state = self.__startup_player_state()
+        player2_state = self.__startup_player_state()
+
+        players = [player1_state, player2_state]
+
+        # randomize starting player
+        main_player = np.random.choice([0, 1])
+
+        # both players draw 5 cards in the start of the game
+        for player in range(players_amount):
+            players[player] = self.__draw_n_cards_from_deck(players[player], 5)
+
+
+        while self.game_state["Player_won"] == -1:
+            
+            actions = self.__get_actions(players[main_player])
+
+
+
+
+            # --------- ACTION PHASE ---------
+            # Choose action
+            
+            action = player1.choose_action(actions)
+
+            while action != -1:
+                action = player1.choose_action(actions)
+
+
+
+
+            # --------- BUY PHASE ---------
+            buys = self.__get_buys(players[main_player], self.game_state)
+
+            while action != -1:
+                action = player1.choose_action(actions)
+
+
+
+
+
+            # Reset and draw new hand
+            main_player += 1
+            if main_player >= players_amount:
+                main_player = 0
+
+            self.game_state["Player_won"] = 1
+
+
+        return 0 # return index of who wins.
+
+        
+
+
+
+    def __get_actions(self, player_state):
+        '''[Summary]
+        
+        This function will return the actions that the player can do. 
+        The actions are based on the index of the cards in the players hand.
+        -1 means end turn
+        '''
+
+        if player_state["actions"] == 0:
+            return np.array([-1])
+        
+        actions = player_state["cards_in_hand"]
+        actions = np.append(-1, actions) # add the ability to terminate the action phase
+
+        return actions
+    
+    def __get_buys(self, player_state, game_state):
+        '''[Summary]
+        This function will return the buys the player can do.
+        '''
+        if player_state["buys"] == 0:
+            return np.array([-1])
+        
+        value = player_state["value"]
+
+
+        
+
+
+
+
+
+
+        return player_state["buys"]
+
+
+
+
+
+    def __draw_n_cards_from_deck(self, player_state, n):
+        deck = self.__get_cards_in_deck(player_state)
+        draws = np.random.choice(deck, n, replace=False)
+        
+        player_state["cards_in_hand"] = np.append(player_state["cards_in_hand"], draws)
+        return player_state
+
+
+    def __get_cards_in_deck(self, player_state):
+        ''' [Summary]
+        Based on the cards in the discard pile, and cards in the hand and all the known cards.
+        This function will return the cards in the deck.
+
+        ARGS:
+            player_state [dict]: This is the player state object
+        '''
+
+        hand   = player_state["cards_in_hand"]
+        discard_pile = player_state["cards_in_discard"]
+
+        hand_discard = np.concatenate((hand, discard_pile), axis=0)
+
+
+        all_owned_cards = player_state["owned_cards"]
+        for cards in hand_discard:
+            all_owned_cards = np.delete(all_owned_cards, np.where(all_owned_cards == cards)[0][0])
+        
+        deck = all_owned_cards
+        return deck
+    
+
+    def __insert_card_in_hand(self, player_state, card):
+        
+        player_state["cards_in_hand"] = np.append(int(card[1]), player_state["cards_in_hand"])
+        return player_state
+    
+
+    def __insert_card_in_discard(self, player_state, card):
+        player_state["cards_in_discard"] = np.append(int(card[1]), player_state["cards_in_discard"])
+        return player_state
+    
+    def __insert_card_in_deck(self, player_state, card):
+        player_state["cards_in_deck"] += 1
+        return player_state
+
+    def __remove_card_from_hand(self, player_state, card):
+        player_state["cards_in_hand"] = np.delete(player_state["cards_in_hand"], np.where(player_state["cards_in_hand"] == card))
+        return player_state
+    
+    def __remove_card_from_discard(self, player_state, card):
+        player_state["cards_in_discard"] = np.delete(player_state["cards_in_discard"], np.where(player_state["cards_in_discard"] == card))
+        return player_state
+
+
+
+
+Dominion_game = Dominion()
+
+Dominion_game.play_loop_AI(random_player(), random_player())
