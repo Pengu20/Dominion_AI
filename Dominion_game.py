@@ -37,6 +37,11 @@ class Dominion:
             # ----- GAME PHASE RELATED -----
         "game_phase": 0, # 0 indicates action phase, 1 indicates buy phase
 
+            # ----- CARD EFFECT RELATED -----
+
+        "Unique_actions": "None", # This is the unique actions that the player can do. This is based on the cards in the players hand
+
+
             # ----- MAIN PLAYER -----
         "cards_in_hand": np.array([]),
         "cards_in_deck": 0,
@@ -47,6 +52,8 @@ class Dominion:
         "buys": 0,
         "value": 0,
         "Victory_points": 0,
+
+
 
             # ----- ADVERSARY PLAYER -----
         "adv_cards_in_hand": 0,
@@ -90,6 +97,7 @@ class Dominion:
         player2_state = self.__startup_player_state()
 
         players = [player1_state, player2_state]
+        players_input = [player1, player2]
 
         # randomize starting player
         main_player = np.random.choice([0, 1])
@@ -102,23 +110,28 @@ class Dominion:
         while self.game_state["Player_won"] == -1:
             # --------- ACTION PHASE ---------
             
+            
             # Get all possible actions
             actions = self.__get_actions(players[main_player])
   
             # Choose action
-            action = player1.choose_action(actions, self.game_state)
+            action = players_input[main_player].choose_action(actions, self.game_state)
+
+
+            card_effects().play_card(7, self.game_state, players[main_player], players_input[main_player])
 
 
             while action != -1:
                 action = player1.choose_action(actions, self.game_state)
 
 
+            
 
 
 
             # --------- BUY PHASE ---------
             players[main_player]["buys"] += 1
-            players[main_player]["value"] += self.__get_player_treasure_value(players[main_player], self.game_state)
+            players[main_player]["value"] += self.__get_player_treasure_value(players[main_player], self.game_state, players[main_player])
 
 
             buy_actions = self.__get_buys(players[main_player], self.game_state)
@@ -131,9 +144,6 @@ class Dominion:
                 players[main_player], self.game_state = self.__buy_card_from_supply(player_state=players[main_player], game_state=self.game_state, card_idx=action)
                 buy_actions = self.__get_buys(players[main_player], self.game_state)
 
-                
-                
-                
                 action = player1.choose_action(buy_actions, self.game_state)
 
 
@@ -220,7 +230,7 @@ class Dominion:
 
         return player_state, game_state
 
-    def __get_player_treasure_value(self, player_state, game_state):
+    def __get_player_treasure_value(self, player_state, game_state, player_input):
         '''[Summary]
         This function will return the value of the players hand.
 
@@ -239,7 +249,7 @@ class Dominion:
 
 
         for index in treasure_cards:
-            game_state, player_state = card_effects().play_card(cards_in_hand[index].astype(int), game_state, player_state)
+            game_state, player_state = card_effects().play_card(cards_in_hand[index].astype(int), game_state, player_state, player_input)
 
 
         player_value = player_state["value"]
