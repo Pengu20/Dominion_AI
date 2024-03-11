@@ -31,10 +31,8 @@ class Dominion:
 
 
             # ----- SUPPLY RELATED -----
-        "kingdom_cards": self.deck.get_rand_kingdom_set(),
-        "Standard_cards": self.deck.get_standard_set(),
-        "supply_kingdom_amount": np.ones(10) * 10,
-        "supply_standard_amount": self.standard_supply,
+        "dominion_cards": self.deck.get_card_set(),
+        "supply_amount": np.append(self.standard_supply, np.ones(10) * 10), # 10 kingdom cards with 10 supply each
 
             # ----- GAME PHASE RELATED -----
         "game_phase": 0, # 0 indicates action phase, 1 indicates buy phase
@@ -85,6 +83,7 @@ class Dominion:
             player1 player: This type object must be capable of choosing which cards to play and when.
             player2 player: This is also a player type 
         '''
+
         players_amount = 2
 
         player1_state = self.__startup_player_state()
@@ -183,14 +182,12 @@ class Dominion:
             
         buyable_cards = np.array([])
 
-        for i in range(len(game_state["kingdom_cards"])):
-            if game_state["supply_kingdom_amount"][i] > 0 and game_state["kingdom_cards"][i][2].astype(int) <= player_value:
-                buyable_cards = np.append(buyable_cards, game_state["kingdom_cards"][i][1].astype(int))
+        for i in range(len(game_state["dominion_cards"])):
+            if game_state["supply_amount"][i] > 0 and game_state["dominion_cards"][i][2].astype(int) <= player_value:
+                buyable_cards = np.append(buyable_cards, game_state["dominion_cards"][i][1].astype(int))
 
-        for i in range(len(game_state["Standard_cards"])):
-            if game_state["supply_standard_amount"][i] > 0 and game_state["Standard_cards"][i][2].astype(int) <= player_value:
-                buyable_cards = np.append(buyable_cards, game_state["Standard_cards"][i][1].astype(int))
-        
+
+
 
         # Add the ability to terminate the buying phase (-1)
         buyable_cards = np.append(buyable_cards, -1)
@@ -202,20 +199,25 @@ class Dominion:
     def __buy_card_from_supply(self, player_state, game_state, card_idx):
         # This function lets the player put a card in the discard pile. based on the input card which is a card ID.
         
-        card
+        card = self.get_card_from_index(card_idx=card_idx)
+
+        # Put card into discard pile.
+        player_state["cards_in_discard"] = np.append(player_state["cards_in_discard"], card[1].astype(int))
+
+        # remove one instance from supply.
+
+
 
 
     
     def get_card_from_index(self, card_idx):
-
+        # this function gets the card from the supply pile. 
         card_idx = int(card_idx)
-        if card_idx < 7:
-            return self.game_state["Standard_cards"][card_idx]
 
-        else:
-            for card in self.game_state["kingdom_cards"]:
-                if int(card[1]) == card_idx:
-                    return card
+        for card in self.game_state["dominion_cards"]:
+            if int(card[1]) == card_idx:
+                return card
+
 
 
 
