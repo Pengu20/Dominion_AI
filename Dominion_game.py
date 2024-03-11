@@ -19,8 +19,8 @@ class Dominion:
 
         self.game_state = self.__initialize_game_state()
         
-    
-    
+        self.Treasure_card_index = [0,1,2] #Indexes of the treasure cards in the standard set
+
 
 
     def __initialize_game_state(self):
@@ -36,11 +36,15 @@ class Dominion:
         "supply_kingdom_amount": np.ones(10) * 10,
         "supply_standard_amount": self.standard_supply,
 
+            # ----- GAME PHASE RELATED -----
+        "game_phase": 0, # 0 indicates action phase, 1 indicates buy phase
+
             # ----- MAIN PLAYER -----
         "cards_in_hand": np.array([]),
         "cards_in_deck": 0,
         "cards_in_discard": np.array([]),
         "owned_cards": np.array([]),
+        "played_cards": np.array([]), # "played" cards are cards that are in the current hand
         "actions": 0,
         "buys": 0,
         "value": 0,
@@ -63,6 +67,7 @@ class Dominion:
             "cards_in_deck": 10,
             "cards_in_discard": np.array([]),
             "owned_cards": np.array([0, 0, 0, 0, 0, 0, 0, 3, 3, 3]), # 7 coppers and 3 estates
+            "played_cards": np.array([]), # "played" cards are cards that are in the current hand
             "actions": 0,
             "buys": 0,
             "value": 0,
@@ -96,29 +101,31 @@ class Dominion:
 
 
         while self.game_state["Player_won"] == -1:
-            
-            actions = self.__get_actions(players[main_player])
-
-
-
-
             # --------- ACTION PHASE ---------
-            # Choose action
             
-            action = player1.choose_action(actions)
+            # Get all possible actions
+            actions = self.__get_actions(players[main_player])
+  
+            # Choose action
+            action = player1.choose_action(actions, self.game_state)
+
 
             while action != -1:
-                action = player1.choose_action(actions)
+                action = player1.choose_action(actions, self.game_state)
+
 
 
 
 
             # --------- BUY PHASE ---------
-            buys = self.__get_buys(players[main_player], self.game_state)
+            buy_actions = self.__get_buys(players[main_player], self.game_state)
+
+            # Choose a buy
+            action = player1.choose_action(buy_actions, self.game_state)
 
             while action != -1:
-                action = player1.choose_action(actions)
-
+                players[main_player] = self.__buy_card_from_supply(player_state=players[main_player], game_state=self.game_state, card_idx=action)
+                action = player1.choose_action(buy_actions, self.game_state)
 
 
 
@@ -129,6 +136,8 @@ class Dominion:
                 main_player = 0
 
             self.game_state["Player_won"] = 1
+
+
 
 
         return 0 # return index of who wins.
@@ -153,25 +162,60 @@ class Dominion:
 
         return actions
     
+
     def __get_buys(self, player_state, game_state):
         '''[Summary]
         This function will return the buys the player can do.
         '''
-        if player_state["buys"] == 0:
-            return np.array([-1])
+
+        cards_in_hand = player_state["cards_in_hand"]
+
+        treasure_cards = np.argwhere(np.isin(cards_in_hand, self.Treasure_card_index)).flatten()
+
+        # Get the value from all treasure cards in hand
+        for index in treasure_cards:
+            game_state, player_state = card_effects().play_card(cards_in_hand[index].astype(int), game_state, player_state)
+
+
+        player_value = player_state["value"]
+
+        # If there is enough cards in supply, and the player has enough currency, then add the card to the list of buyable cards
+            
+        buyable_cards = np.array([])
+
+        for i in range(len(game_state["kingdom_cards"])):
+            if game_state["supply_kingdom_amount"][i] > 0 and game_state["kingdom_cards"][i][2].astype(int) <= player_value:
+                buyable_cards = np.append(buyable_cards, game_state["kingdom_cards"][i][1].astype(int))
+
+        for i in range(len(game_state["Standard_cards"])):
+            if game_state["supply_standard_amount"][i] > 0 and game_state["Standard_cards"][i][2].astype(int) <= player_value:
+                buyable_cards = np.append(buyable_cards, game_state["Standard_cards"][i][1].astype(int))
         
-        value = player_state["value"]
+
+        # Add the ability to terminate the buying phase (-1)
+        buyable_cards = np.append(buyable_cards, -1)
+
+        return buyable_cards
 
 
+
+    def __buy_card_from_supply(self, player_state, game_state, card_idx):
+        # This function lets the player put a card in the discard pile. based on the input card which is a card ID.
         
+        card
 
 
+    
+    def get_card_from_index(self, card_idx):
 
+        card_idx = int(card_idx)
+        if card_idx < 7:
+            return self.game_state["Standard_cards"][card_idx]
 
-
-
-        return player_state["buys"]
-
+        else:
+            for card in self.game_state["kingdom_cards"]:
+                if int(card[1]) == card_idx:
+                    return card
 
 
 
