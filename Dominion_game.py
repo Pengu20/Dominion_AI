@@ -117,13 +117,23 @@ class Dominion:
 
 
             # --------- BUY PHASE ---------
+            players[main_player]["buys"] += 1
+            players[main_player]["value"] += self.__get_player_treasure_value(players[main_player], self.game_state)
+
+
             buy_actions = self.__get_buys(players[main_player], self.game_state)
 
             # Choose a buy
             action = player1.choose_action(buy_actions, self.game_state)
 
+
             while action != -1:
-                players[main_player] = self.__buy_card_from_supply(player_state=players[main_player], game_state=self.game_state, card_idx=action)
+                players[main_player], self.game_state = self.__buy_card_from_supply(player_state=players[main_player], game_state=self.game_state, card_idx=action)
+                buy_actions = self.__get_buys(players[main_player], self.game_state)
+
+                
+                
+                
                 action = player1.choose_action(buy_actions, self.game_state)
 
 
@@ -167,25 +177,14 @@ class Dominion:
         This function will return the buys the player can do.
         '''
 
-        cards_in_hand = player_state["cards_in_hand"]
-
-        treasure_cards = np.argwhere(np.isin(cards_in_hand, self.Treasure_card_index)).flatten()
-
-        # Get the value from all treasure cards in hand
-        for index in treasure_cards:
-            game_state, player_state = card_effects().play_card(cards_in_hand[index].astype(int), game_state, player_state)
-
-
-        player_value = player_state["value"]
 
         # If there is enough cards in supply, and the player has enough currency, then add the card to the list of buyable cards
             
         buyable_cards = np.array([])
 
         for i in range(len(game_state["dominion_cards"])):
-            if game_state["supply_amount"][i] > 0 and game_state["dominion_cards"][i][2].astype(int) <= player_value:
+            if game_state["supply_amount"][i] > 0 and game_state["dominion_cards"][i][2].astype(int) <= player_state["value"]:
                 buyable_cards = np.append(buyable_cards, game_state["dominion_cards"][i][1].astype(int))
-
 
 
 
@@ -198,15 +197,54 @@ class Dominion:
 
     def __buy_card_from_supply(self, player_state, game_state, card_idx):
         # This function lets the player put a card in the discard pile. based on the input card which is a card ID.
-        
-        card = self.get_card_from_index(card_idx=card_idx)
 
+
+        card = self.get_card_from_index(card_idx=card_idx)
         # Put card into discard pile.
         player_state["cards_in_discard"] = np.append(player_state["cards_in_discard"], card[1].astype(int))
 
+
         # remove one instance from supply.
+        set_index = self.card_idx_2_set_idx(card_idx) # Get the index in the set of card
+        game_state["supply_amount"][set_index] -= 1
 
 
+        # remove the value of the card from the players value
+        player_state["value"] -= card[2].astype(int)
+
+
+        # Remove one buy power from player
+        player_state["buys"] -= 1
+
+        
+
+        return player_state, game_state
+
+    def __get_player_treasure_value(self, player_state, game_state):
+        '''[Summary]
+        This function will return the value of the players hand.
+
+        ARGS:
+            player_state [dict]: This is the player state object
+        
+        RETURNS:
+            value [int]: The value of the players hand
+            card [numpy.list]: All the indexes of the treasure cards sorted from highest value to lowest
+        '''
+
+
+        cards_in_hand = player_state["cards_in_hand"]
+
+        treasure_cards = np.argwhere(np.isin(cards_in_hand, self.Treasure_card_index)).flatten()
+
+
+        for index in treasure_cards:
+            game_state, player_state = card_effects().play_card(cards_in_hand[index].astype(int), game_state, player_state)
+
+
+        player_value = player_state["value"]
+
+        return player_value
 
 
     
@@ -218,8 +256,17 @@ class Dominion:
             if int(card[1]) == card_idx:
                 return card
 
+    def card_idx_2_set_idx(self, card_idx):
+        # This function will return the index of the card in the dominion_cards game state, based on the card index
+
+        card_idx = int(card_idx)
+
+        for i in range(len(self.game_state["dominion_cards"])):
+            if int(self.game_state["dominion_cards"][i][1]) == card_idx:
+                return i
 
 
+        return -1 #  Returns -1 if the card is not found in the dominion_cards game state
 
 
     def __draw_n_cards_from_deck(self, player_state, n):
