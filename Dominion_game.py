@@ -40,12 +40,13 @@ class Dominion:
 
             # ----- CARD EFFECT RELATED -----
 
-        "Unique_actions": "None", # This is the unique actions that the player can do. This is based on the cards in the players hand
+        "Unique_actions": None, # This is the unique actions that the player can do. This is based on the cards in the players hand
 
 
             # ----- MAIN PLAYER -----
         "cards_in_hand": np.array([]),
         "cards_in_deck": 0,
+        "known_cards_top_deck": np.array([]),
         "cards_in_discard": np.array([]),
         "owned_cards": np.array([]),
         "played_cards": np.array([]), # "played" cards are cards that are in the current hand
@@ -71,6 +72,7 @@ class Dominion:
         player_state_start = {
             "cards_in_hand": np.array([]),
             "cards_in_deck": 10,
+            "known_cards_top_deck": np.array([]),
             "cards_in_discard": np.array([]),
             "owned_cards": np.array([0, 0, 0, 0, 0, 0, 0, 3, 3, 3]), # 7 coppers and 3 estates
             "played_cards": np.array([]), # "played" cards are cards that are in the current hand
@@ -106,7 +108,7 @@ class Dominion:
         # both players draw 5 cards in the start of the game
         for player in range(players_amount):
             players[player] = sm.draw_n_cards_from_deck(players[player], 5)
-
+        
 
         while self.game_state["Player_won"] == -1:
             # --------- ACTION PHASE ---------
@@ -118,29 +120,40 @@ class Dominion:
             # Choose action
             self.game_state = sm.merge_game_player_state(self.game_state, players[main_player], players[main_player*(-1) + 1])
             action = players_input[main_player].choose_action(actions, self.game_state)
-
+            
             print("Testing chapel")
             print("------------------- BEFORE -------------------")
             print("cards in hand: ", players[main_player]["cards_in_hand"])
             print("cards in discard: ", players[main_player]["cards_in_discard"])
             print("cards in deck: ", players[main_player]["cards_in_deck"])
+            print("card top of deck: ", self.game_state["known_cards_top_deck"])
             print("owned cards: ", players[main_player]["owned_cards"], "-> size ->", len(players[main_player]["owned_cards"]))
             print("action values: ", players[main_player]["actions"])
             print("player value: ", players[main_player]["value"])
+            print("Game cards: \n", self.game_state["dominion_cards"])
+            print("card supply: ", self.game_state["supply_amount"])
+            print("adversary cards in hand: ", players[main_player*(-1) + 1]["cards_in_hand"])
+            print("adversary cards in discard: ", players[main_player*(-1) + 1]["cards_in_discard"])
 
+            
             main = int(main_player)
             advesary = int(main_player*(-1) + 1)
-            card_val = 10
+            card_val = 17
             sm.get_card2hand(players[main], card_val)
-            card_effects().play_card(10, self.game_state, players[main], players_input[main],  players[advesary], players_input[advesary])
+            card_effects().play_card(card_val, self.game_state, players[main], players_input[main],  players[advesary], players_input[advesary])
             
             print("------------------- AFTER -------------------")
             print("cards in hand: ", players[main_player]["cards_in_hand"])
             print("cards in discard: ", players[main_player]["cards_in_discard"])
             print("cards in deck: ", players[main_player]["cards_in_deck"])
+            print("card top of deck: ", self.game_state["known_cards_top_deck"])
             print("owned cards: ", players[main_player]["owned_cards"], "-> size ->", len(players[main_player]["owned_cards"]))
             print("action values: ", players[main_player]["actions"])
             print("player value: ", players[main_player]["value"])
+            print("Game cards: \n", self.game_state["dominion_cards"])
+            print("card supply: ", self.game_state["supply_amount"])
+            print("adversary cards in hand: ", players[main_player*(-1) + 1]["cards_in_hand"])
+            print("adversary cards in discard: ", players[main_player*(-1) + 1]["cards_in_discard"])
 
 
             while action != -1:
@@ -233,7 +246,7 @@ class Dominion:
 
 
         # remove one instance from supply.
-        set_index = self.card_idx_2_set_idx(card_idx) # Get the index in the set of card
+        set_index = sm.card_idx_2_set_idx(card_idx, self.game_state) # Get the index in the set of card
         game_state["supply_amount"][set_index] -= 1
 
 
@@ -267,7 +280,7 @@ class Dominion:
 
 
         for index in treasure_cards:
-            game_state, player_state = card_effects().play_card(cards_in_hand[index].astype(int), game_state, player_state, player_input, card2played_cards=False)
+            game_state, player_state, adv_state = card_effects().play_card(cards_in_hand[index].astype(int), game_state, player_state, player_input, card2played_cards=False)
 
 
         player_value = player_state["value"]
@@ -283,18 +296,6 @@ class Dominion:
         for card in self.game_state["dominion_cards"]:
             if int(card[1]) == card_idx:
                 return card
-
-    def card_idx_2_set_idx(self, card_idx):
-        # This function will return the index of the card in the dominion_cards game state, based on the card index
-
-        card_idx = int(card_idx)
-
-        for i in range(len(self.game_state["dominion_cards"])):
-            if int(self.game_state["dominion_cards"][i][1]) == card_idx:
-                return i
-
-
-        return -1 #  Returns -1 if the card is not found in the dominion_cards game state
 
 
 

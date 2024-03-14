@@ -9,6 +9,7 @@ Both the python files card_effects.py and Dominion_game.py uses these functions.
 def merge_game_player_state(game_state, player_state, adversary_state=None): 
     game_state["cards_in_hand"] = player_state["cards_in_hand"]
     game_state["cards_in_deck"] = player_state["cards_in_deck"]
+    game_state["known_cards_top_deck"] = player_state["known_cards_top_deck"]
     game_state["cards_in_discard"] = player_state["cards_in_discard"]
     game_state["owned_cards"] = player_state["owned_cards"]
     game_state["played_cards"] = player_state["played_cards"]
@@ -20,25 +21,62 @@ def merge_game_player_state(game_state, player_state, adversary_state=None):
 
 
     if adversary_state != None:
-        game_state["adv_cards_in_hand"] = adversary_state["cards_in_hand"]
+        game_state["adv_cards_in_hand"] = len(adversary_state["cards_in_hand"])
         game_state["adv_cards_in_deck"] = adversary_state["cards_in_deck"]
-        game_state["adv_cards_in_discard"] = adversary_state["cards_in_discard"]
+        game_state["adv_cards_in_discard"] = len(adversary_state["cards_in_discard"])
         game_state["adv_owned_cards"] = adversary_state["owned_cards"]
         game_state["adv_Victory_points"] = adversary_state["Victory_points"]
     
     return game_state
 
 
+def get_player_state_from_game_state(game_state):
+    player_state = {
+        "cards_in_hand": game_state["cards_in_hand"],
+        "cards_in_deck": game_state["cards_in_deck"],
+        "known_cards_top_deck": game_state["known_cards_top_deck"],
+        "cards_in_discard": game_state["cards_in_discard"],
+        "owned_cards": game_state["owned_cards"],
+        "played_cards": game_state["played_cards"],
+        "actions": game_state["actions"],
+        "buys": game_state["buys"],
+        "value": game_state["value"],
+        "Victory_points": game_state["Victory_points"]
+    }
+    return player_state
+
+
 def draw_n_cards_from_deck(player_state, n):
     # Shuffle deck if necessary
-    if player_state["cards_in_deck"] - n < 0:
+    if int(player_state["cards_in_deck"]) - n < 0:
         cards_in_discard = len(player_state["cards_in_discard"])
         player_state["cards_in_deck"] += cards_in_discard
         player_state["cards_in_discard"] == 0
 
 
     deck = get_cards_in_deck(player_state)
-    draws = np.random.choice(deck, min(n, player_state["cards_in_deck"]), replace=False) # Can only draw as many cards as there is in the deck
+
+    cards_drawn = 0
+    top_deck_draws = []
+
+    # If cards is put on top of deck, then draw those cards first
+    while len(player_state["known_cards_top_deck"]) > 0:
+        card = player_state["known_cards_top_deck"][-1]
+
+        top_deck_draws.append(card)
+
+        # Remove card from top deck
+        player_state["known_cards_top_deck"] = np.delete(player_state["known_cards_top_deck"], -1)
+
+        cards_drawn += 1
+        if cards_drawn == n:
+            break
+
+    draws = np.random.choice(deck, min(n - cards_drawn, int(player_state["cards_in_deck"])), replace=False) # Can only draw as many cards as there is in the deck
+    
+    for card in top_deck_draws:
+        draws = np.append(draws, card)
+    
     player_state["cards_in_deck"] -= len(draws)
 
     player_state["cards_in_hand"] = np.append(player_state["cards_in_hand"], draws)
@@ -56,8 +94,9 @@ def get_cards_in_deck(player_state):
 
     hand   = player_state["cards_in_hand"]
     discard_pile = player_state["cards_in_discard"]
+    played_card = player_state["played_cards"]
 
-    hand_discard = np.concatenate((hand, discard_pile), axis=0)
+    hand_discard = np.concatenate((hand, discard_pile, played_card), axis=0)
 
 
     all_owned_cards = player_state["owned_cards"]
@@ -132,4 +171,55 @@ def get_card2hand(player_state, card):
     player_state["owned_cards"] = np.append(player_state["owned_cards"], card)
     return player_state
 
-def get_card2discard(player_state, card):
+def supply2discard(game_state, player_state, card):
+    ''' [Summary]
+    This function will move a card from the supply pile to the discard pile.
+    '''
+    # Add card to discard pile
+    player_state["cards_in_discard"] = np.append(player_state["cards_in_discard"], card)
+
+    # Add card to owned cards
+    player_state["owned_cards"] = np.append(player_state["owned_cards"], card)
+
+    # Remove a card from the supply pile
+
+    game_state["supply_amount"][card] = str(int(game_state["supply_amount"][card]) - 1)
+
+    game_state = merge_game_player_state(game_state, player_state)
+
+    return player_state
+
+
+def card_idx_2_set_idx(card_idx, game_state):
+    # This function will return the index of the card in the dominion_cards game state, based on the card index
+
+    card_idx = int(card_idx)
+
+    for i in range(len(game_state["dominion_cards"])):
+        if int(game_state["dominion_cards"][i][1]) == card_idx:
+            return i
+
+    return -1 #  Returns -1 if the card is not found in the dominion_cards game state
+
+def supply2deck(game_state, player_state, card):
+    ''' [Summary]
+    This function will move a card from the supply pile to the top of the deck
+    '''
+    # Add card to deck pile
+    player_state["cards_in_deck"] = int(player_state["cards_in_deck"]) + 1
+
+    # Add card to owned cards
+    player_state["owned_cards"] = np.append(player_state["owned_cards"], card)
+
+    # Remove a card from the supply pile
+    game_state["supply_amount"][card] = str(int(game_state["supply_amount"][card]) - 1)
+
+
+    player_state["known_cards_top_deck"] = np.append(player_state["known_cards_top_deck"], card)
+
+    game_state = merge_game_player_state(game_state, player_state)
+
+    return player_state
+
+
+
