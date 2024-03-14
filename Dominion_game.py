@@ -5,6 +5,7 @@ import numpy as np
 from cards_base_ed2 import kingdom_cards_ed2_base
 from standard_cards import standard_set
 from card_effects import card_effects
+import state_manipulator as sm
 
 deck = deck_generator()
 
@@ -104,7 +105,7 @@ class Dominion:
 
         # both players draw 5 cards in the start of the game
         for player in range(players_amount):
-            players[player] = self.__draw_n_cards_from_deck(players[player], 5)
+            players[player] = sm.draw_n_cards_from_deck(players[player], 5)
 
 
         while self.game_state["Player_won"] == -1:
@@ -115,17 +116,35 @@ class Dominion:
             actions = self.__get_actions(players[main_player])
   
             # Choose action
+            self.game_state = sm.merge_game_player_state(self.game_state, players[main_player], players[main_player*(-1) + 1])
             action = players_input[main_player].choose_action(actions, self.game_state)
 
+            print("Testing chapel")
+            print("------------------- BEFORE -------------------")
+            print("cards in hand: ", players[main_player]["cards_in_hand"])
+            print("cards in discard: ", players[main_player]["cards_in_discard"])
+            print("cards in deck: ", players[main_player]["cards_in_deck"])
+            print("owned cards: ", players[main_player]["owned_cards"], "-> size ->", len(players[main_player]["owned_cards"]))
+            print("action values: ", players[main_player]["actions"])
+            print("player value: ", players[main_player]["value"])
 
-            card_effects().play_card(7, self.game_state, players[main_player], players_input[main_player])
+            main = int(main_player)
+            advesary = int(main_player*(-1) + 1)
+            card_val = 10
+            sm.get_card2hand(players[main], card_val)
+            card_effects().play_card(10, self.game_state, players[main], players_input[main],  players[advesary], players_input[advesary])
+            
+            print("------------------- AFTER -------------------")
+            print("cards in hand: ", players[main_player]["cards_in_hand"])
+            print("cards in discard: ", players[main_player]["cards_in_discard"])
+            print("cards in deck: ", players[main_player]["cards_in_deck"])
+            print("owned cards: ", players[main_player]["owned_cards"], "-> size ->", len(players[main_player]["owned_cards"]))
+            print("action values: ", players[main_player]["actions"])
+            print("player value: ", players[main_player]["value"])
 
 
             while action != -1:
                 action = player1.choose_action(actions, self.game_state)
-
-
-            
 
 
 
@@ -162,8 +181,7 @@ class Dominion:
         return 0 # return index of who wins.
 
         
-
-
+        
 
     def __get_actions(self, player_state):
         '''[Summary]
@@ -249,7 +267,7 @@ class Dominion:
 
 
         for index in treasure_cards:
-            game_state, player_state = card_effects().play_card(cards_in_hand[index].astype(int), game_state, player_state, player_input)
+            game_state, player_state = card_effects().play_card(cards_in_hand[index].astype(int), game_state, player_state, player_input, card2played_cards=False)
 
 
         player_value = player_state["value"]
@@ -279,41 +297,13 @@ class Dominion:
         return -1 #  Returns -1 if the card is not found in the dominion_cards game state
 
 
-    def __draw_n_cards_from_deck(self, player_state, n):
-        deck = self.__get_cards_in_deck(player_state)
-        draws = np.random.choice(deck, n, replace=False)
-        
-        player_state["cards_in_hand"] = np.append(player_state["cards_in_hand"], draws)
-        return player_state
 
 
-    def __get_cards_in_deck(self, player_state):
-        ''' [Summary]
-        Based on the cards in the discard pile, and cards in the hand and all the known cards.
-        This function will return the cards in the deck.
-
-        ARGS:
-            player_state [dict]: This is the player state object
-        '''
-
-        hand   = player_state["cards_in_hand"]
-        discard_pile = player_state["cards_in_discard"]
-
-        hand_discard = np.concatenate((hand, discard_pile), axis=0)
 
 
-        all_owned_cards = player_state["owned_cards"]
-        for cards in hand_discard:
-            all_owned_cards = np.delete(all_owned_cards, np.where(all_owned_cards == cards)[0][0])
-        
-        deck = all_owned_cards
-        return deck
     
 
-    def __insert_card_in_hand(self, player_state, card):
-        
-        player_state["cards_in_hand"] = np.append(int(card[1]), player_state["cards_in_hand"])
-        return player_state
+
     
 
     def __insert_card_in_discard(self, player_state, card):
@@ -324,9 +314,7 @@ class Dominion:
         player_state["cards_in_deck"] += 1
         return player_state
 
-    def __remove_card_from_hand(self, player_state, card):
-        player_state["cards_in_hand"] = np.delete(player_state["cards_in_hand"], np.where(player_state["cards_in_hand"] == card))
-        return player_state
+
     
     def __remove_card_from_discard(self, player_state, card):
         player_state["cards_in_discard"] = np.delete(player_state["cards_in_discard"], np.where(player_state["cards_in_discard"] == card))
