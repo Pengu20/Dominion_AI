@@ -127,8 +127,10 @@ class Dominion:
             print("cards in discard: ", players[main_player]["cards_in_discard"])
             print("cards in deck: ", players[main_player]["cards_in_deck"])
             print("card top of deck: ", self.game_state["known_cards_top_deck"])
+            print("played cards: ", players[main_player]["played_cards"])
             print("owned cards: ", players[main_player]["owned_cards"], "-> size ->", len(players[main_player]["owned_cards"]))
             print("action values: ", players[main_player]["actions"])
+            print("buys: ", players[main_player]["buys"])
             print("player value: ", players[main_player]["value"])
             print("Game cards: \n", self.game_state["dominion_cards"])
             print("card supply: ", self.game_state["supply_amount"])
@@ -138,22 +140,31 @@ class Dominion:
             
             main = int(main_player)
             advesary = int(main_player*(-1) + 1)
-            card_val = 17
+
+            card_val = 28
+            sm.supply2deck(self.game_state, players[main], self.game_state["dominion_cards"][7][1])
             sm.get_card2hand(players[main], card_val)
+            sm.get_card2hand(players[main], 1)
             card_effects().play_card(card_val, self.game_state, players[main], players_input[main],  players[advesary], players_input[advesary])
-            
+
+
+
             print("------------------- AFTER -------------------")
             print("cards in hand: ", players[main_player]["cards_in_hand"])
             print("cards in discard: ", players[main_player]["cards_in_discard"])
             print("cards in deck: ", players[main_player]["cards_in_deck"])
             print("card top of deck: ", self.game_state["known_cards_top_deck"])
+            print("played cards: ", players[main_player]["played_cards"])
             print("owned cards: ", players[main_player]["owned_cards"], "-> size ->", len(players[main_player]["owned_cards"]))
             print("action values: ", players[main_player]["actions"])
+            print("buys: ", players[main_player]["buys"])
             print("player value: ", players[main_player]["value"])
             print("Game cards: \n", self.game_state["dominion_cards"])
             print("card supply: ", self.game_state["supply_amount"])
             print("adversary cards in hand: ", players[main_player*(-1) + 1]["cards_in_hand"])
             print("adversary cards in discard: ", players[main_player*(-1) + 1]["cards_in_discard"])
+
+
 
 
             while action != -1:
@@ -172,11 +183,19 @@ class Dominion:
             action = player1.choose_action(buy_actions, self.game_state)
 
 
+
+
+
+
+
             while action != -1:
                 players[main_player], self.game_state = self.__buy_card_from_supply(player_state=players[main_player], game_state=self.game_state, card_idx=action)
                 buy_actions = self.__get_buys(players[main_player], self.game_state)
 
                 action = player1.choose_action(buy_actions, self.game_state)
+
+
+
 
 
 
@@ -278,14 +297,24 @@ class Dominion:
 
         treasure_cards = np.argwhere(np.isin(cards_in_hand, self.Treasure_card_index)).flatten()
 
-
+        silver_played = False
         for index in treasure_cards:
             game_state, player_state, adv_state = card_effects().play_card(cards_in_hand[index].astype(int), game_state, player_state, player_input, card2played_cards=False)
+            
+            if cards_in_hand[index].astype(int) == 1:
+                silver_played = True
 
 
-        player_value = player_state["value"]
+        # Special attention to the merchant who also counts as +1 value if there has been a silver.
+        if silver_played:
+            played_cards = player_state["played_cards"]
 
-        return player_value
+            merchants_in_played_cards = [1 for card in played_cards if card == 27]
+            player_state["value"] += len(merchants_in_played_cards)
+
+
+        return player_state["value"]
+
 
 
     

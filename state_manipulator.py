@@ -96,12 +96,12 @@ def get_cards_in_deck(player_state):
     discard_pile = player_state["cards_in_discard"]
     played_card = player_state["played_cards"]
 
-    hand_discard = np.concatenate((hand, discard_pile, played_card), axis=0)
-
+    cards_not_in_deck = np.concatenate((hand, discard_pile, played_card), axis=0)
 
     all_owned_cards = player_state["owned_cards"]
-    for cards in hand_discard:
-        all_owned_cards = np.delete(all_owned_cards, np.where(all_owned_cards == cards)[0][0])
+    for cards in cards_not_in_deck:
+        if np.where(all_owned_cards == cards)[0].size > 0:
+            all_owned_cards = np.delete(all_owned_cards, np.where(all_owned_cards == cards)[0][0])
     
     deck = all_owned_cards
     return deck
@@ -212,7 +212,8 @@ def supply2deck(game_state, player_state, card):
     player_state["owned_cards"] = np.append(player_state["owned_cards"], card)
 
     # Remove a card from the supply pile
-    game_state["supply_amount"][card] = str(int(game_state["supply_amount"][card]) - 1)
+    card_set_idx = card_idx_2_set_idx(card, game_state)
+    game_state["supply_amount"][card_set_idx] = str(int(game_state["supply_amount"][card_set_idx]) - 1)
 
 
     player_state["known_cards_top_deck"] = np.append(player_state["known_cards_top_deck"], card)
@@ -223,3 +224,22 @@ def supply2deck(game_state, player_state, card):
 
 
 
+def discard_to_deck(game_state, player_state, card):
+    ''' [Summary]
+    This function will move card from the discard pile to the deck.
+    '''
+    ''' [Summary]
+    This function will move a card from the supply pile to the top of the deck
+    '''
+    
+    # Add card to deck pile and add to top of deck cards
+    player_state["cards_in_deck"] = int(player_state["cards_in_deck"]) + 1
+    player_state["known_cards_top_deck"] = np.append(player_state["known_cards_top_deck"], card)
+
+    # Remove card from discard pile
+    player_state["cards_in_discard"] = np.delete(player_state["cards_in_discard"], np.where(player_state["cards_in_discard"] == card)[0][0])
+
+
+    game_state = merge_game_player_state(game_state, player_state)
+
+    return player_state
