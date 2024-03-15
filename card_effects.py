@@ -84,17 +84,11 @@ class card_effects():
             "Merchant": self.merchant,
             "Vassal": self.vassal,
             "Poacher": self.poacher,
+            "Bandit": self.bandit,
+            "Sentry": self.sentry,
+            "Artisan": self.artisan
             # ----- KINGDOM CARDS base 2. Edition -----
         }
-
-
-        '''
-                
-                
-                "Bandit": self.bandit,
-                "Sentry": self.sentry,
-                "Artisan": self.artisan
-        '''
 
 
         return card_effect_dict
@@ -655,3 +649,144 @@ class card_effects():
 
 
 
+    def bandit(self, game_state, player_state, player_input, adv_state, adv_input):
+        ''' 30
+        Gain a gold. Each other player reveals the top 2 cards of their deck, 
+        trashes a revealed treasure other than copper, and discards the rest
+        '''
+
+
+        game_state = sm.supply2discard(game_state, player_state, 2)
+
+
+        # Adversary player reveals top 2 cards of their deck
+        # Then trashes a revealed treasure other than copper, and discards the rest
+        adv_state = sm.draw_n_cards_from_deck(adv_state, 2)
+
+        # If any of the two revealed cards are treasures (other than copper), then trash them
+        for i in range(-1,-3, -1):
+            adv_card = int(adv_state["cards_in_hand"][i])
+
+            if adv_card in self.__get_treasures() and adv_card != 0:
+                adv_state = sm.trash_card(adv_state, adv_card)
+            else:
+                adv_state = sm.put_card_from_hand_to_discard(adv_state, adv_card)
+
+        return game_state, player_state, adv_state
+    
+
+
+    def sentry(self, game_state, player_state, player_input, adv_state, adv_input):
+        ''' 31
+        +1 card, +1 action. Look at the top 2 cards of your deck. Trash and/or discard any number of them. 
+        Put the rest back on top in any order
+        '''
+
+        player_state = sm.draw_n_cards_from_deck(player_state, 1)
+
+        player_state["actions"] += 1
+
+        # Look at the top 2 cards of your deck
+        game_state["Unique_actions"] = "look_through_deck"
+        
+        original_hand_size = len(player_state["cards_in_hand"])
+        player_state = sm.draw_n_cards_from_deck(player_state, 2)
+        hand_size_after = len(player_state["cards_in_hand"])
+        amount_cards_drawn = hand_size_after - original_hand_size
+
+
+        # Might not be possible. If so, then only draw as many cards as possible.    
+        
+
+        cards_drawn = []
+
+        for i in range(-1, -amount_cards_drawn-1, -1):
+            cards_drawn.append(int(player_state["cards_in_hand"][i]))
+        
+
+        # Discard card: 0
+        # trash card = 1
+        # keep in deck: 2
+        card_list_action = [0,1,2]
+        back_to_deck = []
+
+        # Choose what to do with the two cards
+        for i in range(amount_cards_drawn):
+            game_state["Unique_actions"] = "discard_trash_keep_in_deck"
+            action_card = player_input.choose_action(card_list_action, game_state)
+
+            if action_card == 0:
+                player_state = sm.put_card_from_hand_to_discard(player_state, cards_drawn[i])
+            elif action_card == 1:
+                player_state = sm.trash_card(player_state, cards_drawn[i])
+            else:
+                back_to_deck.append(cards_drawn[i])
+
+
+
+        # if there is more than 2 cards that must go back in the deck,
+        # then choose the order of the cards
+                
+        if len(back_to_deck) > 1:
+            game_state["Unique_actions"] = "order_cards"
+            # The two options to put back in deck [0,1] or [1,0]
+
+            order_action = [0, 1]
+            game_state = sm.merge_game_player_state(game_state, player_state)
+            action = player_input.choose_action(order_action, game_state)
+
+            if action == 0:
+                player_state = sm.hand2deck(game_state, player_state, back_to_deck[1])
+                player_state = sm.hand2deck(game_state, player_state, back_to_deck[0])
+            else:
+                player_state = sm.hand2deck(game_state, player_state, back_to_deck[0])
+                player_state = sm.hand2deck(game_state, player_state, back_to_deck[1])
+
+        elif(len(back_to_deck) == 1):
+            player_state = sm.hand2deck(game_state, player_state, back_to_deck[0])
+
+
+        game_state["Unique_actions"] = None
+        return game_state, player_state, adv_state  
+
+
+
+    def artisan(self, game_state, player_state, player_input, adv_state, adv_input):
+        ''' 32
+        Gain a card to your hand costing up to 5. 
+        Put a card from your hand onto your deck
+        '''
+
+        # Gain a card to your hand costing up to 5
+        game_state["Unique_actions"] = "gain_card"
+        card_set = game_state["dominion_cards"]
+
+        Available_cards = []
+        for card in card_set:
+            set_index = sm.card_idx_2_set_idx(int(card[1]), game_state=game_state)
+            if int(card[2]) <= 5 and int(game_state["supply_amount"][set_index]) > 0:
+                Available_cards.append(card[1])
+        
+        
+        print("Available cards: ", Available_cards)
+        chosen_card = player_input.choose_action(Available_cards, game_state)
+        print("choosen card: ", self.card_list[int(chosen_card)])
+
+        # Gain card from supply to hand, and remove from supply
+        player_state = sm.get_card2hand(player_state, int(chosen_card))
+        set_index = sm.card_idx_2_set_idx(int(chosen_card), game_state=game_state)
+        game_state["supply_amount"][set_index] = int(game_state["supply_amount"][set_index]) - 1
+  
+        # Put a card from your hand onto your deck
+        game_state["Unique_actions"] = "put_card_on_deck"
+        card_on_deck = player_state["cards_in_hand"]
+
+        print("cards in hand: ", card_on_deck)  
+        chosen_card = player_input.choose_action(card_on_deck, game_state)
+        print("choosen card to discard: ", self.card_list[int(chosen_card)])
+        
+        player_state = sm.hand2deck(game_state, player_state, int(chosen_card))
+
+        game_state["Unique_actions"] = None
+        sm.merge_game_player_state(game_state, player_state)
+        return game_state, player_state, adv_state

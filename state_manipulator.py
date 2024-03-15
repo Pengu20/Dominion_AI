@@ -56,13 +56,18 @@ def draw_n_cards_from_deck(player_state, n):
 
 
     deck = get_cards_in_deck(player_state)
+    if len(deck) == 0:
+        return player_state
     
     cards_drawn = 0
     top_deck_draws = []
 
+
+
     # If cards is put on top of deck, then draw those cards first
     while len(player_state["known_cards_top_deck"]) > 0:
         card = player_state["known_cards_top_deck"][-1]
+
 
         top_deck_draws.append(card)
 
@@ -77,13 +82,11 @@ def draw_n_cards_from_deck(player_state, n):
     
     for card in top_deck_draws:
         draws = np.append(draws, card)
-    
+
+    for card in draws:
+        player_state["cards_in_hand"] = np.append(player_state["cards_in_hand"], card.astype(int))
+
     player_state["cards_in_deck"] -= len(draws)
-
-
-
-    player_state["cards_in_hand"] = np.append(player_state["cards_in_hand"], draws.astype(int))
-
 
 
     return player_state
@@ -178,6 +181,8 @@ def get_card2hand(player_state, card):
     player_state["owned_cards"] = np.append(player_state["owned_cards"], card)
     return player_state
 
+
+
 def supply2discard(game_state, player_state, card):
     ''' [Summary]
     This function will move a card from the supply pile to the discard pile.
@@ -250,3 +255,20 @@ def discard_to_deck(game_state, player_state, card):
     game_state = merge_game_player_state(game_state, player_state)
 
     return player_state
+
+
+def hand2deck(game_state, player_state, card):
+    ''' [Summary]
+    This function will move a card from the hand to the top of the deck.
+    '''
+    # Add card to deck pile and add to top of deck cards
+    player_state["cards_in_deck"] = int(player_state["cards_in_deck"]) + 1
+    player_state["known_cards_top_deck"] = np.append(player_state["known_cards_top_deck"], card)
+
+    # Remove card from hand
+    player_state["cards_in_hand"] = np.delete(player_state["cards_in_hand"], np.where(player_state["cards_in_hand"] == card)[0][0])
+
+    game_state = merge_game_player_state(game_state, player_state)
+
+    return player_state
+

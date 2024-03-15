@@ -1,7 +1,8 @@
+import numpy as np
 
-from ur_robot import URRobot
-from ur_robot import RobotType
-print(dir(RobotType))
+test = []
 
-robot = URRobot(RobotType.UR5e)
 
+
+for i in range(-1, -2, -1):
+    print(i)

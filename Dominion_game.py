@@ -106,9 +106,9 @@ class Dominion:
         main_player = np.random.choice([0, 1])
 
         # both players draw 5 cards in the start of the game
+        
         for player in range(players_amount):
             players[player] = sm.draw_n_cards_from_deck(players[player], 5)
-        
 
         while self.game_state["Player_won"] == -1:
             # --------- ACTION PHASE ---------
@@ -121,7 +121,7 @@ class Dominion:
             self.game_state = sm.merge_game_player_state(self.game_state, players[main_player], players[main_player*(-1) + 1])
             action = players_input[main_player].choose_action(actions, self.game_state)
             
-            print("Testing chapel")
+            print("Testing cards")
             print("------------------- BEFORE -------------------")
             print("cards in hand: ", players[main_player]["cards_in_hand"])
             print("cards in discard: ", players[main_player]["cards_in_discard"])
@@ -136,13 +136,15 @@ class Dominion:
             print("card supply: ", self.game_state["supply_amount"])
             print("adversary cards in hand: ", players[main_player*(-1) + 1]["cards_in_hand"])
             print("adversary cards in discard: ", players[main_player*(-1) + 1]["cards_in_discard"])
+            print("adversary cards in deck: ", players[main_player*(-1) + 1]["owned_cards"])
 
             
             main = int(main_player)
             advesary = int(main_player*(-1) + 1)
 
-            card_val = 29
-
+            card_val = 32
+            sm.supply2deck(self.game_state, players[advesary], 15)
+            sm.supply2deck(self.game_state, players[advesary], 1)
             sm.get_card2hand(players[main], card_val)
             card_effects().play_card(card_val, self.game_state, players[main], players_input[main],  players[advesary], players_input[advesary])
 
@@ -162,7 +164,7 @@ class Dominion:
             print("card supply: ", self.game_state["supply_amount"])
             print("adversary cards in hand: ", players[main_player*(-1) + 1]["cards_in_hand"])
             print("adversary cards in discard: ", players[main_player*(-1) + 1]["cards_in_discard"])
-
+            print("adversary cards in deck: ", players[main_player*(-1) + 1]["owned_cards"])
 
 
 
