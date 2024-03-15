@@ -83,13 +83,14 @@ class card_effects():
             "Harbinger": self.harbinger,
             "Merchant": self.merchant,
             "Vassal": self.vassal,
+            "Poacher": self.poacher,
             # ----- KINGDOM CARDS base 2. Edition -----
         }
 
 
         '''
                 
-                "Poacher": self.poacher,
+                
                 "Bandit": self.bandit,
                 "Sentry": self.sentry,
                 "Artisan": self.artisan
@@ -308,7 +309,7 @@ class card_effects():
         # Put cards into discard pile
         for card in all_combinations[action]:
             adv_state = sm.put_card_from_hand_to_discard(adv_state, card)
-        print(adv_state["cards_in_hand"])
+
 
 
 
@@ -343,7 +344,7 @@ class card_effects():
         # Trash card and gain card costing up to 2 more
         trash_card = int(player_state["cards_in_hand"][action])
         val = int(self.card_list[trash_card][2]) + 2
-        print("trashed card: ", self.card_list[trash_card])
+
 
 
 
@@ -364,7 +365,7 @@ class card_effects():
         # Choose to get a given card
         actions_list = np.arange(len(Available_cards))
         action = player_input.choose_action(actions_list, game_state)
-        print("gained card: ", Available_cards[action])
+
         game_state = sm.supply2discard(game_state, player_state, int(Available_cards[action][1]))
         player_state = sm.get_player_state_from_game_state(game_state)
 
@@ -397,7 +398,7 @@ class card_effects():
         action = player_input.choose_action(actions_list, game_state)
         choosen_card = int(action)
 
-        print("Choosen action: ", self.card_list[int(action)])
+
         # Play the card twice
 
         player_state = sm.hand_2_played_cards(player_state, choosen_card)
@@ -481,10 +482,9 @@ class card_effects():
 
             
                 if action == 0:
-                    print("action Skipped CARD: ", self.card_list[draw_card])
+
                     player_state = sm.hand_2_played_cards(player_state, draw_card)
                 else:
-                    print("action ADDED CARD: ", self.card_list[draw_card])
                     continue
 
 
@@ -567,10 +567,6 @@ class card_effects():
         actions = np.append(actions, -1) # Add the ability to terminate
 
         action = int(player_input.choose_action(actions, game_state))
-        if action == -1:
-            print("NO CARD ADDED TO DECK")
-        else:
-            print("action: ", self.card_list[action])
 
 
         if action != -1:
@@ -596,12 +592,15 @@ class card_effects():
         ''' 28
         +2 coins. Discard the top card of your deck. If it is an action card, you may play it
         '''
+
         # Get 2 value
         player_state["value"] += 2
 
         # Draw a card
         len_hand = len(player_state["cards_in_hand"])
+        
         player_state = sm.draw_n_cards_from_deck(player_state, 1)
+
 
         if len_hand < len(player_state["cards_in_hand"]):
             top_deck = int(player_state["cards_in_hand"][-1])
@@ -610,11 +609,49 @@ class card_effects():
             if top_deck in self.__get_non_action_cards():
                 player_state = sm.hand_2_played_cards(player_state, top_deck)
             else:
-                print("Cards in hand: ", player_state["cards_in_hand"])
-                print("Top deck card: ", self.card_list[top_deck])
                 player_state = sm.hand_2_played_cards(player_state, top_deck)
                 game_state, player_state, adv_state = self.card_effect_dict[self.card_list[top_deck][0]](game_state, player_state, player_input, adv_state=adv_state, adv_input=adv_input)
 
 
 
         return game_state, player_state, adv_state
+    
+
+    def poacher(self, game_state, player_state, player_input, adv_state, adv_input):
+        ''' 29
+        +1 card, +1 action, +1 coin. Discard a card per empty supply pile
+        '''
+
+        player_state = sm.draw_n_cards_from_deck(player_state, 1)
+        player_state["actions"] += 1
+        player_state["value"] += 1
+
+        empty_piles = len(np.where(game_state["supply_amount"] == 0)[0])
+
+
+        if empty_piles > 0:
+            game_state["Unique_actions"] = "discard_n_cards"
+            all_combinations = []
+            actions_list = np.arange(len(player_state["cards_in_hand"]))
+
+            # Can maximally discard as many cards as cards in hand
+            for combination in set(list(combinations(player_state["cards_in_hand"], min(empty_piles, len(player_state["cards_in_hand"]))))):
+                all_combinations.append(combination)
+            
+
+            actions_list = np.arange(len(all_combinations))
+
+            action = player_input.choose_action(actions_list, game_state)
+
+            # Put cards into discard pile
+            for card in all_combinations[action]:
+                player_state = sm.put_card_from_hand_to_discard(player_state, card)
+
+
+
+        return game_state, player_state, adv_state
+
+
+
+
+

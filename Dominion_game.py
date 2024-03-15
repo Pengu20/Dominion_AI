@@ -141,10 +141,9 @@ class Dominion:
             main = int(main_player)
             advesary = int(main_player*(-1) + 1)
 
-            card_val = 28
-            sm.supply2deck(self.game_state, players[main], self.game_state["dominion_cards"][7][1])
+            card_val = 29
+
             sm.get_card2hand(players[main], card_val)
-            sm.get_card2hand(players[main], 1)
             card_effects().play_card(card_val, self.game_state, players[main], players_input[main],  players[advesary], players_input[advesary])
 
 

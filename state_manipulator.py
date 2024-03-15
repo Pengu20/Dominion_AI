@@ -48,6 +48,7 @@ def get_player_state_from_game_state(game_state):
 
 def draw_n_cards_from_deck(player_state, n):
     # Shuffle deck if necessary
+    
     if int(player_state["cards_in_deck"]) - n < 0:
         cards_in_discard = len(player_state["cards_in_discard"])
         player_state["cards_in_deck"] += cards_in_discard
@@ -55,7 +56,7 @@ def draw_n_cards_from_deck(player_state, n):
 
 
     deck = get_cards_in_deck(player_state)
-
+    
     cards_drawn = 0
     top_deck_draws = []
 
@@ -71,7 +72,7 @@ def draw_n_cards_from_deck(player_state, n):
         cards_drawn += 1
         if cards_drawn == n:
             break
-
+    
     draws = np.random.choice(deck, min(n - cards_drawn, int(player_state["cards_in_deck"])), replace=False) # Can only draw as many cards as there is in the deck
     
     for card in top_deck_draws:
@@ -79,7 +80,12 @@ def draw_n_cards_from_deck(player_state, n):
     
     player_state["cards_in_deck"] -= len(draws)
 
-    player_state["cards_in_hand"] = np.append(player_state["cards_in_hand"], draws)
+
+
+    player_state["cards_in_hand"] = np.append(player_state["cards_in_hand"], draws.astype(int))
+
+
+
     return player_state
 
 
@@ -103,7 +109,8 @@ def get_cards_in_deck(player_state):
         if np.where(all_owned_cards == cards)[0].size > 0:
             all_owned_cards = np.delete(all_owned_cards, np.where(all_owned_cards == cards)[0][0])
     
-    deck = all_owned_cards
+    deck = all_owned_cards.astype(int)
+    
     return deck
 
 
