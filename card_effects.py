@@ -110,7 +110,7 @@ class card_effects():
         game_state["Unique_actions"] = None
 
 
-
+        sm.merge_game_player_state(game_state, player_state)
         return game_state, player_state, adv_state
     
 
@@ -579,8 +579,9 @@ class card_effects():
         player_state = sm.draw_n_cards_from_deck(player_state, 1)
         player_state["actions"] += 1
 
-        if 1 in player_state["played_cards"]:
-            player_state["value"] += 1
+        # Treasure feature is handled in the dominion game class (i know its cursed im sorry)
+
+        sm.merge_game_player_state(game_state, player_state)
 
         return game_state, player_state, adv_state
 

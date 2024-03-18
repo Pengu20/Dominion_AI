@@ -239,9 +239,9 @@ class Dominion:
 
 
         # DEBUG option: Play specific card
-        # debug_card = 8
+        # debug_card = 27
         # sm.get_card2hand(players[main], debug_card)
-        # play_action = 8
+        # play_action = debug_card
     
         card_idx = sm.card_idx_2_set_idx(play_action, self.game_state)
         if card_idx != -1:
@@ -274,6 +274,7 @@ class Dominion:
             else:
                 card_obj = "None"
 
+            game_history_file.write(f"action possibilites: {actions} \n")
             game_history_file.write(f"Chosen action: {play_action} : {card_obj}\n")
             
 
@@ -546,6 +547,8 @@ class Dominion:
 
             merchants_in_played_cards = [1 for card in played_cards if card == 27]
             player_state["value"] += len(merchants_in_played_cards)
+
+
 
         game_state = sm.put_player_state_adv_state(game_state, player_state)
 
