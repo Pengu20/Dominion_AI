@@ -63,7 +63,7 @@ def draw_n_cards_from_deck(player_state, n):
     if int(player_state["cards_in_deck"]) - n < 0:
         cards_in_discard = len(player_state["cards_in_discard"])
         player_state["cards_in_deck"] += cards_in_discard
-        player_state["cards_in_discard"] == 0
+        player_state["cards_in_discard"] = np.array([])
 
 
     deck = get_cards_in_deck(player_state)
@@ -302,3 +302,4 @@ def discard_hand(game_state, player_state):
     game_state = merge_game_player_state(game_state, player_state)
 
     return game_state
+

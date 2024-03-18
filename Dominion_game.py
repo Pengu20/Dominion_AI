@@ -102,35 +102,35 @@ class Dominion:
         game_history_file.write("\n"*4)
 
 
+        players_amount = 2 # hard constant for this game setup. Cannot play more or less than two players 
 
-        players_amount = 2
 
         player1_state = self.__startup_player_state()
         player2_state = self.__startup_player_state()
 
-        players = [player1_state, player2_state]
-        players_input = [player1, player2]
-
         # randomize starting player
         main_player = np.random.choice([0, 1])
 
+
         # both players draw 5 cards in the start of the game
-        
+        players = [player1_state, player2_state]
+        players_input = [player1, player2]
+
         for player in range(players_amount):
             players[player] = sm.draw_n_cards_from_deck(players[player], 5)
         
-        player_turns = 0
-
-
+        turns = 0
         turns_all_players = 0
+
 
         while self.game_state["Player_won"] == -1:
             
-            # --------- ACTION PHASE ---------
+            
             game_history_file.write("\n"*3)
-            game_history_file.write(f" ---------- Turn: {player_turns} ---------- \n")
             if turns_all_players % 2 == 0:
-                print(" ---------- Turn: ", player_turns, " ---------- ")
+                turns += 1
+                print("         -------------------- Turn: ", turns, " -------------------- ")
+                game_history_file.write(f"         -------------------- Turn: {turns} -------------------- \n")
 
 
             game_history_file.write(f"Player: {main_player} \n")
@@ -139,111 +139,35 @@ class Dominion:
 
 
 
-            game_history_file.write(f"----------- ACTION PHASE ----------- \n")
-
-
             main = int(main_player)
             advesary = int(main_player*(-1) + 1)
 
 
-            # Get all possible actions
-            actions = self.__get_actions(players[main_player])
-            game_history_file.write(f"action possibilites: {actions} \n")
-  
 
-            # Choose action
-            self.game_state = sm.merge_game_player_state(self.game_state, players[main_player], players[main_player*(-1) + 1])
-            self.game_state["Unique_actions"] = "action"
-            play_action = players_input[main_player].choose_action(actions, self.game_state)
+            # --------- ACTION PHASE ---------
+            game_history_file.write(f"----------- ACTION PHASE ----------- \n")
+            action_turns = self.__action_phase(players, players_input, main, advesary, game_history_file)
 
-        
-            card_idx = sm.card_idx_2_set_idx(play_action, self.game_state)
-            if card_idx != -1:
-                card_obj = self.game_state["dominion_cards"][card_idx]
-            else:
-                card_obj = "None"
-
-            game_history_file.write(f"Chosen action: {play_action} : {card_obj}\n")
-
-            
-            while play_action != -1:
-                idx = sm.card_idx_2_set_idx(play_action, self.game_state)
-                index = sm.card_idx_2_set_idx(self.game_state["dominion_cards"][idx], self.game_state)
-
-                Dominion_cards = self.game_state["dominion_cards"][index]
-                game_history_file.write(f"Played card: {Dominion_cards} \n")
-
-
-                card_effects().play_card(play_action, self.game_state, players[main], players_input[main],  players[advesary], players_input[advesary])
-                self.__Debug_state(players, main_player, players_input, game_history_file)
-
-
-                play_action = player1.choose_action(actions, self.game_state)
-
-
-                card_idx = sm.card_idx_2_set_idx(play_action, self.game_state)
-                if card_idx != -1:
-                    card_obj = self.game_state["dominion_cards"][card_idx]
-                else:
-                    card_obj = "None"
-
-                game_history_file.write(f"Chosen action: {play_action} : {card_obj}\n")
 
 
 
             # --------- BUY PHASE ---------
-            game_history_file.write("\n"*4)
+            game_history_file.write("\n"*2)
             game_history_file.write(f"----------- BUY PHASE ----------- \n")
+            buy_turns = self.__buy_phase(players, players_input, main, advesary, game_history_file)
 
 
 
-            self.game_state = sm.merge_game_player_state(self.game_state, players[main_player], players[main_player*(-1) + 1])
 
 
 
-            self.game_state["Unique_actions"] = "buy"
-            players[main_player]["buys"] += 1
-            self.game_state = self.__update_player_treasure_value(players[main_player], self.game_state, players[main_player])
-
-
-            list_of_actions_buy = self.__get_buys(players[main_player], self.game_state)
-            game_history_file.write(f"buy possibilites: {list_of_actions_buy} \n")
-
-
-
-            # Choose a buy
-            buy_action = player1.choose_action(list_of_actions_buy, self.game_state)
-            card_idx = sm.card_idx_2_set_idx(buy_action, self.game_state)
-            if card_idx != -1:
-                card_obj = self.game_state["dominion_cards"][card_idx]
-            else:
-                card_obj = "None"
-
-            game_history_file.write(f"Chosen action: {buy_action} : {card_obj}\n")
-
-
-
-            while buy_action != -1:
-                players[main_player], self.game_state = self.__buy_card_from_supply(player_state=players[main_player], game_state=self.game_state, card_idx=buy_action)
-                self.__Debug_state(players, main_player, players_input, game_history_file)
-                
-
-                
-                list_of_actions_buy = self.__get_buys(players[main_player], self.game_state)
-                buy_action = player1.choose_action(list_of_actions_buy, self.game_state)
-                card_idx = sm.card_idx_2_set_idx(buy_action, self.game_state)
-                if card_idx != -1:
-                    card_obj = self.game_state["dominion_cards"][card_idx]
-                else:
-                    card_obj = "None"
-
-                game_history_file.write(f"Chosen action: {buy_action} : {card_obj}\n")
-
-
-            if play_action == -1 and buy_action == -1:
+            if action_turns == 0 and buy_turns == 0:
                 print(" --------- NOTHING HAPPENED --------- ")
                 game_history_file.write(f" --------- NOTHING HAPPENED --------- \n")
                 self.__Debug_state(players, main_player, players_input, game_history_file)
+
+
+
 
 
             # ---------- HIDDEN PHASE: Update victory points check if won ---------
@@ -266,15 +190,12 @@ class Dominion:
             self.game_state = sm.played_cards_2_discard_pile(self.game_state, players[main_player])
             self.game_state = sm.discard_hand(self.game_state, players[main_player])
 
-            players[main_player] = sm.draw_n_cards_from_deck(players[main_player], 5)
-
             players[main_player] = sm.get_player_state_from_game_state(self.game_state)
+            players[main_player] = sm.draw_n_cards_from_deck(players[main_player], 5)
 
 
             turns_all_players += 1
 
-            if turns_all_players % 2 == 0:
-                player_turns += 1
 
             main_player += 1
             if main_player >= players_amount:
@@ -286,6 +207,153 @@ class Dominion:
         return 0 # return index of who wins.
     
 
+
+    def __action_phase(self, players, players_input, main, adversary, game_history_file):
+        ''' [Summary]
+        This function handles the action phase of the game. 
+        It will keep running until the player decides to end the action phase.
+
+        ARGS:
+            players [list]: This is a list of the players state
+            players_input [list]: This is a list of the players input
+            main [int]: This is the index of the main player
+            adversary [int]: This is the index of the adversary player
+            game_history_file [file]: This is the file that the game history is written to
+        
+        RETURNS:
+            action_turns [int]: The amount of action turns the player took
+        '''
+        action_turns = 0
+
+        players[main]["actions"] = 1
+
+        # Get all possible actions
+        actions = self.__get_actions(players[main])
+        game_history_file.write(f"action possibilites: {actions} \n")
+
+
+        # Choose action
+        self.game_state = sm.merge_game_player_state(self.game_state, players[main], players[adversary])
+        self.game_state["Unique_actions"] = "action"
+        play_action = int(players_input[main].choose_action(actions, self.game_state))
+
+
+        # DEBUG option: Play specific card
+        # debug_card = 8
+        # sm.get_card2hand(players[main], debug_card)
+        # play_action = 8
+    
+        card_idx = sm.card_idx_2_set_idx(play_action, self.game_state)
+        if card_idx != -1:
+            card_obj = self.game_state["dominion_cards"][card_idx]
+            print("card action choosen: ", card_obj)
+        else:
+            card_obj = "None"
+
+        game_history_file.write(f"Chosen action: {play_action} : {card_obj}\n")
+
+        
+        
+        while play_action != -1:
+            print("play action: ", play_action)
+            action_turns += 1
+            players[main]["actions"] -= 1
+
+            
+            card_effects().play_card(play_action, self.game_state, players[main], players_input[main],  players[adversary], players_input[adversary])
+            self.__Debug_state(players, main, players_input, game_history_file)
+
+
+            actions = self.__get_actions(players[main])
+            play_action = int(players_input[main].choose_action(actions, self.game_state))
+
+
+            card_idx = sm.card_idx_2_set_idx(play_action, self.game_state)
+            if card_idx != -1:
+                card_obj = self.game_state["dominion_cards"][card_idx]
+            else:
+                card_obj = "None"
+
+            game_history_file.write(f"Chosen action: {play_action} : {card_obj}\n")
+            
+
+
+
+        players[main]["actions"] = 0
+
+
+        return action_turns
+
+    def __buy_phase(self, players, players_input, main, adversary, game_history_file):
+        '''
+        [Summary]
+        This function handles the buy phase of the game.
+        
+        ARGS:
+            players [list]: This is a list of the players state
+            players_input [list]: This is a list of the players input
+            main [int]: This is the index of the main player
+            adversary [int]: This is the index of the adversary player
+            game_history_file [file]: This is the file that the game history is written to
+
+        RETURNS:
+            buy_actions_amount [int]: The amount of buy actions the player took
+        '''
+        buy_actions_amount = 0
+
+
+        self.game_state = sm.merge_game_player_state(self.game_state, players[main], players[adversary])
+        self.game_state["Unique_actions"] = "buy"
+        players[main]["buys"] = 1
+
+
+        self.game_state = self.__update_player_treasure_value(players[main], self.game_state, players_input[main])
+
+
+        list_of_actions_buy = self.__get_buys(players[main], self.game_state)
+        game_history_file.write(f"buy possibilites: {list_of_actions_buy} \n")
+
+
+
+        # Choose a buy
+        buy_action = players_input[main].choose_action(list_of_actions_buy, self.game_state)
+        card_idx = sm.card_idx_2_set_idx(buy_action, self.game_state)
+        if card_idx != -1:
+            card_obj = self.game_state["dominion_cards"][card_idx]
+        else:
+            card_obj = "None"
+
+        game_history_file.write(f"Chosen action: {buy_action} : {card_obj}\n")
+
+
+
+        while buy_action != -1:
+            buy_actions_amount += 1
+            players[main]["buys"] -= 1
+
+
+
+            players[main], self.game_state = self.__buy_card_from_supply(player_state=players[main], game_state=self.game_state, card_idx=buy_action)
+            self.game_state = sm.merge_game_player_state(self.game_state, players[main], players[adversary])
+            self.__Debug_state(players, main, players_input, game_history_file)
+            
+
+            
+            list_of_actions_buy = self.__get_buys(players[main], self.game_state)
+            buy_action = players_input[main].choose_action(list_of_actions_buy, self.game_state)
+            card_idx = sm.card_idx_2_set_idx(buy_action, self.game_state)
+            if card_idx != -1:
+                card_obj = self.game_state["dominion_cards"][card_idx]
+            else:
+                card_obj = "None"
+
+            game_history_file.write(f"Chosen action: {buy_action} : {card_obj}\n")
+        
+
+
+        players[main]["buys"] = 0
+
+        return buy_actions_amount
 
 
     def __Update_victory_points(self, game_state, player_state):
@@ -314,6 +382,13 @@ class Dominion:
 
     def __Debug_state(self, players, main_player, players_input, game_history_file, gain_card = False):
             self.game_state = self.__Update_victory_points(self.game_state, players[main_player])
+            self.game_state = self.__update_player_treasure_value(players[main_player], self.game_state, players_input[main_player])
+
+            players[main_player] = sm.get_player_state_from_game_state(self.game_state)
+
+
+            game_history_file.write("\n"*2)
+            game_history_file.write(f" --- GAME STATE ---\n")
 
             cards_in_hand = players[main_player]["cards_in_hand"]
             game_history_file.write(f"cards in hand: {cards_in_hand} \n")
@@ -365,68 +440,6 @@ class Dominion:
 
 
 
-
-    def __debug_buy_action(self, card_bought, players, main_player, players_input, game_history_file):
-            game_history_file.write("----------- CARD bought -----------")
-            index = sm.card_idx_2_set_idx(card_bought, self.game_state)
-
-            Dominion_cards = self.game_state["dominion_cards"][index]
-            game_history_file.write(f"Card: {Dominion_cards}")
-
-
-            game_history_file.write(f"------------------- BEFORE -------------------")
-
-            cards_in_discard = players[main_player]["cards_in_discard"]
-            game_history_file.write(f"cards in discard: {cards_in_discard} \n")
-
-            owned_cards = players[main_player]["owned_cards"]
-            length_owned_cards = len(players[main_player]["owned_cards"])
-            game_history_file.write(f"owned cards: {owned_cards} -> size -> {length_owned_cards}")
-            
-            buys = players[main_player]["buys"]
-            game_history_file.write(f"buys: {buys} \n")
-
-            value = players[main_player]["value"]
-            game_history_file.write(f"player value: {value} \n")
-
-
-            supply_amount = self.game_state["supply_amount"]
-            game_history_file.write(f"card supply: {supply_amount} \n")
-       
-
-
-
-            main = int(main_player)
-            advesary = int(main_player*(-1) + 1)
-            card_effects().play_card(card_bought, self.game_state, players[main], players_input[main],  players[advesary], players_input[advesary])
-
-
-
-
-
-            game_history_file.write(f"------------------- AFTER -------------------")
-            cards_in_discard = players[main_player]["cards_in_discard"]
-            game_history_file.write(f"cards in discard: {cards_in_discard} \n")
-
-
-            owned_cards = players[main_player]["owned_cards"]
-            length_owned_cards = len(players[main_player]["owned_cards"])
-            game_history_file.write(f"owned cards: {owned_cards} -> size -> {length_owned_cards}")
-            
-
-            buys = players[main_player]["buys"]
-            game_history_file.write(f"buys: {buys} \n")
-
-
-            value = players[main_player]["value"]
-            game_history_file.write(f"player value: {value} \n")
-
-
-            supply_amount = self.game_state["supply_amount"]
-            game_history_file.write(f"card supply: {supply_amount} \n")
-
-
-
     def __get_actions(self, player_state):
         '''[Summary]
         
@@ -439,6 +452,12 @@ class Dominion:
             return np.array([-1])
         
         actions = player_state["cards_in_hand"]
+
+
+        # Remove all cards that are not actions, treasures and victory cards
+        actions = np.array([card for card in actions if not(card in self.Treasure_card_index)])
+        actions = np.array([card for card in actions if not(card in self.victory_points_index)])
+
         actions = np.append(-1, actions) # add the ability to terminate the action phase
 
         return actions
@@ -489,12 +508,12 @@ class Dominion:
         player_state["value"] -= card[2].astype(int)
 
 
-        # Remove one buy power from player
-        player_state["buys"] -= 1
-
 
 
         return player_state, game_state
+
+
+
 
     def __update_player_treasure_value(self, player_state, game_state, player_input):
         '''[Summary]
@@ -574,3 +593,14 @@ class Dominion:
 Dominion_game = Dominion()
 
 Dominion_game.play_loop_AI(random_player(), random_player())
+
+
+
+
+
+
+
+
+
+
+

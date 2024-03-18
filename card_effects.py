@@ -141,7 +141,9 @@ class card_effects():
         return game_state, player_state, adv_state
     
     def curse(self, game_state, player_state, player_input, adv_state, adv_input):
-        player_state["Victory_points"] += -1
+
+        # little too powerfull in this meta, so it is nerfed
+        player_state["Victory_points"] += 0
         return game_state, player_state, adv_state
     
 
@@ -188,12 +190,12 @@ class card_effects():
             for combination in set(list(combinations(cards_in_hand, i))):
                 all_combinations.append(combination)
         
-        all_combinations.append(-1) # Append the ability to do nothing
+        
         actions_list = np.arange(len(all_combinations))
+        actions_list = np.append(actions_list, -1) # Append the ability to do nothing
 
 
         action = player_input.choose_action(actions_list, game_state)
-
 
         if action == -1:
             return game_state, player_state, adv_state

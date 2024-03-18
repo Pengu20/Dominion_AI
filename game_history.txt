@@ -6,115 +6,218 @@ Game cards: [['Copper' '0' '0']
  ['Duchy' '4' '5']
  ['Province' '5' '8']
  ['Curse' '6' '0']
- ['Chapel' '8' '2']
- ['Library' '22' '5']
- ['Moneylender' '15' '4']
- ['Village' '10' '3']
- ['Laboratory' '21' '5']
- ['Cellar' '7' '2']
- ['Gardens' '13' '4']
- ['Mine' '24' '5']
  ['Moat' '9' '2']
- ['Poacher' '29' '3']]
+ ['Remodel' '16' '4']
+ ['Laboratory' '21' '5']
+ ['Council room' '19' '5']
+ ['Bureaucrat' '12' '4']
+ ['Chapel' '8' '2']
+ ['Witch' '25' '5']
+ ['Militia' '14' '4']
+ ['Moneylender' '15' '4']
+ ['Workshop' '11' '3']]
 
 
 
 
 
 
- ---------- Turn: 0 ---------- 
-Player: 1 
-cards in hand: [0. 0. 0. 3. 3.] 
+         -------------------- Turn: 1 -------------------- 
+Player: 0 
+cards in hand: [3. 0. 0. 0. 0.] 
 ----------- ACTION PHASE ----------- 
-action possibilites: [-1] 
+action possibilites: [-1.] 
 Chosen action: -1 : None
-
-
 
 
 ----------- BUY PHASE ----------- 
-buy possibilites: [ 0.  1.  3.  6.  8. 10.  7.  9. 29. -1.] 
-Chosen action: 10.0 : ['Village' '10' '3']
-cards in hand: [0. 0. 0. 3. 3.] 
-cards in discard: [10.] 
+buy possibilites: [ 0.  1.  3.  6.  9. 16. 12.  8. 14. 15. 11. -1.] 
+Chosen action: 11.0 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+cards in hand: [3. 0. 0. 0. 0.] 
+cards in discard: [11.] 
 cards in deck: 5 
 card top of deck: [] 
 played cards: [] 
-owned cards: [ 0  0  0  0  0  0  0  3  3  3 10] -> size -> 11 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11] -> size -> 11 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [30. 30. 30. 30. 30.  8. 30. 10. 10. 10. 10. 10. 10. 10. 10. 10.  9.] 
+adversary cards in hand: [3. 0. 0. 3. 3.] 
+adversary cards in discard: [] 
+adversary cards in deck: [0 0 0 0 0 0 0 3 3 3] -> size -> 10 
+player victory points: 0 
+
+
+Chosen action: -1 : None
+
+
+
+Player: 1 
+cards in hand: [3. 0. 0. 3. 3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  3.  6.  9.  8. -1.] 
+Chosen action: 8.0 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [3. 0. 0. 3. 3.] 
+cards in discard: [8.] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [] 
+owned cards: [0 0 0 0 0 0 0 3 3 3 8] -> size -> 11 
 action values: 0 
 buys: 0 
 player value: 0 
-card supply: [30. 30. 30. 30. 30.  8. 30. 10. 10. 10.  9. 10. 10. 10. 10. 10. 10.] 
-adversary cards in hand: [0. 0. 0. 0. 3.] 
-adversary cards in discard: [] 
-adversary cards in deck: [0 0 0 0 0 0 0 3 3 3] -> size -> 10 
+card supply: [30. 30. 30. 30. 30.  8. 30. 10. 10. 10. 10. 10.  9. 10. 10. 10.  9.] 
+adversary cards in hand: [3. 0. 0. 3. 0.] 
+adversary cards in discard: [11.  3.  0.  0.  0.  0.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 11] -> size -> 11 
+player victory points: 0 
+
+
+Chosen action: -1 : None
+
+
+
+         -------------------- Turn: 2 -------------------- 
+Player: 0 
+cards in hand: [3. 0. 0. 3. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6.  9.  8. 11. -1.] 
+Chosen action: 6.0 : ['Curse' '6' '0']
+
+
+ --- GAME STATE ---
+cards in hand: [3. 0. 0. 3. 0.] 
+cards in discard: [11.  3.  0.  0.  0.  0.  6.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11  6] -> size -> 12 
+action values: 0 
+buys: 0 
+player value: 3 
+card supply: [30. 30. 30. 30. 30.  8. 29. 10. 10. 10. 10. 10.  9. 10. 10. 10.  9.] 
+adversary cards in hand: [0. 0. 0. 0. 0.] 
+adversary cards in discard: [8. 3. 0. 0. 3. 3.] 
+adversary cards in deck: [0 0 0 0 0 0 0 3 3 3 8] -> size -> 11 
 player victory points: 3 
 
 
 Chosen action: -1 : None
-cards in hand: [0. 0. 0. 3. 3.] 
-cards in discard: [10.] 
-cards in deck: 5 
+
+
+
+Player: 1 
+cards in hand: [0. 0. 0. 0. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  4.  6.  9. 16. 21. 19. 12.  8. 25. 14. 15. 11. -1.] 
+Chosen action: 12.0 : ['Bureaucrat' '12' '4']
+
+
+ --- GAME STATE ---
+cards in hand: [0. 0. 0. 0. 0.] 
+cards in discard: [ 8.  3.  0.  0.  3.  3. 12.] 
+cards in deck: 0 
 card top of deck: [] 
 played cards: [] 
-owned cards: [ 0  0  0  0  0  0  0  3  3  3 10] -> size -> 11 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3  8 12] -> size -> 12 
 action values: 0 
 buys: 0 
-player value: 0 
-card supply: [30. 30. 30. 30. 30.  8. 30. 10. 10. 10.  9. 10. 10. 10. 10. 10. 10.] 
+player value: 1 
+card supply: [30. 30. 30. 30. 30.  8. 29. 10. 10. 10. 10.  9.  9. 10. 10. 10.  9.] 
 adversary cards in hand: [0. 0. 0. 0. 3.] 
 adversary cards in discard: [] 
-adversary cards in deck: [0 0 0 0 0 0 0 3 3 3] -> size -> 10 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 11  6] -> size -> 12 
 player victory points: 3 
 
 
+Chosen action: -1 : None
 
 
 
- ---------- Turn: 0 ---------- 
+         -------------------- Turn: 3 -------------------- 
 Player: 0 
 cards in hand: [0. 0. 0. 0. 3.] 
 ----------- ACTION PHASE ----------- 
-action possibilites: [-1] 
+action possibilites: [-1.] 
 Chosen action: -1 : None
-
-
 
 
 ----------- BUY PHASE ----------- 
-buy possibilites: [ 0.  1.  3.  6.  8. 15. 10.  7. 13.  9. 29. -1.] 
-Chosen action: 13.0 : ['Gardens' '13' '4']
+buy possibilites: [ 0.  1.  3.  6.  9. 16. 12.  8. 14. 15. 11. -1.] 
+Chosen action: -1.0 : None
+ --------- NOTHING HAPPENED --------- 
+
+
+ --- GAME STATE ---
 cards in hand: [0. 0. 0. 0. 3.] 
-cards in discard: [13.] 
-cards in deck: 5 
+cards in discard: [] 
+cards in deck: 7 
 card top of deck: [] 
 played cards: [] 
-owned cards: [ 0  0  0  0  0  0  0  3  3  3 13] -> size -> 11 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11  6] -> size -> 12 
 action values: 0 
 buys: 0 
-player value: 0 
-card supply: [30. 30. 30. 30. 30.  8. 30. 10. 10. 10.  9. 10. 10.  9. 10. 10. 10.] 
-adversary cards in hand: [] 
-adversary cards in discard: [10.  0.  0.  0.  3.  3.] 
-adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 10] -> size -> 11 
-player victory points: 4 
+player value: 3 
+card supply: [30. 30. 30. 30. 30.  8. 29. 10. 10. 10. 10.  9.  9. 10. 10. 10.  9.] 
+adversary cards in hand: [0. 0. 0. 3. 0.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  8 12] -> size -> 12 
+player victory points: 3 
+
+
+
+
+
+Player: 1 
+cards in hand: [0. 0. 0. 3. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6.  9. 16. 12.  8. 14. 15. 11. -1.] 
+Chosen action: 3.0 : ['Estate' '3' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [0. 0. 0. 3. 0.] 
+cards in discard: [3.] 
+cards in deck: 7 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3  8 12  3] -> size -> 13 
+action values: 0 
+buys: 0 
+player value: 2 
+card supply: [30. 30. 30. 29. 30.  8. 29. 10. 10. 10. 10.  9.  9. 10. 10. 10.  9.] 
+adversary cards in hand: [ 3.  6.  0.  0. 11.] 
+adversary cards in discard: [0. 0. 0. 0. 3.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 11  6] -> size -> 12 
+player victory points: 3 
 
 
 Chosen action: -1 : None
-cards in hand: [0. 0. 0. 0. 3.] 
-cards in discard: [13.] 
-cards in deck: 5 
-card top of deck: [] 
-played cards: [] 
-owned cards: [ 0  0  0  0  0  0  0  3  3  3 13] -> size -> 11 
-action values: 0 
-buys: 0 
-player value: 0 
-card supply: [30. 30. 30. 30. 30.  8. 30. 10. 10. 10.  9. 10. 10.  9. 10. 10. 10.] 
-adversary cards in hand: [] 
-adversary cards in discard: [10.  0.  0.  0.  3.  3.] 
-adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 10] -> size -> 11 
-player victory points: 4 
-
-
-Player 0 won the game! 
+Player 1 won the game! 
