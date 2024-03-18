@@ -35,11 +35,8 @@ class Dominion:
         "dominion_cards": self.deck.get_card_set(),
         "supply_amount": np.append(self.standard_supply, np.ones(10) * 10), # 10 kingdom cards with 10 supply each
 
-            # ----- GAME PHASE RELATED -----
-        "game_phase": 0, # 0 indicates action phase, 1 indicates buy phase
 
-            # ----- CARD EFFECT RELATED -----
-
+            # ----- WHAT THE ACTION MEANS -----
         "Unique_actions": None, # This is the unique actions that the player can do. This is based on the cards in the players hand
 
 
@@ -85,7 +82,7 @@ class Dominion:
         return player_state_start
 
 
-    def play_loop_AI(self, player1, player2):
+    def play_loop_AI(self, player1, player2, verbose = False):
         ''' [Summary]
         This function is the main loop of the game. It will keep running until the game is over.
 
@@ -93,6 +90,10 @@ class Dominion:
             player1 player: This type object must be capable of choosing which cards to play and when.
             player2 player: This is also a player type 
         '''
+
+
+        game_history_file = open("game_history.txt", "w")
+
 
         players_amount = 2
 
@@ -109,95 +110,71 @@ class Dominion:
         
         for player in range(players_amount):
             players[player] = sm.draw_n_cards_from_deck(players[player], 5)
+        
+        player_turns = 0
 
         while self.game_state["Player_won"] == -1:
             # --------- ACTION PHASE ---------
-            
-            
+            if verbose:
+                game_history_file.write(f" ---------- Turn: {player_turns} ---------- \n")   
+                game_history_file.write(f"Player: {main_player} \n")
+                game_history_file.write(f"----------- ACTION PHASE ----------- \n")
+
+
+
+
+
             # Get all possible actions
             actions = self.__get_actions(players[main_player])
+            game_history_file.write(f"get actions: {actions} \n")
   
+
             # Choose action
             self.game_state = sm.merge_game_player_state(self.game_state, players[main_player], players[main_player*(-1) + 1])
             action = players_input[main_player].choose_action(actions, self.game_state)
-            
-            print("Testing cards")
-            print("------------------- BEFORE -------------------")
-            print("cards in hand: ", players[main_player]["cards_in_hand"])
-            print("cards in discard: ", players[main_player]["cards_in_discard"])
-            print("cards in deck: ", players[main_player]["cards_in_deck"])
-            print("card top of deck: ", self.game_state["known_cards_top_deck"])
-            print("played cards: ", players[main_player]["played_cards"])
-            print("owned cards: ", players[main_player]["owned_cards"], "-> size ->", len(players[main_player]["owned_cards"]))
-            print("action values: ", players[main_player]["actions"])
-            print("buys: ", players[main_player]["buys"])
-            print("player value: ", players[main_player]["value"])
-            print("Game cards: \n", self.game_state["dominion_cards"])
-            print("card supply: ", self.game_state["supply_amount"])
-            print("adversary cards in hand: ", players[main_player*(-1) + 1]["cards_in_hand"])
-            print("adversary cards in discard: ", players[main_player*(-1) + 1]["cards_in_discard"])
-            print("adversary cards in deck: ", players[main_player*(-1) + 1]["owned_cards"])
 
-            
-            main = int(main_player)
-            advesary = int(main_player*(-1) + 1)
-
-            card_val = 32
-            sm.supply2deck(self.game_state, players[advesary], 15)
-            sm.supply2deck(self.game_state, players[advesary], 1)
-            sm.get_card2hand(players[main], card_val)
-            card_effects().play_card(card_val, self.game_state, players[main], players_input[main],  players[advesary], players_input[advesary])
-
-
-
-            print("------------------- AFTER -------------------")
-            print("cards in hand: ", players[main_player]["cards_in_hand"])
-            print("cards in discard: ", players[main_player]["cards_in_discard"])
-            print("cards in deck: ", players[main_player]["cards_in_deck"])
-            print("card top of deck: ", self.game_state["known_cards_top_deck"])
-            print("played cards: ", players[main_player]["played_cards"])
-            print("owned cards: ", players[main_player]["owned_cards"], "-> size ->", len(players[main_player]["owned_cards"]))
-            print("action values: ", players[main_player]["actions"])
-            print("buys: ", players[main_player]["buys"])
-            print("player value: ", players[main_player]["value"])
-            print("Game cards: \n", self.game_state["dominion_cards"])
-            print("card supply: ", self.game_state["supply_amount"])
-            print("adversary cards in hand: ", players[main_player*(-1) + 1]["cards_in_hand"])
-            print("adversary cards in discard: ", players[main_player*(-1) + 1]["cards_in_discard"])
-            print("adversary cards in deck: ", players[main_player*(-1) + 1]["owned_cards"])
-
+            idx = sm.card_idx_2_set_idx(action, self.game_state)
+            game_history_file.write(f"choosen action, ", action, "Corresponding card: ", self.game_state["dominion_cards"][idx])
+            self.__Debug_card(action, players, main_player, players_input, game_history_file)
 
 
             while action != -1:
                 action = player1.choose_action(actions, self.game_state)
+                self.__Debug_card(action, players, main_player, players_input, game_history_file)
 
+
+            
 
 
             # --------- BUY PHASE ---------
+
+
+
+            self.game_state = sm.merge_game_player_state(self.game_state, players[main_player], players[main_player*(-1) + 1])
+
+            self.game_state["Unique_actions"] = "buy"
             players[main_player]["buys"] += 1
             players[main_player]["value"] += self.__get_player_treasure_value(players[main_player], self.game_state, players[main_player])
 
 
             buy_actions = self.__get_buys(players[main_player], self.game_state)
 
+
+
+
             # Choose a buy
             action = player1.choose_action(buy_actions, self.game_state)
-
-
-
-
-
+            self.__debug_buy_action(action, players, main_player, players_input, game_history_file)
 
 
             while action != -1:
                 players[main_player], self.game_state = self.__buy_card_from_supply(player_state=players[main_player], game_state=self.game_state, card_idx=action)
+                
+                
+                
                 buy_actions = self.__get_buys(players[main_player], self.game_state)
-
                 action = player1.choose_action(buy_actions, self.game_state)
-
-
-
-
+                self.__debug_buy_action(action, players, main_player, players_input, game_history_file)
 
 
 
@@ -205,16 +182,191 @@ class Dominion:
             main_player += 1
             if main_player >= players_amount:
                 main_player = 0
+                player_turns += 1
+
+
+            self.game_state["Unique_actions"] = None
+            print(" ---------- Turn: ", player_turns, " ---------- ")
+
 
             self.game_state["Player_won"] = 1
 
 
 
-
         return 0 # return index of who wins.
 
-        
-        
+
+
+    def __Debug_card(self, card, players, main_player, players_input, game_history_file, gain_card = False):
+            game_history_file.write("----------- CARD PLAYED -----------")
+            index = sm.card_idx_2_set_idx(card, self.game_state)
+
+            Dominion_cards = self.game_state["dominion_cards"][index]
+            game_history_file.write(f"Card: {Dominion_cards} \n")
+            game_history_file.write(f"------------------- BEFORE -------------------")
+
+
+            cards_in_hand = players[main_player]["cards_in_hand"]
+            game_history_file.write(f"cards in hand: {cards_in_hand} \n")
+
+            cards_in_discard = players[main_player]["cards_in_discard"]
+            game_history_file.write(f"cards in discard: {cards_in_discard} \n")
+
+            cards_in_deck = players[main_player]["cards_in_deck"]
+            game_history_file.write(f"cards in deck: {cards_in_deck} \n")
+
+            known_top_deck_cards = self.game_state["known_cards_top_deck"]
+            game_history_file.write(f"card top of deck: {known_top_deck_cards} \n")
+
+            played_cards = players[main_player]["played_cards"]
+            game_history_file.write(f"played cards: {played_cards} \n")
+
+            owned_cards = players[main_player]["owned_cards"]
+            length_owned_cards = len(players[main_player]["owned_cards"])
+            game_history_file.write(f"owned cards: {owned_cards} -> size -> {length_owned_cards}")
+
+            actions = players[main_player]["actions"]
+            game_history_file.write(f"action values: {actions} \n")
+
+            buys = players[main_player]["buys"]
+            game_history_file.write(f"buys: {buys} \n")
+
+            value = players[main_player]["value"]
+            game_history_file.write(f"player value: {value} \n")
+
+            dominion_cards = self.game_state["dominion_cards"]
+            game_history_file.write(f"Game cards: {dominion_cards}\n")
+
+            supply_amount = self.game_state["supply_amount"]
+            game_history_file.write(f"card supply: {supply_amount} \n")
+
+            cards_in_hand_adv = players[main_player*(-1) + 1]["cards_in_hand"]
+            game_history_file.write(f"adversary cards in hand: {cards_in_hand_adv} \n")
+
+            adv_discard = players[main_player*(-1) + 1]["cards_in_discard"]
+            game_history_file.write(f"adversary cards in discard: {adv_discard} \n")
+
+            adv_owned = players[main_player*(-1) + 1]["owned_cards"]
+            game_history_file.write(f"adversary cards in deck: {adv_owned} \n")
+
+            
+            main = int(main_player)
+            advesary = int(main_player*(-1) + 1)
+
+
+            if gain_card:
+                sm.get_card2hand(players[main], card)
+
+            card_effects().play_card(card, self.game_state, players[main], players_input[main],  players[advesary], players_input[advesary])
+
+
+
+            game_history_file.write("------------------- AFTER -------------------")
+            cards_in_hand = players[main_player]["cards_in_hand"]
+            game_history_file.write(f"cards in hand: {cards_in_hand} \n")
+
+            cards_in_discard = players[main_player]["cards_in_discard"]
+            game_history_file.write(f"cards in discard: {cards_in_discard} \n")
+
+            cards_in_deck = players[main_player]["cards_in_deck"]
+            game_history_file.write(f"cards in deck: {cards_in_deck} \n")
+
+            known_top_deck_cards = self.game_state["known_cards_top_deck"]
+            game_history_file.write(f"card top of deck: {known_top_deck_cards} \n")
+
+            played_cards = players[main_player]["played_cards"]
+            game_history_file.write(f"played cards: {played_cards} \n")
+
+            owned_cards = players[main_player]["owned_cards"]
+            length_owned_cards = len(players[main_player]["owned_cards"])
+            game_history_file.write(f"owned cards: {owned_cards} -> size -> {length_owned_cards}")
+
+            actions = players[main_player]["actions"]
+            game_history_file.write(f"action values: {actions} \n")
+
+            buys = players[main_player]["buys"]
+            game_history_file.write(f"buys: {buys} \n")
+
+            value = players[main_player]["value"]
+            game_history_file.write(f"player value: {value} \n")
+
+            dominion_cards = self.game_state["dominion_cards"]
+            game_history_file.write(f"Game cards: {dominion_cards}\n")
+
+            supply_amount = self.game_state["supply_amount"]
+            game_history_file.write(f"card supply: {supply_amount} \n")
+
+            cards_in_hand_adv = players[main_player*(-1) + 1]["cards_in_hand"]
+            game_history_file.write(f"adversary cards in hand: {cards_in_hand_adv} \n")
+
+            adv_discard = players[main_player*(-1) + 1]["cards_in_discard"]
+            game_history_file.write(f"adversary cards in discard: {adv_discard} \n")
+
+            adv_owned = players[main_player*(-1) + 1]["owned_cards"]
+            game_history_file.write(f"adversary cards in deck: {adv_owned} \n")
+
+
+
+    def __debug_buy_action(self, card_bought, players, main_player, players_input, game_history_file):
+            game_history_file.write("----------- CARD bought -----------")
+            index = sm.card_idx_2_set_idx(card_bought, self.game_state)
+
+            Dominion_cards = self.game_state["dominion_cards"][index]
+            game_history_file.write(f"Card: {Dominion_cards}")
+
+
+            game_history_file.write(f"------------------- BEFORE -------------------")
+
+            cards_in_discard = players[main_player]["cards_in_discard"]
+            game_history_file.write(f"cards in discard: {cards_in_discard} \n")
+
+            owned_cards = players[main_player]["owned_cards"]
+            length_owned_cards = len(players[main_player]["owned_cards"])
+            game_history_file.write(f"owned cards: {owned_cards} -> size -> {length_owned_cards}")
+            
+            buys = players[main_player]["buys"]
+            game_history_file.write(f"buys: {buys} \n")
+
+            value = players[main_player]["value"]
+            game_history_file.write(f"player value: {value} \n")
+
+
+            supply_amount = self.game_state["supply_amount"]
+            game_history_file.write(f"card supply: {supply_amount} \n")
+       
+
+
+
+            main = int(main_player)
+            advesary = int(main_player*(-1) + 1)
+            card_effects().play_card(card_bought, self.game_state, players[main], players_input[main],  players[advesary], players_input[advesary])
+
+
+
+
+
+            game_history_file.write(f"------------------- AFTER -------------------")
+            cards_in_discard = players[main_player]["cards_in_discard"]
+            game_history_file.write(f"cards in discard: {cards_in_discard} \n")
+
+
+            owned_cards = players[main_player]["owned_cards"]
+            length_owned_cards = len(players[main_player]["owned_cards"])
+            game_history_file.write(f"owned cards: {owned_cards} -> size -> {length_owned_cards}")
+            
+
+            buys = players[main_player]["buys"]
+            game_history_file.write(f"buys: {buys} \n")
+
+
+            value = players[main_player]["value"]
+            game_history_file.write(f"player value: {value} \n")
+
+
+            supply_amount = self.game_state["supply_amount"]
+            game_history_file.write(f"card supply: {supply_amount} \n")
+
+
 
     def __get_actions(self, player_state):
         '''[Summary]
