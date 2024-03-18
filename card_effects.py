@@ -405,13 +405,8 @@ class card_effects():
 
         player_state = sm.hand_2_played_cards(player_state, choosen_card)
 
-        print(" gamestate 1\n",  game_state)
-        print(" player state 1\n", player_state)
-        print(" adv state 1\n", adv_state)
+
         game_state, player_state, adv_state = self.card_effect_dict[self.card_list[choosen_card][0]](game_state, player_state, player_input, adv_state=adv_state, adv_input=adv_input)
-        print(" gamestate 2\n", game_state)
-        print(" player state 2\n", player_state)
-        print(" adv state 2\n", adv_state)
         game_state, player_state, adv_state = self.card_effect_dict[self.card_list[choosen_card][0]](game_state, player_state, player_input, adv_state=adv_state, adv_input=adv_input)
 
 
