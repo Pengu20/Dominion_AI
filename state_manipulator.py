@@ -214,7 +214,7 @@ def supply2discard(game_state, player_state, card):
 
     game_state = merge_game_player_state(game_state, player_state)
 
-    return player_state
+    return game_state
 
 
 def card_idx_2_set_idx(card_idx, game_state):

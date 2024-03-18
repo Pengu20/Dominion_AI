@@ -172,7 +172,7 @@ class card_effects():
         else:
 
             # Draw cards
-            player_state = sm.draw_n_cards_from_deck(player_state, len(all_combinations[action]) - 1 ) # Draw equal to amount of actions that is not terminate action
+            player_state = sm.draw_n_cards_from_deck(player_state, len(all_combinations[action])) # Draw equal to amount of actions that is not terminate action
 
 
             # Put cards into discard pile
@@ -367,6 +367,7 @@ class card_effects():
         game_state = sm.supply2discard(game_state, player_state, int(action))
         player_state = sm.get_player_state_from_game_state(game_state)
 
+
         return game_state, player_state, adv_state
 
 
@@ -393,6 +394,9 @@ class card_effects():
                 if card not in list_non_action_cards:
                     actions_list.append(card)
 
+        if actions_list == []:
+            return game_state, player_state, adv_state
+        
         action = player_input.choose_action(actions_list, game_state)
         choosen_card = int(action)
 
@@ -401,11 +405,15 @@ class card_effects():
 
         player_state = sm.hand_2_played_cards(player_state, choosen_card)
 
-
+        print(" gamestate 1\n",  game_state)
+        print(" player state 1\n", player_state)
+        print(" adv state 1\n", adv_state)
         game_state, player_state, adv_state = self.card_effect_dict[self.card_list[choosen_card][0]](game_state, player_state, player_input, adv_state=adv_state, adv_input=adv_input)
+        print(" gamestate 2\n", game_state)
+        print(" player state 2\n", player_state)
+        print(" adv state 2\n", adv_state)
         game_state, player_state, adv_state = self.card_effect_dict[self.card_list[choosen_card][0]](game_state, player_state, player_input, adv_state=adv_state, adv_input=adv_input)
 
-        player_state = sm.played_cards_2_discard_pile(player_state)
 
 
         game_state["Unique_actions"] = None

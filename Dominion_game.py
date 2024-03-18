@@ -277,9 +277,10 @@ class Dominion:
 
 
         # DEBUG option: Play specific card
-        debug_card = 7
-        sm.get_card2hand(players[main], debug_card)
-        play_action = debug_card
+        # debug_card = 7
+        # sm.get_card2hand(players[main], debug_card)
+        # play_action = debug_card
+        # players[main]["known_cards_top_deck"] = np.append(players[main]["known_cards_top_deck"], 0)
     
         card_idx = sm.card_idx_2_set_idx(play_action, self.game_state)
         if card_idx != -1:

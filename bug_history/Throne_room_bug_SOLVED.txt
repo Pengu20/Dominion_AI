@@ -1,0 +1,1024 @@
+ --------- CARDS IN THIS GAME --------- 
+Game cards: [['Copper' '0' '0']
+ ['Silver' '1' '3']
+ ['Gold' '2' '6']
+ ['Estate' '3' '2']
+ ['Duchy' '4' '5']
+ ['Province' '5' '8']
+ ['Curse' '6' '0']
+ ['Laboratory' '21' '5']
+ ['Moneylender' '15' '4']
+ ['Militia' '14' '4']
+ ['Remodel' '16' '4']
+ ['Cellar' '7' '2']
+ ['Artisan' '32' '6']
+ ['Poacher' '29' '3']
+ ['Workshop' '11' '3']
+ ['Throne room' '18' '4']
+ ['Sentry' '31' '5']]
+
+
+
+
+
+
+         -------------------- Turn: 1 -------------------- 
+Player: 0 
+cards in hand: [3. 0. 0. 0. 3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6.  7. 29. 11. -1.] 
+Chosen action: 0.0 : ['Copper' '0' '0']
+
+
+ --- GAME STATE ---
+cards in hand: [3. 0. 0. 0. 3.] 
+cards in discard: [0.] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [] 
+owned cards: [0 0 0 0 0 0 0 3 3 3 0] -> size -> 11 
+action values: 0 
+buys: 0 
+player value: 3 
+card supply: [29. 30. 30. 30. 30.  8. 30. 10. 10. 10. 10. 10. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [0. 0. 0. 3. 0.] 
+adversary cards in discard: [] 
+adversary cards in deck: [0 0 0 0 0 0 0 3 3 3] -> size -> 10 
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+Player: 1 
+cards in hand: [0. 0. 0. 3. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 15. 14. 16.  7. 29. 11. 18. -1.] 
+Chosen action: 15.0 : ['Moneylender' '15' '4']
+
+
+ --- GAME STATE ---
+cards in hand: [0. 0. 0. 3. 0.] 
+cards in discard: [15.] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15] -> size -> 11 
+action values: 0 
+buys: 0 
+player value: 4 
+card supply: [29. 30. 30. 30. 30.  8. 30. 10.  9. 10. 10. 10. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [0. 3. 0. 0. 0.] 
+adversary cards in discard: [0. 3. 0. 0. 0. 3.] 
+adversary cards in deck: [0 0 0 0 0 0 0 3 3 3 0] -> size -> 11 
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+         -------------------- Turn: 2 -------------------- 
+Player: 0 
+cards in hand: [0. 3. 0. 0. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 15. 14. 16.  7. 29. 11. 18. -1.] 
+Chosen action: 11.0 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+cards in hand: [0. 3. 0. 0. 0.] 
+cards in discard: [ 0.  3.  0.  0.  0.  3. 11.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3  0 11] -> size -> 12 
+action values: 0 
+buys: 0 
+player value: 4 
+card supply: [29. 30. 30. 30. 30.  8. 30. 10.  9. 10. 10. 10. 10. 10.  9. 10. 10.] 
+adversary cards in hand: [3. 0. 3. 0. 0.] 
+adversary cards in discard: [15.  0.  0.  0.  3.  0.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 15] -> size -> 11 
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+Player: 1 
+cards in hand: [3. 0. 3. 0. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6.  7. 29. 11. -1.] 
+Chosen action: 7.0 : ['Cellar' '7' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [3. 0. 3. 0. 0.] 
+cards in discard: [15.  0.  0.  0.  3.  0.  7.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7] -> size -> 12 
+action values: 0 
+buys: 0 
+player value: 3 
+card supply: [29. 30. 30. 30. 30.  8. 30. 10.  9. 10. 10.  9. 10. 10.  9. 10. 10.] 
+adversary cards in hand: [3. 0. 0. 3. 0.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11] -> size -> 12 
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+         -------------------- Turn: 3 -------------------- 
+Player: 0 
+cards in hand: [3. 0. 0. 3. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6.  7. 29. 11. -1.] 
+Chosen action: 7.0 : ['Cellar' '7' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [3. 0. 0. 3. 0.] 
+cards in discard: [7.] 
+cards in deck: 7 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3  0 11  7] -> size -> 13 
+action values: 0 
+buys: 0 
+player value: 3 
+card supply: [29. 30. 30. 30. 30.  8. 30. 10.  9. 10. 10.  8. 10. 10.  9. 10. 10.] 
+adversary cards in hand: [0. 0. 0. 3. 3.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 15  7] -> size -> 12 
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+Player: 1 
+cards in hand: [0. 0. 0. 3. 3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6.  7. 29. 11. -1.] 
+Chosen action: -1.0 : None
+ --------- NOTHING HAPPENED --------- 
+
+
+ --- GAME STATE ---
+cards in hand: [0. 0. 0. 3. 3.] 
+cards in discard: [] 
+cards in deck: 7 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7] -> size -> 12 
+action values: 0 
+buys: 0 
+player value: 3 
+card supply: [29. 30. 30. 30. 30.  8. 30. 10.  9. 10. 10.  8. 10. 10.  9. 10. 10.] 
+adversary cards in hand: [0. 0. 0. 0. 3.] 
+adversary cards in discard: [7. 3. 0. 0. 3. 0.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7] -> size -> 13 
+player victory points: 3 
+
+
+
+
+
+         -------------------- Turn: 4 -------------------- 
+Player: 0 
+cards in hand: [0. 0. 0. 0. 3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 15. 14. 16.  7. 29. 11. 18. -1.] 
+Chosen action: -1.0 : None
+ --------- NOTHING HAPPENED --------- 
+
+
+ --- GAME STATE ---
+cards in hand: [0. 0. 0. 0. 3.] 
+cards in discard: [7. 3. 0. 0. 3. 0.] 
+cards in deck: 2 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3  0 11  7] -> size -> 13 
+action values: 0 
+buys: 0 
+player value: 4 
+card supply: [29. 30. 30. 30. 30.  8. 30. 10.  9. 10. 10.  8. 10. 10.  9. 10. 10.] 
+adversary cards in hand: [0. 0. 7. 3. 0.] 
+adversary cards in discard: [0. 0. 0. 3. 3.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 15  7] -> size -> 12 
+player victory points: 3 
+
+
+
+
+
+Player: 1 
+cards in hand: [0. 0. 7. 3. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  7.] 
+Chosen action: 7 : ['Cellar' '7' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [ 0.  0. 15.] 
+cards in discard: [0. 0. 0. 3. 3. 0. 0. 3.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [7.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7] -> size -> 12 
+action values: 0 
+buys: 0 
+player value: 2 
+card supply: [29. 30. 30. 30. 30.  8. 30. 10.  9. 10. 10.  8. 10. 10.  9. 10. 10.] 
+adversary cards in hand: [ 0.  3.  7. 11.  3.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7] -> size -> 13 
+player victory points: 3 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  3.  6.  7. -1.] 
+Chosen action: 3.0 : ['Estate' '3' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [ 0.  0. 15.] 
+cards in discard: [0. 0. 0. 3. 3. 0. 0. 3. 3.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [7.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7  3] -> size -> 13 
+action values: 0 
+buys: 0 
+player value: 2 
+card supply: [29. 30. 30. 29. 30.  8. 30. 10.  9. 10. 10.  8. 10. 10.  9. 10. 10.] 
+adversary cards in hand: [ 0.  3.  7. 11.  3.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7] -> size -> 13 
+player victory points: 4 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+         -------------------- Turn: 5 -------------------- 
+Player: 0 
+cards in hand: [ 0.  3.  7. 11.  3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  7. 11.] 
+Chosen action: 7 : ['Cellar' '7' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [ 3. 11.  3.] 
+cards in discard: [0.] 
+cards in deck: 8 
+card top of deck: [] 
+played cards: [7.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3  0 11  7] -> size -> 13 
+action values: 0 
+buys: 0 
+player value: 4 
+card supply: [29. 30. 30. 29. 30.  8. 30. 10.  9. 10. 10.  8. 10. 10.  9. 10. 10.] 
+adversary cards in hand: [7. 3. 0. 0. 0.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 15  7  3] -> size -> 13 
+player victory points: 3 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+Chosen action: -1.0 : None
+
+
+
+Player: 1 
+cards in hand: [7. 3. 0. 0. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  7.] 
+Chosen action: 7 : ['Cellar' '7' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [ 3.  0. 15.] 
+cards in discard: [0. 0.] 
+cards in deck: 7 
+card top of deck: [] 
+played cards: [7.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7  3] -> size -> 13 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [29. 30. 30. 29. 30.  8. 30. 10.  9. 10. 10.  8. 10. 10.  9. 10. 10.] 
+adversary cards in hand: [3. 0. 0. 0. 0.] 
+adversary cards in discard: [ 0.  7.  3. 11.  3.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7] -> size -> 13 
+player victory points: 4 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+Chosen action: 6.0 : ['Curse' '6' '0']
+
+
+ --- GAME STATE ---
+cards in hand: [ 3.  0. 15.] 
+cards in discard: [0. 0. 6.] 
+cards in deck: 7 
+card top of deck: [] 
+played cards: [7.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6] -> size -> 14 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [29. 30. 30. 29. 30.  8. 29. 10.  9. 10. 10.  8. 10. 10.  9. 10. 10.] 
+adversary cards in hand: [3. 0. 0. 0. 0.] 
+adversary cards in discard: [ 0.  7.  3. 11.  3.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7] -> size -> 13 
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+         -------------------- Turn: 6 -------------------- 
+Player: 0 
+cards in hand: [3. 0. 0. 0. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 15. 14. 16.  7. 29. 11. 18. -1.] 
+Chosen action: 14.0 : ['Militia' '14' '4']
+
+
+ --- GAME STATE ---
+cards in hand: [3. 0. 0. 0. 0.] 
+cards in discard: [ 0.  7.  3. 11.  3. 14.] 
+cards in deck: 3 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 14] -> size -> 14 
+action values: 0 
+buys: 0 
+player value: 4 
+card supply: [29. 30. 30. 29. 30.  8. 29. 10.  9.  9. 10.  8. 10. 10.  9. 10. 10.] 
+adversary cards in hand: [3. 0. 0. 3. 3.] 
+adversary cards in discard: [ 0.  0.  6.  7.  3.  0. 15.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6] -> size -> 14 
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+Player: 1 
+cards in hand: [3. 0. 0. 3. 3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  3.  6.  7. -1.] 
+Chosen action: 0.0 : ['Copper' '0' '0']
+
+
+ --- GAME STATE ---
+cards in hand: [3. 0. 0. 3. 3.] 
+cards in discard: [ 0.  0.  6.  7.  3.  0. 15.  0.] 
+cards in deck: 2 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0] -> size -> 15 
+action values: 0 
+buys: 0 
+player value: 2 
+card supply: [28. 30. 30. 29. 30.  8. 29. 10.  9.  9. 10.  8. 10. 10.  9. 10. 10.] 
+adversary cards in hand: [ 0.  0.  3.  7. 11.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 14] -> size -> 14 
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+         -------------------- Turn: 7 -------------------- 
+Player: 0 
+cards in hand: [ 0.  0.  3.  7. 11.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  7. 11.] 
+Chosen action: 7 : ['Cellar' '7' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [ 0.  0. 11.] 
+cards in discard: [3.] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [7.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 14] -> size -> 14 
+action values: 0 
+buys: 0 
+player value: 2 
+card supply: [28. 30. 30. 29. 30.  8. 29. 10.  9.  9. 10.  8. 10. 10.  9. 10. 10.] 
+adversary cards in hand: [ 0.  0.  3. 15.  0.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0] -> size -> 15 
+player victory points: 3 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  3.  6.  7. -1.] 
+Chosen action: -1.0 : None
+
+
+
+Player: 1 
+cards in hand: [ 0.  0.  3. 15.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 15.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6.  7. 29. 11. -1.] 
+Chosen action: 11.0 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+cards in hand: [ 0.  0.  3. 15.  0.] 
+cards in discard: [11.] 
+cards in deck: 10 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11] -> size -> 16 
+action values: 0 
+buys: 0 
+player value: 3 
+card supply: [28. 30. 30. 29. 30.  8. 29. 10.  9.  9. 10.  8. 10. 10.  8. 10. 10.] 
+adversary cards in hand: [0. 0. 3. 0. 0.] 
+adversary cards in discard: [ 3.  7.  0.  0. 11.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 14] -> size -> 14 
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+         -------------------- Turn: 8 -------------------- 
+Player: 0 
+cards in hand: [0. 0. 3. 0. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 15. 14. 16.  7. 29. 11. 18. -1.] 
+Chosen action: 18.0 : ['Throne room' '18' '4']
+
+
+ --- GAME STATE ---
+cards in hand: [0. 0. 3. 0. 0.] 
+cards in discard: [ 3.  7.  0.  0. 11. 18.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 14 18] -> size -> 15 
+action values: 0 
+buys: 0 
+player value: 4 
+card supply: [28. 30. 30. 29. 30.  8. 29. 10.  9.  9. 10.  8. 10. 10.  8.  9. 10.] 
+adversary cards in hand: [6. 7. 0. 0. 3.] 
+adversary cards in discard: [11.  0.  0.  3. 15.  0.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11] -> size -> 16 
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+Player: 1 
+cards in hand: [6. 7. 0. 0. 3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  7.] 
+Chosen action: 7 : ['Cellar' '7' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [6. 0. 3.] 
+cards in discard: [11.  0.  0.  3. 15.  0.  0.] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [7.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11] -> size -> 16 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [28. 30. 30. 29. 30.  8. 29. 10.  9.  9. 10.  8. 10. 10.  8.  9. 10.] 
+adversary cards in hand: [ 3.  7.  0. 11.  0.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 14 18] -> size -> 15 
+player victory points: 3 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+Chosen action: 0.0 : ['Copper' '0' '0']
+
+
+ --- GAME STATE ---
+cards in hand: [6. 0. 3.] 
+cards in discard: [11.  0.  0.  3. 15.  0.  0.  0.] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [7.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11  0] -> size -> 17 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [27. 30. 30. 29. 30.  8. 29. 10.  9.  9. 10.  8. 10. 10.  8.  9. 10.] 
+adversary cards in hand: [ 3.  7.  0. 11.  0.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 14 18] -> size -> 15 
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+         -------------------- Turn: 9 -------------------- 
+Player: 0 
+cards in hand: [ 3.  7.  0. 11.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  7. 11.] 
+Chosen action: 7 : ['Cellar' '7' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [ 3. 11.  3.] 
+cards in discard: [0. 0.] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [7.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 14 18] -> size -> 15 
+action values: 0 
+buys: 0 
+player value: 4 
+card supply: [27. 30. 30. 29. 30.  8. 29. 10.  9.  9. 10.  8. 10. 10.  8.  9. 10.] 
+adversary cards in hand: [3. 3. 0. 0. 0.] 
+adversary cards in discard: [11.  0.  0.  3. 15.  0.  0.  0.  7.  6.  0.  3.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11  0] -> size -> 17 
+player victory points: 3 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+Chosen action: -1.0 : None
+
+
+
+Player: 1 
+cards in hand: [3. 3. 0. 0. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6.  7. 29. 11. -1.] 
+Chosen action: 29.0 : ['Poacher' '29' '3']
+
+
+ --- GAME STATE ---
+cards in hand: [3. 3. 0. 0. 0.] 
+cards in discard: [11.  0.  0.  3. 15.  0.  0.  0.  7.  6.  0.  3. 29.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11  0 29] -> size -> 18 
+action values: 0 
+buys: 0 
+player value: 3 
+card supply: [27. 30. 30. 29. 30.  8. 29. 10.  9.  9. 10.  8. 10.  9.  8.  9. 10.] 
+adversary cards in hand: [ 0.  0.  0.  0. 18.] 
+adversary cards in discard: [ 0.  0.  7.  3. 11.  3.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 14 18] -> size -> 15 
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+         -------------------- Turn: 10 -------------------- 
+Player: 0 
+cards in hand: [ 0.  0.  0.  0. 18.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 18.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 15. 14. 16.  7. 29. 11. 18. -1.] 
+Chosen action: 16.0 : ['Remodel' '16' '4']
+
+
+ --- GAME STATE ---
+cards in hand: [ 0.  0.  0.  0. 18.] 
+cards in discard: [ 0.  0.  7.  3. 11.  3. 16.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 14 18 16] -> size -> 16 
+action values: 0 
+buys: 0 
+player value: 4 
+card supply: [27. 30. 30. 29. 30.  8. 29. 10.  9.  9.  9.  8. 10.  9.  8.  9. 10.] 
+adversary cards in hand: [3. 0. 0. 0. 0.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11  0 29] -> size -> 18 
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+Player: 1 
+cards in hand: [3. 0. 0. 0. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 15. 14. 16.  7. 29. 11. 18. -1.] 
+Chosen action: 7.0 : ['Cellar' '7' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [3. 0. 0. 0. 0.] 
+cards in discard: [7.] 
+cards in deck: 13 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11  0 29  7] -> size -> 19 
+action values: 0 
+buys: 0 
+player value: 4 
+card supply: [27. 30. 30. 29. 30.  8. 29. 10.  9.  9.  9.  7. 10.  9.  8.  9. 10.] 
+adversary cards in hand: [ 7.  3.  3. 18.  0.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 14 18 16] -> size -> 16 
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+         -------------------- Turn: 11 -------------------- 
+Player: 0 
+cards in hand: [ 7.  3.  3. 18.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  7. 18.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+Chosen action: -1.0 : None
+ --------- NOTHING HAPPENED --------- 
+
+
+ --- GAME STATE ---
+cards in hand: [ 7.  3.  3. 18.  0.] 
+cards in discard: [] 
+cards in deck: 11 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 14 18 16] -> size -> 16 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [27. 30. 30. 29. 30.  8. 29. 10.  9.  9.  9.  7. 10.  9.  8.  9. 10.] 
+adversary cards in hand: [ 0.  6.  0. 15.  0.] 
+adversary cards in discard: [7. 3. 0. 0. 0. 0.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11  0 29  7] -> size -> 19 
+player victory points: 3 
+
+
+
+
+
+Player: 1 
+cards in hand: [ 0.  6.  0. 15.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 15.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6.  7. 29. 11. -1.] 
+Chosen action: 6.0 : ['Curse' '6' '0']
+
+
+ --- GAME STATE ---
+cards in hand: [ 0.  6.  0. 15.  0.] 
+cards in discard: [7. 3. 0. 0. 0. 0. 6.] 
+cards in deck: 8 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11  0 29  7  6] -> size -> 20 
+action values: 0 
+buys: 0 
+player value: 3 
+card supply: [27. 30. 30. 29. 30.  8. 28. 10.  9.  9.  9.  7. 10.  9.  8.  9. 10.] 
+adversary cards in hand: [ 0.  0. 14. 16.  0.] 
+adversary cards in discard: [ 7.  3.  3. 18.  0.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 14 18 16] -> size -> 16 
+player victory points: 2 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+         -------------------- Turn: 12 -------------------- 
+Player: 0 
+cards in hand: [ 0.  0. 14. 16.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 14. 16.] 
+Chosen action: 16 : ['Remodel' '16' '4']
+
+
+ --- GAME STATE ---
+cards in hand: [0. 0. 0.] 
+cards in discard: [ 7.  3.  3. 18.  0.  0.] 
+cards in deck: 6 
+card top of deck: [] 
+played cards: [16.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 18 16  0] -> size -> 16 
+action values: 0 
+buys: 0 
+player value: 3 
+card supply: [26. 30. 30. 29. 30.  8. 28. 10.  9.  9.  9.  7. 10.  9.  8.  9. 10.] 
+adversary cards in hand: [0. 3. 3. 0. 7.] 
+adversary cards in discard: [ 7.  3.  0.  0.  0.  0.  6.  0.  6.  0. 15.  0.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11  0 29  7  6] -> size -> 20 
+player victory points: 3 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6.  7. 29. 11. -1.] 
+Chosen action: -1.0 : None
+
+
+
+Player: 1 
+cards in hand: [0. 3. 3. 0. 7.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  7.] 
+Chosen action: 7 : ['Cellar' '7' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [ 3.  0. 11.] 
+cards in discard: [ 7.  3.  0.  0.  0.  0.  6.  0.  6.  0. 15.  0.  3.  0.] 
+cards in deck: 2 
+card top of deck: [] 
+played cards: [7.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11  0 29  7  6] -> size -> 20 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [26. 30. 30. 29. 30.  8. 28. 10.  9.  9.  9.  7. 10.  9.  8.  9. 10.] 
+adversary cards in hand: [ 0.  0. 11.  0.  0.] 
+adversary cards in discard: [ 7.  3.  3. 18.  0.  0. 16.  0.  0.  0.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 18 16  0] -> size -> 16 
+player victory points: 2 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+Chosen action: -1.0 : None
+
+
+
+         -------------------- Turn: 13 -------------------- 
+Player: 0 
+cards in hand: [ 0.  0. 11.  0.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 11.] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 15. 14. 16.  7. 29. 11. 18. -1.] 
+Chosen action: 3.0 : ['Estate' '3' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [ 0.  0. 11.  0.  0.] 
+cards in discard: [ 7.  3.  3. 18.  0.  0. 16.  0.  0.  0.  3.] 
+cards in deck: 1 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 18 16  0  3] -> size -> 17 
+action values: 0 
+buys: 0 
+player value: 4 
+card supply: [26. 30. 30. 28. 30.  8. 28. 10.  9.  9.  9.  7. 10.  9.  8.  9. 10.] 
+adversary cards in hand: [ 3.  0.  0. 15.  7.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11  0 29  7  6] -> size -> 20 
+player victory points: 4 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+Player: 1 
+cards in hand: [ 3.  0.  0. 15.  7.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 15.  7.] 
+Chosen action: 7 : ['Cellar' '7' '2']
+
+
+ --- GAME STATE ---
+cards in hand: [3. 0. 0.] 
+cards in discard: [15.] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [7.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11  0 29  7  6] -> size -> 20 
+action values: 0 
+buys: 0 
+player value: 2 
+card supply: [26. 30. 30. 28. 30.  8. 28. 10.  9.  9.  9.  7. 10.  9.  8.  9. 10.] 
+adversary cards in hand: [ 0.  3. 18.  0. 11.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 18 16  0  3] -> size -> 17 
+player victory points: 2 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  3.  6.  7. -1.] 
+Chosen action: 6.0 : ['Curse' '6' '0']
+
+
+ --- GAME STATE ---
+cards in hand: [3. 0. 0.] 
+cards in discard: [15.  6.] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [7.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 15  7  3  6  0 11  0 29  7  6  6] -> size -> 21 
+action values: 0 
+buys: 0 
+player value: 2 
+card supply: [26. 30. 30. 28. 30.  8. 27. 10.  9.  9.  9.  7. 10.  9.  8.  9. 10.] 
+adversary cards in hand: [ 0.  3. 18.  0. 11.] 
+adversary cards in discard: [] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3  0 11  7 18 16  0  3] -> size -> 17 
+player victory points: 1 
+
+
+buy possibilites: [-1] 
+Chosen action: -1 : None
+
+
+
+         -------------------- Turn: 14 -------------------- 
+Player: 0 
+cards in hand: [ 0.  3. 18.  0. 11.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 18. 11.] 
+Chosen action: 18 : ['Throne room' '18' '4']
+
+
+Traceback (most recent call last):
+  File "/home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI/Dominion_game.py", line 637, in <module>
+    Dominion_game.play_loop_AI(random_player(), random_player())
+  File "/home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI/Dominion_game.py", line 149, in play_loop_AI
+    action_turns = self.__action_phase(players, players_input, main, advesary, game_history_file)
+  File "/home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI/Dominion_game.py", line 300, in __action_phase
+    card_effects().play_card(play_action, self.game_state, players[main], players_input[main],  players[adversary], players_input[adversary])
+  File "/home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI/card_effects.py", line 109, in play_card
+    game_state, player_state, adv_state = self.card_effect_dict[self.card_list[card_idx][0]](game_state, player_state, player_input, adv_state=adv_state, adv_input=adv_input)
+  File "/home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI/card_effects.py", line 406, in throne_room
+    game_state, player_state, adv_state = self.card_effect_dict[self.card_list[choosen_card][0]](game_state, player_state, player_input, adv_state=adv_state, adv_input=adv_input)
+  File "/home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI/card_effects.py", line 240, in workshop
+    card_set = game_state["dominion_cards"]
+KeyError: 'dominion_cards'
