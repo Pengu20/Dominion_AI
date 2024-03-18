@@ -95,7 +95,7 @@ class card_effects():
     
 
 
-    def play_card(self, card_idx, game_state, player_state, player_input, adv_state=None, adv_input=None, card2played_cards=True):
+    def play_card(self, card_idx, game_state, player_state, player_input=None, adv_state=None, adv_input=None, card2played_cards=True):
         
         ''' [Summary]
         This function will play a card from the players hand. 

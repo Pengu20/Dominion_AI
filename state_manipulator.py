@@ -30,6 +30,17 @@ def merge_game_player_state(game_state, player_state, adversary_state=None):
     return game_state
 
 
+def put_player_state_adv_state(game_state, player_state):
+    game_state["adv_cards_in_hand"] = len(player_state["cards_in_hand"])
+    game_state["adv_cards_in_deck"] = player_state["cards_in_deck"]
+    game_state["adv_cards_in_discard"] = len(player_state["cards_in_discard"])
+    game_state["adv_owned_cards"] = player_state["owned_cards"]
+    game_state["adv_Victory_points"] = player_state["Victory_points"]
+
+    return game_state
+
+
+
 def get_player_state_from_game_state(game_state):
     player_state = {
         "cards_in_hand": game_state["cards_in_hand"],
@@ -204,7 +215,10 @@ def supply2discard(game_state, player_state, card):
 
 def card_idx_2_set_idx(card_idx, game_state):
     # This function will return the index of the card in the dominion_cards game state, based on the card index
-
+    if card_idx == -1:
+        return -1
+    
+    
     card_idx = int(card_idx)
 
     for i in range(len(game_state["dominion_cards"])):
