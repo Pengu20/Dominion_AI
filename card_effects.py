@@ -142,12 +142,14 @@ class card_effects():
     
     def curse(self, game_state, player_state, player_input, adv_state, adv_input):
 
-        # little too powerfull in this meta, so it is nerfed
-        player_state["Victory_points"] += 0
+        player_state["Victory_points"] += -1
         return game_state, player_state, adv_state
     
 
     def cellar(self, game_state, player_state, player_input, adv_state, adv_input):
+        ''' 7
+        +1 action. Discard any number of cards. Draw that many
+        '''
         game_state["Unique_actions"] = "discard_and_draw"
         cards_in_hand = player_state["cards_in_hand"]
 
@@ -158,8 +160,10 @@ class card_effects():
             for combination in set(list(combinations(cards_in_hand, i))):
                 all_combinations.append(combination)
 
-        all_combinations.append(-1) # Append the ability to do nothing
+        
         actions_list = np.arange(len(all_combinations))
+        actions_list = np.append(actions_list, -1) # Append the ability to do nothing
+
 
         action = player_input.choose_action(actions_list, game_state)
     
@@ -332,37 +336,35 @@ class card_effects():
         game_state["Unique_actions"] = "trash_card"
 
         cards_in_hand = player_state["cards_in_hand"]
-        
-        actions_list = np.arange(len(cards_in_hand))
 
-        action = player_input.choose_action(actions_list, game_state)
+        action = player_input.choose_action(cards_in_hand, game_state)
         
         # Trash card and gain card costing up to 2 more
-        trash_card = int(player_state["cards_in_hand"][action])
-        val = int(self.card_list[trash_card][2]) + 2
+        val = int(self.card_list[int(action)][2]) + 2
 
 
 
 
-        player_state = sm.trash_card(player_state, player_state["cards_in_hand"][action])
+        player_state = sm.trash_card(player_state, action)
 
         card_set = game_state["dominion_cards"]
 
         Available_cards = []
         for card in card_set:
+
             set_index = sm.card_idx_2_set_idx(int(card[1]), game_state=game_state)
             if int(card[2]) <= val and int(game_state["supply_amount"][set_index]) > 0:
-                Available_cards.append(card)
+                Available_cards.append(card[1])
         
         if len(Available_cards) == 0:
             return game_state, player_state, adv_state
         
 
         # Choose to get a given card
-        actions_list = np.arange(len(Available_cards))
-        action = player_input.choose_action(actions_list, game_state)
+        game_state["Unique_actions"] = "gain card"
+        action = player_input.choose_action(Available_cards, game_state)
 
-        game_state = sm.supply2discard(game_state, player_state, int(Available_cards[action][1]))
+        game_state = sm.supply2discard(game_state, player_state, int(action))
         player_state = sm.get_player_state_from_game_state(game_state)
 
         return game_state, player_state, adv_state

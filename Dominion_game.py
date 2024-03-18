@@ -159,8 +159,6 @@ class Dominion:
 
 
 
-
-
             if action_turns == 0 and buy_turns == 0:
                 print(" --------- NOTHING HAPPENED --------- ")
                 game_history_file.write(f" --------- NOTHING HAPPENED --------- \n")
@@ -170,14 +168,32 @@ class Dominion:
 
 
 
-            # ---------- HIDDEN PHASE: Update victory points check if won ---------
-            self.game_state = self.__Update_victory_points(self.game_state, players[main_player])
+            # ---------- HIDDEN PHASE: check if game should terminate ---------
+            if self.__game_is_over():
+                self.game_state = self.__Update_victory_points(self.game_state, players[main_player])
+                main_player_victory_points = players[main_player]["Victory_points"]
 
-            
+                self.game_state = self.__Update_victory_points(self.game_state, players[advesary])
+                advesary_victory_points = players[advesary]["Victory_points"]
+
+                if main_player_victory_points > advesary_victory_points:
+                    self.game_state["Player_won"] = main_player
+                    game_history_file.write(f"Player {main_player} won the game! \n")
+                    break
+                else:
+                    self.game_state["Player_won"] = advesary
+                    game_history_file.write(f"Player {advesary} won the game! \n")
+                    break
+
+                    
+
+            # Fast gameplay loop
+            ''' 
             if players[main_player]["Victory_points"] >= 4:
                 self.game_state["Player_won"] = main_player
                 game_history_file.write(f"Player {main_player} won the game! \n")
                 break
+            '''
 
 
 
@@ -206,7 +222,29 @@ class Dominion:
 
         return 0 # return index of who wins.
     
+    def __game_is_over(self):
+        '''[Summary]
+        This function will check if the game is over. 
+        If the game is over, it will return the index of the player that won.
 
+        Conditions for game is over: All provinces are bought, or three different piles are empty.
+        '''
+
+        game_is_over = False
+
+        if self.game_state["supply_amount"][5] == 0:
+            game_is_over = True
+        
+        empty_piles = 0
+        for pile in self.game_state["supply_amount"]:
+            if pile == 0:
+                empty_piles += 1
+        
+        if empty_piles >= 3:
+            game_is_over = True
+
+
+        return game_is_over
 
     def __action_phase(self, players, players_input, main, adversary, game_history_file):
         ''' [Summary]
@@ -239,9 +277,9 @@ class Dominion:
 
 
         # DEBUG option: Play specific card
-        # debug_card = 27
-        # sm.get_card2hand(players[main], debug_card)
-        # play_action = debug_card
+        debug_card = 7
+        sm.get_card2hand(players[main], debug_card)
+        play_action = debug_card
     
         card_idx = sm.card_idx_2_set_idx(play_action, self.game_state)
         if card_idx != -1:
@@ -255,7 +293,6 @@ class Dominion:
         
         
         while play_action != -1:
-            print("play action: ", play_action)
             action_turns += 1
             players[main]["actions"] -= 1
 
@@ -347,7 +384,8 @@ class Dominion:
                 card_obj = self.game_state["dominion_cards"][card_idx]
             else:
                 card_obj = "None"
-
+                
+            game_history_file.write(f"buy possibilites: {list_of_actions_buy} \n")
             game_history_file.write(f"Chosen action: {buy_action} : {card_obj}\n")
         
 
@@ -377,7 +415,8 @@ class Dominion:
         for card in all_cards:
             if card in self.victory_points_index:
                 card_effects().play_card(card, game_state, player_state, card2played_cards=False)
-                
+        
+
         return game_state
 
 

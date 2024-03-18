@@ -209,8 +209,8 @@ def supply2discard(game_state, player_state, card):
     player_state["owned_cards"] = np.append(player_state["owned_cards"], card)
 
     # Remove a card from the supply pile
-
-    game_state["supply_amount"][card] = str(int(game_state["supply_amount"][card]) - 1)
+    set_index = card_idx_2_set_idx(card, game_state)
+    game_state["supply_amount"][set_index] = str(int(game_state["supply_amount"][set_index]) - 1)
 
     game_state = merge_game_player_state(game_state, player_state)
 
