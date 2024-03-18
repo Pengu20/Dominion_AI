@@ -168,7 +168,7 @@ def hand_2_played_cards(player_state, card):
     return player_state
 
 
-def played_cards_2_discard_pile(player_state):
+def played_cards_2_discard_pile(game_state, player_state):
     ''' [Summary]
     This function will move all the played cards to the discard pile.
 
@@ -177,7 +177,11 @@ def played_cards_2_discard_pile(player_state):
     '''
     player_state["cards_in_discard"] = np.append(player_state["cards_in_discard"], player_state["played_cards"])
     player_state["played_cards"] = np.array([])
-    return player_state
+
+
+    game_state = merge_game_player_state(game_state, player_state)
+
+    return game_state
 
 
 def get_card2hand(player_state, card):
@@ -218,7 +222,7 @@ def card_idx_2_set_idx(card_idx, game_state):
     if card_idx == -1:
         return -1
     
-    
+
     card_idx = int(card_idx)
 
     for i in range(len(game_state["dominion_cards"])):
@@ -286,3 +290,15 @@ def hand2deck(game_state, player_state, card):
 
     return player_state
 
+
+def discard_hand(game_state, player_state):
+    ''' [Summary]
+    This function will move all the cards from the hand to the discard pile.
+    '''
+
+    player_state["cards_in_discard"] = np.append(player_state["cards_in_discard"], player_state["cards_in_hand"])
+    player_state["cards_in_hand"] = np.array([])
+
+    game_state = merge_game_player_state(game_state, player_state)
+
+    return game_state

@@ -6,16 +6,16 @@ Game cards: [['Copper' '0' '0']
  ['Duchy' '4' '5']
  ['Province' '5' '8']
  ['Curse' '6' '0']
- ['Sentry' '31' '5']
- ['Cellar' '7' '2']
- ['Vassal' '28' '3']
- ['Smithy' '17' '4']
- ['Festival' '20' '5']
- ['Council room' '19' '5']
- ['Moat' '9' '2']
- ['Workshop' '11' '3']
  ['Chapel' '8' '2']
- ['Laboratory' '21' '5']]
+ ['Library' '22' '5']
+ ['Moneylender' '15' '4']
+ ['Village' '10' '3']
+ ['Laboratory' '21' '5']
+ ['Cellar' '7' '2']
+ ['Gardens' '13' '4']
+ ['Mine' '24' '5']
+ ['Moat' '9' '2']
+ ['Poacher' '29' '3']]
 
 
 
@@ -24,230 +24,97 @@ Game cards: [['Copper' '0' '0']
 
  ---------- Turn: 0 ---------- 
 Player: 1 
-cards in hand: [0. 3. 0. 0. 3.] 
+cards in hand: [0. 0. 0. 3. 3.] 
 ----------- ACTION PHASE ----------- 
 action possibilites: [-1] 
-Chosen action: -1 : is the same as card ['Laboratory' '21' '5']
+Chosen action: -1 : None
 
 
 
 
 ----------- BUY PHASE ----------- 
-buy possibilites: [ 0.  1.  3.  6.  7. 28.  9. 11.  8. -1.] 
-Chosen action: 8.0 
-cards in hand: [0. 3. 0. 0. 3.] 
-cards in discard: [8.] 
+buy possibilites: [ 0.  1.  3.  6.  8. 10.  7.  9. 29. -1.] 
+Chosen action: 10.0 : ['Village' '10' '3']
+cards in hand: [0. 0. 0. 3. 3.] 
+cards in discard: [10.] 
 cards in deck: 5 
 card top of deck: [] 
 played cards: [] 
-owned cards: [0 0 0 0 0 0 0 3 3 3 8] -> size -> 11 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 10] -> size -> 11 
 action values: 0 
 buys: 0 
-player value: 1 
-card supply: [30. 30. 30. 30. 30.  8. 30. 10. 10. 10. 10. 10. 10. 10. 10.  9. 10.] 
-adversary cards in hand: [0. 3. 0. 3. 0.] 
+player value: 0 
+card supply: [30. 30. 30. 30. 30.  8. 30. 10. 10. 10.  9. 10. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [0. 0. 0. 0. 3.] 
 adversary cards in discard: [] 
 adversary cards in deck: [0 0 0 0 0 0 0 3 3 3] -> size -> 10 
 player victory points: 3 
 
 
-Chosen action: -1 
+Chosen action: -1 : None
+cards in hand: [0. 0. 0. 3. 3.] 
+cards in discard: [10.] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 10] -> size -> 11 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [30. 30. 30. 30. 30.  8. 30. 10. 10. 10.  9. 10. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [0. 0. 0. 0. 3.] 
+adversary cards in discard: [] 
+adversary cards in deck: [0 0 0 0 0 0 0 3 3 3] -> size -> 10 
+player victory points: 3 
+
+
 
 
 
  ---------- Turn: 0 ---------- 
 Player: 0 
-cards in hand: [0. 3. 0. 3. 0.] 
+cards in hand: [0. 0. 0. 0. 3.] 
 ----------- ACTION PHASE ----------- 
 action possibilites: [-1] 
-Chosen action: -1 : is the same as card ['Laboratory' '21' '5']
+Chosen action: -1 : None
 
 
 
 
 ----------- BUY PHASE ----------- 
-buy possibilites: [ 0.  1.  3.  6.  7. 28.  9. 11.  8. -1.] 
-Chosen action: 1.0 
-cards in hand: [0. 3. 0. 3. 0.] 
-cards in discard: [1.] 
+buy possibilites: [ 0.  1.  3.  6.  8. 15. 10.  7. 13.  9. 29. -1.] 
+Chosen action: 13.0 : ['Gardens' '13' '4']
+cards in hand: [0. 0. 0. 0. 3.] 
+cards in discard: [13.] 
 cards in deck: 5 
 card top of deck: [] 
 played cards: [] 
-owned cards: [0 0 0 0 0 0 0 3 3 3 1] -> size -> 11 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 13] -> size -> 11 
 action values: 0 
 buys: 0 
 player value: 0 
-card supply: [30. 29. 30. 30. 30.  8. 30. 10. 10. 10. 10. 10. 10. 10. 10.  9. 10.] 
-adversary cards in hand: [0. 3. 0. 0. 3.] 
-adversary cards in discard: [8.] 
-adversary cards in deck: [0 0 0 0 0 0 0 3 3 3 8] -> size -> 11 
-player victory points: 3 
-
-
-Chosen action: -1 
-
-
-
- ---------- Turn: 1 ---------- 
-Player: 1 
-cards in hand: [0. 3. 0. 0. 3.] 
------------ ACTION PHASE ----------- 
-action possibilites: [-1] 
-Chosen action: -1 : is the same as card ['Laboratory' '21' '5']
-
-
-
-
------------ BUY PHASE ----------- 
-buy possibilites: [ 0.  1.  3.  6.  7. 28.  9. 11.  8. -1.] 
-Chosen action: 8.0 
-cards in hand: [0. 3. 0. 0. 3.] 
-cards in discard: [8. 8.] 
-cards in deck: 5 
-card top of deck: [] 
-played cards: [] 
-owned cards: [0 0 0 0 0 0 0 3 3 3 8 8] -> size -> 12 
-action values: 0 
-buys: 0 
-player value: 1 
-card supply: [30. 29. 30. 30. 30.  8. 30. 10. 10. 10. 10. 10. 10. 10. 10.  8. 10.] 
-adversary cards in hand: [0. 3. 0. 3. 0.] 
-adversary cards in discard: [1.] 
-adversary cards in deck: [0 0 0 0 0 0 0 3 3 3 1] -> size -> 11 
-player victory points: 3 
-
-
-Chosen action: -1 
-
-
-
- ---------- Turn: 1 ---------- 
-Player: 0 
-cards in hand: [0. 3. 0. 3. 0.] 
------------ ACTION PHASE ----------- 
-action possibilites: [-1] 
-Chosen action: -1 : is the same as card ['Laboratory' '21' '5']
-
-
-
-
------------ BUY PHASE ----------- 
-buy possibilites: [ 0.  1.  3.  6.  7. 28.  9. 11.  8. -1.] 
-Chosen action: 9.0 
-cards in hand: [0. 3. 0. 3. 0.] 
-cards in discard: [1. 9.] 
-cards in deck: 5 
-card top of deck: [] 
-played cards: [] 
-owned cards: [0 0 0 0 0 0 0 3 3 3 1 9] -> size -> 12 
-action values: 0 
-buys: 0 
-player value: 1 
-card supply: [30. 29. 30. 30. 30.  8. 30. 10. 10. 10. 10. 10. 10.  9. 10.  8. 10.] 
-adversary cards in hand: [0. 3. 0. 0. 3.] 
-adversary cards in discard: [8. 8.] 
-adversary cards in deck: [0 0 0 0 0 0 0 3 3 3 8 8] -> size -> 12 
-player victory points: 3 
-
-
-Chosen action: -1 
-
-
-
- ---------- Turn: 2 ---------- 
-Player: 1 
-cards in hand: [0. 3. 0. 0. 3.] 
------------ ACTION PHASE ----------- 
-action possibilites: [-1] 
-Chosen action: -1 : is the same as card ['Laboratory' '21' '5']
-
-
-
-
------------ BUY PHASE ----------- 
-buy possibilites: [ 0.  1.  3.  6.  7. 28.  9. 11.  8. -1.] 
-Chosen action: 1.0 
-cards in hand: [0. 3. 0. 0. 3.] 
-cards in discard: [8. 8. 1.] 
-cards in deck: 5 
-card top of deck: [] 
-played cards: [] 
-owned cards: [0 0 0 0 0 0 0 3 3 3 8 8 1] -> size -> 13 
-action values: 0 
-buys: 0 
-player value: 0 
-card supply: [30. 28. 30. 30. 30.  8. 30. 10. 10. 10. 10. 10. 10.  9. 10.  8. 10.] 
-adversary cards in hand: [0. 3. 0. 3. 0.] 
-adversary cards in discard: [1. 9.] 
-adversary cards in deck: [0 0 0 0 0 0 0 3 3 3 1 9] -> size -> 12 
-player victory points: 3 
-
-
-Chosen action: -1 
-
-
-
- ---------- Turn: 2 ---------- 
-Player: 0 
-cards in hand: [0. 3. 0. 3. 0.] 
------------ ACTION PHASE ----------- 
-action possibilites: [-1] 
-Chosen action: -1 : is the same as card ['Laboratory' '21' '5']
-
-
-
-
------------ BUY PHASE ----------- 
-buy possibilites: [ 0.  1.  3.  6.  7. 28.  9. 11.  8. -1.] 
-Chosen action: 0.0 
-cards in hand: [0. 3. 0. 3. 0.] 
-cards in discard: [1. 9. 0.] 
-cards in deck: 5 
-card top of deck: [] 
-played cards: [] 
-owned cards: [0 0 0 0 0 0 0 3 3 3 1 9 0] -> size -> 13 
-action values: 0 
-buys: 0 
-player value: 3 
-card supply: [29. 28. 30. 30. 30.  8. 30. 10. 10. 10. 10. 10. 10.  9. 10.  8. 10.] 
-adversary cards in hand: [0. 3. 0. 0. 3.] 
-adversary cards in discard: [8. 8. 1.] 
-adversary cards in deck: [0 0 0 0 0 0 0 3 3 3 8 8 1] -> size -> 13 
-player victory points: 3 
-
-
-Chosen action: -1 
-
-
-
- ---------- Turn: 3 ---------- 
-Player: 1 
-cards in hand: [0. 3. 0. 0. 3.] 
------------ ACTION PHASE ----------- 
-action possibilites: [-1] 
-Chosen action: -1 : is the same as card ['Laboratory' '21' '5']
-
-
-
-
------------ BUY PHASE ----------- 
-buy possibilites: [ 0.  1.  3.  6.  7. 28.  9. 11.  8. -1.] 
-Chosen action: 3.0 
-cards in hand: [0. 3. 0. 0. 3.] 
-cards in discard: [8. 8. 1. 3.] 
-cards in deck: 5 
-card top of deck: [] 
-played cards: [] 
-owned cards: [0 0 0 0 0 0 0 3 3 3 8 8 1 3] -> size -> 14 
-action values: 0 
-buys: 0 
-player value: 1 
-card supply: [29. 28. 30. 29. 30.  8. 30. 10. 10. 10. 10. 10. 10.  9. 10.  8. 10.] 
-adversary cards in hand: [0. 3. 0. 3. 0.] 
-adversary cards in discard: [1. 9. 0.] 
-adversary cards in deck: [0 0 0 0 0 0 0 3 3 3 1 9 0] -> size -> 13 
+card supply: [30. 30. 30. 30. 30.  8. 30. 10. 10. 10.  9. 10. 10.  9. 10. 10. 10.] 
+adversary cards in hand: [] 
+adversary cards in discard: [10.  0.  0.  0.  3.  3.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 10] -> size -> 11 
 player victory points: 4 
 
 
-Chosen action: -1 
-Player 1 won the game! 
+Chosen action: -1 : None
+cards in hand: [0. 0. 0. 0. 3.] 
+cards in discard: [13.] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 13] -> size -> 11 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [30. 30. 30. 30. 30.  8. 30. 10. 10. 10.  9. 10. 10.  9. 10. 10. 10.] 
+adversary cards in hand: [] 
+adversary cards in discard: [10.  0.  0.  0.  3.  3.] 
+adversary cards in deck: [ 0  0  0  0  0  0  0  3  3  3 10] -> size -> 11 
+player victory points: 4 
+
+
+Player 0 won the game! 

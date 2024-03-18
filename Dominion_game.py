@@ -154,29 +154,40 @@ class Dominion:
             # Choose action
             self.game_state = sm.merge_game_player_state(self.game_state, players[main_player], players[main_player*(-1) + 1])
             self.game_state["Unique_actions"] = "action"
-            action = players_input[main_player].choose_action(actions, self.game_state)
-            card_idx = sm.card_idx_2_set_idx(action, self.game_state)
-            card_obj = self.game_state["dominion_cards"][card_idx]
-            
-            game_history_file.write(f"Chosen action: {action} : is the same as card {card_obj}\n")
+            play_action = players_input[main_player].choose_action(actions, self.game_state)
+
+        
+            card_idx = sm.card_idx_2_set_idx(play_action, self.game_state)
+            if card_idx != -1:
+                card_obj = self.game_state["dominion_cards"][card_idx]
+            else:
+                card_obj = "None"
+
+            game_history_file.write(f"Chosen action: {play_action} : {card_obj}\n")
 
             
-            while action != -1:
-                idx = sm.card_idx_2_set_idx(action, self.game_state)
+            while play_action != -1:
+                idx = sm.card_idx_2_set_idx(play_action, self.game_state)
                 index = sm.card_idx_2_set_idx(self.game_state["dominion_cards"][idx], self.game_state)
 
                 Dominion_cards = self.game_state["dominion_cards"][index]
                 game_history_file.write(f"Played card: {Dominion_cards} \n")
 
 
-                card_effects().play_card(action, self.game_state, players[main], players_input[main],  players[advesary], players_input[advesary])
+                card_effects().play_card(play_action, self.game_state, players[main], players_input[main],  players[advesary], players_input[advesary])
                 self.__Debug_state(players, main_player, players_input, game_history_file)
 
 
-                action = player1.choose_action(actions, self.game_state)
-                game_history_file.write(f"Chosen action: {action} \n")
+                play_action = player1.choose_action(actions, self.game_state)
 
 
+                card_idx = sm.card_idx_2_set_idx(play_action, self.game_state)
+                if card_idx != -1:
+                    card_obj = self.game_state["dominion_cards"][card_idx]
+                else:
+                    card_obj = "None"
+
+                game_history_file.write(f"Chosen action: {play_action} : {card_obj}\n")
 
 
 
@@ -195,26 +206,44 @@ class Dominion:
             self.game_state = self.__update_player_treasure_value(players[main_player], self.game_state, players[main_player])
 
 
-            buy_actions = self.__get_buys(players[main_player], self.game_state)
-            game_history_file.write(f"buy possibilites: {buy_actions} \n")
+            list_of_actions_buy = self.__get_buys(players[main_player], self.game_state)
+            game_history_file.write(f"buy possibilites: {list_of_actions_buy} \n")
 
 
 
             # Choose a buy
-            action = player1.choose_action(buy_actions, self.game_state)
-            game_history_file.write(f"Chosen action: {action} \n")
+            buy_action = player1.choose_action(list_of_actions_buy, self.game_state)
+            card_idx = sm.card_idx_2_set_idx(buy_action, self.game_state)
+            if card_idx != -1:
+                card_obj = self.game_state["dominion_cards"][card_idx]
+            else:
+                card_obj = "None"
+
+            game_history_file.write(f"Chosen action: {buy_action} : {card_obj}\n")
 
 
-            while action != -1:
-                players[main_player], self.game_state = self.__buy_card_from_supply(player_state=players[main_player], game_state=self.game_state, card_idx=action)
+
+            while buy_action != -1:
+                players[main_player], self.game_state = self.__buy_card_from_supply(player_state=players[main_player], game_state=self.game_state, card_idx=buy_action)
                 self.__Debug_state(players, main_player, players_input, game_history_file)
                 
 
                 
-                buy_actions = self.__get_buys(players[main_player], self.game_state)
-                action = player1.choose_action(buy_actions, self.game_state)
-                game_history_file.write(f"Chosen action: {action} \n")
+                list_of_actions_buy = self.__get_buys(players[main_player], self.game_state)
+                buy_action = player1.choose_action(list_of_actions_buy, self.game_state)
+                card_idx = sm.card_idx_2_set_idx(buy_action, self.game_state)
+                if card_idx != -1:
+                    card_obj = self.game_state["dominion_cards"][card_idx]
+                else:
+                    card_obj = "None"
 
+                game_history_file.write(f"Chosen action: {buy_action} : {card_obj}\n")
+
+
+            if play_action == -1 and buy_action == -1:
+                print(" --------- NOTHING HAPPENED --------- ")
+                game_history_file.write(f" --------- NOTHING HAPPENED --------- \n")
+                self.__Debug_state(players, main_player, players_input, game_history_file)
 
 
             # ---------- HIDDEN PHASE: Update victory points check if won ---------
@@ -230,7 +259,18 @@ class Dominion:
 
 
             # Reset and draw new hand
-            self.game_state = sm.put_player_state_adv_state(self.game_state, players[main_player])    
+            self.game_state = sm.put_player_state_adv_state(self.game_state, players[main_player])  
+
+
+            # flush all cards in hand and discard
+            self.game_state = sm.played_cards_2_discard_pile(self.game_state, players[main_player])
+            self.game_state = sm.discard_hand(self.game_state, players[main_player])
+
+            players[main_player] = sm.draw_n_cards_from_deck(players[main_player], 5)
+
+            players[main_player] = sm.get_player_state_from_game_state(self.game_state)
+
+
             turns_all_players += 1
 
             if turns_all_players % 2 == 0:
@@ -239,7 +279,7 @@ class Dominion:
             main_player += 1
             if main_player >= players_amount:
                 main_player = 0
-                
+            
             
 
 
