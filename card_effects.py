@@ -341,6 +341,10 @@ class card_effects():
 
         cards_in_hand = player_state["cards_in_hand"]
 
+        # Cannot remodel if there are no cards in hand
+        if len(cards_in_hand) == 0:
+            return game_state, player_state, adv_state
+
         action = player_input.choose_action(cards_in_hand, game_state)
         
         # Trash card and gain card costing up to 2 more
@@ -680,7 +684,7 @@ class card_effects():
 
         drawn_cards = length_adv_hand_after - length_adv_hand
 
-        
+
         for i in range(-1,-1 -drawn_cards, -1):
             adv_card = int(adv_state["cards_in_hand"][i])
 

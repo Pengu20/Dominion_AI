@@ -84,22 +84,29 @@ class Dominion:
         return player_state_start
 
 
-    def play_loop_AI(self, player1, player2):
+    def play_loop_AI(self, player1, player2, verbose=True):
         ''' [Summary]
         This function is the main loop of the game. It will keep running until the game is over.
 
         ARGS:
             player1 player: This type object must be capable of choosing which cards to play and when.
             player2 player: This is also a player type 
+            verbose [int]: this variable will determine if the game history is written to a file or not.
         '''
 
+        if verbose:
+            game_history_file = open("game_history.txt", "w")
+            game_history_file.write(" --------- CARDS IN THIS GAME --------- \n")
+        else:
+            game_history_file = None
 
-        game_history_file = open("game_history.txt", "w")
 
-        game_history_file.write(" --------- CARDS IN THIS GAME --------- \n")
         dominion_cards = self.game_state["dominion_cards"]
-        game_history_file.write(f"Game cards: {dominion_cards}")
-        game_history_file.write("\n"*4)
+
+
+        if verbose:
+            game_history_file.write(f"Game cards: {dominion_cards}")
+            game_history_file.write("\n"*4)
 
 
         players_amount = 2 # hard constant for this game setup. Cannot play more or less than two players 
@@ -125,17 +132,24 @@ class Dominion:
 
         while self.game_state["Player_won"] == -1:
             
-            
-            game_history_file.write("\n"*3)
+            if verbose:
+                game_history_file.write("\n"*3)
+
+                
             if turns_all_players % 2 == 0:
                 turns += 1
                 # print("         -------------------- Turn: ", turns, " -------------------- ")
-                game_history_file.write(f"         -------------------- Turn: {turns} -------------------- \n")
+
+                if verbose:
+                    game_history_file.write(f"         -------------------- Turn: {turns} -------------------- \n")
 
 
-            game_history_file.write(f"Player: {main_player} \n")
             cards_in_hand = players[main_player]["cards_in_hand"]
-            game_history_file.write(f"cards in hand: {cards_in_hand} \n")
+
+
+            if verbose:
+                game_history_file.write(f"Player: {main_player} \n")
+                game_history_file.write(f"cards in hand: {cards_in_hand} \n")
 
 
 
@@ -145,22 +159,25 @@ class Dominion:
 
 
             # --------- ACTION PHASE ---------
-            game_history_file.write(f"----------- ACTION PHASE ----------- \n")
-            action_turns = self.__action_phase(players, players_input, main, advesary, game_history_file)
+            if verbose:
+                game_history_file.write(f"----------- ACTION PHASE ----------- \n")
+
+            action_turns = self.__action_phase(players, players_input, main, advesary, game_history_file, verbose=verbose)
 
 
 
             # --------- BUY PHASE ---------
-            game_history_file.write("\n"*2)
-            game_history_file.write(f"----------- BUY PHASE ----------- \n")
-            buy_turns = self.__buy_phase(players, players_input, main, advesary, game_history_file)
+            if verbose:
+                game_history_file.write("\n"*2)
+                game_history_file.write(f"----------- BUY PHASE ----------- \n")
+            buy_turns = self.__buy_phase(players, players_input, main, advesary, game_history_file, verbose=verbose)
 
 
 
 
-            if action_turns == 0 and buy_turns == 0:
+            if action_turns == 0 and buy_turns == 0 and verbose:
                 game_history_file.write(f" --------- NOTHING HAPPENED --------- \n")
-                self.__Debug_state(players, main_player, players_input, game_history_file)
+                # self.__Debug_state(players, main_player, players_input, game_history_file)
 
 
 
@@ -175,11 +192,13 @@ class Dominion:
 
                 if main_player_victory_points > advesary_victory_points:
                     self.game_state["Player_won"] = main_player
-                    game_history_file.write(f"Player {main_player} won the game! \n")
+                    if verbose:
+                        game_history_file.write(f"Player {main_player} won the game! \n")
                     break
                 else:
                     self.game_state["Player_won"] = advesary
-                    game_history_file.write(f"Player {advesary} won the game! \n")
+                    if verbose:
+                        game_history_file.write(f"Player {advesary} won the game! \n")
                     break
 
             # Fast gameplay loop
@@ -241,7 +260,7 @@ class Dominion:
 
         return game_is_over
 
-    def __action_phase(self, players, players_input, main, adversary, game_history_file):
+    def __action_phase(self, players, players_input, main, adversary, game_history_file, verbose=True):
         ''' [Summary]
         This function handles the action phase of the game. 
         It will keep running until the player decides to end the action phase.
@@ -262,7 +281,9 @@ class Dominion:
 
         # Get all possible actions
         actions = self.__get_actions(players[main])
-        game_history_file.write(f"action possibilites: {actions} \n")
+        
+        if verbose:
+            game_history_file.write(f"action possibilites: {actions} \n")
 
 
         # Choose action
@@ -287,7 +308,9 @@ class Dominion:
         else:
             card_obj = "None"
 
-        game_history_file.write(f"Chosen action: {play_action} : {card_obj}\n")
+
+        if verbose:
+            game_history_file.write(f"Chosen action: {play_action} : {card_obj}\n")
 
         
         
@@ -296,7 +319,9 @@ class Dominion:
             players[main]["actions"] -= 1
 
             card_effects().play_card(play_action, self.game_state, players[main], players_input[main],  players[adversary], players_input[adversary])
-            self.__Debug_state(players, main, players_input, game_history_file)
+            
+            if verbose:
+                self.__Debug_state(players, main, players_input, game_history_file)
 
 
             actions = self.__get_actions(players[main])
@@ -309,8 +334,9 @@ class Dominion:
             else:
                 card_obj = "None"
 
-            game_history_file.write(f"action possibilites: {actions} \n")
-            game_history_file.write(f"Chosen action: {play_action} : {card_obj}\n")
+            if verbose:
+                game_history_file.write(f"action possibilites: {actions} \n")
+                game_history_file.write(f"Chosen action: {play_action} : {card_obj}\n")
             
 
 
@@ -320,7 +346,7 @@ class Dominion:
 
         return action_turns
 
-    def __buy_phase(self, players, players_input, main, adversary, game_history_file):
+    def __buy_phase(self, players, players_input, main, adversary, game_history_file, verbose):
         '''
         [Summary]
         This function handles the buy phase of the game.
@@ -347,7 +373,9 @@ class Dominion:
 
 
         list_of_actions_buy = self.__get_buys(players[main], self.game_state)
-        game_history_file.write(f"buy possibilites: {list_of_actions_buy} \n")
+
+        if verbose: 
+            game_history_file.write(f"buy possibilites: {list_of_actions_buy} \n")
 
 
 
@@ -359,7 +387,8 @@ class Dominion:
         else:
             card_obj = "None"
 
-        game_history_file.write(f"Chosen action: {buy_action} : {card_obj}\n")
+        if verbose: 
+            game_history_file.write(f"Chosen action: {buy_action} : {card_obj}\n")
 
 
 
@@ -371,7 +400,9 @@ class Dominion:
 
             players[main], self.game_state = self.__buy_card_from_supply(player_state=players[main], game_state=self.game_state, card_idx=buy_action)
             self.game_state = sm.merge_game_player_state(self.game_state, players[main], players[adversary])
-            self.__Debug_state(players, main, players_input, game_history_file)
+            
+            if verbose:
+                self.__Debug_state(players, main, players_input, game_history_file)
             
 
             
@@ -382,9 +413,10 @@ class Dominion:
                 card_obj = self.game_state["dominion_cards"][card_idx]
             else:
                 card_obj = "None"
-                
-            game_history_file.write(f"buy possibilites: {list_of_actions_buy} \n")
-            game_history_file.write(f"Chosen action: {buy_action} : {card_obj}\n")
+            
+            if verbose: 
+                game_history_file.write(f"buy possibilites: {list_of_actions_buy} \n")
+                game_history_file.write(f"Chosen action: {buy_action} : {card_obj}\n")
         
 
 
@@ -605,12 +637,6 @@ class Dominion:
 
 
 
-
-
-
-    
-
-
     
 
     def __insert_card_in_discard(self, player_state, card):
@@ -634,10 +660,10 @@ class Dominion:
 
 
 
-for i in range(1000):
+for i in range(10000):
     print( "----------------- LOOP", i, "----------------- ")
     Dominion_game = Dominion()
-    Dominion_game.play_loop_AI(random_player(), random_player())
+    Dominion_game.play_loop_AI(random_player(), random_player(), verbose=False)
 
 
 

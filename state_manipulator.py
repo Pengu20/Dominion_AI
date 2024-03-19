@@ -91,9 +91,14 @@ def draw_n_cards_from_deck(player_state, n):
         cards_drawn += 1
         if cards_drawn == n:
             break
-    
-    draws = np.random.choice(deck, min(n - cards_drawn, int(player_state["cards_in_deck"])), replace=False) # Can only draw as many cards as there is in the deck
-    
+
+    if len(deck) == 0:
+        return player_state
+        
+    # Can only draw as many cards as there is in the deck
+    draws = np.random.choice(deck, min(n - cards_drawn, len(deck)), replace=False) 
+
+
     for card in top_deck_draws:
         draws = np.append(draws, card)
 
