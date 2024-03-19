@@ -85,6 +85,9 @@ def draw_n_cards_from_deck(player_state, n):
         # Remove card from top deck
         player_state["known_cards_top_deck"] = np.delete(player_state["known_cards_top_deck"], -1)
 
+        # remove from deck also
+        deck = np.delete(deck, np.where(deck == card)[0][0])
+
         cards_drawn += 1
         if cards_drawn == n:
             break
@@ -115,6 +118,7 @@ def get_cards_in_deck(player_state):
     hand   = player_state["cards_in_hand"]
     discard_pile = player_state["cards_in_discard"]
     played_card = player_state["played_cards"]
+
 
     cards_not_in_deck = np.concatenate((hand, discard_pile, played_card), axis=0)
 
@@ -149,6 +153,8 @@ def trash_card(player_state, card):
         player_state [dict]: This is the player state object
         card [int]: This is the card that will be trashed
     '''
+
+
     player_state["cards_in_hand"] = np.delete(player_state["cards_in_hand"], np.where(player_state["cards_in_hand"] == card)[0][0])
     player_state["owned_cards"] = np.delete(player_state["owned_cards"], np.where(player_state["owned_cards"] == card)[0][0])
     return player_state
@@ -250,7 +256,8 @@ def supply2deck(game_state, player_state, card):
 
     game_state = merge_game_player_state(game_state, player_state)
 
-    return player_state
+
+    return game_state
 
 
 

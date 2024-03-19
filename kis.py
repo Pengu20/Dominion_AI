@@ -1,8 +1,10 @@
 
+from itertools import combinations
+
+list_comb = []
+for i in range(1,4+1):
+    for com in set(list(combinations([1,2], 0))):
+        list_comb.append(com)
 
 
-f = open("demofile3.txt", "w")
-f.write(f"Woops! I have deleted the content!: {} uga buga \n")
-f.write(f"Woops! I have deleted the content!: {1} uga buga \n")
-f.write(f"Woops! I have deleted the content!: {1} uga buga \n")
-f.write(f"Woops! I have deleted the content!: {1} uga buga \n")
+print(list_comb)

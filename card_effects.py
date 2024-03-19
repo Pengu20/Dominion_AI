@@ -295,6 +295,10 @@ class card_effects():
                 # We need every combination of cards to discard. Then draw that many.
         
         all_combinations = []
+        # If adversary has 3 or less cards, then they do not need to discard.
+        if adv_state["cards_in_hand"].shape[0] <= 3:
+            return game_state, player_state, adv_state
+        
 
         for combination in set(list(combinations(adv_state["cards_in_hand"], adv_state["cards_in_hand"].shape[0]-3))):
             all_combinations.append(combination)
@@ -669,10 +673,15 @@ class card_effects():
 
         # Adversary player reveals top 2 cards of their deck
         # Then trashes a revealed treasure other than copper, and discards the rest
+        length_adv_hand = len(adv_state["cards_in_hand"])
         adv_state = sm.draw_n_cards_from_deck(adv_state, 2)
-
+        length_adv_hand_after = len(adv_state["cards_in_hand"])
         # If any of the two revealed cards are treasures (other than copper), then trash them
-        for i in range(-1,-3, -1):
+
+        drawn_cards = length_adv_hand_after - length_adv_hand
+
+        
+        for i in range(-1,-1 -drawn_cards, -1):
             adv_card = int(adv_state["cards_in_hand"][i])
 
             if adv_card in self.__get_treasures() and adv_card != 0:
@@ -776,9 +785,8 @@ class card_effects():
                 Available_cards.append(card[1])
         
         
-        print("Available cards: ", Available_cards)
+
         chosen_card = player_input.choose_action(Available_cards, game_state)
-        print("choosen card: ", self.card_list[int(chosen_card)])
 
         # Gain card from supply to hand, and remove from supply
         player_state = sm.get_card2hand(player_state, int(chosen_card))
@@ -789,9 +797,9 @@ class card_effects():
         game_state["Unique_actions"] = "put_card_on_deck"
         card_on_deck = player_state["cards_in_hand"]
 
-        print("cards in hand: ", card_on_deck)  
+
         chosen_card = player_input.choose_action(card_on_deck, game_state)
-        print("choosen card to discard: ", self.card_list[int(chosen_card)])
+
         
         player_state = sm.hand2deck(game_state, player_state, int(chosen_card))
 

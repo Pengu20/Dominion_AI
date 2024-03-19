@@ -15,132 +15,132 @@ kingdom_cards_ed2_base = [
     [
         "Cellar",
         7,
-        2
+        1
     ],
     [
         "Chapel",
         8,
-        2
+        1
     ],
     [
         "Moat",
         9,
-        2
+        1
     ],
     [
         "Village",
         10,
-        3
+        1
     ],
     [
         "Workshop",
         11,
-        3
+        1
     ],
     [
         "Bureaucrat",
         12,
-        4
+        1
     ],
     [
         "Gardens",
         13,
-        4
+        1
     ],
     [
         "Militia",
         14,
-        4
+        1
     ],
     [
         "Moneylender",
         15,
-        4
+        1
     ],
     [
         "Remodel",
         16,
-        4
+        1
     ],
     [
         "Smithy",
         17,
-        4
+        1
     ],
     [
         "Throne room",
         18,
-        4
+        1
     ],
     [
         "Council room",
         19,
-        5
+        1
     ],
     [
         "Festival",
         20,
-        5
+        1
     ],
     [
         "Laboratory",
         21,
-        5
+        1
     ],
     [
         "Library",
         22,
-        5
+        1
     ],
     [
         "Market",
         23,
-        5
+        1
     ],
     [
         "Mine",
         24,
-        5
+        1
     ],
     [
         "Witch",
         25,
-        5
+        1
     ],
     [
         "Harbinger",
         26,
-        3
+        1
     ],
     [
         "Merchant",
         27,
-        3
+        1
     ],
     [
         "Vassal",
         28,
-        3
+        1
     ],
     [
         "Poacher",
         29,
-        3
+        1
     ],
     [
         "Bandit",
         30,
-        5
+        1
     ],
     [
         "Sentry",
         31,
-        5
+        1
     ],
     [
         "Artisan",
         32,
-        6
+        1
     ]
 ]
 

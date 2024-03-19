@@ -129,7 +129,7 @@ class Dominion:
             game_history_file.write("\n"*3)
             if turns_all_players % 2 == 0:
                 turns += 1
-                print("         -------------------- Turn: ", turns, " -------------------- ")
+                # print("         -------------------- Turn: ", turns, " -------------------- ")
                 game_history_file.write(f"         -------------------- Turn: {turns} -------------------- \n")
 
 
@@ -150,7 +150,6 @@ class Dominion:
 
 
 
-
             # --------- BUY PHASE ---------
             game_history_file.write("\n"*2)
             game_history_file.write(f"----------- BUY PHASE ----------- \n")
@@ -160,16 +159,14 @@ class Dominion:
 
 
             if action_turns == 0 and buy_turns == 0:
-                print(" --------- NOTHING HAPPENED --------- ")
                 game_history_file.write(f" --------- NOTHING HAPPENED --------- \n")
                 self.__Debug_state(players, main_player, players_input, game_history_file)
 
 
 
 
-
             # ---------- HIDDEN PHASE: check if game should terminate ---------
-            if self.__game_is_over():
+            if self.__game_is_over() or turns >= 1000:
                 self.game_state = self.__Update_victory_points(self.game_state, players[main_player])
                 main_player_victory_points = players[main_player]["Victory_points"]
 
@@ -184,8 +181,6 @@ class Dominion:
                     self.game_state["Player_won"] = advesary
                     game_history_file.write(f"Player {advesary} won the game! \n")
                     break
-
-                    
 
             # Fast gameplay loop
             ''' 
@@ -276,16 +271,19 @@ class Dominion:
         play_action = int(players_input[main].choose_action(actions, self.game_state))
 
 
+
+
         # DEBUG option: Play specific card
-        # debug_card = 7
+        # debug_card = 16
         # sm.get_card2hand(players[main], debug_card)
         # play_action = debug_card
-        # players[main]["known_cards_top_deck"] = np.append(players[main]["known_cards_top_deck"], 0)
     
+
+
+
         card_idx = sm.card_idx_2_set_idx(play_action, self.game_state)
         if card_idx != -1:
             card_obj = self.game_state["dominion_cards"][card_idx]
-            print("card action choosen: ", card_obj)
         else:
             card_obj = "None"
 
@@ -297,7 +295,6 @@ class Dominion:
             action_turns += 1
             players[main]["actions"] -= 1
 
-            
             card_effects().play_card(play_action, self.game_state, players[main], players_input[main],  players[adversary], players_input[adversary])
             self.__Debug_state(players, main, players_input, game_history_file)
 
@@ -633,9 +630,14 @@ class Dominion:
 
 
 
-Dominion_game = Dominion()
 
-Dominion_game.play_loop_AI(random_player(), random_player())
+
+
+
+for i in range(1000):
+    print( "----------------- LOOP", i, "----------------- ")
+    Dominion_game = Dominion()
+    Dominion_game.play_loop_AI(random_player(), random_player())
 
 
 
