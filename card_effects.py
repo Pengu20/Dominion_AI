@@ -10,11 +10,14 @@ from cards_base_ed2 import kingdom_cards_ed2_base
 from itertools import combinations
 import numpy as np
 import state_manipulator as sm
+from Unique_actions import unique_action as ua
 
 class card_effects():
     def __init__(self) -> None:
         self.card_effect_dict = self.Add_cards_to_function_dict()
         self.generate_card_set()
+        self.ua = ua() # Unique action
+
 
     def __get_non_action_cards(self):
         '''
@@ -150,66 +153,24 @@ class card_effects():
         ''' 7
         +1 action. Discard any number of cards. Draw that many
         '''
-        game_state["Unique_actions"] = "discard_and_draw"
-        cards_in_hand = player_state["cards_in_hand"]
+        player_state["actions"] += 1
+        game_state, player_state, adv_state = self.ua.do_unique_action("discard_and_draw", game_state, player_state, player_input, adv_state, adv_input)
 
-        # We need every combination of cards to discard. Then draw that many.
-
-        all_combinations = []
-        for i in range(1, len(cards_in_hand)+1):
-            for combination in set(list(combinations(cards_in_hand, i))):
-                all_combinations.append(combination)
-
-        
-        actions_list = np.arange(len(all_combinations))
-        actions_list = np.append(actions_list, -1) # Append the ability to do nothing
-
-
-        action = player_input.choose_action(actions_list, game_state)
-    
-        if action == -1:
-            return game_state, player_state, adv_state
-        else:
-
-            # Draw cards
-            player_state = sm.draw_n_cards_from_deck(player_state, len(all_combinations[action])) # Draw equal to amount of actions that is not terminate action
-
-
-            # Put cards into discard pile
-            for card in all_combinations[action]:
-                player_state = sm.put_card_from_hand_to_discard(player_state, card)
 
         sm.merge_game_player_state(game_state, player_state)
         return game_state, player_state, adv_state
 
 
     def chapel(self, game_state, player_state, player_input, adv_state, adv_input):
-        game_state["Unique_actions"] = "trash_n_cards"
-        cards_in_hand = player_state["cards_in_hand"]
+        ''' 8
+        Trash up to 4 cards from your hand
+        '''
 
-        # We need every combination of cards to discard. Then draw that many.
+        game_state["Unique_actions"] = "trash_cards_n_from_hand"
+        game_state["Unique_actions_parameter"] = 4
 
-        all_combinations = []
-        for i in range(1, 4+1):
-            for combination in set(list(combinations(cards_in_hand, i))):
-                all_combinations.append(combination)
-        
-        
-        actions_list = np.arange(len(all_combinations))
-        actions_list = np.append(actions_list, -1) # Append the ability to do nothing
-
-
-        action = player_input.choose_action(actions_list, game_state)
-
-        if action == -1:
-            return game_state, player_state, adv_state
-        else:
-
-            # trash cards
-            for card in all_combinations[action]:
-                player_state = sm.trash_card(player_state, card)
+        self.ua.do_unique_action("trash_cards_n_from_hand", game_state, player_state, player_input, adv_state, adv_input)
  
-
         sm.merge_game_player_state(game_state, player_state)
         return game_state, player_state, adv_state
     
@@ -232,30 +193,21 @@ class card_effects():
 
 
     def workshop(self, game_state, player_state, player_input, adv_state, adv_input):
-        '''
+        ''' 11
         Gain a card costing up to 4
         '''
 
-        game_state["Unique_actions"] = "gain_card"
-        card_set = game_state["dominion_cards"]
+        game_state["Unique_actions"] = "gain_card_n"
+        game_state["Unique_actions_parameter"] = 4
 
-        Available_cards = []
-        for card in card_set:
-            set_index = sm.card_idx_2_set_idx(int(card[1]), game_state=game_state)
-            if int(card[2]) <= 4 and int(game_state["supply_amount"][set_index]) > 0:
-                Available_cards.append(card)
-        
-        actions_list = np.arange(len(Available_cards))
-        actions_list = np.append(actions_list, -1) # Add the ability to terminate
+        self.ua.do_unique_action("gain_card_n", game_state, player_state, player_input, adv_state, adv_input)
+ 
 
-        action = player_input.choose_action(actions_list, game_state)
-        if action == -1:
-            return game_state, player_state, adv_state
-        else:
-            game_state = sm.supply2discard(game_state, player_state, int(Available_cards[action][1]))
-            player_state = sm.get_player_state_from_game_state(game_state)
-        
+        sm.merge_game_player_state(game_state, player_state)
         return game_state, player_state, adv_state
+    
+
+
 
     def bureaucrat(self, game_state, player_state, player_input, adv_state, adv_input):
         '''
@@ -283,40 +235,17 @@ class card_effects():
     
 
     def militia(self, game_state, player_state, player_input, adv_state, adv_input):
-        '''
+        ''' 14
         +2 coins
         Each other player discards down to 3 cards in hand
         '''
         player_state["value"] += 2
-        game_state["adv_cards_in_hand"] -= 2
 
 
-        # Adversary player discards cards down to 3 cards
-                # We need every combination of cards to discard. Then draw that many.
-        
-        all_combinations = []
-        # If adversary has 3 or less cards, then they do not need to discard.
-        if adv_state["cards_in_hand"].shape[0] <= 3:
-            return game_state, player_state, adv_state
-        
-
-        for combination in set(list(combinations(adv_state["cards_in_hand"], adv_state["cards_in_hand"].shape[0]-3))):
-            all_combinations.append(combination)
-
-
-        actions_list = np.arange(len(all_combinations))
-        game_state["Unique_actions"] = "discard_n_cards"
-
-        action = adv_input.choose_action(actions_list, game_state)
-
-    
-        # Put cards into discard pile
-        for card in all_combinations[action]:
-            adv_state = sm.put_card_from_hand_to_discard(adv_state, card)
-
-
-
-
+        self.ua.do_unique_action("adv_discard_down_to_3_cards", game_state, player_state, player_input, adv_state, adv_input)
+ 
+ 
+        sm.merge_game_player_state(game_state, player_state)
         return game_state, player_state, adv_state
         
     def moneylender(self, game_state, player_state, player_input, adv_state, adv_input):
@@ -332,50 +261,46 @@ class card_effects():
 
 
     def remodel(self, game_state, player_state, player_input, adv_state, adv_input):
-        '''
+        ''' 16
         Trash a card from your hand. Gain a card costing up to 2 more than the trashed card
         '''
 
+        cards_in_hand_before = player_state["cards_in_hand"]
+
+
+        if len(cards_in_hand_before) == 0:
+            game_state = sm.merge_game_player_state(game_state, player_state)
+            return game_state, player_state, adv_state
+
+
         # Trash a card
-        game_state["Unique_actions"] = "trash_card"
+        game_state["Unique_actions"] = "trash_cards_n_from_hand"
+        game_state["Unique_actions_parameter"] = 1
 
-        cards_in_hand = player_state["cards_in_hand"]
-
-        # Cannot remodel if there are no cards in hand
-        if len(cards_in_hand) == 0:
-            return game_state, player_state, adv_state
-
-        action = player_input.choose_action(cards_in_hand, game_state)
-        
-        # Trash card and gain card costing up to 2 more
-        val = int(self.card_list[int(action)][2]) + 2
+        self.ua.do_unique_action("trash_cards_n_from_hand", game_state, player_state, player_input, adv_state, adv_input)
 
 
+        cards_in_hand_after = player_state["cards_in_hand"]
 
 
-        player_state = sm.trash_card(player_state, action)
+        # Find the card index that was trashed
+        for card in cards_in_hand_after:
+            if card in cards_in_hand_before:
+                #delete card and search on
+                cards_in_hand_before = np.delete(cards_in_hand_before, np.where(cards_in_hand_before == card)[0][0])
 
-        card_set = game_state["dominion_cards"]
-
-        Available_cards = []
-        for card in card_set:
-
-            set_index = sm.card_idx_2_set_idx(int(card[1]), game_state=game_state)
-            if int(card[2]) <= val and int(game_state["supply_amount"][set_index]) > 0:
-                Available_cards.append(card[1])
-        
-        if len(Available_cards) == 0:
-            return game_state, player_state, adv_state
-        
-
-        # Choose to get a given card
-        game_state["Unique_actions"] = "gain card"
-        action = player_input.choose_action(Available_cards, game_state)
-
-        game_state = sm.supply2discard(game_state, player_state, int(action))
-        player_state = sm.get_player_state_from_game_state(game_state)
+        trashed_card = cards_in_hand_before[0]
 
 
+        game_state["Unique_actions"] = "gain_card_n"
+        # Gain card costing up to two more
+        game_state["Unique_actions_parameter"] = int(self.card_list[int(trashed_card)][2]) + 2
+
+        self.ua.do_unique_action("gain_card_n", game_state, player_state, player_input, adv_state, adv_input)
+
+
+
+        game_state = sm.merge_game_player_state(game_state, player_state)
         return game_state, player_state, adv_state
 
 
@@ -389,37 +314,25 @@ class card_effects():
 
 
     def throne_room(self, game_state, player_state, player_input, adv_state, adv_input):
-        ''' 18
+        ''' 18 - DOES NOT FOLLOW THE MARKOV DECISION PROCESS.
         Choose an action card from your hand. Play it twice
         '''
+
         game_state["Unique_actions"] = "play_card_twice"
-        # Choose an action card from your hand
-        cards_in_hand = player_state["cards_in_hand"]
-        actions_list = []
-        list_non_action_cards = self.__get_non_action_cards()
+        self.ua.do_unique_action("play_card_twice", game_state, player_state, player_input, adv_state, adv_input)
 
-        for card in cards_in_hand:
-                if card not in list_non_action_cards:
-                    actions_list.append(card)
+        choosen_card = game_state["Unique_actions_parameter"]
 
-        if actions_list == []:
+        if choosen_card == -1:
+            game_state = sm.merge_game_player_state(game_state, player_state)
             return game_state, player_state, adv_state
         
-        action = player_input.choose_action(actions_list, game_state)
-        choosen_card = int(action)
-
-
-        # Play the card twice
 
         player_state = sm.hand_2_played_cards(player_state, choosen_card)
 
-
         game_state, player_state, adv_state = self.card_effect_dict[self.card_list[choosen_card][0]](game_state, player_state, player_input, adv_state=adv_state, adv_input=adv_input)
         game_state, player_state, adv_state = self.card_effect_dict[self.card_list[choosen_card][0]](game_state, player_state, player_input, adv_state=adv_state, adv_input=adv_input)
 
-
-
-        game_state["Unique_actions"] = None
     
         game_state = sm.merge_game_player_state(game_state, player_state)
         return game_state, player_state, adv_state
@@ -484,17 +397,8 @@ class card_effects():
             if draw_card in self.__get_non_action_cards():
                 continue
             else:
-                actions_list = np.array([0, 1])
-                game_state["Unique_actions"] = "skip_action_card"
-
-                action = player_input.choose_action(actions_list, game_state)
-
-            
-                if action == 0:
-
-                    player_state = sm.hand_2_played_cards(player_state, draw_card)
-                else:
-                    continue
+                game_state["Unique_actions"] = "LIBRARY_skip_action_card"
+                self.ua.do_unique_action("LIBRARY_skip_action_card", game_state, player_state, player_input, adv_state, adv_input)
 
 
 
@@ -518,36 +422,12 @@ class card_effects():
         Trash a treasure card from your hand. 
         Gain a treasure card to hand costing up to 3 more than the trashed card
         '''
-        # Get all treasures in hand
-        cards_in_hand = player_state["cards_in_hand"]
 
-        treasures_index = self.__get_treasures()
-        
-
-        actions = [treasures for treasures in cards_in_hand if treasures in treasures_index]
-
-
-        # Choose which treasure to upgrade
-        if len(actions) != 0:
-
-            game_state["Unique_actions"] = "upgrade treasure"
-
-            action = player_input.choose_action(actions, game_state)
-
-            trash_card = int(action)
-
-            player_state = sm.trash_card(player_state, trash_card)
-
-            # Gain a treasure card costing up to 3 more
-            # If treasure card is gold, then do nothing.
-            # If there is no more in supply, then do not get card
-            if trash_card != 2 and game_state["supply_amount"][trash_card + 1] > 0:
-                    sm.get_card2hand(player_state, trash_card + 1)
-                    
+        game_state["Unique_actions"] = "upgrade_treasure"
+        self.ua.do_unique_action("upgrade_treasure", game_state, player_state, player_input, adv_state, adv_input)
 
 
         game_state = sm.merge_game_player_state(game_state, player_state)
-
         return game_state, player_state, adv_state
 
     def witch(self, game_state, player_state, player_input, adv_state, adv_input):
@@ -557,6 +437,9 @@ class card_effects():
 
         player_state = sm.draw_n_cards_from_deck(player_state, 2)
         game_state = sm.supply2discard(game_state, adv_state, 6)
+
+
+        game_state = sm.merge_game_player_state(game_state, player_state)
         return game_state, player_state, adv_state
     
 
@@ -567,20 +450,13 @@ class card_effects():
         +1 card, +1 action. Look through your discard pile. Put a card from it onto your deck
         '''
 
-        player_state = sm.draw_n_cards_from_deck(player_state, 1)
-        player_state["actions"] += 1
-
-        # Look through discard pile
-        game_state["Unique_actions"] = "look_through_discard_pile"
-        actions = player_state["cards_in_discard"]
-        actions = np.append(actions, -1) # Add the ability to terminate
-
-        action = int(player_input.choose_action(actions, game_state))
 
 
-        if action != -1:
-            player_state = sm.discard_to_deck(game_state, player_state, action)
+        game_state["Unique_actions"] = "discard_pile2deck"
+        self.ua.do_unique_action("discard_pile2deck", game_state, player_state, player_input, adv_state, adv_input)
 
+
+        game_state = sm.merge_game_player_state(game_state, player_state)
         return game_state, player_state, adv_state
     
 
@@ -597,6 +473,8 @@ class card_effects():
         sm.merge_game_player_state(game_state, player_state)
 
         return game_state, player_state, adv_state
+
+
 
     def vassal(self, game_state, player_state, player_input, adv_state, adv_input):
         ''' 28
@@ -623,6 +501,7 @@ class card_effects():
                 game_state, player_state, adv_state = self.card_effect_dict[self.card_list[top_deck][0]](game_state, player_state, player_input, adv_state=adv_state, adv_input=adv_input)
 
 
+        sm.merge_game_player_state(game_state, player_state)
 
         return game_state, player_state, adv_state
     
@@ -636,29 +515,12 @@ class card_effects():
         player_state["actions"] += 1
         player_state["value"] += 1
 
-        empty_piles = len(np.where(game_state["supply_amount"] == 0)[0])
+
+        game_state["Unique_actions"] = "discard_cards_equal_empty_piles"
+        self.ua.do_unique_action("discard_cards_equal_empty_piles", game_state, player_state, player_input, adv_state, adv_input)
 
 
-        if empty_piles > 0:
-            game_state["Unique_actions"] = "discard_n_cards"
-            all_combinations = []
-            actions_list = np.arange(len(player_state["cards_in_hand"]))
-
-            # Can maximally discard as many cards as cards in hand
-            for combination in set(list(combinations(player_state["cards_in_hand"], min(empty_piles, len(player_state["cards_in_hand"]))))):
-                all_combinations.append(combination)
-            
-
-            actions_list = np.arange(len(all_combinations))
-
-            action = player_input.choose_action(actions_list, game_state)
-
-            # Put cards into discard pile
-            for card in all_combinations[action]:
-                player_state = sm.put_card_from_hand_to_discard(player_state, card)
-
-
-
+        sm.merge_game_player_state(game_state, player_state)
         return game_state, player_state, adv_state
 
 
@@ -693,6 +555,7 @@ class card_effects():
             else:
                 adv_state = sm.put_card_from_hand_to_discard(adv_state, adv_card)
 
+        sm.merge_game_player_state(game_state, player_state)
         return game_state, player_state, adv_state
     
 
@@ -702,14 +565,13 @@ class card_effects():
         +1 card, +1 action. Look at the top 2 cards of your deck. Trash and/or discard any number of them. 
         Put the rest back on top in any order
         '''
-
+        player_state["actions"] += 1
         player_state = sm.draw_n_cards_from_deck(player_state, 1)
 
-        player_state["actions"] += 1
+
+
 
         # Look at the top 2 cards of your deck
-        game_state["Unique_actions"] = "look_through_deck"
-        
         original_hand_size = len(player_state["cards_in_hand"])
         player_state = sm.draw_n_cards_from_deck(player_state, 2)
         hand_size_after = len(player_state["cards_in_hand"])
@@ -718,7 +580,6 @@ class card_effects():
 
         # Might not be possible. If so, then only draw as many cards as possible.    
         
-
         cards_drawn = []
 
         for i in range(-1, -amount_cards_drawn-1, -1):
@@ -728,46 +589,27 @@ class card_effects():
         # Discard card: 0
         # trash card = 1
         # keep in deck: 2
-        card_list_action = [0,1,2]
-        back_to_deck = []
+
 
         # Choose what to do with the two cards
+        cards_back_in_deck = 0
         for i in range(amount_cards_drawn):
-            game_state["Unique_actions"] = "discard_trash_keep_in_deck"
-            action_card = player_input.choose_action(card_list_action, game_state)
+            game_state["Unique_actions_parameter"] = cards_drawn[i]
+            self.ua.do_unique_action("discard_trash_keep_in_deck", game_state, player_state, player_input, adv_state, adv_input)
 
-            if action_card == 0:
-                player_state = sm.put_card_from_hand_to_discard(player_state, cards_drawn[i])
-            elif action_card == 1:
-                player_state = sm.trash_card(player_state, cards_drawn[i])
-            else:
-                back_to_deck.append(cards_drawn[i])
-
+            if game_state["Unique_actions_parameter"] == 2:
+                cards_back_in_deck += 1
 
 
         # if there is more than 2 cards that must go back in the deck,
         # then choose the order of the cards
                 
-        if len(back_to_deck) > 1:
-            game_state["Unique_actions"] = "order_cards"
-            # The two options to put back in deck [0,1] or [1,0]
-
-            order_action = [0, 1]
-            game_state = sm.merge_game_player_state(game_state, player_state)
-            action = player_input.choose_action(order_action, game_state)
-
-            if action == 0:
-                player_state = sm.hand2deck(game_state, player_state, back_to_deck[1])
-                player_state = sm.hand2deck(game_state, player_state, back_to_deck[0])
-            else:
-                player_state = sm.hand2deck(game_state, player_state, back_to_deck[0])
-                player_state = sm.hand2deck(game_state, player_state, back_to_deck[1])
-
-        elif(len(back_to_deck) == 1):
-            player_state = sm.hand2deck(game_state, player_state, back_to_deck[0])
+        if cards_back_in_deck > 1:
+            self.ua.do_unique_action("order_cards_2", game_state, player_state, player_input, adv_state, adv_input)
 
 
-        game_state["Unique_actions"] = None
+
+        sm.merge_game_player_state(game_state, player_state)
         return game_state, player_state, adv_state  
 
 
@@ -779,34 +621,29 @@ class card_effects():
         '''
 
         # Gain a card to your hand costing up to 5
-        game_state["Unique_actions"] = "gain_card"
-        card_set = game_state["dominion_cards"]
+        # game_state["Unique_actions"] = "supply_2_hand_5"
 
-        Available_cards = []
-        for card in card_set:
-            set_index = sm.card_idx_2_set_idx(int(card[1]), game_state=game_state)
-            if int(card[2]) <= 5 and int(game_state["supply_amount"][set_index]) > 0:
-                Available_cards.append(card[1])
-        
-        
 
-        chosen_card = player_input.choose_action(Available_cards, game_state)
+        self.ua.do_unique_action("supply_2_hand_5", game_state, player_state, player_input, adv_state, adv_input)
 
-        # Gain card from supply to hand, and remove from supply
-        player_state = sm.get_card2hand(player_state, int(chosen_card))
-        set_index = sm.card_idx_2_set_idx(int(chosen_card), game_state=game_state)
-        game_state["supply_amount"][set_index] = int(game_state["supply_amount"][set_index]) - 1
-  
+
+
         # Put a card from your hand onto your deck
+
+        self.ua.do_unique_action("put_card_on_deck", game_state, player_state, player_input, adv_state, adv_input)
+
+
         game_state["Unique_actions"] = "put_card_on_deck"
         card_on_deck = player_state["cards_in_hand"]
 
-
         chosen_card = player_input.choose_action(card_on_deck, game_state)
 
-        
         player_state = sm.hand2deck(game_state, player_state, int(chosen_card))
 
-        game_state["Unique_actions"] = None
+
+
+
+
+
         sm.merge_game_player_state(game_state, player_state)
         return game_state, player_state, adv_state

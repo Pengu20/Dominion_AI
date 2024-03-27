@@ -10,10 +10,10 @@ import state_manipulator as sm
 deck = deck_generator()
 
 class Dominion:
+
     def __init__(self) -> None:
 
         self.deck = deck_generator()
-
 
         # Standard supply [Copper, Silver, Gold, Estate, Duchy, Province, Curse]
         self.standard_supply = np.array([30, 30, 30, 30, 30, 8, 30])
@@ -23,6 +23,9 @@ class Dominion:
         self.Treasure_card_index = [0,1,2] #Indexes of the treasure cards in the standard set
 
         self.victory_points_index = [3,4,5,13,6]
+
+        self.card_effects = card_effects()
+
 
 
 
@@ -40,6 +43,7 @@ class Dominion:
 
             # ----- WHAT THE ACTION MEANS -----
         "Unique_actions": None, # This is the unique actions that the player can do. This is based on the cards in the players hand
+        "Unique_actions_parameter": 0, # This is the parameter that the unique action needs to be executed (Often not needed default is zero)
 
 
             # ----- MAIN PLAYER -----
@@ -82,6 +86,8 @@ class Dominion:
         }
 
         return player_state_start
+
+
 
 
     def play_loop_AI(self, player1, player2, verbose=True):
@@ -214,7 +220,9 @@ class Dominion:
 
             # Reset and draw new hand
             self.game_state = sm.put_player_state_adv_state(self.game_state, players[main_player])  
-
+            players[main_player]["value"] = 0
+            players[main_player]["actions"] = 0
+            players[main_player]["buys"] = 0
 
             # flush all cards in hand and discard
             self.game_state = sm.played_cards_2_discard_pile(self.game_state, players[main_player])
@@ -295,9 +303,9 @@ class Dominion:
 
 
         # DEBUG option: Play specific card
-        # debug_card = 16
-        # sm.get_card2hand(players[main], debug_card)
-        # play_action = debug_card
+        debug_card = 31
+        sm.get_card2hand(players[main], debug_card)
+        play_action = debug_card
     
 
 
@@ -318,7 +326,7 @@ class Dominion:
             action_turns += 1
             players[main]["actions"] -= 1
 
-            card_effects().play_card(play_action, self.game_state, players[main], players_input[main],  players[adversary], players_input[adversary])
+            self.card_effects.play_card(play_action, self.game_state, players[main], players_input[main],  players[adversary], players_input[adversary])
             
             if verbose:
                 self.__Debug_state(players, main, players_input, game_history_file)
@@ -444,7 +452,7 @@ class Dominion:
 
         for card in all_cards:
             if card in self.victory_points_index:
-                card_effects().play_card(card, game_state, player_state, card2played_cards=False)
+                self.card_effects.play_card(card, game_state, player_state, card2played_cards=False)
         
 
         return game_state
@@ -452,9 +460,9 @@ class Dominion:
 
     def __Debug_state(self, players, main_player, players_input, game_history_file, gain_card = False):
             self.game_state = self.__Update_victory_points(self.game_state, players[main_player])
-            self.game_state = self.__update_player_treasure_value(players[main_player], self.game_state, players_input[main_player])
+            game_state_temp = self.__update_player_treasure_value(players[main_player], self.game_state, players_input[main_player])
 
-            players[main_player] = sm.get_player_state_from_game_state(self.game_state)
+            players[main_player] = sm.get_player_state_from_game_state(game_state_temp)
 
 
             game_history_file.write("\n"*2)
@@ -597,14 +605,14 @@ class Dominion:
             card [numpy.list]: All the indexes of the treasure cards sorted from highest value to lowest
         '''
 
-        player_state["value"] = 0
+        
         cards_in_hand = player_state["cards_in_hand"]
 
         treasure_cards = np.argwhere(np.isin(cards_in_hand, self.Treasure_card_index)).flatten()
 
         silver_played = False
         for index in treasure_cards:
-            game_state, player_state, adv_state = card_effects().play_card(cards_in_hand[index].astype(int), game_state, player_state, player_input, card2played_cards=False)
+            game_state, player_state, adv_state = self.card_effects.play_card(cards_in_hand[index].astype(int), game_state, player_state, player_input, card2played_cards=False)
             
             if cards_in_hand[index].astype(int) == 1:
                 silver_played = True
@@ -663,7 +671,7 @@ class Dominion:
 for i in range(10000):
     print( "----------------- LOOP", i, "----------------- ")
     Dominion_game = Dominion()
-    Dominion_game.play_loop_AI(random_player(), random_player(), verbose=False)
+    Dominion_game.play_loop_AI(random_player(), random_player(), verbose=True)
 
 
 
