@@ -199,22 +199,38 @@ class Dominion:
             # ---------- HIDDEN PHASE: check if game should terminate ---------
             if self.__game_is_over() or turns >= 1000:
                 game_ongoing = False
-                self.game_state = self.__Update_victory_points(self.game_state, players[main_player])
+
+                game_state_player0 = sm.merge_game_player_state(self.game_state, players[main_player], players[advesary])
+                self.game_state = self.__Update_victory_points(game_state_player0, players[main_player])
                 main_player_victory_points = players[main_player]["Victory_points"]
 
-                self.game_state = self.__Update_victory_points(self.game_state, players[advesary])
+
+                game_state_player1 = sm.merge_game_player_state(self.game_state, players[advesary], players[main_player])
+                self.game_state = self.__Update_victory_points(game_state_player1, players[advesary])
                 advesary_victory_points = players[advesary]["Victory_points"]
 
+
                 if main_player_victory_points > advesary_victory_points:
-                    self.game_state["Player_won"] = main_player
+                    main_player_won = True
+                    adv_player_won = False
                     if verbose:
                         game_history_file.write(f"Player {main_player} won the game! \n")
-                    break
                 else:
-                    self.game_state["Player_won"] = advesary
+                    main_player_won = False
+                    adv_player_won = True
                     if verbose:
                         game_history_file.write(f"Player {advesary} won the game! \n")
-                    break
+
+
+                game_state_player0["main_Player_won"] = main_player_won
+                game_state_player0["adv_Player_won"] = adv_player_won
+
+                players_input[main].write_state_reward_to_file(self.game_state)
+
+
+                game_state_player1["main_Player_won"] = adv_player_won
+                game_state_player1["adv_Player_won"] = main_player_won
+                players_input[advesary].write_state_reward_to_file(self.game_state)
 
 
 
@@ -670,15 +686,17 @@ class Dominion:
 
 
 Dominion_game = Dominion()
-player1 = random_player()
-player2 = Deep_SARSA()
+player1 = random_player(player_name="Ogus_bogus_man")
+player2 = Deep_SARSA(player_name="Deep_SARSA")
 Dominion_game.insert_players(player1, player2)
 
-if False:
-    i = 0
-    while True:
-        Dominion_game.play_loop_AI(verbose=False)
-        i += 1
+
+
+for i in range(10000):
+    Dominion_game.play_loop_AI(verbose=False)
+
+
+
 
 
 

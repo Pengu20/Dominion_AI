@@ -179,17 +179,19 @@ class Dominion_reward():
 
 
 
-
         pass
 
 
 
-class Deep_SARSA():
-    def __init__(self) -> None:
+class Deep_SARSA:
+    def __init__(self, player_name) -> None:
         self.rf = Dominion_reward()
         self.game_state_history = []
         self.action_history = []
 
+        self.player_reward_history = open(f"reward_history/{player_name}_reward_history.txt", "w")
+
+        
 
 
     def initialize_NN(self):
@@ -197,7 +199,6 @@ class Deep_SARSA():
         self.model.add(Dense(1024, activation='sigmoid', input_shape=(9000,)))
         
         self.model.add(Dense(1,activation='linear'))
-        self.model.summary()
 
         self.model.compile( optimizer='Adam',
                             loss='mean_squared_error',
@@ -210,7 +211,17 @@ class Deep_SARSA():
                             )
 
 
-    def game_state2list_NN_input(self, game_state, action_index):
+    def update_NN(self, game_state, action, expected_return_updated):
+        '''
+        This function is used to update the neural network with the new values
+        '''
+        list_NN_input = self.game_state2list_NN_input(game_state, [action])
+
+        self.model.fit(list_NN_input, np.array([[expected_return_updated]]), epochs=1, verbose=0)
+
+
+
+    def game_state2list_NN_input(self, game_state, action_list):
         '''
         This function is used to convert the game state to a 
         list that can be used as input for the neural network
@@ -219,22 +230,60 @@ class Deep_SARSA():
 
         # Convert bytearray to list of integers
         list_NN_input = [byte for byte in binarizeed_gamestate]
-        list_NN_input.append(action_index)
 
-        return list_NN_input
+        NN_inputs = []
+        for action in action_list:
+            list_NN_input.append(action)
+
+            list_NN_input = np.array(list_NN_input)
+            list_NN_input.resize((len(list_NN_input),1))
 
 
-    def get_SARSA_reward(self, game_state):
+            # Padding the value to 9000
+            input_padded = np.zeros((9000,1))
+            input_padded[:len(list_NN_input)] = list_NN_input
+
+            NN_inputs.append(input_padded)
+
+        return NN_inputs
+
+
+    def NN_get_expected_return(self, game_state, actions_list):
         '''
-        This function is used to get the reward from the game state based on the SARSA reward algorithm
+        This function gives the value from the neural network to the state action pair
         '''
+
+
+        list_NN_inputs = self.game_state2list_NN_input(game_state, actions_list)
+
+        expected_return = self.model.predict(np.array(list_NN_inputs))
+        return expected_return
+
+
+
+
+    def SARSA_update(self, game_state, action):
+        '''
+        This function is used to update the previous timestep with the new reward
+        '''
+
+        alpha = 0.1 # Learning rate
+        gamma = 0.9 # Discount factor
+
+
         # SA -> State action
-        SA_reward = self.rf.get_reward_from_state(game_state)
+        expected_return = self.NN_get_expected_return(game_state, [action])[0]
+        old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
 
-        old_SA_reward = self.rf.get_reward_from_state(self.game_state_history[-1])
+        reward = self.rf.get_reward_from_state(game_state)
 
 
+        # SARSA update
+        old_expected_return_updated = old_expected_return + alpha * (reward + gamma*expected_return - old_expected_return)
 
+
+        # Train the neural network with the new values
+        self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
 
     def get_reward(self, game_state):
@@ -251,8 +300,9 @@ class Deep_SARSA():
         '''
         Until a neural network can give us the best state action rewards, we will use this function to give us the rewards
         '''
-        return np.random.choice(list_of_actions)
 
+        expected_return = self.NN_get_expected_return(game_state, list_of_actions)
+        return list_of_actions[np.argmax(expected_return)]
 
 
 
@@ -266,14 +316,29 @@ class Deep_SARSA():
             return self.greedy_choice(list_of_actions, game_state)
 
 
-
     def choose_action(self, list_of_actions, game_state):
 
         if self.game_state_history == []:
             self.game_state_history.append(game_state)
             self.action_history.append(np.random.choice(list_of_actions))
             return self.action_history[-1]
+        else:
+            action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.1)
 
+            self.game_state_history.append(game_state)
+            self.action_history.append(action)
+
+            #Remove the previous old values of game state and action history
+            self.game_state_history = self.game_state_history[1:]
+            self.action_history = self.action_history[1:]
+
+
+    def write_state_reward_to_file(self, game_state):
+        '''
+        This function is used to write the current player reward into the reward file
+        '''
+        reward = self.get_reward(game_state)
+        self.player_reward_history.write(f"{reward}\n")
 
 
 
@@ -281,10 +346,29 @@ class Deep_SARSA():
 
 
 class random_player():
-    def __init__(self) -> None:
-        pass
+    def __init__(self, player_name):
+        self.rf = Dominion_reward()
+        self.player_reward_history = open(f"reward_history/{player_name}_reward_history.txt", "w")
+
+
+
+    def get_reward(self, game_state):
+        '''
+        This function is used to get the reward from the game state
+        '''
+        reward = self.rf.get_reward_from_state(game_state)
+
+        return reward
+    
 
     def choose_action(self, list_of_actions, game_state):
         return np.random.choice(list_of_actions)
 
+
+    def write_state_reward_to_file(self, game_state):
+        '''
+        This function is used to write the current player reward into the reward file
+        '''
+        reward = self.get_reward(game_state)
+        self.player_reward_history.write(f"{reward}\n")
 

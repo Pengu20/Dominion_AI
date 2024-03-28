@@ -1,9 +1,9 @@
 
 
 
-byte_array = bytearray(b'\x02\x03\x05\x07')
 
-# Convert bytearray to list of integers
-prime_numbers = [byte for byte in byte_array]
+import numpy as np
+list_NN_input = [1,2,3,45,6]
 
-print(prime_numbers)
+
+print(list_NN_input[1:])
