@@ -1,39 +1,8 @@
 import numpy as np
 
-''' This is all the sizes used for the Q-table
-"Player_won": bins: 1 - size: 3 # Amount of players +1
-
-    # ----- SUPPLY RELATED -----
-"dominion_cards": bins: 10 - size: 32    # 32 is the amount of unique cards in the game
-"supply_amount": bins: 10 - size: 30
-
-
-    # ----- WHAT THE ACTION MEANS -----
-"Unique_actions": bins: 1 - size: 17 # There is 17 unique actions in the game
-"Unique_actions_parameter": bins: 1 - size: 32 # The largest bin value is the amount of unique cards in the game
-
-
-    # ----- MAIN PLAYER -----
-"cards_in_hand": bins: 50 - size: 32, # Please do not get over 50 cards in your hand 
-"cards_in_deck": bins: 1 - size: 80, # I will actually die if i get more than 80 cards in my deck
-"known_cards_top_deck": bins: 20 - size: 32,
-"cards_in_discard":  bins: 80 - size: 32,
-"owned_cards":  bins: 80 - size: 32,
-"played_cards": bins: 20 - size: 32, # "played" cards are cards that are in the current hand
-"actions": bins: 1 - size: 10,
-"buys": bins: 1 - size: 10,
-"value": bins: 1 - size: 30,
-"Victory_points": bins: 1 - size: 150,
-
-
-    # ----- ADVERSARY PLAYER -----
-"adv_cards_in_hand": bins: 1 - size: 15,
-"adv_cards_in_deck": bins: 1 - size: 80,
-"adv_cards_in_discard": bins: 1 - size: 80,
-"adv_owned_cards": bins: 80 - size: 32,
-"Victory_points": bins: 1 - size: 150,
-'''
-
+import pickle
+from keras import Sequential
+from keras.layers import Dense
 
 class Dominion_reward():
     ''' [summary]
@@ -69,7 +38,7 @@ class Dominion_reward():
 
         curses_owned = 0 # -1 point per curse
 
-        Dead_action_cards = 0 # -1 point per action card in hand, if you have no actions left
+        Dead_action_cards_reward = 0 # -1 point per action card in hand, if you have no actions left
 
     
 
@@ -149,17 +118,28 @@ class Dominion_reward():
 
 
         # ---------------- dead action cards punishment ----------------
+        dead_action_cards = 0
         for card in game_state["cards_in_hand"]:
             if game_state["actions"] == 0:
                 if card >= 6 and card != 13:
-                    Dead_action_cards += 1
+                    dead_action_cards += 1
         
-        Dead_action_cards = -1 * Dead_action_cards
+        Dead_action_cards_reward = -1 * dead_action_cards
 
 
-        pass
+
+        reward_list = np.array([reward, Victory_reward, Victory_points_reward, Province_difference_reward, 
+                                Cards_played_reward, few_coppers_reward, no_copper_reward, no_estates_reward, 
+                                gold_reward, curses_owned, Dead_action_cards_reward])
+
+
+        return reward_list
+
 
     def struct_generator(self):
+        '''
+        Not used, is onyl here to trick github copilot
+        '''
         self.reward = state = {
 
             # ----- SUPPLY RELATED -----
@@ -200,18 +180,111 @@ class Dominion_reward():
 
 
 
-
-class random_player():
-    def __init__(self) -> None:
-        self.rf = reward_func((2,10,10,17,), 10)
         pass
 
 
+
+class Deep_SARSA():
+    def __init__(self) -> None:
+        self.rf = Dominion_reward()
+        self.game_state_history = []
+        self.action_history = []
+
+
+
+    def initialize_NN(self):
+        self.model = Sequential()
+        self.model.add(Dense(1024, activation='sigmoid', input_shape=(9000,)))
+        
+        self.model.add(Dense(1,activation='linear'))
+        self.model.summary()
+
+        self.model.compile( optimizer='Adam',
+                            loss='mean_squared_error',
+                            metrics='accuracy',
+                            loss_weights=None,
+                            weighted_metrics=None,
+                            run_eagerly=None,
+                            steps_per_execution=None,
+                            jit_compile=None,
+                            )
+
+
+    def game_state2list_NN_input(self, game_state, action_index):
+        '''
+        This function is used to convert the game state to a 
+        list that can be used as input for the neural network
+        '''
+        binarizeed_gamestate = pickle.dumps(game_state)
+
+        # Convert bytearray to list of integers
+        list_NN_input = [byte for byte in binarizeed_gamestate]
+        list_NN_input.append(action_index)
+
+        return list_NN_input
+
+
+    def get_SARSA_reward(self, game_state):
+        '''
+        This function is used to get the reward from the game state based on the SARSA reward algorithm
+        '''
+        # SA -> State action
+        SA_reward = self.rf.get_reward_from_state(game_state)
+
+        old_SA_reward = self.rf.get_reward_from_state(self.game_state_history[-1])
+
+
+
+
+
+    def get_reward(self, game_state):
+        '''
+        This function is used to get the reward from the game state
+        '''
+        reward = self.rf.get_reward_from_state(game_state)
+
+        return reward
+
+
+
+    def greedy_choice(self, list_of_actions, game_state):
+        '''
+        Until a neural network can give us the best state action rewards, we will use this function to give us the rewards
+        '''
+        return np.random.choice(list_of_actions)
+
+
+
+
+    def epsilon_greedy_policy(self, list_of_actions, game_state, epsilon):
+        '''
+        This function is used to get the action from the epsilon greedy policy
+        '''
+        if np.random.rand() < epsilon:
+            return np.random.choice(list_of_actions)
+        else:
+            return self.greedy_choice(list_of_actions, game_state)
+
+
+
+    def choose_action(self, list_of_actions, game_state):
+
+        if self.game_state_history == []:
+            self.game_state_history.append(game_state)
+            self.action_history.append(np.random.choice(list_of_actions))
+            return self.action_history[-1]
+
+
+
+
+
+
+
+class random_player():
+    def __init__(self) -> None:
+        pass
+
     def choose_action(self, list_of_actions, game_state):
         return np.random.choice(list_of_actions)
-    
-    
-    def choose_buy(self, list_of_buy_options, game_state):
-        return np.random.choice(list_of_buy_options)
-    
+
 

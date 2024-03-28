@@ -1,6 +1,7 @@
 
 from Deck_generator import deck_generator
 from Player_AI import random_player
+from Player_AI import Deep_SARSA
 import numpy as np
 from cards_base_ed2 import kingdom_cards_ed2_base
 from standard_cards import standard_set
@@ -18,6 +19,8 @@ class Dominion:
         # Standard supply [Copper, Silver, Gold, Estate, Duchy, Province, Curse]
         self.standard_supply = np.array([30, 30, 30, 30, 30, 8, 30])
 
+        self.card_set = self.deck.get_card_set()
+
         self.game_state = self.__initialize_game_state()
         
         self.Treasure_card_index = [0,1,2] #Indexes of the treasure cards in the standard set
@@ -26,6 +29,9 @@ class Dominion:
 
         self.card_effects = card_effects()
 
+    def insert_players(self, player1, player2):
+        self.player1 = player1
+        self.player2 = player2
 
 
 
@@ -35,7 +41,7 @@ class Dominion:
         state = {
 
             # ----- SUPPLY RELATED -----
-        "dominion_cards": self.deck.get_card_set(),
+        "dominion_cards": self.card_set,
         "supply_amount": np.append(self.standard_supply, np.ones(10) * 10), # 10 kingdom cards with 10 supply each
 
 
@@ -88,9 +94,9 @@ class Dominion:
         return player_state_start
 
 
+    
 
-
-    def play_loop_AI(self, player1, player2, verbose=True):
+    def play_loop_AI(self, verbose=True):
         ''' [Summary]
         This function is the main loop of the game. It will keep running until the game is over.
 
@@ -118,6 +124,8 @@ class Dominion:
         players_amount = 2 # hard constant for this game setup. Cannot play more or less than two players 
 
 
+        self.game_state = self.__initialize_game_state()
+
         player1_state = self.__startup_player_state()
         player2_state = self.__startup_player_state()
 
@@ -127,7 +135,7 @@ class Dominion:
 
         # both players draw 5 cards in the start of the game
         players = [player1_state, player2_state]
-        players_input = [player1, player2]
+        players_input = [self.player1, self.player2]
 
         for player in range(players_amount):
             players[player] = sm.draw_n_cards_from_deck(players[player], 5)
@@ -135,8 +143,8 @@ class Dominion:
         turns = 0
         turns_all_players = 0
 
-
-        while self.game_state["Player_won"] == -1:
+        game_ongoing = True
+        while game_ongoing:
             
             if verbose:
                 game_history_file.write("\n"*3)
@@ -190,6 +198,7 @@ class Dominion:
 
             # ---------- HIDDEN PHASE: check if game should terminate ---------
             if self.__game_is_over() or turns >= 1000:
+                game_ongoing = False
                 self.game_state = self.__Update_victory_points(self.game_state, players[main_player])
                 main_player_victory_points = players[main_player]["Victory_points"]
 
@@ -660,12 +669,16 @@ class Dominion:
 
 
 
+Dominion_game = Dominion()
+player1 = random_player()
+player2 = Deep_SARSA()
+Dominion_game.insert_players(player1, player2)
 
-i = 0
-while True:
-    Dominion_game = Dominion()
-    Dominion_game.play_loop_AI(random_player(), random_player(), verbose=False)
-    i += 1
+if False:
+    i = 0
+    while True:
+        Dominion_game.play_loop_AI(verbose=False)
+        i += 1
 
 
 
