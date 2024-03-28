@@ -505,7 +505,12 @@ class unique_action:
         set_index = sm.card_idx_2_set_idx(int(chosen_card), game_state=game_state)
         game_state["supply_amount"][set_index] = int(game_state["supply_amount"][set_index]) - 1
 
+        sm.merge_game_player_state(game_state, player_state)
+        return game_state, player_state, adv_state
     
+
+
+
     
     def put_card_on_deck(self, game_state, player_state, player_input, adv_state, adv_input):
         card_on_deck = player_state["cards_in_hand"]
@@ -513,6 +518,10 @@ class unique_action:
         chosen_card = player_input.choose_action(card_on_deck, game_state)
 
         player_state = sm.hand2deck(game_state, player_state, int(chosen_card))
+
+
+        sm.merge_game_player_state(game_state, player_state)
+        return game_state, player_state, adv_state
 
 
 

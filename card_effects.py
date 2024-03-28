@@ -626,22 +626,9 @@ class card_effects():
 
         self.ua.do_unique_action("supply_2_hand_5", game_state, player_state, player_input, adv_state, adv_input)
 
-
-
         # Put a card from your hand onto your deck
 
         self.ua.do_unique_action("put_card_on_deck", game_state, player_state, player_input, adv_state, adv_input)
-
-
-        game_state["Unique_actions"] = "put_card_on_deck"
-        card_on_deck = player_state["cards_in_hand"]
-
-        chosen_card = player_input.choose_action(card_on_deck, game_state)
-
-        player_state = sm.hand2deck(game_state, player_state, int(chosen_card))
-
-
-
 
 
 

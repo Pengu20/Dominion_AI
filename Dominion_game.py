@@ -31,10 +31,8 @@ class Dominion:
 
     def __initialize_game_state(self):
         # This datatype is the object that holds all information regarding the game
+        # The game state 
         state = {
-            # ----- GAME END -----
-        "Player_won": -1,
-
 
             # ----- SUPPLY RELATED -----
         "dominion_cards": self.deck.get_card_set(),
@@ -47,6 +45,7 @@ class Dominion:
 
 
             # ----- MAIN PLAYER -----
+        "main_Player_won": -1,
         "cards_in_hand": np.array([]),
         "cards_in_deck": 0,
         "known_cards_top_deck": np.array([]),
@@ -61,11 +60,12 @@ class Dominion:
 
 
             # ----- ADVERSARY PLAYER -----
+        "adv_Player_won": -1,
         "adv_cards_in_hand": 0,
         "adv_cards_in_deck": 0,
         "adv_cards_in_discard": 0,
         "adv_owned_cards": np.array([]),
-        "Victory_points": 0,
+        "adv_Victory_points": 0,
         }
         return state
 
@@ -207,13 +207,6 @@ class Dominion:
                         game_history_file.write(f"Player {advesary} won the game! \n")
                     break
 
-            # Fast gameplay loop
-            ''' 
-            if players[main_player]["Victory_points"] >= 4:
-                self.game_state["Player_won"] = main_player
-                game_history_file.write(f"Player {main_player} won the game! \n")
-                break
-            '''
 
 
 
@@ -296,14 +289,14 @@ class Dominion:
 
         # Choose action
         self.game_state = sm.merge_game_player_state(self.game_state, players[main], players[adversary])
-        self.game_state["Unique_actions"] = "action"
+        self.game_state["Unique_actions"] = "take_action"
         play_action = int(players_input[main].choose_action(actions, self.game_state))
 
 
 
 
         # DEBUG option: Play specific card
-        debug_card = 31
+        debug_card = 32
         sm.get_card2hand(players[main], debug_card)
         play_action = debug_card
     
@@ -333,6 +326,7 @@ class Dominion:
 
 
             actions = self.__get_actions(players[main])
+            self.game_state["Unique_actions"] = "buy_card"
             play_action = int(players_input[main].choose_action(actions, self.game_state))
 
 
@@ -667,12 +661,11 @@ class Dominion:
 
 
 
-
-for i in range(10000):
-    print( "----------------- LOOP", i, "----------------- ")
+i = 0
+while True:
     Dominion_game = Dominion()
-    Dominion_game.play_loop_AI(random_player(), random_player(), verbose=True)
-
+    Dominion_game.play_loop_AI(random_player(), random_player(), verbose=False)
+    i += 1
 
 
 
