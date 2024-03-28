@@ -8,6 +8,8 @@ from standard_cards import standard_set
 from card_effects import card_effects
 import state_manipulator as sm
 
+import copy
+
 deck = deck_generator()
 
 class Dominion:
@@ -200,14 +202,32 @@ class Dominion:
             if self.__game_is_over() or turns >= 1000:
                 game_ongoing = False
 
-                game_state_player0 = sm.merge_game_player_state(self.game_state, players[main_player], players[advesary])
+                curses = 0
+                for card in players[main_player]["owned_cards"]:
+                    if card == 6:
+                        curses += 1
+
+                curses_owned = -1 * curses
+                print("Curses owned main: ", curses_owned)
+                curses = 0
+                for card in players[advesary]["owned_cards"]:
+                    if card == 6:
+                        curses += 1
+
+                curses_owned = -1 * curses
+                print("Curses owned adv: ", curses_owned)
+
+
+
+                game_state_player0 = sm.merge_game_player_state(copy.deepcopy(self.game_state), players[main_player], players[advesary])
                 self.game_state = self.__Update_victory_points(game_state_player0, players[main_player])
                 main_player_victory_points = players[main_player]["Victory_points"]
 
 
-                game_state_player1 = sm.merge_game_player_state(self.game_state, players[advesary], players[main_player])
+                game_state_player1 = sm.merge_game_player_state(copy.deepcopy(self.game_state), players[advesary], players[main_player])
                 self.game_state = self.__Update_victory_points(game_state_player1, players[advesary])
                 advesary_victory_points = players[advesary]["Victory_points"]
+
 
 
                 if main_player_victory_points > advesary_victory_points:
@@ -225,14 +245,12 @@ class Dominion:
                 game_state_player0["main_Player_won"] = main_player_won
                 game_state_player0["adv_Player_won"] = adv_player_won
 
-                players_input[main].write_state_reward_to_file(self.game_state)
+                players_input[main].write_state_reward_to_file(game_state_player0)
 
 
                 game_state_player1["main_Player_won"] = adv_player_won
                 game_state_player1["adv_Player_won"] = main_player_won
-                players_input[advesary].write_state_reward_to_file(self.game_state)
-
-
+                players_input[advesary].write_state_reward_to_file(game_state_player1)
 
 
 
@@ -673,7 +691,7 @@ Dominion_game = Dominion()
 player_random1 = random_player(player_name="Ogus_bogus_man")
 player_random2 = random_player(player_name="Ogus_bogus_man2")
 player1 = Deep_SARSA(player_name="Deep_SARSA")
-Dominion_game.insert_players(player1, player_random1)
+Dominion_game.insert_players(player_random2, player_random1)
 
 
 

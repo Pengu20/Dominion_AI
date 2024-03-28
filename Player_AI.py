@@ -3,6 +3,7 @@ import numpy as np
 import pickle
 from keras import Sequential
 from keras.layers import Dense
+import time
 
 class Dominion_reward():
     ''' [summary]
@@ -196,13 +197,20 @@ class Deep_SARSA:
 
         self.played_games = 0
 
+
+        self.SARSA_update_time = []
+        self.get_reward_time = []
+        self.convert_state2list_time = []
+        self.NN_predict_time = []
+
         
 
 
     def initialize_NN(self):
         self.model = Sequential()
         self.model.add(Dense(1024, activation='sigmoid', input_shape=(9000,)))
-        
+        self.model.add(Dense(512, activation='sigmoid'))
+        self.model.add(Dense(256, activation='sigmoid'))
         self.model.add(Dense(1,activation='linear'))
 
         self.model.compile( optimizer='Adam',
@@ -220,10 +228,10 @@ class Deep_SARSA:
         '''
         This function is used to update the neural network with the new values
         '''
+
+
         list_NN_input = self.game_state2list_NN_input(game_state, [action])
-
         self.model.fit(list_NN_input, np.array([[expected_return_updated]]), epochs=1, verbose=0)
-
 
 
 
@@ -233,6 +241,9 @@ class Deep_SARSA:
         This function is used to convert the game state to a 
         list that can be used as input for the neural network
         '''
+
+        start_time = time.time()
+
         binarizeed_gamestate = pickle.dumps(game_state)
 
         # Convert bytearray to list of integers
@@ -255,7 +266,9 @@ class Deep_SARSA:
 
             i += 1
 
-        return NN_inputs
+        self.convert_state2list_time.append(time.time() - start_time)
+
+        return NN_inputs.T # Apparently keras needs the matrix transposed
 
 
     def NN_get_expected_return(self, game_state, actions_list):
@@ -263,12 +276,13 @@ class Deep_SARSA:
         This function gives the value from the neural network to the state action pair
         '''
 
-
         list_NN_inputs = self.game_state2list_NN_input(game_state, actions_list)
 
 
-        list_NN_inputs = list_NN_inputs.T
         expected_return = self.model.predict(list_NN_inputs, verbose=0)
+
+
+
         return expected_return
 
 
@@ -277,6 +291,7 @@ class Deep_SARSA:
         This function is used to update the previous timestep with the new reward
         '''
 
+        start_time = time.time()
         alpha = 0.1 # Learning rate
         gamma = 0.9 # Discount factor
 
@@ -285,24 +300,19 @@ class Deep_SARSA:
         expected_return = self.NN_get_expected_return(game_state, [action])[0]
         old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
 
-        reward = self.rf.get_reward_from_state(game_state)
+        reward = np.sum(self.rf.get_reward_from_state(game_state))
+
 
 
         # SARSA update
         old_expected_return_updated = old_expected_return + alpha * (reward + gamma*expected_return - old_expected_return)
 
-
+        old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))
         # Train the neural network with the new values
         self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
+        self.SARSA_update_time.append(time.time() - start_time)
 
-    def get_reward(self, game_state):
-        '''
-        This function is used to get the reward from the game state
-        '''
-        reward = self.rf.get_reward_from_state(game_state)
-
-        return reward
 
 
 
@@ -310,8 +320,11 @@ class Deep_SARSA:
         '''
         Until a neural network can give us the best state action rewards, we will use this function to give us the rewards
         '''
-
+        time_start = time.time()
         expected_return = self.NN_get_expected_return(game_state, list_of_actions)
+
+        self.NN_predict_time.append(time.time() - time_start)
+
         return list_of_actions[np.argmax(expected_return)]
 
 
@@ -333,7 +346,11 @@ class Deep_SARSA:
             self.action_history.append(np.random.choice(list_of_actions))
             return self.action_history[-1]
         else:
+            
             action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.1)
+            self.SARSA_update(game_state, action)
+
+
 
             self.game_state_history.append(game_state)
             self.action_history.append(action)
@@ -348,13 +365,29 @@ class Deep_SARSA:
         '''
         This function is used to write the current player reward into the reward file
         '''
-        reward = self.get_reward(game_state)
+        reward = self.rf.get_reward_from_state(game_state)
 
         open_file = open(self.file_address, "a")
         open_file.write(f"{np.sum(reward)}  - {reward}\n")
         open_file.close()
 
         self.played_games += 1
+
+        print("Average times: ")
+        sarsa_time = np.array(self.SARSA_update_time)
+        get_reward_time = np.array(self.get_reward_time)
+        convert2list_time = np.array(self.convert_state2list_time)
+        NN_predict_time = np.array(self.NN_predict_time)
+
+        print(f"SARSA update: {np.mean(sarsa_time)} - RUN {len(sarsa_time)} times")
+        print(f"Get reward: {np.mean(get_reward_time)} - RUN {len(get_reward_time)}")
+        print(f"Convert to list: {np.mean(convert2list_time)} - RUN {len(convert2list_time)}")
+        print(f"NN predict: {np.mean(NN_predict_time)} - RUN {len(NN_predict_time)}")
+
+        self.SARSA_update_time = []
+        self.get_reward_time = []
+        self.convert_state2list_time = []
+        self.NN_predict_time = []
 
         if self.played_games % 50 == 0:
             # Save model every 50 games
