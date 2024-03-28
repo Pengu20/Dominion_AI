@@ -321,9 +321,9 @@ class Dominion:
 
 
         # DEBUG option: Play specific card
-        debug_card = 32
-        sm.get_card2hand(players[main], debug_card)
-        play_action = debug_card
+        # debug_card = 32
+        # sm.get_card2hand(players[main], debug_card)
+        # play_action = debug_card
     
 
 
@@ -666,33 +666,19 @@ class Dominion:
 
     
 
-    def __insert_card_in_discard(self, player_state, card):
-        player_state["cards_in_discard"] = np.append(int(card[1]), player_state["cards_in_discard"])
-        return player_state
-    
-    def __insert_card_in_deck(self, player_state, card):
-        player_state["cards_in_deck"] += 1
-        return player_state
-
-
-    
-    def __remove_card_from_discard(self, player_state, card):
-        player_state["cards_in_discard"] = np.delete(player_state["cards_in_discard"], np.where(player_state["cards_in_discard"] == card))
-        return player_state
-
-
-
 
 
 
 Dominion_game = Dominion()
-player1 = random_player(player_name="Ogus_bogus_man")
-player2 = Deep_SARSA(player_name="Deep_SARSA")
-Dominion_game.insert_players(player1, player2)
+player_random1 = random_player(player_name="Ogus_bogus_man")
+player_random2 = random_player(player_name="Ogus_bogus_man2")
+player1 = Deep_SARSA(player_name="Deep_SARSA")
+Dominion_game.insert_players(player1, player_random1)
 
 
 
 for i in range(10000):
+    print(f"Game: {i}")
     Dominion_game.play_loop_AI(verbose=False)
 
 

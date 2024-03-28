@@ -45,9 +45,9 @@ class Dominion_reward():
 
         # ---------------- Reward based on game end ----------------
         if   (game_state["main_Player_won"] == 1):
-            Victory_reward = 200
+            Victory_reward = 100
         elif (game_state["main_Player_won"] == 1):
-            Victory_reward = -200
+            Victory_reward = -100
 
 
 
@@ -186,10 +186,15 @@ class Dominion_reward():
 class Deep_SARSA:
     def __init__(self, player_name) -> None:
         self.rf = Dominion_reward()
+        self.initialize_NN()
         self.game_state_history = []
         self.action_history = []
 
-        self.player_reward_history = open(f"reward_history/{player_name}_reward_history.txt", "w")
+
+        self.player_name = player_name
+        self.file_address = f"reward_history/{self.player_name}_reward_history.txt"
+
+        self.played_games = 0
 
         
 
@@ -221,6 +226,8 @@ class Deep_SARSA:
 
 
 
+
+
     def game_state2list_NN_input(self, game_state, action_list):
         '''
         This function is used to convert the game state to a 
@@ -229,13 +236,14 @@ class Deep_SARSA:
         binarizeed_gamestate = pickle.dumps(game_state)
 
         # Convert bytearray to list of integers
-        list_NN_input = [byte for byte in binarizeed_gamestate]
+        list_NN_input = np.array([byte for byte in binarizeed_gamestate])
 
-        NN_inputs = []
+        NN_inputs = np.zeros((9000, len(action_list)))
+        i = 0
+
         for action in action_list:
-            list_NN_input.append(action)
+            list_NN_input = np.insert(list_NN_input, 0, action)
 
-            list_NN_input = np.array(list_NN_input)
             list_NN_input.resize((len(list_NN_input),1))
 
 
@@ -243,7 +251,9 @@ class Deep_SARSA:
             input_padded = np.zeros((9000,1))
             input_padded[:len(list_NN_input)] = list_NN_input
 
-            NN_inputs.append(input_padded)
+            NN_inputs[:,i] = input_padded[:,0]
+
+            i += 1
 
         return NN_inputs
 
@@ -256,10 +266,10 @@ class Deep_SARSA:
 
         list_NN_inputs = self.game_state2list_NN_input(game_state, actions_list)
 
-        expected_return = self.model.predict(np.array(list_NN_inputs))
+
+        list_NN_inputs = list_NN_inputs.T
+        expected_return = self.model.predict(list_NN_inputs, verbose=0)
         return expected_return
-
-
 
 
     def SARSA_update(self, game_state, action):
@@ -331,6 +341,7 @@ class Deep_SARSA:
             #Remove the previous old values of game state and action history
             self.game_state_history = self.game_state_history[1:]
             self.action_history = self.action_history[1:]
+            return action
 
 
     def write_state_reward_to_file(self, game_state):
@@ -338,7 +349,17 @@ class Deep_SARSA:
         This function is used to write the current player reward into the reward file
         '''
         reward = self.get_reward(game_state)
-        self.player_reward_history.write(f"{reward}\n")
+
+        open_file = open(self.file_address, "a")
+        open_file.write(f"{np.sum(reward)}  - {reward}\n")
+        open_file.close()
+
+        self.played_games += 1
+
+        if self.played_games % 50 == 0:
+            # Save model every 50 games
+            self.model.save(f"NN_models/{self.player_name}_model.keras")
+
 
 
 
@@ -348,7 +369,8 @@ class Deep_SARSA:
 class random_player():
     def __init__(self, player_name):
         self.rf = Dominion_reward()
-        self.player_reward_history = open(f"reward_history/{player_name}_reward_history.txt", "w")
+        self.file_address = f"reward_history/{player_name}_reward_history.txt"
+
 
 
 
@@ -370,5 +392,9 @@ class random_player():
         This function is used to write the current player reward into the reward file
         '''
         reward = self.get_reward(game_state)
-        self.player_reward_history.write(f"{reward}\n")
+
+
+        open_file = open(self.file_address, "a")
+        open_file.write(f"{np.sum(reward)} - {reward}\n")
+        open_file.close()
 

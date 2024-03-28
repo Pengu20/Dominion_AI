@@ -447,13 +447,10 @@ class unique_action:
         action = player_input.choose_action(card_list_action, game_state)
 
         if action == 0:
-            print("Card discard")
             player_state = sm.put_card_from_hand_to_discard(player_state, card_drawn)
         elif action == 1:
-            print("Card trashed")
             player_state = sm.trash_card(player_state, card_drawn)
         else:
-            print("Card kept in deck")
             player_state = sm.hand2deck(game_state, player_state, card_drawn)
 
         game_state["Unique_actions_parameter"] = action
