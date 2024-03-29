@@ -1,7 +1,4 @@
 
-import tensorflow as tf
+list = [4, 5,4,8,6,2]
 
-
-print('GPU name: ', tf.config.experimental.list_physical_devices('GPU'))
-
-
+print(list[:len(list)-1])

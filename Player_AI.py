@@ -199,11 +199,13 @@ class Deep_SARSA:
 
 
         self.SARSA_update_time = []
-        self.get_reward_time = []
         self.convert_state2list_time = []
         self.NN_predict_time = []
+        self.NN_training_time = []
 
-        
+        ## Experimental design, where neural network is first updates at the end of the game using SARSA
+
+        self.expected_return_history = []
 
 
     def initialize_NN(self):
@@ -236,6 +238,29 @@ class Deep_SARSA:
         self.model.fit(list_NN_input, np.array([[expected_return_updated]]), epochs=1, verbose=0)
 
 
+    def __update_NN_with_history(self,game_state_list, action_list, expected_return_updated_list):
+        '''
+        This function is used to update the neural network using a list of all the values used in the game
+        '''
+        time_start = time.time()
+
+
+        input_matrix = np.zeros((len(game_state_list),9000))
+
+        for i in range(len(game_state_list)):
+            list_NN_input = self.game_state2list_NN_input(game_state_list[i], [action_list[i]])
+            input_matrix[i,:] = list_NN_input
+
+        
+        output_label = np.zeros([len(expected_return_updated_list),1])
+
+        for i in range(len(expected_return_updated_list)):
+            output_label[i,:] = expected_return_updated_list[i]
+
+        self.model.fit(input_matrix, output_label, epochs=5, verbose=0)
+
+
+        self.NN_training_time.append(time.time() - time_start)
 
 
     def game_state2list_NN_input(self, game_state, action_list):
@@ -311,7 +336,11 @@ class Deep_SARSA:
 
         old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))
         # Train the neural network with the new values
-        self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
+
+        # Store the updated values
+        self.expected_return_history.append(old_expected_return_updated)
+
+
 
         self.SARSA_update_time.append(time.time() - start_time)
 
@@ -358,9 +387,8 @@ class Deep_SARSA:
             self.action_history.append(action)
 
             #Remove the previous old values of game state and action history
-            self.game_state_history = self.game_state_history[1:]
-            self.action_history = self.action_history[1:]
             return action
+
 
 
     def write_state_reward_to_file(self, game_state):
@@ -377,19 +405,19 @@ class Deep_SARSA:
 
         print("Average times: ")
         sarsa_time = np.array(self.SARSA_update_time)
-        get_reward_time = np.array(self.get_reward_time)
         convert2list_time = np.array(self.convert_state2list_time)
         NN_predict_time = np.array(self.NN_predict_time)
+        NN_training_time = np.array(self.NN_training_time)
 
         print(f"SARSA update: {np.mean(sarsa_time)} - RUN {len(sarsa_time)} times")
-        print(f"Get reward: {np.mean(get_reward_time)} - RUN {len(get_reward_time)}")
         print(f"Convert to list: {np.mean(convert2list_time)} - RUN {len(convert2list_time)}")
         print(f"NN predict: {np.mean(NN_predict_time)} - RUN {len(NN_predict_time)}")
+        print(f"NN training: {np.mean(NN_training_time)} - RUN {len(NN_training_time)}")
 
         self.SARSA_update_time = []
-        self.get_reward_time = []
         self.convert_state2list_time = []
         self.NN_predict_time = []
+        self.NN_training_time = []
 
         if self.played_games % 50 == 0:
             # Save model every 50 games
@@ -397,11 +425,22 @@ class Deep_SARSA:
 
 
 
+    def notify_game_end(self):
+        ''' [summary]
+            This function is used to notify the player that the game has ended
+        '''
+
+        # Deep sarsa will update its neural network with the new values
+        
+        len_gm = len(self.game_state_history)
+        len_ac = len(self.action_history)
+        self.__update_NN_with_history(self.game_state_history[:len_gm-1], self.action_history[:len_ac-1], self.expected_return_history)
 
 
 
 
-class random_player():
+
+class random_player:
     def __init__(self, player_name):
         self.rf = Dominion_reward()
         self.file_address = f"reward_history/{player_name}_reward_history.txt"
@@ -433,4 +472,12 @@ class random_player():
         open_file = open(self.file_address, "a")
         open_file.write(f"{np.sum(reward)} - {reward}\n")
         open_file.close()
+
+
+    def notify_game_end(self):
+        ''' [summary]
+            This function is used to notify the player that the game has ended
+        '''
+
+        pass
 

@@ -202,11 +202,6 @@ class Dominion:
             if self.__game_is_over() or turns >= 1000:
                 game_ongoing = False
 
-                print(f"Main player: {players_input[main].get_name()}")
-  
-                print(f"Adversary player: {players_input[advesary].get_name()}")
-
-
 
                 game_state_player0 = sm.merge_game_player_state(copy.deepcopy(self.game_state), players[main_player], players[advesary])
                 self.game_state = self.__Update_victory_points(game_state_player0, players[main_player])
@@ -218,28 +213,7 @@ class Dominion:
                 advesary_victory_points = players[advesary]["Victory_points"]
 
                 
-                curses = 0
-                for card in game_state_player0["owned_cards"]:
-                    if card == 6:
-                        curses += 1
-
-                curses_owned = -1 * curses
-                print("Curses owned adv: ", curses_owned)
-
-
-                curses = 0
-                for card in game_state_player1["owned_cards"]:
-                    if card == 6:
-                        curses += 1
-
-                curses_owned = -1 * curses
-                print("Curses owned main: ", curses_owned)
-
-
-
-
-
-
+  
                 if main_player_victory_points > advesary_victory_points:
                     main_player_won = True
                     adv_player_won = False
@@ -255,12 +229,20 @@ class Dominion:
                 game_state_player0["main_Player_won"] = main_player_won
                 game_state_player0["adv_Player_won"] = adv_player_won
 
+
+
+                players_input[main].notify_game_end()
+                players_input[advesary].notify_game_end()
+
+
                 players_input[main].write_state_reward_to_file(game_state_player0)
 
 
                 game_state_player1["main_Player_won"] = adv_player_won
                 game_state_player1["adv_Player_won"] = main_player_won
                 players_input[advesary].write_state_reward_to_file(game_state_player1)
+
+
 
 
 
