@@ -1,0 +1,93 @@
+%% Creator: Inkscape inkscape 0.92.5, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'master-project-flow.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{457.5bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.47540984)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{master-project-flow.pdf}}%
+    \put(0.01393443,0.36803279){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Problem 1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{master-project-flow.pdf}}%
+    \put(0.67622951,0.43360656){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Problem 2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{master-project-flow.pdf}}%
+    \put(0.21229508,0.28606557){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Sensor\end{tabular}}}}%
+    \put(0.21229508,0.26147541){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Input\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{master-project-flow.pdf}}%
+    \put(0.08114754,0.28606557){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Motion\end{tabular}}}}%
+    \put(0.08114754,0.26147541){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Control\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{master-project-flow.pdf}}%
+    \put(0.68770492,0.36311475){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}GNC\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{master-project-flow.pdf}}%
+    \put(0.68770492,0.28934426){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Triangle\end{tabular}}}}%
+    \put(0.68770492,0.2647541){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Histogram\end{tabular}}}}%
+    \put(0.68770492,0.1795082){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}TSR\end{tabular}}}}%
+    \put(0.68770492,0.20409836){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Prob.\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{master-project-flow.pdf}}%
+    \put(0.90081967,0.36147541){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Classification\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{master-project-flow.pdf}}%
+    \put(0.90081967,0.20245902){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Pose\end{tabular}}}}%
+    \put(0.90081967,0.17786885){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Estimation\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{master-project-flow.pdf}}%
+    \put(0.52377049,0.28606557){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Point\end{tabular}}}}%
+    \put(0.52377049,0.26147541){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Cloud\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{master-project-flow.pdf}}%
+    \put(0.35983607,0.26147541){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Generation\end{tabular}}}}%
+    \put(0.35983607,0.28606557){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Point Cloud\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{master-project-flow.pdf}}%
+    \put(0.08114754,0.08606557){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1 September\end{tabular}}}}%
+    \put(0.08114754,0.05819672){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}2022\end{tabular}}}}%
+    \put(0.90081967,0.08442623){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1 May\end{tabular}}}}%
+    \put(0.90081967,0.05983607){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}2023\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{master-project-flow.pdf}}%
+    \put(0.52377049,0.08442623){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1 January\end{tabular}}}}%
+    \put(0.52377049,0.05983607){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}2023\end{tabular}}}}%
+  \end{picture}%
+\endgroup%

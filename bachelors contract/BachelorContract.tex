@@ -1,0 +1,79 @@
+\documentclass{report}
+% \documentclass{article}
+\include{defs}
+
+% generate word count text file wc.tex
+\immediate\write18{bash wc.sh}
+
+
+\bibliography{resources} 
+
+
+\begin{document}
+
+% title page
+\input{titlepage.tex}
+
+% preface
+% \input{sections/0-preface}
+
+
+% workload distribution
+\clearpage
+
+\begin{comment}
+\input{chapters/introduction/introduction.tex}
+\vspace{1.8cm}
+\end{comment}
+
+
+\input{chapters/Context/Context.tex}
+\vspace{1.8cm}
+\input{chapters/Related_Work/Related_work.tex}
+\vspace{1.8cm}
+\input{chapters/Problem_Description/description.tex}
+\vspace{2cm}
+\input{chapters/Timeline/Timeline.tex}
+
+
+\begin{comment}
+	\begin{center}
+    \vspace{10cm}
+	\begin{figure}[b!]
+		\begin{tabular}{@{}p{0.5\textwidth} p{1cm} p{0.3\textwidth}@{}}
+			\hrulefill                  &  & \hrulefill \\
+			Peter Khiem Duc Tinh Nguyen &  & Date       \\ \\ \\ \\
+			\hrulefill                  &  & \hrulefill \\
+			iñigo iturrate              &  & Date       \\
+		\end{tabular}
+
+        \vspace{1.5cm}
+		\begin{tabular}{@{}p{0.5\textwidth} p{1cm} p{0.3\textwidth}@{}}
+			\hrulefill                  &  & \hrulefill \\
+			Martin Sundahl Laursen      &  & Date       \\ \\ \\ \\
+			\hrulefill                  &  & \hrulefill \\
+			Jannik Skyttegaard Pedersen &  & Date       \\
+		\end{tabular} 
+	\end{figure}
+
+
+\end{center}
+
+\end{comment}
+
+% main document
+\clearpage
+\pagenumbering{arabic}
+\glsresetall
+
+
+
+% bibliography
+\pagebreak
+% \printbibliography[heading=bibintoc]
+\begin{multicols}{2}[\printbibheading]
+	\printbibliography[heading=none]
+\end{multicols}
+
+
+\end{document}

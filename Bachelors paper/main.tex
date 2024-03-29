@@ -1,0 +1,83 @@
+\documentclass{report}
+% \documentclass{article}
+\include{defs}
+
+% generate word count text file wc.tex
+\immediate\write18{bash wc.sh}
+
+\begin{document}
+
+% title page
+\input{titlepage.tex}
+
+% preface
+% \input{sections/0-preface}
+
+% roman numbering for abstract, TOC, glossary etc.
+\pagenumbering{roman}
+
+% abstract
+\clearpage
+\begin{abstract}
+\input{chapters/abstract/abstract.tex}
+\end{abstract}
+
+% table of contents
+\clearpage
+\tableofcontents
+
+% workload distribution
+\clearpage
+
+% main document
+\clearpage
+\pagenumbering{arabic}
+\glsresetall
+\renewcommand\thefigure{\thechapter.\arabic{figure}}
+\renewcommand\thetable{\thechapter.\arabic{table}}
+\input{chapters/Problem_formulation/problem_formulation.tex}
+\pagebreak
+
+
+
+\input{chapters/SOTA/SOTA.tex}
+\pagebreak
+
+\input{chapters/Overview/overview.tex}
+
+\input{chapters/NLP/NLP.tex}
+\pagebreak
+
+% \input{chapters/Neural_networks/Neural_networks.tex}
+% \pagebreak
+
+\input{chapters/Parser/Parser.tex}
+\pagebreak
+
+\input{chapters/UR_kinematics/UR_Kinematics.tex}
+\pagebreak
+
+
+\input{chapters/Evaluation/Evaluation.tex}
+\pagebreak
+
+\input{chapters/discussion/discussion.tex}
+\pagebreak
+
+\input{chapters/conclusion/conclusion.tex}
+\pagebreak
+
+\input{chapters/Future_work/future_work.tex}
+\pagebreak
+
+
+% bibliography
+\pagebreak
+% \printbibliography[heading=bibintoc]
+\begin{multicols}{2}[\printbibheading]
+\printbibliography[heading=none]
+\end{multicols}
+
+
+
+\end{document}

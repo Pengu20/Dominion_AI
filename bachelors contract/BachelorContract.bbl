@@ -1,0 +1,443 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{4_0_Industrial_revolution}{article}{}
+      \name{author}{1}{}{%
+        {{hash=676fcafeef3108985f063a11974cfaf4}{%
+           family={Olivares-Alarcos},
+           familyi={O\bibinithyphendelim A\bibinitperiod},
+           given={Alberto},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{676fcafeef3108985f063a11974cfaf4}
+      \strng{fullhash}{676fcafeef3108985f063a11974cfaf4}
+      \strng{bibnamehash}{676fcafeef3108985f063a11974cfaf4}
+      \strng{authorbibnamehash}{676fcafeef3108985f063a11974cfaf4}
+      \strng{authornamehash}{676fcafeef3108985f063a11974cfaf4}
+      \strng{authorfullhash}{676fcafeef3108985f063a11974cfaf4}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Electronics}
+      \field{month}{11}
+      \field{title}{On Inferring Intentions in Shared Tasks for Industrial Collaborative Robots}
+      \field{volume}{8}
+      \field{year}{2019}
+    \endentry
+    \entry{cobots}{online}{}
+      \name{author}{1}{}{%
+        {{hash=5a26af7902a1692845b10091fedd4ec5}{%
+           family={Contributor},
+           familyi={C\bibinitperiod},
+           given={TechTarget},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{5a26af7902a1692845b10091fedd4ec5}
+      \strng{fullhash}{5a26af7902a1692845b10091fedd4ec5}
+      \strng{bibnamehash}{5a26af7902a1692845b10091fedd4ec5}
+      \strng{authorbibnamehash}{5a26af7902a1692845b10091fedd4ec5}
+      \strng{authornamehash}{5a26af7902a1692845b10091fedd4ec5}
+      \strng{authorfullhash}{5a26af7902a1692845b10091fedd4ec5}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{collaborative robot (cobot)}
+      \verb{urlraw}
+      \verb https://www.techtarget.com/whatis/definition/collaborative-robot-cobot
+      \endverb
+      \verb{url}
+      \verb https://www.techtarget.com/whatis/definition/collaborative-robot-cobot
+      \endverb
+    \endentry
+    \entry{HRC_levels}{unknown}{}
+      \name{author}{5}{}{%
+        {{hash=283b57c7bc9822f14ac9f6788feb6606}{%
+           family={Wilhelm},
+           familyi={W\bibinitperiod},
+           given={Bauer},
+           giveni={B\bibinitperiod}}}%
+        {{hash=19e361eb62dfd08c8cf0b45df3bd4e7e}{%
+           family={Manfred},
+           familyi={M\bibinitperiod},
+           given={Bender},
+           giveni={B\bibinitperiod}}}%
+        {{hash=d80f7d8c34c0856e00fa15e123d2634d}{%
+           family={Braun},
+           familyi={B\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+        {{hash=a4992182ebbaf155fe0aad028f085d26}{%
+           family={Rally},
+           familyi={R\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=4183f095693e3c298632617b264cac75}{%
+           family={Scholtz},
+           familyi={S\bibinitperiod},
+           given={Oliver},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{4f72dbd5995179fc196cb32b6c25e410}
+      \strng{fullhash}{5b5e61d67de079d151cae9c37cf431d8}
+      \strng{bibnamehash}{4f72dbd5995179fc196cb32b6c25e410}
+      \strng{authorbibnamehash}{4f72dbd5995179fc196cb32b6c25e410}
+      \strng{authornamehash}{4f72dbd5995179fc196cb32b6c25e410}
+      \strng{authorfullhash}{5b5e61d67de079d151cae9c37cf431d8}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{10}
+      \field{title}{Lightweight robots in manual assembly – best to start simply! Examining companies’ initial experiences with lightweight robots}
+      \field{year}{2016}
+    \endentry
+    \entry{Method3}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=504b62a3b9ac48e35c976872bdef4399}{%
+           family={Kahuttanaseth},
+           familyi={K\bibinitperiod},
+           given={Wittawin},
+           giveni={W\bibinitperiod}}}%
+        {{hash=b70714c1abd15389b29bea492841d5de}{%
+           family={Dressler},
+           familyi={D\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+        {{hash=986c98916ae523f623092c1acfad10a8}{%
+           family={Netramai},
+           familyi={N\bibinitperiod},
+           given={Chayakorn},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{8c99ba96d47c3d6a689b0cf4aa5968db}
+      \strng{fullhash}{8c99ba96d47c3d6a689b0cf4aa5968db}
+      \strng{bibnamehash}{8c99ba96d47c3d6a689b0cf4aa5968db}
+      \strng{authorbibnamehash}{8c99ba96d47c3d6a689b0cf4aa5968db}
+      \strng{authornamehash}{8c99ba96d47c3d6a689b0cf4aa5968db}
+      \strng{authorfullhash}{8c99ba96d47c3d6a689b0cf4aa5968db}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2018 5th International Conference on Business and Industrial Research (ICBIR)}
+      \field{title}{Commanding mobile robot movement based on natural language processing with RNN encoder­decoder}
+      \field{year}{2018}
+      \field{pages}{161\bibrangedash 166}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1109/ICBIR.2018.8391185
+      \endverb
+    \endentry
+    \entry{Method1}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=aebbecbd1acff4649da09a18719e26e0}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Shih-Hung},
+           giveni={S\bibinithyphendelim H\bibinitperiod}}}%
+        {{hash=a0ee1b641b5322c718d7ca7ccf3e5f60}{%
+           family={Hong},
+           familyi={H\bibinitperiod},
+           given={Xie-Sheng},
+           giveni={X\bibinithyphendelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{1ca307161de08c61af2bcab9a7697653}
+      \strng{fullhash}{1ca307161de08c61af2bcab9a7697653}
+      \strng{bibnamehash}{1ca307161de08c61af2bcab9a7697653}
+      \strng{authorbibnamehash}{1ca307161de08c61af2bcab9a7697653}
+      \strng{authornamehash}{1ca307161de08c61af2bcab9a7697653}
+      \strng{authorfullhash}{1ca307161de08c61af2bcab9a7697653}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2020 International Automatic Control Conference (CACS)}
+      \field{title}{Integrating Computer Vision and Natural Language Instruction for Collaborative Robot Human-Robot Interaction}
+      \field{year}{2020}
+      \field{pages}{1\bibrangedash 5}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1109/CACS50047.2020.9289768
+      \endverb
+    \endentry
+    \entry{Method2}{inbook}{}
+      \name{author}{4}{}{%
+        {{hash=f4666a54b6899209b1e6676d92c62f86}{%
+           family={Matuszek},
+           familyi={M\bibinitperiod},
+           given={Cynthia},
+           giveni={C\bibinitperiod}}}%
+        {{hash=df4dfabbcce28b548f485d8793594f24}{%
+           family={Herbst},
+           familyi={H\bibinitperiod},
+           given={Evan},
+           giveni={E\bibinitperiod}}}%
+        {{hash=1dbd3a5b42828fb2cebd7786488ba425}{%
+           family={Zettlemoyer},
+           familyi={Z\bibinitperiod},
+           given={Luke},
+           giveni={L\bibinitperiod}}}%
+        {{hash=93b0c4a7857a82a8f94e256475887c74}{%
+           family={Fox},
+           familyi={F\bibinitperiod},
+           given={Dieter},
+           giveni={D\bibinitperiod}}}%
+      }
+      \name{editor}{4}{}{%
+        {{hash=e3f14f9f99047990e69a9781c6cbb03d}{%
+           family={Desai},
+           familyi={D\bibinitperiod},
+           given={Jaydev\bibnamedelima P.},
+           giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=13d3850176ca9bbfb14e68325cc0a9fc}{%
+           family={Dudek},
+           familyi={D\bibinitperiod},
+           given={Gregory},
+           giveni={G\bibinitperiod}}}%
+        {{hash=a1ed48939870abd896792330bc735967}{%
+           family={Khatib},
+           familyi={K\bibinitperiod},
+           given={Oussama},
+           giveni={O\bibinitperiod}}}%
+        {{hash=3c2a6a0658f1ad90e7d4a83eef9c3841}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={Vijay},
+           giveni={V\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer International Publishing}%
+      }
+      \strng{namehash}{d7bd392faaca22014ff2d75016abebcb}
+      \strng{fullhash}{63d202db0e5d69420904b4c4ba2cf6a7}
+      \strng{bibnamehash}{d7bd392faaca22014ff2d75016abebcb}
+      \strng{authorbibnamehash}{d7bd392faaca22014ff2d75016abebcb}
+      \strng{authornamehash}{d7bd392faaca22014ff2d75016abebcb}
+      \strng{authorfullhash}{63d202db0e5d69420904b4c4ba2cf6a7}
+      \strng{editorbibnamehash}{f1dbfa5944198d3571d576adf2662907}
+      \strng{editornamehash}{f1dbfa5944198d3571d576adf2662907}
+      \strng{editorfullhash}{759ef862cf024167206d8f6ca3f36203}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{As robots become more ubiquitous and capable of performing complex tasks, the importance of enabling untrained users to interact with them has increased. In response, unconstrained natural-language interaction with robots has emerged as a significant research area. We discuss the problem of parsing natural language commands to actions and control structures that can be readily implemented in a robot execution system. Our approach learns a parser based on example pairs of English commands and corresponding control language expressions. We evaluate this approach in the context of following route instructions through an indoor environment, and demonstrate that our system can learn to translate English commands into sequences of desired actions, while correctly capturing the semantic intent of statements involving complex control structures. The procedural nature of our formal representation allows a robot to interpret route instructions online while moving through a previously unknown environment.}
+      \field{booktitle}{Experimental Robotics: The 13th International Symposium on Experimental Robotics}
+      \field{isbn}{978-3-319-00065-7}
+      \field{title}{Learning to Parse Natural Language Commands to a Robot Control System}
+      \field{year}{2013}
+      \field{pages}{403\bibrangedash 415}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1007/978-3-319-00065-7_28
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-319-00065-7_28
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-319-00065-7_28
+      \endverb
+    \endentry
+    \entry{TextNotSpeech1}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=917487f82ffcc99c07e6c4903619f027}{%
+           family={Suárez\bibnamedelima Bonilla},
+           familyi={S\bibinitperiod\bibinitdelim B\bibinitperiod},
+           given={Félix},
+           giveni={F\bibinitperiod}}}%
+        {{hash=5ddbcf5c2ec972eb40101c9899e81501}{%
+           family={Ruiz\bibnamedelima Ugalde},
+           familyi={R\bibinitperiod\bibinitdelim U\bibinitperiod},
+           given={Federico},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{92cce86faa6333df5a85e88b7afa7c9b}
+      \strng{fullhash}{92cce86faa6333df5a85e88b7afa7c9b}
+      \strng{bibnamehash}{92cce86faa6333df5a85e88b7afa7c9b}
+      \strng{authorbibnamehash}{92cce86faa6333df5a85e88b7afa7c9b}
+      \strng{authornamehash}{92cce86faa6333df5a85e88b7afa7c9b}
+      \strng{authorfullhash}{92cce86faa6333df5a85e88b7afa7c9b}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2019 Third IEEE International Conference on Robotic Computing (IRC)}
+      \field{title}{Automatic Translation of Spanish Natural Language Commands to Control Robot Comands Based on LSTM Neural Network}
+      \field{year}{2019}
+      \field{pages}{125\bibrangedash 131}
+      \range{pages}{7}
+    \endentry
+    \entry{SpeechToText1}{online}{}
+      \name{author}{1}{}{%
+        {{hash=84195b5ec9e1501c5c771a8e2a052946}{%
+           family={Wood},
+           familyi={W\bibinitperiod},
+           given={Laura},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{84195b5ec9e1501c5c771a8e2a052946}
+      \strng{fullhash}{84195b5ec9e1501c5c771a8e2a052946}
+      \strng{bibnamehash}{84195b5ec9e1501c5c771a8e2a052946}
+      \strng{authorbibnamehash}{84195b5ec9e1501c5c771a8e2a052946}
+      \strng{authornamehash}{84195b5ec9e1501c5c771a8e2a052946}
+      \strng{authorfullhash}{84195b5ec9e1501c5c771a8e2a052946}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Global Speech-to-text API Market to 2027}
+      \verb{urlraw}
+      \verb https://www.businesswire.com/news/home/20220504005949/en/Global-Speech-to-text-API-Market-to-2027---Size-Share-Industry-Trends-Analysis-Report---ResearchAndMarkets.com
+      \endverb
+      \verb{url}
+      \verb https://www.businesswire.com/news/home/20220504005949/en/Global-Speech-to-text-API-Market-to-2027---Size-Share-Industry-Trends-Analysis-Report---ResearchAndMarkets.com
+      \endverb
+    \endentry
+    \entry{NN_rocks}{online}{}
+      \name{author}{1}{}{%
+        {{hash=af7a566f0ef3f8d9dd5350cfac7cd338}{%
+           family={Padmanabhan},
+           familyi={P\bibinitperiod},
+           given={Arvind},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{af7a566f0ef3f8d9dd5350cfac7cd338}
+      \strng{fullhash}{af7a566f0ef3f8d9dd5350cfac7cd338}
+      \strng{bibnamehash}{af7a566f0ef3f8d9dd5350cfac7cd338}
+      \strng{authorbibnamehash}{af7a566f0ef3f8d9dd5350cfac7cd338}
+      \strng{authornamehash}{af7a566f0ef3f8d9dd5350cfac7cd338}
+      \strng{authorfullhash}{af7a566f0ef3f8d9dd5350cfac7cd338}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Neural Networks for NLP}
+      \verb{urlraw}
+      \verb https://devopedia.org/neural-networks-for-nlp#cite-as
+      \endverb
+      \verb{url}
+      \verb https://devopedia.org/neural-networks-for-nlp#cite-as
+      \endverb
+    \endentry
+    \entry{vaswani2017attention}{article}{}
+      \name{author}{8}{}{%
+        {{hash=7f28e84700536646dd6620a0db07ad09}{%
+           family={Vaswani},
+           familyi={V\bibinitperiod},
+           given={Ashish},
+           giveni={A\bibinitperiod}}}%
+        {{hash=62efade83d70f0323fe248755e6c90c5}{%
+           family={Shazeer},
+           familyi={S\bibinitperiod},
+           given={Noam},
+           giveni={N\bibinitperiod}}}%
+        {{hash=06649ebab1ea5cac0250746a19764975}{%
+           family={Parmar},
+           familyi={P\bibinitperiod},
+           given={Niki},
+           giveni={N\bibinitperiod}}}%
+        {{hash=831027ee0ebf22375e2a86afc1881909}{%
+           family={Uszkoreit},
+           familyi={U\bibinitperiod},
+           given={Jakob},
+           giveni={J\bibinitperiod}}}%
+        {{hash=2fd2982e30ebcec93ec1cf76e0d797fd}{%
+           family={Jones},
+           familyi={J\bibinitperiod},
+           given={Llion},
+           giveni={L\bibinitperiod}}}%
+        {{hash=27b07e4eacbf4ef7a1438e3badb7dd8d}{%
+           family={Gomez},
+           familyi={G\bibinitperiod},
+           given={Aidan\bibnamedelima N},
+           giveni={A\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=540fcd72e1fa4bbed46604f4e6cff817}{%
+           family={Kaiser},
+           familyi={K\bibinitperiod},
+           given={{Ł}ukasz},
+           giveni={Ł\bibinitperiod}}}%
+        {{hash=95595a0fefb86187cbc36e551017d332}{%
+           family={Polosukhin},
+           familyi={P\bibinitperiod},
+           given={Illia},
+           giveni={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{ee273ab30cfb889666f8c4d806eb9ce7}
+      \strng{fullhash}{cb26e47f6b8133865271fc8483132297}
+      \strng{bibnamehash}{ee273ab30cfb889666f8c4d806eb9ce7}
+      \strng{authorbibnamehash}{ee273ab30cfb889666f8c4d806eb9ce7}
+      \strng{authornamehash}{ee273ab30cfb889666f8c4d806eb9ce7}
+      \strng{authorfullhash}{cb26e47f6b8133865271fc8483132297}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Advances in neural information processing systems}
+      \field{title}{Attention is all you need}
+      \field{volume}{30}
+      \field{year}{2017}
+    \endentry
+    \entry{devlin2018bert}{article}{}
+      \name{author}{4}{}{%
+        {{hash=13202969e372bc82318f9629cbdd199b}{%
+           family={Devlin},
+           familyi={D\bibinitperiod},
+           given={Jacob},
+           giveni={J\bibinitperiod}}}%
+        {{hash=a45784fe7163b45f11d166564f5d24b6}{%
+           family={Chang},
+           familyi={C\bibinitperiod},
+           given={Ming-Wei},
+           giveni={M\bibinithyphendelim W\bibinitperiod}}}%
+        {{hash=8dde73b4194f5bc4230c4808f3fc1534}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Kenton},
+           giveni={K\bibinitperiod}}}%
+        {{hash=b92aa283415413bb8d2a1548716d0c7d}{%
+           family={Toutanova},
+           familyi={T\bibinitperiod},
+           given={Kristina},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{ad8e2e2a80d28ade21e86852b804fc9b}
+      \strng{fullhash}{e8bccd48302a14eeba57d9dce2f49ef4}
+      \strng{bibnamehash}{ad8e2e2a80d28ade21e86852b804fc9b}
+      \strng{authorbibnamehash}{ad8e2e2a80d28ade21e86852b804fc9b}
+      \strng{authornamehash}{ad8e2e2a80d28ade21e86852b804fc9b}
+      \strng{authorfullhash}{e8bccd48302a14eeba57d9dce2f49ef4}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1810.04805}
+      \field{title}{Bert: Pre-training of deep bidirectional transformers for language understanding}
+      \field{year}{2018}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

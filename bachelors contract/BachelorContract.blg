@@ -1,0 +1,18 @@
+[0] Config.pm:306> INFO - This is Biber 2.18
+[0] Config.pm:309> INFO - Logfile is 'BachelorContract.blg'
+[131] biber-MSWIN64:340> INFO - === 
+[181] Biber.pm:418> INFO - Reading 'BachelorContract.bcf'
+[323] Biber.pm:978> INFO - Found 11 citekeys in bib section 0
+[341] Biber.pm:4401> INFO - Processing section 0
+[355] Biber.pm:4592> INFO - Looking for bibtex file 'resources.bib' for section 0
+[417] bibtex.pm:1713> INFO - LaTeX decoding ...
+[441] bibtex.pm:1518> INFO - Found BibTeX data source 'resources.bib'
+[584] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[584] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[585] Biber.pm:4221> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'en-US'
+[585] Biber.pm:4227> INFO - No sort tailoring available for locale 'en-US'
+[605] bbl.pm:654> INFO - Writing 'BachelorContract.bbl' with encoding 'UTF-8'
+[619] bbl.pm:757> INFO - Output to BachelorContract.bbl
+[619] Biber.pm:130> WARN - BibTeX subsystem: warning: comma(s) at end of name (removing)
+[619] Biber.pm:130> WARN - BibTeX subsystem: warning: comma(s) at end of name (removing)
+[620] Biber.pm:132> INFO - WARNINGS: 2

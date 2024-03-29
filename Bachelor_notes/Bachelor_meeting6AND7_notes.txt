@@ -1,0 +1,29 @@
+Bachelor meeting 6 and 7
+
+antecedent pronoun parsing?
+
+
+
+Rapport feedback:
+
+ - start from transformers (mindfull of time, space and narrative)
+
+ - points will be given for how the theory is implemented, not arbitrary theory
+
+ - introduction to theory segments: to large, not going to work (example: NLP introduction cool)
+
+ - better use of my time to think about evaluation and about testing the limit of my system and improve.
+
+
+managing transforming use tools.
+
+next week: 
+implement kinematics in the parser, and get ideas to how it could be implemented, which is then used
+
+idea: move to a frame, save frame as "name". add it to transform manager. Ask it to make movements based on that frame.
+
+core idea: must need to relate to other subjects that i have. too show that i learned something through the bachelor course.
+
+transform math
+https://github.com/dfki-ric/pytransform3d
+https://github.com/petercorke/robotics-toolbox-python
