@@ -46,9 +46,9 @@ class Dominion_reward():
 
         # ---------------- Reward based on game end ----------------
         if   (game_state["main_Player_won"] == 1):
-            Victory_reward = 100
+            Victory_reward = 20
         elif (game_state["main_Player_won"] == 1):
-            Victory_reward = -100
+            Victory_reward = -20
 
 
 
