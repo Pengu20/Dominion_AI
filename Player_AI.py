@@ -194,6 +194,7 @@ class Deep_SARSA:
 
         self.player_name = player_name
         self.file_address = f"reward_history/{self.player_name}_reward_history.txt"
+        self.file_sum_expected_rewards = f"reward_history/{self.player_name}_sum_expected_rewards.txt"
 
         self.played_games = 0
 
@@ -207,6 +208,9 @@ class Deep_SARSA:
 
         self.expected_return_history = []
         self.games_played = 0
+
+
+        self.sum_expected_return = 0 # This is used to keep track of the sum of expected returns gained by the players
 
 
     def initialize_NN(self):
@@ -272,7 +276,7 @@ class Deep_SARSA:
         '''
         time_start = time.time()
 
-        self.model.fit(input_matrix, output_matrix, epochs=5, verbose=0)
+        self.model.fit(input_matrix, output_matrix, epochs=10, verbose=0)
 
         self.NN_training_time.append(time.time() - time_start)
 
@@ -344,7 +348,6 @@ class Deep_SARSA:
         reward = np.sum(self.rf.get_reward_from_state(game_state))
 
 
-
         # SARSA update
         old_expected_return_updated = old_expected_return + alpha * (reward + gamma*expected_return - old_expected_return)
 
@@ -355,6 +358,7 @@ class Deep_SARSA:
         self.expected_return_history.append(old_expected_return_updated)
 
 
+        self.sum_expected_return += old_expected_return
 
         self.SARSA_update_time.append(time.time() - start_time)
 
@@ -411,6 +415,14 @@ class Deep_SARSA:
         open_file = open(self.file_address, "a")
         open_file.write(f"{np.sum(reward)}  - {reward}\n")
         open_file.close()
+
+
+        open_file = open(self.file_sum_expected_rewards, "a")
+        open_file.write(f"{np.sum(self.sum_expected_return)}\n")
+        self.sum_expected_return = 0
+        open_file.close()
+
+
 
         self.played_games += 1
 
@@ -508,7 +520,7 @@ class random_player:
 
 
         open_file = open(self.file_address, "a")
-        open_file.write(f"{np.sum(reward)} - {reward}\n")
+        open_file.write(f"{np.sum(reward)}  - {reward}\n")
         open_file.close()
 
 
