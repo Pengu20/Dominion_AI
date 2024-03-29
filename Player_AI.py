@@ -23,32 +23,36 @@ class Dominion_reward():
                 reward (int): [description] The reward that the player gets from the game state
         '''
 
-        reward = -1
-        Victory_reward = 0 #100 if won -100 if lost
+        reward = -5
+        Victory_reward = 0 #50 if won -50 if lost
         Victory_points_reward = 2 # 1 per victory point
 
-        Province_difference_reward = 0 # 3 per province difference
+        Province_difference_reward = 0 # 5 per province difference
 
-        Cards_played_reward = 0 # 3 if you played more than 3 cards
-        few_coppers_reward = 0 # 3 if you have less than 3 coppers
+        Cards_played_reward = 0 # 5 if you played more than 3 cards
+        few_coppers_reward = 0 # 5 if you have less than 3 coppers
 
-        no_copper_reward = 0 # 3 if you have no coppers
-        no_estates_reward = 0 # 3 if you have no estates
+        no_copper_reward = 0 # 5 if you have no coppers
+        no_estates_reward = 0 # 5 if you have no estates
 
-        gold_reward = 0 # get 1 point for each 3 value of player
+        gold_reward = 0 # get 3 point for each gold in deck
 
-        curses_owned = 0 # -1 point per curse
+        being_poor_punishment = 0 # -10 if you have less than 3 in value
 
-        Dead_action_cards_reward = 0 # -1 point per action card in hand, if you have no actions left
+        no_cards_punishment = 0 # -10 if you own less than 5 cards
+
+        curses_owned = 0 # -10 point per curse
+
+        Dead_action_cards_reward = 0 # -2 point per action card in hand, if you have no actions left
 
     
 
 
         # ---------------- Reward based on game end ----------------
         if   (game_state["main_Player_won"] == 1):
-            Victory_reward = 20
+            Victory_reward = 50
         elif (game_state["main_Player_won"] == 1):
-            Victory_reward = -20
+            Victory_reward = -50
 
 
 
@@ -58,11 +62,11 @@ class Dominion_reward():
 
         for card in game_state["owned_cards"]:
             if card == 5:
-                province_main += 1
+                province_main += 5
 
         for card in game_state["adv_owned_cards"]:
             if card == 5:
-                province_adv += 1
+                province_adv += 5
 
         Province_difference_reward = (province_main - province_adv) * 3
 
@@ -70,27 +74,27 @@ class Dominion_reward():
 
         # ---------------- Points for having more victory points than the other players ----------------
         Victory_points_diff = game_state["Victory_points"] - game_state["adv_Victory_points"]
-        Victory_points_reward = 2 * np.sign(Victory_points_diff)
+        Victory_points_reward = 5 * np.sign(Victory_points_diff)
         
 
 
         # ---------------- reward for playing many cards ----------------
         if len(game_state["played_cards"]) > 3:
-            Cards_played_reward = 3
+            Cards_played_reward = 5
 
 
 
-        # ---------------- reward for having no coppers ----------------
+        # ---------------- reward for having few/no coppers ----------------
         coppers = 0
         for card in game_state["owned_cards"]:
             if card == 0:
                 coppers += 1
 
         if coppers < 3:
-            few_coppers_reward = 3
+            few_coppers_reward = 5
         
         if coppers == 0:
-            no_copper_reward = 3
+            no_copper_reward = 5
         
 
         # ---------------- reward for having no estates ----------------
@@ -100,13 +104,43 @@ class Dominion_reward():
                 estates += 1
 
         if estates == 0:
-            no_estates_reward = 3
+            no_estates_reward = 5
 
 
         # ---------------- gold reward ----------------
 
-        gold_reward = int(game_state["value"]/3)
+        gold_cards = 0
+        for card in game_state["owned_cards"]:
+            if card == 2:
+                gold_cards += 1
 
+        gold_reward = gold_cards*3
+
+
+        # ---------------- being poor punishment ----------------
+
+        coppers = 0
+        silvers = 0
+        golds = 0
+
+
+        for card in game_state["owned_cards"]:
+            if card == 0:
+                coppers += 1
+            elif card == 1:
+                silvers += 1
+            elif card == 2:
+                golds += 1
+
+
+        if coppers + 2 * silvers + 3 * golds < 3:
+            being_poor_punishment = -10
+
+        # ---------------- no_cards_punishment ----------------
+
+
+        if len(game_state["owned_cards"]) < 5:
+            no_cards_punishment = -10
 
 
         # ---------------- curse punishment ----------------
@@ -115,7 +149,7 @@ class Dominion_reward():
             if card == 6:
                 curses += 1
 
-        curses_owned = -1 * curses
+        curses_owned = -10 * curses
 
 
         # ---------------- dead action cards punishment ----------------
@@ -125,13 +159,13 @@ class Dominion_reward():
                 if card >= 6 and card != 13:
                     dead_action_cards += 1
         
-        Dead_action_cards_reward = -1 * dead_action_cards
+        Dead_action_cards_reward = -2 * dead_action_cards
 
 
 
         reward_list = np.array([reward, Victory_reward, Victory_points_reward, Province_difference_reward, 
                                 Cards_played_reward, few_coppers_reward, no_copper_reward, no_estates_reward, 
-                                gold_reward, curses_owned, Dead_action_cards_reward])
+                                gold_reward, Dead_action_cards_reward, being_poor_punishment, no_cards_punishment, curses_owned])
 
 
         return reward_list
@@ -357,8 +391,9 @@ class Deep_SARSA:
         # Store the updated values
         self.expected_return_history.append(old_expected_return_updated)
 
-
         self.sum_expected_return += old_expected_return
+
+        self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
         self.SARSA_update_time.append(time.time() - start_time)
 
@@ -430,12 +465,12 @@ class Deep_SARSA:
         sarsa_time = np.array(self.SARSA_update_time)
         convert2list_time = np.array(self.convert_state2list_time)
         NN_predict_time = np.array(self.NN_predict_time)
-        NN_training_time = np.array(self.NN_training_time)
+        # NN_training_time = np.array(self.NN_training_time)
 
         print(f"SARSA update: {np.mean(sarsa_time)} - RUN {len(sarsa_time)} times")
         print(f"Convert to list: {np.mean(convert2list_time)} - RUN {len(convert2list_time)}")
         print(f"NN predict: {np.mean(NN_predict_time)} - RUN {len(NN_predict_time)}")
-        print(f"NN training: {np.mean(NN_training_time)} - RUN {len(NN_training_time)}")
+        # print(f"NN training: {np.mean(NN_training_time)} - RUN {len(NN_training_time)}")
 
 
 
@@ -443,7 +478,7 @@ class Deep_SARSA:
         self.SARSA_update_time = []
         self.convert_state2list_time = []
         self.NN_predict_time = []
-        self.NN_training_time = []
+        # self.NN_training_time = []
 
         if self.played_games % 50 == 0:
             # Save model every 50 games
@@ -479,7 +514,7 @@ class Deep_SARSA:
         file.close()
 
 
-        self.__update_NN_np_mat(input_matrix, output_matrix)
+        # self.__update_NN_np_mat(input_matrix, output_matrix)
 
         self.game_state_history = []
         self.action_history = []
