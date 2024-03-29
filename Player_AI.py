@@ -218,7 +218,7 @@ class Deep_SARSA:
 
         self.player_name = player_name
         self.file_address = f"reward_history/{self.player_name}_reward_history.txt"
-        self.file_sum_expected_rewards = f"reward_history/{self.player_name}_sum_expected_rewards.txt"
+        self.file_average_expected_rewards = f"reward_history/{self.player_name}_sum_expected_rewards.txt"
 
         self.played_games = 0
 
@@ -234,7 +234,7 @@ class Deep_SARSA:
         self.games_played = 0
 
 
-        self.sum_expected_return = 0 # This is used to keep track of the sum of expected returns gained by the players
+        self.all_expected_returns = [] # This is used to keep track of the sum of expected returns gained by the players
 
 
     def initialize_NN(self):
@@ -384,7 +384,7 @@ class Deep_SARSA:
         # Store the updated values
         self.expected_return_history.append(old_expected_return_updated)
 
-        self.sum_expected_return += old_expected_return
+        self.all_expected_returns.append(old_expected_return)
 
         self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
@@ -445,9 +445,9 @@ class Deep_SARSA:
         open_file.close()
 
 
-        open_file = open(self.file_sum_expected_rewards, "a")
-        open_file.write(f"{np.sum(self.sum_expected_return)}\n")
-        self.sum_expected_return = 0
+        open_file = open(self.file_average_expected_rewards, "a")
+        open_file.write(f"{np.mean(self.all_expected_returns)}\n")
+        self.all_expected_returns = []
         open_file.close()
 
 
