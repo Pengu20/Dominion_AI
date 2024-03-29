@@ -206,6 +206,7 @@ class Deep_SARSA:
         ## Experimental design, where neural network is first updates at the end of the game using SARSA
 
         self.expected_return_history = []
+        self.games_played = 0
 
 
     def initialize_NN(self):
@@ -237,13 +238,12 @@ class Deep_SARSA:
         list_NN_input = self.game_state2list_NN_input(game_state, [action])
         self.model.fit(list_NN_input, np.array([[expected_return_updated]]), epochs=1, verbose=0)
 
-
-    def __update_NN_with_history(self,game_state_list, action_list, expected_return_updated_list):
+    
+    def __game_state_list2NN_input(self, game_state_list, action_list):
         '''
-        This function is used to update the neural network using a list of all the values used in the game
+        This function maps the input of the game state to the input of the neural network
+        It is assumed that the size of the gamestate value is 9000
         '''
-        time_start = time.time()
-
 
         input_matrix = np.zeros((len(game_state_list),9000))
 
@@ -251,14 +251,28 @@ class Deep_SARSA:
             list_NN_input = self.game_state2list_NN_input(game_state_list[i], [action_list[i]])
             input_matrix[i,:] = list_NN_input
 
-        
+        return input_matrix
+    
+    def __expected_return_list2NN_output(self, expected_return_updated_list):
+        '''
+        This function is used to convert the expected return list to the output of the neural network
+        '''
         output_label = np.zeros([len(expected_return_updated_list),1])
 
         for i in range(len(expected_return_updated_list)):
             output_label[i,:] = expected_return_updated_list[i]
 
-        self.model.fit(input_matrix, output_label, epochs=5, verbose=0)
+        return output_label
 
+
+
+    def __update_NN_np_mat(self, input_matrix, output_matrix):
+        '''
+        This function is used to update the neural network using a list of all the values used in the game
+        '''
+        time_start = time.time()
+
+        self.model.fit(input_matrix, output_matrix, epochs=5, verbose=0)
 
         self.NN_training_time.append(time.time() - time_start)
 
@@ -345,8 +359,6 @@ class Deep_SARSA:
         self.SARSA_update_time.append(time.time() - start_time)
 
 
-
-
     def greedy_choice(self, list_of_actions, game_state):
         '''
         Until a neural network can give us the best state action rewards, we will use this function to give us the rewards
@@ -357,7 +369,6 @@ class Deep_SARSA:
         self.NN_predict_time.append(time.time() - time_start)
 
         return list_of_actions[np.argmax(expected_return)]
-
 
 
     def epsilon_greedy_policy(self, list_of_actions, game_state, epsilon):
@@ -414,6 +425,9 @@ class Deep_SARSA:
         print(f"NN predict: {np.mean(NN_predict_time)} - RUN {len(NN_predict_time)}")
         print(f"NN training: {np.mean(NN_training_time)} - RUN {len(NN_training_time)}")
 
+
+
+
         self.SARSA_update_time = []
         self.convert_state2list_time = []
         self.NN_predict_time = []
@@ -434,9 +448,33 @@ class Deep_SARSA:
         
         len_gm = len(self.game_state_history)
         len_ac = len(self.action_history)
-        self.__update_NN_with_history(self.game_state_history[:len_gm-1], self.action_history[:len_ac-1], self.expected_return_history)
+        game_state_hist = self.game_state_history[:len_gm-1]
+        action_hist = self.action_history[:len_ac-1]
+
+        game_state_data = pickle.loads(pickle.dumps(self.game_state_history[-1]))
+
+        game_ID = "game_" + str(self.games_played)
+
+        input_matrix = self.__game_state_list2NN_input(game_state_hist, action_hist)
+        output_matrix = self.__expected_return_list2NN_output(self.expected_return_history)
+
+        file = open(f"Q_table_data/input_data/input_data_{game_ID}.txt", "wb")
+        pickle.dump(input_matrix, file)
+        file.close()
+
+        file = open(f"Q_table_data/output_data/output_data_{game_ID}.txt", "wb")
+        pickle.dump(output_matrix, file)
+        file.close()
 
 
+        self.__update_NN_np_mat(input_matrix, output_matrix)
+
+        self.game_state_history = []
+        self.action_history = []
+        self.expected_return_history = []
+
+
+        self.games_played += 1
 
 
 
