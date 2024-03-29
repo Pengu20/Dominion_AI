@@ -222,6 +222,8 @@ class Deep_SARSA:
                             steps_per_execution=None,
                             jit_compile=None,
                             )
+        
+        self.model.summary()
 
 
     def update_NN(self, game_state, action, expected_return_updated):
@@ -403,9 +405,10 @@ class random_player():
     def __init__(self, player_name):
         self.rf = Dominion_reward()
         self.file_address = f"reward_history/{player_name}_reward_history.txt"
+        self.player_name = player_name
 
-
-
+    def get_name(self):
+        return self.player_name
 
     def get_reward(self, game_state):
         '''

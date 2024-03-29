@@ -202,20 +202,9 @@ class Dominion:
             if self.__game_is_over() or turns >= 1000:
                 game_ongoing = False
 
-                curses = 0
-                for card in players[main_player]["owned_cards"]:
-                    if card == 6:
-                        curses += 1
-
-                curses_owned = -1 * curses
-                print("Curses owned main: ", curses_owned)
-                curses = 0
-                for card in players[advesary]["owned_cards"]:
-                    if card == 6:
-                        curses += 1
-
-                curses_owned = -1 * curses
-                print("Curses owned adv: ", curses_owned)
+                print(f"Main player: {players_input[main].get_name()}")
+  
+                print(f"Adversary player: {players_input[advesary].get_name()}")
 
 
 
@@ -227,6 +216,27 @@ class Dominion:
                 game_state_player1 = sm.merge_game_player_state(copy.deepcopy(self.game_state), players[advesary], players[main_player])
                 self.game_state = self.__Update_victory_points(game_state_player1, players[advesary])
                 advesary_victory_points = players[advesary]["Victory_points"]
+
+                
+                curses = 0
+                for card in game_state_player0["owned_cards"]:
+                    if card == 6:
+                        curses += 1
+
+                curses_owned = -1 * curses
+                print("Curses owned adv: ", curses_owned)
+
+
+                curses = 0
+                for card in game_state_player1["owned_cards"]:
+                    if card == 6:
+                        curses += 1
+
+                curses_owned = -1 * curses
+                print("Curses owned main: ", curses_owned)
+
+
+
 
 
 
@@ -691,7 +701,7 @@ Dominion_game = Dominion()
 player_random1 = random_player(player_name="Ogus_bogus_man")
 player_random2 = random_player(player_name="Ogus_bogus_man2")
 player1 = Deep_SARSA(player_name="Deep_SARSA")
-Dominion_game.insert_players(player_random2, player_random1)
+Dominion_game.insert_players(player1, player_random1)
 
 
 
