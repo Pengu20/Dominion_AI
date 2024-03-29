@@ -3,6 +3,9 @@ import numpy as np
 import pickle
 from keras import Sequential
 from keras.layers import Dense
+from keras import layers
+from keras.regularizers import L1
+from keras.regularizers import L2
 import time
 
 class Dominion_reward():
@@ -27,32 +30,29 @@ class Dominion_reward():
         Victory_reward = 0 #50 if won -50 if lost
         Victory_points_reward = 2 # 1 per victory point
 
+        Province_owned_reward = 0 # 3 per province 
         Province_difference_reward = 0 # 5 per province difference
 
         Cards_played_reward = 0 # 5 if you played more than 3 cards
-        few_coppers_reward = 0 # 5 if you have less than 3 coppers
+
 
         no_copper_reward = 0 # 5 if you have no coppers
         no_estates_reward = 0 # 5 if you have no estates
 
         gold_reward = 0 # get 3 point for each gold in deck
 
-        being_poor_punishment = 0 # -10 if you have less than 3 in value
+        deck_value_reward = 0 # -10 if you have less than 3 in value
 
         no_cards_punishment = 0 # -10 if you own less than 5 cards
 
         curses_owned = 0 # -10 point per curse
 
-        Dead_action_cards_reward = 0 # -2 point per action card in hand, if you have no actions left
-
-    
-
 
         # ---------------- Reward based on game end ----------------
         if   (game_state["main_Player_won"] == 1):
-            Victory_reward = 50
+            Victory_reward = 20
         elif (game_state["main_Player_won"] == 1):
-            Victory_reward = -50
+            Victory_reward = -20
 
 
 
@@ -70,6 +70,8 @@ class Dominion_reward():
 
         Province_difference_reward = (province_main - province_adv) * 3
 
+        Province_owned_reward = 3*province_main
+
 
 
         # ---------------- Points for having more victory points than the other players ----------------
@@ -79,9 +81,7 @@ class Dominion_reward():
 
 
         # ---------------- reward for playing many cards ----------------
-        if len(game_state["played_cards"]) > 3:
-            Cards_played_reward = 5
-
+        Cards_played_reward = len(game_state["played_cards"])*5
 
 
         # ---------------- reward for having few/no coppers ----------------
@@ -90,11 +90,12 @@ class Dominion_reward():
             if card == 0:
                 coppers += 1
 
-        if coppers < 3:
-            few_coppers_reward = 5
         
         if coppers == 0:
-            no_copper_reward = 5
+            no_copper_reward = 10
+        else:
+            no_copper_reward = 10-coppers*2
+        
         
 
         # ---------------- reward for having no estates ----------------
@@ -117,12 +118,11 @@ class Dominion_reward():
         gold_reward = gold_cards*3
 
 
-        # ---------------- being poor punishment ----------------
+        # ---------------- reward for having alot of value (weighted by deck size) ----------------
 
         coppers = 0
         silvers = 0
         golds = 0
-
 
         for card in game_state["owned_cards"]:
             if card == 0:
@@ -133,8 +133,7 @@ class Dominion_reward():
                 golds += 1
 
 
-        if coppers + 2 * silvers + 3 * golds < 3:
-            being_poor_punishment = -10
+        deck_value_reward = (coppers + 2 * silvers + 3 * golds)/len(game_state["owned_cards"])*10
 
         # ---------------- no_cards_punishment ----------------
 
@@ -152,20 +151,11 @@ class Dominion_reward():
         curses_owned = -10 * curses
 
 
-        # ---------------- dead action cards punishment ----------------
-        dead_action_cards = 0
-        for card in game_state["cards_in_hand"]:
-            if game_state["actions"] == 0:
-                if card >= 6 and card != 13:
-                    dead_action_cards += 1
-        
-        Dead_action_cards_reward = -2 * dead_action_cards
 
 
-
-        reward_list = np.array([reward, Victory_reward, Victory_points_reward, Province_difference_reward, 
-                                Cards_played_reward, few_coppers_reward, no_copper_reward, no_estates_reward, 
-                                gold_reward, Dead_action_cards_reward, being_poor_punishment, no_cards_punishment, curses_owned])
+        reward_list = np.array([reward, Victory_reward, Victory_points_reward, Province_owned_reward, Province_difference_reward, 
+                                Cards_played_reward, no_copper_reward, no_estates_reward, 
+                                gold_reward, deck_value_reward, no_cards_punishment, curses_owned])
 
 
         return reward_list
@@ -249,10 +239,13 @@ class Deep_SARSA:
 
     def initialize_NN(self):
         self.model = Sequential()
-        self.model.add(Dense(1024, activation='sigmoid', input_shape=(9000,)))
-        self.model.add(Dense(512, activation='sigmoid'))
-        self.model.add(Dense(256, activation='sigmoid'))
-        self.model.add(Dense(1,activation='linear'))
+        self.model.add(Dense(1024, activation='sigmoid', input_shape=(9000,),kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01)))
+        self.model.add(layers.Dropout(0.4))
+        self.model.add(Dense(512, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01)))
+        self.model.add(layers.Dropout(0.4))
+        self.model.add(Dense(256, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01)))
+        self.model.add(layers.Dropout(0.4))
+        self.model.add(Dense(1,activation='linear',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01)))
 
         self.model.compile( optimizer='Adam',
                             loss='mean_squared_error',
@@ -458,9 +451,6 @@ class Deep_SARSA:
         open_file.close()
 
 
-
-        self.played_games += 1
-
         print("Average times: ")
         sarsa_time = np.array(self.SARSA_update_time)
         convert2list_time = np.array(self.convert_state2list_time)
@@ -480,7 +470,7 @@ class Deep_SARSA:
         self.NN_predict_time = []
         # self.NN_training_time = []
 
-        if self.played_games % 50 == 0:
+        if self.games_played % 50 == 0:
             # Save model every 50 games
             self.model.save(f"NN_models/{self.player_name}_model.keras")
 
