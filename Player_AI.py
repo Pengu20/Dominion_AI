@@ -79,7 +79,7 @@ class Dominion_reward():
         if len(owned_cards) > len(pre_owned_cards):
 
             for cards in pre_owned_cards:
-                if np.where(pre_owned_cards == cards)[0].size > 0:
+                if np.where(owned_cards == cards)[0].size > 0:
                     owned_cards = np.delete(owned_cards, np.where(owned_cards == cards)[0][0])
             
             new_cards = owned_cards.astype(int)
@@ -726,10 +726,8 @@ class Deep_SARSA:
         open_file.close()
 
 
-
         open_file = open(self.file_variance_expected_rewards, "a")
         open_file.write(f"{np.var(self.all_expected_returns)}\n")
-        self.all_expected_returns = []
         open_file.close()
 
         open_file = open(self.file_victory_points, "a")
@@ -786,7 +784,6 @@ class Deep_SARSA:
         self.SARSA_update_time = []
         self.convert_state2list_time = []
         self.NN_predict_time = []
-        self.turns_in_game = 0
         # self.NN_training_time = []
 
         if self.games_played % 50 == 0:
@@ -802,11 +799,13 @@ class Deep_SARSA:
 
 
 
-    def notify_game_end(self):
+    def notify_game_end(self, game_state):
         ''' [summary]
             This function is used to notify the player that the game has ended
         '''
 
+
+        self.write_state_reward_to_file(game_state)
         # Deep sarsa will update its neural network with the new values
 
         self.game_end_update()
@@ -835,7 +834,8 @@ class Deep_SARSA:
         self.game_state_history = []
         self.action_history = []
         self.expected_return_history = []
-
+        self.all_expected_returns = []
+        self.turns_in_game = 0
 
         self.games_played += 1
 
@@ -1058,7 +1058,7 @@ class random_player:
         '''
         This function is used to get the reward from the game state
         '''
-        reward = self.rf.get_reward_from_state(game_state)
+        reward = self.rf.get_reward_from_state(game_state, game_state)
 
         return reward
     
@@ -1079,7 +1079,7 @@ class random_player:
         open_file.close()
 
 
-    def notify_game_end(self):
+    def notify_game_end(self, game_state):
         ''' [summary]
             This function is used to notify the player that the game has ended
         '''
