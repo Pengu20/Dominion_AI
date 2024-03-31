@@ -1,6 +1,7 @@
 import numpy as np
 
 import pickle
+import keras
 from keras import Sequential
 from keras.layers import Dense
 from keras import layers
@@ -27,7 +28,7 @@ class Dominion_reward():
         '''
 
         reward = -5
-        Victory_reward = 0 #50 if won -50 if lost
+        Victory_reward = 0 #50 if won -50 if lost, extra 100, if won by provinces
         Victory_points_reward = 2 # 1 per victory point
 
         Province_owned_reward = 0 # 3 per province 
@@ -50,9 +51,17 @@ class Dominion_reward():
 
         # ---------------- Reward based on game end ----------------
         if   (game_state["main_Player_won"] == 1):
-            Victory_reward = 20
-        elif (game_state["main_Player_won"] == 1):
-            Victory_reward = -20
+            Victory_reward = 30
+
+            # If the province pile is empty, the player won by provinces and gets an extra reward
+            if game_state["supply_amount"][5] == 0:
+                Victory_reward += 100
+
+
+        elif (game_state["adv_Player_won"] == 1):
+            Victory_reward = -30
+
+
 
 
 
@@ -133,7 +142,7 @@ class Dominion_reward():
                 golds += 1
 
 
-        deck_value_reward = (coppers + 2 * silvers + 3 * golds)/len(game_state["owned_cards"])*10
+        deck_value_reward = int((coppers + 2 * silvers + 3 * golds)/len(game_state["owned_cards"])*10)
 
         # ---------------- no_cards_punishment ----------------
 
@@ -208,6 +217,172 @@ class Dominion_reward():
 
 
 
+class greedy_NN:
+    '''
+    This class is for loading the neural network gained from deep sarsa to make all the greedy actions.
+    '''
+    def __init__(self, path, player_name):
+        self.__load_NN_from_path(path=path)
+
+        self.player_name = player_name
+
+        self.file_average_expected_rewards = f"reward_history/{self.player_name}/{self.player_name}_sum_expected_rewards.txt"
+        self.file_variance_expected_rewards = f"reward_history/{self.player_name}/{self.player_name}_variance_expected_rewards.txt"
+        self.file_victory_points = f"reward_history/{self.player_name}/{self.player_name}_victory_points.txt"
+        self.file_games_won = f"reward_history/{self.player_name}/{self.player_name}_games_won.txt"
+        self.file_game_length = f"reward_history/{self.player_name}/{self.player_name}_game_length.txt"
+
+        ## Reset all the files
+
+        self.delete_all_previous_history()
+
+        self.all_expected_returns = []
+        self.turns_in_game = 0
+
+
+    def __load_NN_from_path(self, path):
+        self.model = keras.models.load_model(path)
+
+
+    def delete_all_previous_history(self):
+        '''
+        This funtions opens all the file paths for overwrite, to delete all previous data
+        '''
+
+        open_file = open(self.file_average_expected_rewards, "w")
+        open_file.close()
+
+        open_file = open(self.file_variance_expected_rewards, "w")
+        open_file.close()
+
+        open_file = open(self.file_victory_points, "w")
+        open_file.close()
+
+        open_file = open(self.file_games_won, "w")
+        open_file.close()
+
+        open_file = open(self.file_game_length, "w")
+        open_file.close()
+
+
+    def game_state2list_NN_input(self, game_state, action_list):
+        '''
+        This function is used to convert the game state to a 
+        list that can be used as input for the neural network
+        '''
+
+        binarizeed_gamestate = pickle.dumps(game_state)
+
+        # Convert bytearray to list of integers
+        list_NN_input = np.array([byte for byte in binarizeed_gamestate])
+
+        NN_inputs = np.zeros((9000, len(action_list)))
+        i = 0
+
+        for action in action_list:
+            list_NN_input = np.insert(list_NN_input, 0, action)
+
+            list_NN_input.resize((len(list_NN_input),1))
+
+
+            # Padding the value to 9000
+            input_padded = np.zeros((9000,1))
+            input_padded[:len(list_NN_input)] = list_NN_input
+
+            NN_inputs[:,i] = input_padded[:,0]
+
+            i += 1
+
+        return NN_inputs.T # Apparently keras needs the matrix transposed
+
+
+
+    def NN_get_expected_return(self, game_state, actions_list):
+        '''
+        This function gives the value from the neural network to the state action pair
+        '''
+
+        list_NN_inputs = self.game_state2list_NN_input(game_state, actions_list)
+
+
+        expected_return = self.model.predict(list_NN_inputs, verbose=0)
+
+        return expected_return
+
+
+
+
+    def greedy_choice(self, list_of_actions, game_state):
+        '''
+        Until a neural network can give us the best state action rewards, we will use this function to give us the rewards
+        '''
+
+        expected_return = self.NN_get_expected_return(game_state, list_of_actions)
+
+        self.all_expected_returns.append(np.max(expected_return))
+
+
+        return list_of_actions[np.argmax(expected_return)]
+
+
+    def choose_action(self, list_of_actions, game_state):
+
+
+        action = self.greedy_choice(list_of_actions=list_of_actions, game_state=game_state)
+        self.turns_in_game += 1
+
+        #Remove the previous old values of game state and action history
+        return action
+
+
+    def write_state_reward_to_file(self, game_state):
+        '''
+        This function is used to write the current player reward into the reward file
+        '''
+
+        open_file = open(self.file_average_expected_rewards, "a")
+        open_file.write(f"{np.mean(self.all_expected_returns)}\n")
+        open_file.close()
+
+
+        open_file = open(self.file_variance_expected_rewards, "a")
+        open_file.write(f"{np.var(self.all_expected_returns)}\n")
+        self.all_expected_returns = []
+        open_file.close()
+
+        open_file = open(self.file_victory_points, "a")
+        victory_points = np.sum(game_state["Victory_points"])
+        open_file.write(f"{victory_points}\n")
+        open_file.close()
+
+
+        open_file = open(self.file_games_won, "a")
+        if game_state["main_Player_won"] == 1:
+            open_file.write("1\n")
+        else:
+            open_file.write("0\n")
+        open_file.close()
+
+
+        open_file = open(self.file_game_length, "a")
+        open_file.write(f"{np.sum(self.turns_in_game)}\n")
+        open_file.close()
+
+
+
+
+    def notify_game_end(self):
+        ''' [summary]
+            This function is used to notify the player that the game has ended
+        '''
+
+
+        self.game_state_history = []
+        self.action_history = []
+        self.expected_return_history = []
+
+
+
 class Deep_SARSA:
     def __init__(self, player_name) -> None:
         self.rf = Dominion_reward()
@@ -217,10 +392,14 @@ class Deep_SARSA:
 
 
         self.player_name = player_name
-        self.file_address = f"reward_history/{self.player_name}_reward_history.txt"
-        self.file_average_expected_rewards = f"reward_history/{self.player_name}_sum_expected_rewards.txt"
+        self.file_address = f"reward_history/{self.player_name}/{self.player_name}_reward_history.txt"
+        self.file_average_expected_rewards = f"reward_history/{self.player_name}/{self.player_name}_sum_expected_rewards.txt"
+        self.file_variance_expected_rewards = f"reward_history/{self.player_name}/{self.player_name}_variance_expected_rewards.txt"
+        self.file_victory_points = f"reward_history/{self.player_name}/{self.player_name}_victory_points.txt"
+        self.file_games_won = f"reward_history/{self.player_name}/{self.player_name}_games_won.txt"
+        self.file_game_length = f"reward_history/{self.player_name}/{self.player_name}_game_length.txt"
 
-        self.played_games = 0
+        self.delete_all_previous_history()
 
 
         self.SARSA_update_time = []
@@ -232,10 +411,41 @@ class Deep_SARSA:
 
         self.expected_return_history = []
         self.games_played = 0
+        self.turns_in_game = 0
 
 
         self.all_expected_returns = [] # This is used to keep track of the sum of expected returns gained by the players
 
+
+    def load_NN_from_file(self, path):
+        self.model = keras.models.load_model(path)
+
+    def delete_all_previous_history(self):
+        '''
+        This funtions opens all the file paths for overwrite, to delete all previous data
+        '''
+
+
+        open_file = open(self.file_address, "w")
+        open_file.close()
+
+        open_file = open(self.file_average_expected_rewards, "w")
+        open_file.close()
+
+        open_file = open(self.file_variance_expected_rewards, "w")
+        open_file.close()
+
+        open_file = open(self.file_victory_points, "w")
+        open_file.close()
+
+        open_file = open(self.file_games_won, "w")
+        open_file.close()
+
+        open_file = open(self.file_game_length, "w")
+        open_file.close()
+
+
+        
 
     def initialize_NN(self):
         self.model = Sequential()
@@ -270,7 +480,7 @@ class Deep_SARSA:
         self.model.fit(list_NN_input, np.array([[expected_return_updated]]), epochs=1, verbose=0)
 
     
-    def __game_state_list2NN_input(self, game_state_list, action_list):
+    def game_state_list2NN_input(self, game_state_list, action_list):
         '''
         This function maps the input of the game state to the input of the neural network
         It is assumed that the size of the gamestate value is 9000
@@ -284,7 +494,8 @@ class Deep_SARSA:
 
         return input_matrix
     
-    def __expected_return_list2NN_output(self, expected_return_updated_list):
+
+    def expected_return_list2NN_output(self, expected_return_updated_list):
         '''
         This function is used to convert the expected return list to the output of the neural network
         '''
@@ -297,7 +508,7 @@ class Deep_SARSA:
 
 
 
-    def __update_NN_np_mat(self, input_matrix, output_matrix):
+    def update_NN_np_mat(self, input_matrix, output_matrix):
         '''
         This function is used to update the neural network using a list of all the values used in the game
         '''
@@ -358,25 +569,30 @@ class Deep_SARSA:
         return expected_return
 
 
-    def SARSA_update(self, game_state, action):
+    def SARSA_update(self, game_state, action, game_ended=False):
         '''
         This function is used to update the previous timestep with the new reward
         '''
 
         start_time = time.time()
-        alpha = 0.1 # Learning rate
+        alpha = 0.7 # Learning rate
         gamma = 0.9 # Discount factor
 
 
         # SA -> State action
-        expected_return = self.NN_get_expected_return(game_state, [action])[0]
+
+        if game_ended:
+            expected_return = 0
+        else:
+            expected_return = self.NN_get_expected_return(game_state, [action])[0]
+
         old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
 
-        reward = np.sum(self.rf.get_reward_from_state(game_state))
+        reward_old = np.sum(self.rf.get_reward_from_state(self.game_state_history[-1]))
 
 
         # SARSA update
-        old_expected_return_updated = old_expected_return + alpha * (reward + gamma*expected_return - old_expected_return)
+        old_expected_return_updated = old_expected_return + alpha * (reward_old + gamma*expected_return - old_expected_return)
 
         old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))
         # Train the neural network with the new values
@@ -384,9 +600,24 @@ class Deep_SARSA:
         # Store the updated values
         self.expected_return_history.append(old_expected_return_updated)
 
-        self.all_expected_returns.append(old_expected_return)
+        self.all_expected_returns.append(old_expected_return_updated)
 
-        self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
+
+
+        # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
+
+        self.turns_in_game += 1
+        batch_size = 32
+
+        # Every batch_size turns we will update the neural network with the batch_size new datasets
+        if self.turns_in_game % batch_size == 0:
+            input_matrix = self.game_state_list2NN_input(self.game_state_history[-batch_size:], self.action_history[-batch_size:])
+            output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-batch_size:])
+
+    
+            self.update_NN_np_mat(input_matrix, output_matrix)
+
+
 
         self.SARSA_update_time.append(time.time() - start_time)
 
@@ -447,8 +678,34 @@ class Deep_SARSA:
 
         open_file = open(self.file_average_expected_rewards, "a")
         open_file.write(f"{np.mean(self.all_expected_returns)}\n")
+        open_file.close()
+
+
+
+        open_file = open(self.file_variance_expected_rewards, "a")
+        open_file.write(f"{np.var(self.all_expected_returns)}\n")
         self.all_expected_returns = []
         open_file.close()
+
+        open_file = open(self.file_victory_points, "a")
+        victory_points = np.sum(game_state["Victory_points"])
+        open_file.write(f"{victory_points}\n")
+        open_file.close()
+
+
+        open_file = open(self.file_games_won, "a")
+        if game_state["main_Player_won"] == 1:
+            open_file.write("1\n")
+        else:
+            open_file.write("0\n")
+        open_file.close()
+
+
+        open_file = open(self.file_game_length, "a")
+        open_file.write(f"{np.sum(self.turns_in_game)}\n")
+        open_file.close()
+
+
 
 
         print("Average times: ")
@@ -456,6 +713,8 @@ class Deep_SARSA:
         convert2list_time = np.array(self.convert_state2list_time)
         NN_predict_time = np.array(self.NN_predict_time)
         # NN_training_time = np.array(self.NN_training_time)
+
+
 
         print(f"SARSA update: {np.mean(sarsa_time)} - RUN {len(sarsa_time)} times")
         print(f"Convert to list: {np.mean(convert2list_time)} - RUN {len(convert2list_time)}")
@@ -465,14 +724,23 @@ class Deep_SARSA:
 
 
 
+
         self.SARSA_update_time = []
         self.convert_state2list_time = []
         self.NN_predict_time = []
+        self.turns_in_game = 0
         # self.NN_training_time = []
 
         if self.games_played % 50 == 0:
             # Save model every 50 games
             self.model.save(f"NN_models/{self.player_name}_model.keras")
+
+    def game_end_update(self):
+        '''
+        This function is used to update the neural network with the new values
+        '''
+
+        self.SARSA_update(self.game_state_history[-1], self.action_history[-1], game_ended=True)
 
 
 
@@ -482,18 +750,18 @@ class Deep_SARSA:
         '''
 
         # Deep sarsa will update its neural network with the new values
+
+        self.game_end_update()
         
         len_gm = len(self.game_state_history)
         len_ac = len(self.action_history)
         game_state_hist = self.game_state_history[:len_gm-1]
         action_hist = self.action_history[:len_ac-1]
 
-        game_state_data = pickle.loads(pickle.dumps(self.game_state_history[-1]))
-
         game_ID = "game_" + str(self.games_played)
 
-        input_matrix = self.__game_state_list2NN_input(game_state_hist, action_hist)
-        output_matrix = self.__expected_return_list2NN_output(self.expected_return_history)
+        input_matrix = self.game_state_list2NN_input(game_state_hist, action_hist)
+        output_matrix = self.expected_return_list2NN_output(self.expected_return_history)
 
         file = open(f"Q_table_data/input_data/input_data_{game_ID}.txt", "wb")
         pickle.dump(input_matrix, file)
@@ -504,7 +772,7 @@ class Deep_SARSA:
         file.close()
 
 
-        # self.__update_NN_np_mat(input_matrix, output_matrix)
+        # self.update_NN_np_mat(input_matrix, output_matrix)
 
         self.game_state_history = []
         self.action_history = []
@@ -514,12 +782,213 @@ class Deep_SARSA:
         self.games_played += 1
 
 
+class Deep_Q_learning(Deep_SARSA):
+    
+    def Q_learning_update(self, game_state, list_of_actions, game_ended=False):
+        '''
+        This function is used to update the neural network based on the Q_learning_algorithm
+        '''
+
+        start_time = time.time()
+        alpha = 0.7 # Learning rate
+        gamma = 0.9 # Discount factor
+
+
+        # SA -> State action
+
+        if game_ended:
+            expected_return = 0
+        else:
+
+            ## Take the next step based on a greedy policy
+            action = self.greedy_choice(list_of_actions, game_state)
+            expected_return = self.NN_get_expected_return(game_state, [action])[0]
+
+        old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
+
+        reward_old = np.sum(self.rf.get_reward_from_state(self.game_state_history[-1]))
+
+
+        # Q_learning update
+        old_expected_return_updated = old_expected_return + alpha * (reward_old + gamma*expected_return - old_expected_return)
+
+        old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))
+        # Train the neural network with the new values
+
+        # Store the updated values
+        self.expected_return_history.append(old_expected_return_updated)
+
+        self.all_expected_returns.append(old_expected_return_updated)
+
+
+
+        # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
+
+        self.turns_in_game += 1
+        batch_size = 32
+
+        # Every batch_size turns we will update the neural network with the batch_size new datasets
+        if self.turns_in_game % batch_size == 0:
+
+            input_matrix = self.game_state_list2NN_input(self.game_state_history[-batch_size:], self.action_history[-batch_size:])
+            output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-batch_size:])
+
+    
+            self.update_NN_np_mat(input_matrix, output_matrix)
+
+
+
+        self.SARSA_update_time.append(time.time() - start_time)
+
+
+
+    def choose_action(self, list_of_actions, game_state):
+
+        if self.game_state_history == []:
+            self.game_state_history.append(game_state)
+            self.action_history.append(np.random.choice(list_of_actions))
+            return self.action_history[-1]
+        else:
+            self.Q_learning_update(game_state, list_of_actions, game_ended=False)
+            action = self.epsilon_greedy_policy(list_of_actions, game_state, 1)
+
+
+            self.game_state_history.append(game_state)
+            self.action_history.append(action)
+
+            #Remove the previous old values of game state and action history
+            return action
+
+
+    def game_end_update(self):
+        '''
+        This function is used to update the neural network with the new values
+        '''
+
+        self.Q_learning_update(self.game_state_history[-1], list_of_actions=None, game_ended=True)
+
+
+class Deep_expected_sarsa(Deep_SARSA):
+    
+    def Expected_sarsa_update(self, game_state, list_of_actions, game_ended=False):
+        '''
+        This function is used to update the neural network based on the Q_learning_algorithm
+        '''
+
+        start_time = time.time()
+        alpha = 0.7 # Learning rate
+        gamma = 0.9 # Discount factor
+        self.epsilon = 0.1
+
+
+        # SA -> State action
+
+        if game_ended:
+            expected_return = 0
+        else:
+
+            ## Take the next step based on an average.
+            best_action = self.greedy_choice(list_of_actions, game_state)
+            all_expected_return_actions = self.NN_get_expected_return(game_state, list_of_actions)[0]
+
+            expected_return_best_action = all_expected_return_actions[list_of_actions.index(best_action)]
+
+            average_expected_return_weighted = expected_return_best_action*(1-self.epsilon)
+            for action_return in all_expected_return_actions:
+                average_expected_return_weighted += action_return*self.epsilon/len(list_of_actions)
+
+            expected_return = average_expected_return_weighted
+
+
+            
+
+        old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
+
+        reward_old = np.sum(self.rf.get_reward_from_state(self.game_state_history[-1]))
+
+
+        # Q_learning update
+        old_expected_return_updated = old_expected_return + alpha * (reward_old + gamma*expected_return - old_expected_return)
+
+        old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))
+        # Train the neural network with the new values
+
+        # Store the updated values
+        self.expected_return_history.append(old_expected_return_updated)
+
+        self.all_expected_returns.append(old_expected_return_updated)
+
+
+
+        # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
+
+        self.turns_in_game += 1
+        batch_size = 32
+
+        # Every batch_size turns we will update the neural network with the batch_size new datasets
+        if self.turns_in_game % batch_size == 0:
+
+            input_matrix = self.game_state_list2NN_input(self.game_state_history[-batch_size:], self.action_history[-batch_size:])
+            output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-batch_size:])
+
+    
+            self.update_NN_np_mat(input_matrix, output_matrix)
+
+
+
+        self.SARSA_update_time.append(time.time() - start_time)
+
+
+
+    def choose_action(self, list_of_actions, game_state):
+
+        if self.game_state_history == []:
+            self.game_state_history.append(game_state)
+            self.action_history.append(np.random.choice(list_of_actions))
+            return self.action_history[-1]
+        else:
+            self.Expected_sarsa_update(game_state, list_of_actions, game_ended=False)
+            action = self.epsilon_greedy_policy(list_of_actions, game_state, self.epsilon)
+
+
+            self.game_state_history.append(game_state)
+            self.action_history.append(action)
+
+            #Remove the previous old values of game state and action history
+            return action
+
+
+    def game_end_update(self):
+        '''
+        This function is used to update the neural network with the new values
+        '''
+
+        self.Expected_sarsa_update(self.game_state_history[-1], list_of_actions=None, game_ended=True)
+
+
+
+
+
+
+
+
+
 
 class random_player:
     def __init__(self, player_name):
         self.rf = Dominion_reward()
         self.file_address = f"reward_history/{player_name}_reward_history.txt"
         self.player_name = player_name
+        self.delete_all_previous_history()
+
+
+    def delete_all_previous_history(self):
+        '''
+        This funtions opens all the file paths for overwrite, to delete all previous data
+        '''
+
+        open_file = open(self.file_address, "w")
+        open_file.close()
 
     def get_name(self):
         return self.player_name
