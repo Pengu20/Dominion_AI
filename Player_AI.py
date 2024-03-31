@@ -9,6 +9,12 @@ from keras.regularizers import L1
 from keras.regularizers import L2
 import time
 
+import state_manipulator as sm
+
+import cards_base_ed2
+
+import copy
+
 class Dominion_reward():
     ''' [summary]
         This class is used to determine the reward based on the state given in the dominion game
@@ -17,7 +23,7 @@ class Dominion_reward():
     def __init__(self) -> None:
         pass
         
-    def get_reward_from_state(self, game_state):
+    def get_reward_from_state(self, game_state, previous_game_state):
         ''' [summary]
             This function is used to get the reward from the game state
             Args:
@@ -28,7 +34,7 @@ class Dominion_reward():
         '''
 
         reward = -5
-        Victory_reward = 0 #50 if won -50 if lost, extra 100, if won by provinces
+        Victory_reward = 0 #100 if won -100 if lost, extra 100, if won by provinces
         Victory_points_reward = 2 # 1 per victory point
 
         Province_owned_reward = 0 # 3 per province 
@@ -48,10 +54,12 @@ class Dominion_reward():
 
         curses_owned = 0 # -10 point per curse
 
+        Gained_expensive_cards_reward = 0 # Gain a reward based on the cost of the bought card to the power of 2
+
 
         # ---------------- Reward based on game end ----------------
         if   (game_state["main_Player_won"] == 1):
-            Victory_reward = 30
+            Victory_reward = 100
 
             # If the province pile is empty, the player won by provinces and gets an extra reward
             if game_state["supply_amount"][5] == 0:
@@ -59,11 +67,31 @@ class Dominion_reward():
 
 
         elif (game_state["adv_Player_won"] == 1):
-            Victory_reward = -30
+            Victory_reward = -100
 
 
+        # ---------------- Gained card reward ----------------
+            
+        owned_cards = game_state["owned_cards"]
+        pre_owned_cards = previous_game_state["owned_cards"]
 
 
+        if len(owned_cards) > len(pre_owned_cards):
+
+            for cards in pre_owned_cards:
+                if np.where(pre_owned_cards == cards)[0].size > 0:
+                    owned_cards = np.delete(owned_cards, np.where(owned_cards == cards)[0][0])
+            
+            new_cards = owned_cards.astype(int)
+
+            for card in new_cards:
+                card_set = game_state["dominion_cards"]
+
+                card_set_idx = sm.card_idx_2_set_idx(card, game_state=game_state)
+                card_cost = int(card_set[card_set_idx][2])
+                Gained_expensive_cards_reward += card_cost**2
+
+        
 
         # ---------------- Reward based on province difference of players ----------------
         province_main = 0
@@ -398,6 +426,9 @@ class Deep_SARSA:
         self.file_victory_points = f"reward_history/{self.player_name}/{self.player_name}_victory_points.txt"
         self.file_games_won = f"reward_history/{self.player_name}/{self.player_name}_games_won.txt"
         self.file_game_length = f"reward_history/{self.player_name}/{self.player_name}_game_length.txt"
+        self.file_Average_NN_error = f"reward_history/{self.player_name}/{self.player_name}_average_NN_error.txt"
+        self.file_variance_NN_error = f"reward_history/{self.player_name}/{self.player_name}_variance_NN_error.txt"
+
 
         self.delete_all_previous_history()
 
@@ -406,6 +437,7 @@ class Deep_SARSA:
         self.convert_state2list_time = []
         self.NN_predict_time = []
         self.NN_training_time = []
+        self.NN_error = []
 
         ## Experimental design, where neural network is first updates at the end of the game using SARSA
 
@@ -415,6 +447,8 @@ class Deep_SARSA:
 
 
         self.all_expected_returns = [] # This is used to keep track of the sum of expected returns gained by the players
+
+
 
 
     def load_NN_from_file(self, path):
@@ -442,6 +476,12 @@ class Deep_SARSA:
         open_file.close()
 
         open_file = open(self.file_game_length, "w")
+        open_file.close()
+
+        open_file = open(self.file_Average_NN_error, "w")
+        open_file.close()
+
+        open_file = open(self.file_variance_NN_error, "w")
         open_file.close()
 
 
@@ -575,7 +615,7 @@ class Deep_SARSA:
         '''
 
         start_time = time.time()
-        alpha = 0.7 # Learning rate
+        self.alpha = 0.1 # Learning rate
         gamma = 0.9 # Discount factor
 
 
@@ -588,11 +628,15 @@ class Deep_SARSA:
 
         old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
 
-        reward_old = np.sum(self.rf.get_reward_from_state(self.game_state_history[-1]))
+        reward = np.sum(self.rf.get_reward_from_state(game_state, self.game_state_history[-1]))
 
 
         # SARSA update
-        old_expected_return_updated = old_expected_return + alpha * (reward_old + gamma*expected_return - old_expected_return)
+        old_expected_return_updated = old_expected_return + self.alpha * (reward + gamma*expected_return - old_expected_return)
+
+
+        NN_error = (reward + gamma*expected_return - old_expected_return)**2
+        self.NN_error.append(NN_error)
 
         old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))
         # Train the neural network with the new values
@@ -647,7 +691,7 @@ class Deep_SARSA:
     def choose_action(self, list_of_actions, game_state):
 
         if self.game_state_history == []:
-            self.game_state_history.append(game_state)
+            self.game_state_history.append(copy.deepcopy(game_state))
             self.action_history.append(np.random.choice(list_of_actions))
             return self.action_history[-1]
         else:
@@ -657,8 +701,9 @@ class Deep_SARSA:
 
 
 
-            self.game_state_history.append(game_state)
-            self.action_history.append(action)
+
+            self.game_state_history.append(copy.deepcopy(game_state))
+            self.action_history.append(copy.deepcopy(action))
 
             #Remove the previous old values of game state and action history
             return action
@@ -669,7 +714,7 @@ class Deep_SARSA:
         '''
         This function is used to write the current player reward into the reward file
         '''
-        reward = self.rf.get_reward_from_state(game_state)
+        reward = self.rf.get_reward_from_state(game_state, self.game_state_history[-1])
 
         open_file = open(self.file_address, "a")
         open_file.write(f"{np.sum(reward)}  - {reward}\n")
@@ -691,6 +736,19 @@ class Deep_SARSA:
         victory_points = np.sum(game_state["Victory_points"])
         open_file.write(f"{victory_points}\n")
         open_file.close()
+
+
+        # Log the accuracy of the neural network
+        open_file = open(self.file_Average_NN_error, "a")
+        open_file.write(f"{np.mean(self.NN_error)}\n")
+        open_file.close()
+
+        open_file = open(self.file_variance_NN_error, "a")
+        open_file.write(f"{np.var(self.NN_error)}\n")
+        open_file.close()
+
+        self.NN_error = []
+
 
 
         open_file = open(self.file_games_won, "a")
@@ -806,11 +864,14 @@ class Deep_Q_learning(Deep_SARSA):
 
         old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
 
-        reward_old = np.sum(self.rf.get_reward_from_state(self.game_state_history[-1]))
+        reward = np.sum(self.rf.get_reward_from_state(game_state, self.game_state_history[-1]))
 
+
+        NN_error = (reward + gamma*expected_return - old_expected_return)**2
+        self.NN_error.append(NN_error)
 
         # Q_learning update
-        old_expected_return_updated = old_expected_return + alpha * (reward_old + gamma*expected_return - old_expected_return)
+        old_expected_return_updated = old_expected_return + alpha * (reward + gamma*expected_return - old_expected_return)
 
         old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))
         # Train the neural network with the new values
@@ -845,7 +906,7 @@ class Deep_Q_learning(Deep_SARSA):
     def choose_action(self, list_of_actions, game_state):
 
         if self.game_state_history == []:
-            self.game_state_history.append(game_state)
+            self.game_state_history.append(copy.deepcopy(game_state))
             self.action_history.append(np.random.choice(list_of_actions))
             return self.action_history[-1]
         else:
@@ -853,8 +914,8 @@ class Deep_Q_learning(Deep_SARSA):
             action = self.epsilon_greedy_policy(list_of_actions, game_state, 1)
 
 
-            self.game_state_history.append(game_state)
-            self.action_history.append(action)
+            self.game_state_history.append(copy.deepcopy(game_state))
+            self.action_history.append(copy.deepcopy(action))
 
             #Remove the previous old values of game state and action history
             return action
@@ -900,15 +961,16 @@ class Deep_expected_sarsa(Deep_SARSA):
             expected_return = average_expected_return_weighted
 
 
-            
-
         old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
 
-        reward_old = np.sum(self.rf.get_reward_from_state(self.game_state_history[-1]))
+        reward = np.sum(self.rf.get_reward_from_state(game_state, self.game_state_history[-1]))
 
+
+        NN_error = (reward + gamma*expected_return - old_expected_return)**2
+        self.NN_error.append(NN_error)
 
         # Q_learning update
-        old_expected_return_updated = old_expected_return + alpha * (reward_old + gamma*expected_return - old_expected_return)
+        old_expected_return_updated = old_expected_return + alpha * (reward + gamma*expected_return - old_expected_return)
 
         old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))
         # Train the neural network with the new values
@@ -939,11 +1001,10 @@ class Deep_expected_sarsa(Deep_SARSA):
         self.SARSA_update_time.append(time.time() - start_time)
 
 
-
     def choose_action(self, list_of_actions, game_state):
 
         if self.game_state_history == []:
-            self.game_state_history.append(game_state)
+            self.game_state_history.append(copy.deepcopy(game_state))
             self.action_history.append(np.random.choice(list_of_actions))
             return self.action_history[-1]
         else:
@@ -951,8 +1012,8 @@ class Deep_expected_sarsa(Deep_SARSA):
             action = self.epsilon_greedy_policy(list_of_actions, game_state, self.epsilon)
 
 
-            self.game_state_history.append(game_state)
-            self.action_history.append(action)
+            self.game_state_history.append(copy.deepcopy(game_state))
+            self.action_history.append(copy.deepcopy(action))
 
             #Remove the previous old values of game state and action history
             return action

@@ -1,7 +1,15 @@
 
 from Deck_generator import deck_generator
+
+
 from Player_AI import random_player
 from Player_AI import Deep_SARSA
+from Player_AI import greedy_NN
+from Player_AI import Deep_Q_learning
+from Player_AI import Deep_expected_sarsa
+
+
+
 import numpy as np
 from cards_base_ed2 import kingdom_cards_ed2_base
 from standard_cards import standard_set
@@ -9,6 +17,8 @@ from card_effects import card_effects
 import state_manipulator as sm
 
 import copy
+
+import pickle
 
 deck = deck_generator()
 
@@ -23,7 +33,7 @@ class Dominion:
 
         self.card_set = self.deck.get_card_set()
 
-        self.game_state = self.__initialize_game_state()
+        self.game_state = self.initialize_game_state()
         
         self.Treasure_card_index = [0,1,2] #Indexes of the treasure cards in the standard set
 
@@ -31,13 +41,16 @@ class Dominion:
 
         self.card_effects = card_effects()
 
+    def get_card_set(self):
+        return self.card_set
+
     def insert_players(self, player1, player2):
         self.player1 = player1
         self.player2 = player2
 
 
 
-    def __initialize_game_state(self):
+    def initialize_game_state(self):
         # This datatype is the object that holds all information regarding the game
         # The game state 
         state = {
@@ -98,7 +111,7 @@ class Dominion:
 
     
 
-    def play_loop_AI(self, verbose=True):
+    def play_loop_AI(self,game_name, verbose=True):
         ''' [Summary]
         This function is the main loop of the game. It will keep running until the game is over.
 
@@ -109,7 +122,7 @@ class Dominion:
         '''
 
         if verbose:
-            game_history_file = open("game_history.txt", "w")
+            game_history_file = open(f"game_history/{game_name}.txt", "w")
             game_history_file.write(" --------- CARDS IN THIS GAME --------- \n")
         else:
             game_history_file = None
@@ -126,7 +139,7 @@ class Dominion:
         players_amount = 2 # hard constant for this game setup. Cannot play more or less than two players 
 
 
-        self.game_state = self.__initialize_game_state()
+        self.game_state = self.initialize_game_state()
 
         player1_state = self.__startup_player_state()
         player2_state = self.__startup_player_state()
@@ -673,23 +686,34 @@ class Dominion:
                 return card
 
 
+card_set = pickle.load(open("card_set.txt", "rb"))
 
-    
-
-
-
-
+# Play with same card set at every game
 Dominion_game = Dominion()
+Dominion_game.card_set = card_set
+
+
 player_random1 = random_player(player_name="Ogus_bogus_man")
 player_random2 = random_player(player_name="Ogus_bogus_man2")
-player1 = Deep_SARSA(player_name="Deep_SARSA")
-Dominion_game.insert_players(player1, player_random1)
+
+
+Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
+sarsa_player2 = Deep_SARSA(player_name="Deep_sarsa_2")
+
+Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
+
+DES_ai = Deep_expected_sarsa(player_name="Deep_expected_sarsa")
 
 
 
-for i in range(10000):
+greedy_test_player = greedy_NN("NN_models/Deep_SARSA_model.keras", "Greedy_NN")
+Dominion_game.insert_players(Sarsa_player, player_random1)
+
+
+
+for i in range(100000):
     print(f"Game: {i}")
-    Dominion_game.play_loop_AI(verbose=False)
+    Dominion_game.play_loop_AI(f"game_{i}", verbose=True)
 
 
 
