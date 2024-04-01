@@ -34,8 +34,13 @@ class Dominion_reward():
         '''
 
         reward = -5
-        Victory_reward = 0 #100 if won -100 if lost, extra 100, if won by provinces
-        Victory_points_reward = 2 # 1 per victory point
+        Victory_reward = 0 #20 if won -100 if lost, extra 180, if won by provinces
+
+        Victory_points_difference_reward = 0 # 10 per victory point difference
+        Victory_points_reward = 0 # 5 per victory point
+
+        treasure_in_hand_reward = 0 # with 5 or more treasure in hand, gain 5 points for each treasure above 5.
+
 
         Province_owned_reward = 0 # 3 per province 
         Province_difference_reward = 0 # 5 per province difference
@@ -59,11 +64,11 @@ class Dominion_reward():
 
         # ---------------- Reward based on game end ----------------
         if   (game_state["main_Player_won"] == 1):
-            Victory_reward = 100
+            Victory_reward = 20
 
             # If the province pile is empty, the player won by provinces and gets an extra reward
             if game_state["supply_amount"][5] == 0:
-                Victory_reward += 100
+                Victory_reward += 180
 
 
         elif (game_state["adv_Player_won"] == 1):
@@ -72,8 +77,8 @@ class Dominion_reward():
 
         # ---------------- Gained card reward ----------------
             
-        owned_cards = game_state["owned_cards"]
-        pre_owned_cards = previous_game_state["owned_cards"]
+        owned_cards = copy.deepcopy(game_state["owned_cards"])
+        pre_owned_cards = copy.deepcopy(previous_game_state["owned_cards"])
 
 
         if len(owned_cards) > len(pre_owned_cards):
@@ -85,9 +90,9 @@ class Dominion_reward():
             new_cards = owned_cards.astype(int)
 
             for card in new_cards:
-                card_set = game_state["dominion_cards"]
+                card_set = copy.deepcopy(game_state["dominion_cards"])
 
-                card_set_idx = sm.card_idx_2_set_idx(card, game_state=game_state)
+                card_set_idx = sm.card_idx_2_set_idx(card, game_state=copy.deepcopy(game_state))
                 card_cost = int(card_set[card_set_idx][2])
                 Gained_expensive_cards_reward += card_cost**2
 
@@ -112,9 +117,16 @@ class Dominion_reward():
 
 
         # ---------------- Points for having more victory points than the other players ----------------
-        Victory_points_diff = game_state["Victory_points"] - game_state["adv_Victory_points"]
-        Victory_points_reward = 5 * np.sign(Victory_points_diff)
+        Victory_points_diff = copy.deepcopy(game_state["Victory_points"]) - copy.deepcopy( game_state["adv_Victory_points"])
+        Victory_points_difference_reward = 10 * np.sign(Victory_points_diff)
+
+
         
+        # ---------------- Points for having a high density of victory points ----------------
+
+        
+        if len(game_state["owned_cards"]) > 0:
+            Victory_points_reward = 10 * copy.deepcopy(game_state["Victory_points"])
 
 
         # ---------------- reward for playing many cards ----------------
@@ -131,7 +143,7 @@ class Dominion_reward():
         if coppers == 0:
             no_copper_reward = 10
         else:
-            no_copper_reward = 10-coppers*2
+            no_copper_reward = 20-coppers*10
         
         
 
@@ -143,7 +155,8 @@ class Dominion_reward():
 
         if estates == 0:
             no_estates_reward = 5
-
+        else:
+            no_estates_reward = 60-estates*20
 
         # ---------------- gold reward ----------------
 
@@ -172,11 +185,31 @@ class Dominion_reward():
 
         deck_value_reward = int((coppers + 2 * silvers + 3 * golds)/len(game_state["owned_cards"])*10)
 
+        # ---------------- Punishment for having critically low treasure value ----------------
+
+        if (coppers + 2 * silvers + 3 * golds) <= 2:
+            deck_value_reward = -10 * (3 - (coppers + 2 * silvers + 3 * golds))
+
+
+
+        # ---------------- reward for having alot of treasure in hand ----------------
+        if len(game_state["cards_in_hand"]) > 0:
+            for card in game_state["cards_in_hand"]:
+                if card == 0:
+                    coppers += 1
+                elif card == 1:
+                    silvers += 1
+                elif card == 2:
+                    golds += 1
+
+            treasure_in_hand_reward = int(min(0, (coppers + 2*silvers + 3*golds - 5)) / len(game_state["cards_in_hand"]) * 5)
+
+
         # ---------------- no_cards_punishment ----------------
 
 
         if len(game_state["owned_cards"]) < 5:
-            no_cards_punishment = -10
+            no_cards_punishment = -50
 
 
         # ---------------- curse punishment ----------------
@@ -185,13 +218,13 @@ class Dominion_reward():
             if card == 6:
                 curses += 1
 
-        curses_owned = -10 * curses
+        curses_owned = -100 * curses
 
 
 
 
-        reward_list = np.array([reward, Victory_reward, Victory_points_reward, Province_owned_reward, Province_difference_reward, 
-                                Cards_played_reward, no_copper_reward, no_estates_reward, 
+        reward_list = np.array([reward, Victory_reward, Victory_points_reward,Victory_points_difference_reward, Province_owned_reward, Province_difference_reward, 
+                                Cards_played_reward, no_copper_reward, no_estates_reward, treasure_in_hand_reward,
                                 gold_reward, deck_value_reward, no_cards_punishment, curses_owned])
 
 
@@ -448,7 +481,9 @@ class Deep_SARSA:
 
         self.all_expected_returns = [] # This is used to keep track of the sum of expected returns gained by the players
 
+        # DEBUG, so i can see the latest reward
 
+        self.latest_reward = None
 
 
     def load_NN_from_file(self, path):
@@ -628,7 +663,9 @@ class Deep_SARSA:
 
         old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
 
-        reward = np.sum(self.rf.get_reward_from_state(game_state, self.game_state_history[-1]))
+        reward_list = self.rf.get_reward_from_state(game_state, self.game_state_history[-1])
+        reward = np.sum(reward_list)
+        self.latest_reward = reward_list
 
 
         # SARSA update
@@ -651,7 +688,7 @@ class Deep_SARSA:
         # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
         self.turns_in_game += 1
-        batch_size = 32
+        batch_size = 1
 
         # Every batch_size turns we will update the neural network with the batch_size new datasets
         if self.turns_in_game % batch_size == 0:
@@ -696,10 +733,8 @@ class Deep_SARSA:
             return self.action_history[-1]
         else:
             
-            action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.1)
-            self.SARSA_update(game_state, action)
-
-
+            action = self.epsilon_greedy_policy(list_of_actions, copy.deepcopy(game_state), 0.1)
+            self.SARSA_update(copy.deepcopy(game_state), action)
 
 
             self.game_state_history.append(copy.deepcopy(game_state))
@@ -812,7 +847,7 @@ class Deep_SARSA:
         
         len_gm = len(self.game_state_history)
         len_ac = len(self.action_history)
-        game_state_hist = self.game_state_history[:len_gm-1]
+        game_state_hist = copy.deepcopy(self.game_state_history[:len_gm-1])
         action_hist = self.action_history[:len_ac-1]
 
         game_ID = "game_" + str(self.games_played)
