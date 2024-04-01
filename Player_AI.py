@@ -130,7 +130,7 @@ class Dominion_reward():
 
 
         # ---------------- reward for playing many cards ----------------
-        Cards_played_reward = len(game_state["played_cards"])*5
+        Cards_played_reward = (len(game_state["played_cards"])*5)**2
 
 
         # ---------------- reward for having few/no coppers ----------------

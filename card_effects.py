@@ -253,10 +253,14 @@ class card_effects():
         Trash a copper from your hand. If you do, +3 coins
         '''
 
-        if "Copper" in player_state["cards_in_hand"]:
-            player_state = sm.trash_card(player_state, "Copper")
-            player_state["value"] += 3
         
+        Copper = 0
+        if Copper in player_state["cards_in_hand"]:
+            player_state = sm.trash_card(player_state, Copper)
+            player_state["value"] += 3
+
+            
+        sm.merge_game_player_state(game_state, player_state)
         return game_state, player_state, adv_state
 
 

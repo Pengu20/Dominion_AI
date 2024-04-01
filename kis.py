@@ -5,17 +5,9 @@
 
 import numpy as np
 import pickle
+import os
 
-
-list = []
-file = open("Q_table_data/input_data/input_data.txt", "wb")
-val = pickle.dump(list, file)
-file.close()
-
-
-list = []
-file = open("Q_table_data/output_data/output_data.txt", "wb")
-val = pickle.dump(list, file)
-file.close()
-
-
+i = 0
+while(i != 5):
+    i += 1
+    print(i)

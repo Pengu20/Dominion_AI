@@ -710,7 +710,6 @@ class Dominion:
 
 card_set = pickle.load(open("card_set.txt", "rb"))
 
-# Play with same card set at every game
 Dominion_game = Dominion()
 Dominion_game.card_set = card_set
 
