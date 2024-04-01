@@ -165,7 +165,7 @@ class Dominion_reward():
             if card == 2:
                 gold_cards += 1
 
-        gold_reward = gold_cards*3
+        gold_reward = gold_cards*20
 
 
         # ---------------- reward for having alot of value (weighted by deck size) ----------------
@@ -202,7 +202,7 @@ class Dominion_reward():
                 elif card == 2:
                     golds += 1
 
-            treasure_in_hand_reward = int(min(0, (coppers + 2*silvers + 3*golds - 5)) / len(game_state["cards_in_hand"]) * 5)
+            treasure_in_hand_reward = int(min(0, (coppers + 2*silvers + 3*golds - 4)) / len(game_state["cards_in_hand"]) * 5)
 
 
         # ---------------- no_cards_punishment ----------------
@@ -225,7 +225,7 @@ class Dominion_reward():
 
         reward_list = np.array([reward, Victory_reward, Victory_points_reward,Victory_points_difference_reward, Province_owned_reward, Province_difference_reward, 
                                 Cards_played_reward, no_copper_reward, no_estates_reward, treasure_in_hand_reward,
-                                gold_reward, deck_value_reward, no_cards_punishment, curses_owned])
+                                gold_reward, deck_value_reward, no_cards_punishment,Gained_expensive_cards_reward,  curses_owned])
 
 
         return reward_list

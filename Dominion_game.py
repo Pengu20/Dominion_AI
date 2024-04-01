@@ -371,7 +371,7 @@ class Dominion:
 
 
         if verbose:
-            self.__Debug_state(players, main, players_input, game_history_file, player_is_NN=NN_player)
+            self.__Debug_state(players, self.game_state, main, players_input, game_history_file, player_is_NN=NN_player)
 
 
         
@@ -380,6 +380,7 @@ class Dominion:
             players[main]["actions"] -= 1
 
             self.card_effects.play_card(play_action, self.game_state, players[main], players_input[main],  players[adversary], players_input[adversary])
+            players[main] = self.__Update_victory_points(self.game_state, players[main])
             
 
             actions = self.__get_actions(players[main])
@@ -396,11 +397,8 @@ class Dominion:
             if verbose:
                 game_history_file.write(f"action possibilites: {actions} \n")
                 game_history_file.write(f"Chosen action: {play_action} : {card_obj}\n")
-                self.__Debug_state(players, main, players_input, game_history_file, player_is_NN=NN_player)
-            
-
-        if verbose:
-            self.__Debug_state(players, main, players_input, game_history_file, player_is_NN=NN_player)
+                self.__Debug_state(players, self.game_state, main, players_input, game_history_file, player_is_NN=NN_player)
+        
 
 
         players[main]["actions"] = 0
@@ -425,7 +423,7 @@ class Dominion:
         '''
         buy_actions_amount = 0
 
-
+        players[main] = self.__update_player_treasure_value(players[main], self.game_state, players_input[main])
         self.game_state = sm.merge_game_player_state(self.game_state, players[main], players[adversary])
         self.game_state["Unique_actions"] = "buy"
         players[main]["buys"] = 1
@@ -452,8 +450,8 @@ class Dominion:
             card_obj = "None"
 
         if verbose: 
-            game_history_file.write(f"Chosen action: {buy_action} : {card_obj}\n")
-            self.__Debug_state(players, main, players_input, game_history_file, player_is_NN=NN_player)     
+            game_history_file.write(f"Chosen buy action: {buy_action} : {card_obj}\n")
+            self.__Debug_state(players, self.game_state, main, players_input, game_history_file, player_is_NN=NN_player)     
 
 
         while buy_action != -1:
@@ -463,10 +461,10 @@ class Dominion:
 
 
             players[main], self.game_state = self.__buy_card_from_supply(player_state=players[main], game_state=self.game_state, card_idx=buy_action)
-            self.game_state = sm.merge_game_player_state(self.game_state, players[main], players[adversary])
+            players[main] = self.__Update_victory_points(self.game_state, players[main])
             
-            if verbose:
-                self.__Debug_state(players, main, players_input, game_history_file, player_is_NN=NN_player)
+            
+            self.game_state = sm.merge_game_player_state(self.game_state, players[main], players[adversary])
             
 
             
@@ -480,8 +478,8 @@ class Dominion:
             
             if verbose: 
                 game_history_file.write(f"buy possibilites: {list_of_actions_buy} \n")
-                game_history_file.write(f"Chosen action: {buy_action} : {card_obj}\n")
-                self.__Debug_state(players, main, players_input, game_history_file, player_is_NN=NN_player)
+                game_history_file.write(f"Chosen buy action: {buy_action} : {card_obj}\n")
+                self.__Debug_state(players, self.game_state, main, players_input, game_history_file, player_is_NN=NN_player)
 
 
         players[main]["buys"] = 0
@@ -514,9 +512,9 @@ class Dominion:
         return game_state
 
 
-    def __Debug_state(self, players, main_player, players_input, game_history_file, gain_card = False, player_is_NN = False):
+    def __Debug_state(self, players, game_state, main_player, players_input, game_history_file, gain_card = False, player_is_NN = False):
             self.game_state = self.__Update_victory_points(self.game_state, players[main_player])
-            game_state_temp = self.__update_player_treasure_value(copy.deepcopy(players[main_player]), copy.deepcopy(self.game_state), players_input[main_player])
+            game_state_temp = copy.deepcopy(game_state)
 
             player_state = sm.get_player_state_from_game_state(game_state_temp)
 
@@ -564,6 +562,10 @@ class Dominion:
             adv_owned = players[main_player*(-1) + 1]["owned_cards"]
             length_owned_cards = len(players[main_player*(-1) + 1]["owned_cards"])
             game_history_file.write(f"adversary cards in deck: {adv_owned} -> size -> {length_owned_cards} \n")
+
+
+            adv_victory_points = game_state_temp["adv_Victory_points"]
+            game_history_file.write(f"adversary victory points: {adv_victory_points}\n")
 
 
             victory_points = player_state["Victory_points"]
@@ -703,6 +705,7 @@ class Dominion:
         for card in self.game_state["dominion_cards"]:
             if int(card[1]) == card_idx:
                 return card
+
 
 
 card_set = pickle.load(open("card_set.txt", "rb"))
