@@ -41,6 +41,9 @@ class Dominion:
 
         self.card_effects = card_effects()
 
+        self.player0_bought_cards = np.array([0]*17)
+        self.player1_bought_cards = np.array([0]*17)
+
     def get_card_set(self):
         return self.card_set
 
@@ -109,8 +112,6 @@ class Dominion:
         return player_state_start
 
 
-    
-
     def play_loop_AI(self,game_name, player_0_is_NN, player_1_is_NN, verbose=True):
         ''' [Summary]
         This function is the main loop of the game. It will keep running until the game is over.
@@ -120,7 +121,12 @@ class Dominion:
             player_0_is_NN [bool]: This is a boolean that determines if player 0 is a neural network or not.
             player_1_is_NN [bool]: This is a boolean that determines if player 1 is a neural network or not.
             verbose [int]: this variable will determine if the game history is written to a file or not.
+
+            player1 gets provinces inserted into deck at random times after 20 turns
         '''
+
+        self.game_state = self.initialize_game_state()
+
 
         if verbose:
             game_history_file = open(f"game_history/{game_name}.txt", "w")
@@ -140,7 +146,7 @@ class Dominion:
         players_amount = 2 # hard constant for this game setup. Cannot play more or less than two players 
 
 
-        self.game_state = self.initialize_game_state()
+
 
         player1_state = self.__startup_player_state()
         player2_state = self.__startup_player_state()
@@ -188,6 +194,24 @@ class Dominion:
             main = int(main_player)
             advesary = int(main_player*(-1) + 1)
             NN_player = player_is_NN[main_player]
+
+
+            # Give the player a time limit.
+            if turns >= 20 and main_player == 1:
+                province_chance = 0.4
+
+                if turns >= 30:
+                    province_chance = 0.7
+
+                if turns >= 40:
+                    province_chance = 0.9
+
+
+                if np.random.rand() < province_chance:
+                    players[main_player], self.game_state = self.__buy_card_from_supply(player_state=players[main_player], game_state=self.game_state, card_idx=5)
+                    
+
+
            
             players[main_player]["victory_points"] = self.__Update_victory_points(self.game_state, players[main_player])
             players[advesary]["victory_points"] = self.__Update_victory_points(self.game_state, players[advesary])
@@ -209,7 +233,7 @@ class Dominion:
                 game_history_file.write(f"----------- BUY PHASE ----------- \n")
             buy_turns = self.__buy_phase(players, players_input, NN_player, main, advesary, game_history_file, verbose=verbose)
 
-
+            self.game_state["Unique_actions"] = None
 
 
             if action_turns == 0 and buy_turns == 0 and verbose:
@@ -245,6 +269,15 @@ class Dominion:
                     adv_player_won = True
                     if verbose:
                         game_history_file.write(f"Player {advesary} won the game! \n")
+
+
+                game_history_file.write(f"\n\n\n")
+                game_history_file.write(f"Player 0 bought cards:\n")
+                for idx in range(len(self.player0_bought_cards)):
+                    card = self.game_state["dominion_cards"][idx]
+                    game_history_file.write(f"{card[0]}: {self.player0_bought_cards[idx]} \n")
+                    if idx == 6:
+                        game_history_file.write("\n")
 
 
                 game_state_player0["main_Player_won"] = main_player_won
@@ -461,6 +494,13 @@ class Dominion:
 
 
             players[main], self.game_state = self.__buy_card_from_supply(player_state=players[main], game_state=self.game_state, card_idx=buy_action)
+            
+            if main == 0: # We only want to log the cards bought by player 0 (Sarsa trained player)
+                card_set_index = sm.card_idx_2_set_idx(buy_action, self.game_state)
+                self.player0_bought_cards[card_set_index] += 1
+            
+
+
             players[main] = self.__Update_victory_points(self.game_state, players[main])
             
             
@@ -518,6 +558,7 @@ class Dominion:
 
             player_state = sm.get_player_state_from_game_state(game_state_temp)
 
+            advesary = main_player*(-1) + 1
 
             game_history_file.write("\n"*2)
             game_history_file.write(f" --- GAME STATE ---\n")
@@ -553,15 +594,15 @@ class Dominion:
             supply_amount = self.game_state["supply_amount"]
             game_history_file.write(f"card supply: {supply_amount} \n")
 
-            cards_in_hand_adv = players[main_player*(-1) + 1]["cards_in_hand"]
+            cards_in_hand_adv = players[advesary]["cards_in_hand"]
             game_history_file.write(f"adversary cards in hand: {cards_in_hand_adv} \n")
 
-            adv_discard = players[main_player*(-1) + 1]["cards_in_discard"]
+            adv_discard = players[advesary]["cards_in_discard"]
             game_history_file.write(f"adversary cards in discard: {adv_discard} \n")
 
-            adv_owned = players[main_player*(-1) + 1]["owned_cards"]
-            length_owned_cards = len(players[main_player*(-1) + 1]["owned_cards"])
-            game_history_file.write(f"adversary cards in deck: {adv_owned} -> size -> {length_owned_cards} \n")
+            adv_owned = players[advesary]["owned_cards"]
+            length_owned_cards = len(players[advesary]["owned_cards"])
+            game_history_file.write(f"adversary owned cards: {adv_owned} -> size -> {length_owned_cards} \n")
 
 
             adv_victory_points = game_state_temp["adv_Victory_points"]
@@ -655,7 +696,6 @@ class Dominion:
 
 
 
-
     def __update_player_treasure_value(self, player_state, game_state, player_input):
         '''[Summary]
         This function will return the value of the players hand.
@@ -708,11 +748,13 @@ class Dominion:
 
 
 
+
+
+
 card_set = pickle.load(open("card_set.txt", "rb"))
 
 Dominion_game = Dominion()
 Dominion_game.card_set = card_set
-
 
 player_random1 = random_player(player_name="Ogus_bogus_man")
 player_random2 = random_player(player_name="Ogus_bogus_man2")
@@ -726,9 +768,9 @@ Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
 DES_ai = Deep_expected_sarsa(player_name="Deep_expected_sarsa")
 
 
-
-# greedy_test_player = greedy_NN("NN_models/Deep_sarsa_model.keras", "Greedy_NN")
-Dominion_game.insert_players(Sarsa_player, sarsa_player2)
+# Deep sarsa 2 is trained to get provinces after 20 turns
+greedy_test_player = greedy_NN("NN_models/Deep_sarsa_2_model.keras", "Greedy_NN")
+Dominion_game.insert_players(Sarsa_player, greedy_test_player)
 
 
 

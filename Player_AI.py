@@ -68,11 +68,11 @@ class Dominion_reward():
 
             # If the province pile is empty, the player won by provinces and gets an extra reward
             if game_state["supply_amount"][5] == 0:
-                Victory_reward += 180
+                Victory_reward += 200
 
 
         elif (game_state["adv_Player_won"] == 1):
-            Victory_reward = -100
+            Victory_reward = -150
 
 
         # ---------------- Gained card reward ----------------
@@ -96,6 +96,12 @@ class Dominion_reward():
                 card_cost = int(card_set[card_set_idx][2])
                 Gained_expensive_cards_reward += card_cost**2
 
+            # Double reward, if the player spend all their money
+            if game_state["value"] == 0 and game_state["buys"] == 0 and game_state["Unique_actions"] == "buy":
+                Gained_expensive_cards_reward *= 2
+            elif game_state["value"] > 0 and game_state["buys"] == 0 and game_state["Unique_actions"] == "buy":
+                Gained_expensive_cards_reward /= 2
+            
         
 
         # ---------------- Reward based on province difference of players ----------------
@@ -110,9 +116,9 @@ class Dominion_reward():
             if card == 5:
                 province_adv += 5
 
-        Province_difference_reward = (province_main - province_adv) * 3
+        Province_difference_reward = (province_main - province_adv)**2
 
-        Province_owned_reward = 3*province_main
+        Province_owned_reward = (province_main*3)**2
 
 
 
@@ -143,7 +149,7 @@ class Dominion_reward():
         if coppers == 0:
             no_copper_reward = 10
         else:
-            no_copper_reward = 20-coppers*10
+            no_copper_reward = -coppers*50
         
         
 
@@ -156,7 +162,7 @@ class Dominion_reward():
         if estates == 0:
             no_estates_reward = 5
         else:
-            no_estates_reward = 60-estates*20
+            no_estates_reward = -estates*40
 
         # ---------------- gold reward ----------------
 
@@ -165,7 +171,7 @@ class Dominion_reward():
             if card == 2:
                 gold_cards += 1
 
-        gold_reward = gold_cards*20
+        gold_reward = gold_cards*50
 
 
         # ---------------- reward for having alot of value (weighted by deck size) ----------------
@@ -183,12 +189,12 @@ class Dominion_reward():
                 golds += 1
 
 
-        deck_value_reward = int((coppers + 2 * silvers + 3 * golds)/len(game_state["owned_cards"])*10)
+        deck_value_reward = int((coppers + 2 * silvers + 3 * golds)/len(game_state["owned_cards"])*50)
 
         # ---------------- Punishment for having critically low treasure value ----------------
 
         if (coppers + 2 * silvers + 3 * golds) <= 2:
-            deck_value_reward = -10 * (3 - (coppers + 2 * silvers + 3 * golds))
+            deck_value_reward = -30 * (3 - (coppers + 2 * silvers + 3 * golds))
 
 
 
@@ -202,7 +208,7 @@ class Dominion_reward():
                 elif card == 2:
                     golds += 1
 
-            treasure_in_hand_reward = int(min(0, (coppers + 2*silvers + 3*golds - 4)) / len(game_state["cards_in_hand"]) * 5)
+            treasure_in_hand_reward = int(min(0, (coppers + 2*silvers + 3*golds - 4)) / len(game_state["cards_in_hand"]) * 5)**2
 
 
         # ---------------- no_cards_punishment ----------------
@@ -589,7 +595,7 @@ class Deep_SARSA:
         '''
         time_start = time.time()
 
-        self.model.fit(input_matrix, output_matrix, epochs=10, verbose=0)
+        self.model.fit(input_matrix, output_matrix, epochs=1, verbose=0)
 
         self.NN_training_time.append(time.time() - time_start)
 
@@ -650,7 +656,7 @@ class Deep_SARSA:
         '''
 
         start_time = time.time()
-        self.alpha = 0.1 # Learning rate
+        self.alpha = 0.05 # Learning rate
         gamma = 0.9 # Discount factor
 
 
@@ -825,6 +831,8 @@ class Deep_SARSA:
             # Save model every 50 games
             self.model.save(f"NN_models/{self.player_name}_model.keras")
 
+
+
     def game_end_update(self):
         '''
         This function is used to update the neural network with the new values
@@ -845,10 +853,16 @@ class Deep_SARSA:
 
         self.game_end_update()
         
+
+        # Saving the game data
+
+        '''
         len_gm = len(self.game_state_history)
         len_ac = len(self.action_history)
+
         game_state_hist = copy.deepcopy(self.game_state_history[:len_gm-1])
         action_hist = self.action_history[:len_ac-1]
+
 
         game_ID = "game_" + str(self.games_played)
 
@@ -862,6 +876,7 @@ class Deep_SARSA:
         file = open(f"Q_table_data/output_data/output_data_{game_ID}.txt", "wb")
         pickle.dump(output_matrix, file)
         file.close()
+        '''
 
 
         # self.update_NN_np_mat(input_matrix, output_matrix)
@@ -875,6 +890,7 @@ class Deep_SARSA:
         self.games_played += 1
 
 
+
 class Deep_Q_learning(Deep_SARSA):
     
     def Q_learning_update(self, game_state, list_of_actions, game_ended=False):
@@ -883,7 +899,7 @@ class Deep_Q_learning(Deep_SARSA):
         '''
 
         start_time = time.time()
-        alpha = 0.7 # Learning rate
+        alpha = 0.1 # Learning rate
         gamma = 0.9 # Discount factor
 
 
@@ -937,7 +953,6 @@ class Deep_Q_learning(Deep_SARSA):
         self.SARSA_update_time.append(time.time() - start_time)
 
 
-
     def choose_action(self, list_of_actions, game_state):
 
         if self.game_state_history == []:
@@ -962,6 +977,9 @@ class Deep_Q_learning(Deep_SARSA):
         '''
 
         self.Q_learning_update(self.game_state_history[-1], list_of_actions=None, game_ended=True)
+
+
+
 
 
 class Deep_expected_sarsa(Deep_SARSA):
