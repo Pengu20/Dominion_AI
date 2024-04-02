@@ -116,9 +116,9 @@ class Dominion_reward():
             if card == 5:
                 province_adv += 5
 
-        Province_difference_reward = (province_main - province_adv)**2
+        Province_difference_reward = abs((province_main - province_adv)**1.5) * np.sign(province_main - province_adv)
 
-        Province_owned_reward = (province_main*3)**2
+        Province_owned_reward = (province_main*5)**1.5
 
 
 
@@ -136,7 +136,7 @@ class Dominion_reward():
 
 
         # ---------------- reward for playing many cards ----------------
-        Cards_played_reward = (len(game_state["played_cards"])*5)**2
+        Cards_played_reward = (len(game_state["played_cards"])*5)**1.5
 
 
         # ---------------- reward for having few/no coppers ----------------
@@ -281,172 +281,6 @@ class Dominion_reward():
 
 
         pass
-
-
-
-class greedy_NN:
-    '''
-    This class is for loading the neural network gained from deep sarsa to make all the greedy actions.
-    '''
-    def __init__(self, path, player_name):
-        self.__load_NN_from_path(path=path)
-
-        self.player_name = player_name
-
-        self.file_average_expected_rewards = f"reward_history/{self.player_name}/{self.player_name}_sum_expected_rewards.txt"
-        self.file_variance_expected_rewards = f"reward_history/{self.player_name}/{self.player_name}_variance_expected_rewards.txt"
-        self.file_victory_points = f"reward_history/{self.player_name}/{self.player_name}_victory_points.txt"
-        self.file_games_won = f"reward_history/{self.player_name}/{self.player_name}_games_won.txt"
-        self.file_game_length = f"reward_history/{self.player_name}/{self.player_name}_game_length.txt"
-
-        ## Reset all the files
-
-        self.delete_all_previous_history()
-
-        self.all_expected_returns = []
-        self.turns_in_game = 0
-
-
-    def __load_NN_from_path(self, path):
-        self.model = keras.models.load_model(path)
-
-
-    def delete_all_previous_history(self):
-        '''
-        This funtions opens all the file paths for overwrite, to delete all previous data
-        '''
-
-        open_file = open(self.file_average_expected_rewards, "w")
-        open_file.close()
-
-        open_file = open(self.file_variance_expected_rewards, "w")
-        open_file.close()
-
-        open_file = open(self.file_victory_points, "w")
-        open_file.close()
-
-        open_file = open(self.file_games_won, "w")
-        open_file.close()
-
-        open_file = open(self.file_game_length, "w")
-        open_file.close()
-
-
-    def game_state2list_NN_input(self, game_state, action_list):
-        '''
-        This function is used to convert the game state to a 
-        list that can be used as input for the neural network
-        '''
-
-        binarizeed_gamestate = pickle.dumps(game_state)
-
-        # Convert bytearray to list of integers
-        list_NN_input = np.array([byte for byte in binarizeed_gamestate])
-
-        NN_inputs = np.zeros((9000, len(action_list)))
-        i = 0
-
-        for action in action_list:
-            list_NN_input = np.insert(list_NN_input, 0, action)
-
-            list_NN_input.resize((len(list_NN_input),1))
-
-
-            # Padding the value to 9000
-            input_padded = np.zeros((9000,1))
-            input_padded[:len(list_NN_input)] = list_NN_input
-
-            NN_inputs[:,i] = input_padded[:,0]
-
-            i += 1
-
-        return NN_inputs.T # Apparently keras needs the matrix transposed
-
-
-
-    def NN_get_expected_return(self, game_state, actions_list):
-        '''
-        This function gives the value from the neural network to the state action pair
-        '''
-
-        list_NN_inputs = self.game_state2list_NN_input(game_state, actions_list)
-
-
-        expected_return = self.model.predict(list_NN_inputs, verbose=0)
-
-        return expected_return
-
-
-
-
-    def greedy_choice(self, list_of_actions, game_state):
-        '''
-        Until a neural network can give us the best state action rewards, we will use this function to give us the rewards
-        '''
-
-        expected_return = self.NN_get_expected_return(game_state, list_of_actions)
-
-        self.all_expected_returns.append(np.max(expected_return))
-
-
-        return list_of_actions[np.argmax(expected_return)]
-
-
-    def choose_action(self, list_of_actions, game_state):
-
-
-        action = self.greedy_choice(list_of_actions=list_of_actions, game_state=game_state)
-        self.turns_in_game += 1
-
-        #Remove the previous old values of game state and action history
-        return action
-
-
-    def write_state_reward_to_file(self, game_state):
-        '''
-        This function is used to write the current player reward into the reward file
-        '''
-
-        open_file = open(self.file_average_expected_rewards, "a")
-        open_file.write(f"{np.mean(self.all_expected_returns)}\n")
-        open_file.close()
-
-
-        open_file = open(self.file_variance_expected_rewards, "a")
-        open_file.write(f"{np.var(self.all_expected_returns)}\n")
-        self.all_expected_returns = []
-        open_file.close()
-
-        open_file = open(self.file_victory_points, "a")
-        victory_points = np.sum(game_state["Victory_points"])
-        open_file.write(f"{victory_points}\n")
-        open_file.close()
-
-
-        open_file = open(self.file_games_won, "a")
-        if game_state["main_Player_won"] == 1:
-            open_file.write("1\n")
-        else:
-            open_file.write("0\n")
-        open_file.close()
-
-
-        open_file = open(self.file_game_length, "a")
-        open_file.write(f"{np.sum(self.turns_in_game)}\n")
-        open_file.close()
-
-
-
-
-    def notify_game_end(self):
-        ''' [summary]
-            This function is used to notify the player that the game has ended
-        '''
-
-
-        self.game_state_history = []
-        self.action_history = []
-        self.expected_return_history = []
 
 
 
@@ -888,6 +722,41 @@ class Deep_SARSA:
         self.turns_in_game = 0
 
         self.games_played += 1
+
+
+
+class greedy_NN(Deep_SARSA):
+    '''
+    This class is for loading the neural network gained from deep sarsa to make all the greedy actions.
+    '''
+
+    def greedy_choice(self, list_of_actions, game_state):
+        '''
+        Until a neural network can give us the best state action rewards, we will use this function to give us the rewards
+        '''
+
+        expected_return = self.NN_get_expected_return(game_state, list_of_actions)
+
+        self.all_expected_returns.append(np.max(expected_return))
+
+
+        return list_of_actions[np.argmax(expected_return)]
+
+
+    def choose_action(self, list_of_actions, game_state):
+
+
+        action = self.greedy_choice(list_of_actions=list_of_actions, game_state=game_state)
+        self.turns_in_game += 1
+
+        #Remove the previous old values of game state and action history
+        return action
+   
+   
+    def notify_game_end(self, game_state):
+        ''' [summary]
+            This function is used to notify the player that the game has ended
+        '''
 
 
 

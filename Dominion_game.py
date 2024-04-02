@@ -612,7 +612,7 @@ class Dominion:
             victory_points = player_state["Victory_points"]
             game_history_file.write(f"player victory points: {victory_points} \n")
 
-            if player_is_NN:
+            if player_is_NN and main_player == 0:
                 game_history_file.write("\n"*1)
                 game_history_file.write(f"Reward from previous game state: {players_input[main_player].latest_reward} \n")
 
@@ -761,22 +761,23 @@ player_random2 = random_player(player_name="Ogus_bogus_man2")
 
 
 Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
-sarsa_player2 = Deep_SARSA(player_name="Deep_sarsa_2")
+# sarsa_player2 = Deep_SARSA(player_name="Deep_sarsa_2")
 
-Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
+# Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
 
-DES_ai = Deep_expected_sarsa(player_name="Deep_expected_sarsa")
+# DES_ai = Deep_expected_sarsa(player_name="Deep_expected_sarsa")
 
 
 # Deep sarsa 2 is trained to get provinces after 20 turns
-greedy_test_player = greedy_NN("NN_models/Deep_sarsa_2_model.keras", "Greedy_NN")
+greedy_test_player = greedy_NN(player_name="Greedy_NN")
+greedy_test_player.load_NN_from_file("NN_models/Deep_sarsa_2_model.keras")
 Dominion_game.insert_players(Sarsa_player, greedy_test_player)
 
 
 
 for i in range(100000):
     print(f"Game: {i}")
-    Dominion_game.play_loop_AI(f"game_{i}",player_0_is_NN=True, player_1_is_NN=True, verbose=True)
+    Dominion_game.play_loop_AI(f"game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
 
 
 
