@@ -258,7 +258,7 @@ class Dominion:
                 advesary_victory_points = players[advesary]["Victory_points"]
 
                 
-  
+
                 if main_player_victory_points > advesary_victory_points:
                     main_player_won = True
                     adv_player_won = False
@@ -270,16 +270,16 @@ class Dominion:
                     if verbose:
                         game_history_file.write(f"Player {advesary} won the game! \n")
 
+                if verbose:
+                    game_history_file.write(f"\n\n\n")
+                    game_history_file.write(f"Player 0 bought cards:\n")
+                    for idx in range(len(self.player0_bought_cards)):
+                        card = self.game_state["dominion_cards"][idx]
+                        game_history_file.write(f"{card[0]}: {self.player0_bought_cards[idx]} \n")
+                        if idx == 6:
+                            game_history_file.write("\n")
 
-                game_history_file.write(f"\n\n\n")
-                game_history_file.write(f"Player 0 bought cards:\n")
-                for idx in range(len(self.player0_bought_cards)):
-                    card = self.game_state["dominion_cards"][idx]
-                    game_history_file.write(f"{card[0]}: {self.player0_bought_cards[idx]} \n")
-                    if idx == 6:
-                        game_history_file.write("\n")
-
-                    self.player0_bought_cards = np.array([0]*17)
+                        self.player0_bought_cards = np.array([0]*17)
 
 
                 game_state_player0["main_Player_won"] = main_player_won
