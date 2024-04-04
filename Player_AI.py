@@ -551,20 +551,21 @@ class Deep_SARSA:
         self.all_returns.append(reward)
 
 
-
-
-        # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
-
         self.turns_in_game += 1
-        batch_size = 1
+        
 
-        # Every batch_size turns we will update the neural network with the batch_size new datasets
-        if self.turns_in_game % batch_size == 0:
-            input_matrix = self.game_state_list2NN_input(self.game_state_history[-batch_size:], self.action_history[-batch_size:])
-            output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-batch_size:])
+        if self.greedy_mode == False:
+            # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
-    
-            self.update_NN_np_mat(input_matrix, output_matrix)
+            batch_size = 1
+
+            # Every batch_size turns we will update the neural network with the batch_size new datasets
+            if self.turns_in_game % batch_size == 0:
+                input_matrix = self.game_state_list2NN_input(self.game_state_history[-batch_size:], self.action_history[-batch_size:])
+                output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-batch_size:])
+
+        
+                self.update_NN_np_mat(input_matrix, output_matrix)
 
 
 
@@ -605,7 +606,8 @@ class Deep_SARSA:
                 action = self.greedy_choice(list_of_actions, game_state)
             else:
                 action = self.epsilon_greedy_policy(list_of_actions, copy.deepcopy(game_state), 0.1)
-                self.SARSA_update(copy.deepcopy(game_state), action)
+            
+            self.SARSA_update(copy.deepcopy(game_state), action)
 
 
             self.game_state_history.append(copy.deepcopy(game_state))
@@ -823,20 +825,22 @@ class Deep_Q_learning(Deep_SARSA):
         self.all_expected_returns.append(old_expected_return_updated)
 
 
-
-        # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
-
         self.turns_in_game += 1
-        batch_size = 32
 
-        # Every batch_size turns we will update the neural network with the batch_size new datasets
-        if self.turns_in_game % batch_size == 0:
 
-            input_matrix = self.game_state_list2NN_input(self.game_state_history[-batch_size:], self.action_history[-batch_size:])
-            output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-batch_size:])
+        if self.greedy_mode == False:
+            # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
-    
-            self.update_NN_np_mat(input_matrix, output_matrix)
+            batch_size = 1
+
+            # Every batch_size turns we will update the neural network with the batch_size new datasets
+            if self.turns_in_game % batch_size == 0:
+
+                input_matrix = self.game_state_list2NN_input(self.game_state_history[-batch_size:], self.action_history[-batch_size:])
+                output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-batch_size:])
+
+        
+                self.update_NN_np_mat(input_matrix, output_matrix)
 
 
 
@@ -857,7 +861,8 @@ class Deep_Q_learning(Deep_SARSA):
                 action = self.greedy_choice(list_of_actions, game_state)
             else:
                 self.Q_learning_update(game_state, list_of_actions, game_ended=False)
-                action = self.epsilon_greedy_policy(list_of_actions, game_state, 1)
+            
+            action = self.epsilon_greedy_policy(list_of_actions, game_state, 1)
 
 
             self.game_state_history.append(copy.deepcopy(game_state))
@@ -873,31 +878,6 @@ class Deep_Q_learning(Deep_SARSA):
         '''
 
         self.Q_learning_update(self.game_state_history[-1], list_of_actions=None, game_ended=True)
-
-
-    def notify_game_end(self, game_state):
-        ''' [summary] Overwritten from parent function
-            This function is used to notify the player that the game has ended
-        '''
-
-        if self.greedy_mode:
-            self.write_state_reward_to_file(game_state)
-            # Deep sarsa will update its neural network with the new values
-        else:
-            self.game_end_update()
-            
-
-        # Saving the game data
-
-        # self.update_NN_np_mat(input_matrix, output_matrix)
-
-        self.game_state_history = []
-        self.action_history = []
-        self.expected_return_history = []
-        self.all_expected_returns = []
-        self.turns_in_game = 0
-
-        self.games_played += 1
 
 
 
