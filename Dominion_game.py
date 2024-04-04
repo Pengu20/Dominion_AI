@@ -51,6 +51,11 @@ class Dominion:
         self.player1 = player1
         self.player2 = player2
 
+    def set_player2train(self, player1):
+        self.player1 = player1
+
+    def set_player2test(self, player2):
+        self.player2 = player2
 
 
     def initialize_game_state(self):
@@ -273,13 +278,14 @@ class Dominion:
                 if verbose:
                     game_history_file.write(f"\n\n\n")
                     game_history_file.write(f"Player 0 bought cards:\n")
+
                     for idx in range(len(self.player0_bought_cards)):
                         card = self.game_state["dominion_cards"][idx]
                         game_history_file.write(f"{card[0]}: {self.player0_bought_cards[idx]} \n")
                         if idx == 6:
                             game_history_file.write("\n")
 
-                        self.player0_bought_cards = np.array([0]*17)
+                    self.player0_bought_cards = np.array([0]*17)
 
 
                 game_state_player0["main_Player_won"] = main_player_won
@@ -777,8 +783,6 @@ Dominion_game = Dominion()
 Dominion_game.card_set = card_set
 
 player_random1 = random_player(player_name="Ogus_bogus_man")
-player_random2 = random_player(player_name="Ogus_bogus_man2")
-
 
 # Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
 # sarsa_player2 = Deep_SARSA(player_name="Deep_sarsa_2")
@@ -791,19 +795,20 @@ Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
 # Deep sarsa 2 is trained to get provinces after 20 turns
 greedy_test_player = greedy_NN(player_name="Greedy_NN")
 greedy_test_player.load_NN_from_file("NN_models/Deep_sarsa_2_model.keras")
-Dominion_game.set_players(Q_learning_player, greedy_test_player)
+Dominion_game.set_players(Q_learning_player, greedy_test_player) # Training the first player, testing with the second player
 
 
 # 
 for i in range(100000):
     print(f"Game: {i}")
 
-    Q_learning_player.greedy_mode = False
 
+    Dominion_game.player1.greedy_mode = False
+    Dominion_game.set_player2test(greedy_test_player)
     Dominion_game.play_loop_AI(f"game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=False)
 
-    Q_learning_player.greedy_mode = True
-
+    Dominion_game.player1.greedy_mode = True
+    Dominion_game.set_player2test(player_random1)
     Dominion_game.play_loop_AI(f"game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
 
 
