@@ -47,7 +47,7 @@ class Dominion:
     def get_card_set(self):
         return self.card_set
 
-    def insert_players(self, player1, player2):
+    def set_players(self, player1, player2):
         self.player1 = player1
         self.player2 = player2
 
@@ -279,13 +279,13 @@ class Dominion:
                     if idx == 6:
                         game_history_file.write("\n")
 
+                    self.player0_bought_cards = np.array([0]*17)
+
 
                 game_state_player0["main_Player_won"] = main_player_won
                 game_state_player0["adv_Player_won"] = adv_player_won
                 players_input[main].notify_game_end(game_state_player0)
       
-
-
 
                 game_state_player1["main_Player_won"] = adv_player_won
                 game_state_player1["adv_Player_won"] = main_player_won
@@ -373,6 +373,9 @@ class Dominion:
         
         if verbose:
             game_history_file.write(f"action possibilites: {actions} \n")
+            if main == 0: # We only want to log the cards bought by player 0 (Sarsa trained player)
+                NN_return = players_input[main].NN_get_expected_return(self.game_state, actions)
+                game_history_file.write(f"expected returns: {NN_return}\n")
 
 
         # Choose action
@@ -429,6 +432,11 @@ class Dominion:
 
             if verbose:
                 game_history_file.write(f"action possibilites: {actions} \n")
+
+                if main == 0: # We only want to log the cards bought by player 0 (Sarsa trained player)
+                    NN_return = players_input[main].NN_get_expected_return(self.game_state, actions)
+                    game_history_file.write(f"expected returns: {NN_return}\n")
+
                 game_history_file.write(f"Chosen action: {play_action} : {card_obj}\n")
                 self.__Debug_state(players, self.game_state, main, players_input, game_history_file, player_is_NN=NN_player)
         
@@ -469,10 +477,14 @@ class Dominion:
         if verbose: 
             game_history_file.write(f"buy possibilites: {list_of_actions_buy} \n")
 
+            if main == 0: # We only want to log the cards bought by player 0 (Sarsa trained player)
+                NN_return = players_input[main].NN_get_expected_return(self.game_state, list_of_actions_buy)
+                game_history_file.write(f"expected returns: {NN_return}\n")
 
 
         # Choose a buy
         buy_action = players_input[main].choose_action(list_of_actions_buy, self.game_state)
+
 
             
 
@@ -518,6 +530,10 @@ class Dominion:
             
             if verbose: 
                 game_history_file.write(f"buy possibilites: {list_of_actions_buy} \n")
+                if main == 0: # We only want to log the cards bought by player 0 (Sarsa trained player)
+                    NN_return = players_input[main].NN_get_expected_return(self.game_state, list_of_actions_buy)
+                    game_history_file.write(f"expected returns: {NN_return}\n")
+                    
                 game_history_file.write(f"Chosen buy action: {buy_action} : {card_obj}\n")
                 self.__Debug_state(players, self.game_state, main, players_input, game_history_file, player_is_NN=NN_player)
 
@@ -562,6 +578,10 @@ class Dominion:
 
             game_history_file.write("\n"*2)
             game_history_file.write(f" --- GAME STATE ---\n")
+
+            unique_actions_state = game_state["Unique_actions"]
+            game_history_file.write(f"Action that is taken: {unique_actions_state} \n")
+
 
             cards_in_hand = player_state["cards_in_hand"]
             game_history_file.write(f"cards in hand: {cards_in_hand} \n")
@@ -760,10 +780,10 @@ player_random1 = random_player(player_name="Ogus_bogus_man")
 player_random2 = random_player(player_name="Ogus_bogus_man2")
 
 
-Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
+# Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
 # sarsa_player2 = Deep_SARSA(player_name="Deep_sarsa_2")
 
-# Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
+Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
 
 # DES_ai = Deep_expected_sarsa(player_name="Deep_expected_sarsa")
 
@@ -771,12 +791,19 @@ Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
 # Deep sarsa 2 is trained to get provinces after 20 turns
 greedy_test_player = greedy_NN(player_name="Greedy_NN")
 greedy_test_player.load_NN_from_file("NN_models/Deep_sarsa_2_model.keras")
-Dominion_game.insert_players(Sarsa_player, greedy_test_player)
+Dominion_game.set_players(Q_learning_player, greedy_test_player)
 
 
-
+# 
 for i in range(100000):
     print(f"Game: {i}")
+
+    Q_learning_player.greedy_mode = False
+
+    Dominion_game.play_loop_AI(f"game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=False)
+
+    Q_learning_player.greedy_mode = True
+
     Dominion_game.play_loop_AI(f"game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
 
 

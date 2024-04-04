@@ -33,6 +33,9 @@ class Dominion_reward():
                 reward (int): [description] The reward that the player gets from the game state
         '''
 
+        # The rewards based on cards in deck, should only be given, 
+        # when the card enters the deck, not at all times with the given cards
+
         reward = -5
         Victory_reward = 0 #20 if won -100 if lost, extra 180, if won by provinces
 
@@ -189,14 +192,19 @@ class Dominion_reward():
                 golds += 1
 
 
-        deck_value_reward = int((coppers + 2 * silvers + 3 * golds)/len(game_state["owned_cards"])*50)
+        # deck_value_reward = int((coppers + 2 * silvers + 3 * golds)/len(game_state["owned_cards"])*50)
+                
+        deck_value_reward = 0
 
-        # ---------------- Punishment for having critically low treasure value ----------------
+        # ---------------- Punishment for having critically low treasure value ------------+++----
 
         if (coppers + 2 * silvers + 3 * golds) <= 2:
             deck_value_reward = -30 * (3 - (coppers + 2 * silvers + 3 * golds))
 
 
+        coppers = 0
+        silvers = 0
+        golds = 0
 
         # ---------------- reward for having alot of treasure in hand ----------------
         if len(game_state["cards_in_hand"]) > 0:
@@ -208,7 +216,7 @@ class Dominion_reward():
                 elif card == 2:
                     golds += 1
 
-            treasure_in_hand_reward = int(min(0, (coppers + 2*silvers + 3*golds - 4)) / len(game_state["cards_in_hand"]) * 5)**2
+            treasure_in_hand_reward = int(max(0, (coppers + 2*silvers + 3*golds - 5)))**2
 
 
         # ---------------- no_cards_punishment ----------------
@@ -294,8 +302,16 @@ class Deep_SARSA:
 
         self.player_name = player_name
         self.file_address = f"reward_history/{self.player_name}/{self.player_name}_reward_history.txt"
+
         self.file_average_expected_rewards = f"reward_history/{self.player_name}/{self.player_name}_sum_expected_rewards.txt"
         self.file_variance_expected_rewards = f"reward_history/{self.player_name}/{self.player_name}_variance_expected_rewards.txt"
+
+        self.file_average_returns = f"reward_history/{self.player_name}/{self.player_name}_average_returns.txt"
+        self.file_variance_returns = f"reward_history/{self.player_name}/{self.player_name}_variance_returns.txt"
+
+        self.file_variance_NN_error = f"reward_history/{self.player_name}/{self.player_name}_variance_NN_error.txt"
+        self.file_variance_NN_error = f"reward_history/{self.player_name}/{self.player_name}_variance_NN_error.txt"
+
         self.file_victory_points = f"reward_history/{self.player_name}/{self.player_name}_victory_points.txt"
         self.file_games_won = f"reward_history/{self.player_name}/{self.player_name}_games_won.txt"
         self.file_game_length = f"reward_history/{self.player_name}/{self.player_name}_game_length.txt"
@@ -320,10 +336,13 @@ class Deep_SARSA:
 
 
         self.all_expected_returns = [] # This is used to keep track of the sum of expected returns gained by the players
+        self.all_returns = []
 
         # DEBUG, so i can see the latest reward
 
         self.latest_reward = None
+
+        self.greedy_mode = False
 
 
     def load_NN_from_file(self, path):
@@ -358,6 +377,13 @@ class Deep_SARSA:
 
         open_file = open(self.file_variance_NN_error, "w")
         open_file.close()
+
+        open_file = open(self.file_average_returns, "w")
+        open_file.close()
+
+        open_file = open(self.file_variance_returns, "w")
+        open_file.close()
+
 
 
         
@@ -522,6 +548,8 @@ class Deep_SARSA:
         self.expected_return_history.append(old_expected_return_updated)
 
         self.all_expected_returns.append(old_expected_return_updated)
+        self.all_returns.append(reward)
+
 
 
 
@@ -573,8 +601,11 @@ class Deep_SARSA:
             return self.action_history[-1]
         else:
             
-            action = self.epsilon_greedy_policy(list_of_actions, copy.deepcopy(game_state), 0.1)
-            self.SARSA_update(copy.deepcopy(game_state), action)
+            if self.greedy_mode:
+                action = self.greedy_choice(list_of_actions, game_state)
+            else:
+                action = self.epsilon_greedy_policy(list_of_actions, copy.deepcopy(game_state), 0.1)
+                self.SARSA_update(copy.deepcopy(game_state), action)
 
 
             self.game_state_history.append(copy.deepcopy(game_state))
@@ -621,6 +652,18 @@ class Deep_SARSA:
         open_file.close()
 
         self.NN_error = []
+
+
+        open_file = open(self.file_average_returns, "a")
+        open_file.write(f"{np.mean(self.all_returns)}\n")
+        open_file.close()
+
+        open_file = open(self.file_variance_returns, "a")
+        open_file.write(f"{np.var(self.all_returns)}\n")
+        open_file.close()
+
+        self.all_returns = []
+
 
 
 
@@ -682,36 +725,14 @@ class Deep_SARSA:
         '''
 
 
-        self.write_state_reward_to_file(game_state)
-        # Deep sarsa will update its neural network with the new values
-
-        self.game_end_update()
+        if self.greedy_mode:
+            self.write_state_reward_to_file(game_state)
+        else:
+            # Deep sarsa will update its neural network with the new values
+            self.game_end_update()
         
 
         # Saving the game data
-
-        '''
-        len_gm = len(self.game_state_history)
-        len_ac = len(self.action_history)
-
-        game_state_hist = copy.deepcopy(self.game_state_history[:len_gm-1])
-        action_hist = self.action_history[:len_ac-1]
-
-
-        game_ID = "game_" + str(self.games_played)
-
-        input_matrix = self.game_state_list2NN_input(game_state_hist, action_hist)
-        output_matrix = self.expected_return_list2NN_output(self.expected_return_history)
-
-        file = open(f"Q_table_data/input_data/input_data_{game_ID}.txt", "wb")
-        pickle.dump(input_matrix, file)
-        file.close()
-
-        file = open(f"Q_table_data/output_data/output_data_{game_ID}.txt", "wb")
-        pickle.dump(output_matrix, file)
-        file.close()
-        '''
-
 
         # self.update_NN_np_mat(input_matrix, output_matrix)
 
@@ -761,7 +782,7 @@ class greedy_NN(Deep_SARSA):
 
 
 class Deep_Q_learning(Deep_SARSA):
-    
+
     def Q_learning_update(self, game_state, list_of_actions, game_ended=False):
         '''
         This function is used to update the neural network based on the Q_learning_algorithm
@@ -824,13 +845,19 @@ class Deep_Q_learning(Deep_SARSA):
 
     def choose_action(self, list_of_actions, game_state):
 
+        
+
         if self.game_state_history == []:
             self.game_state_history.append(copy.deepcopy(game_state))
             self.action_history.append(np.random.choice(list_of_actions))
             return self.action_history[-1]
         else:
-            self.Q_learning_update(game_state, list_of_actions, game_ended=False)
-            action = self.epsilon_greedy_policy(list_of_actions, game_state, 1)
+
+            if self.greedy_mode:
+                action = self.greedy_choice(list_of_actions, game_state)
+            else:
+                self.Q_learning_update(game_state, list_of_actions, game_ended=False)
+                action = self.epsilon_greedy_policy(list_of_actions, game_state, 1)
 
 
             self.game_state_history.append(copy.deepcopy(game_state))
@@ -847,6 +874,30 @@ class Deep_Q_learning(Deep_SARSA):
 
         self.Q_learning_update(self.game_state_history[-1], list_of_actions=None, game_ended=True)
 
+
+    def notify_game_end(self, game_state):
+        ''' [summary] Overwritten from parent function
+            This function is used to notify the player that the game has ended
+        '''
+
+        if self.greedy_mode:
+            self.write_state_reward_to_file(game_state)
+            # Deep sarsa will update its neural network with the new values
+        else:
+            self.game_end_update()
+            
+
+        # Saving the game data
+
+        # self.update_NN_np_mat(input_matrix, output_matrix)
+
+        self.game_state_history = []
+        self.action_history = []
+        self.expected_return_history = []
+        self.all_expected_returns = []
+        self.turns_in_game = 0
+
+        self.games_played += 1
 
 
 
