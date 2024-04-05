@@ -36,7 +36,7 @@ class Dominion_reward():
         # The rewards based on cards in deck, should only be given, 
         # when the card enters the deck, not at all times with the given cards
 
-        reward = -5
+        reward = -10
         Victory_reward = 0 #20 if won -100 if lost, extra 180, if won by provinces
 
         Victory_points_difference_reward = 0 # 10 per victory point difference
@@ -64,14 +64,16 @@ class Dominion_reward():
 
         Gained_expensive_cards_reward = 0 # Gain a reward based on the cost of the bought card to the power of 2
 
+        
+
 
         # ---------------- Reward based on game end ----------------
         if   (game_state["main_Player_won"] == 1):
-            Victory_reward = 20
+            Victory_reward = 500
 
             # If the province pile is empty, the player won by provinces and gets an extra reward
             if game_state["supply_amount"][5] == 0:
-                Victory_reward += 200
+                Victory_reward += 500
 
 
         elif (game_state["adv_Player_won"] == 1):
@@ -113,7 +115,7 @@ class Dominion_reward():
 
         for card in game_state["owned_cards"]:
             if card == 5:
-                province_main += 5
+                province_main += 1
 
         for card in game_state["adv_owned_cards"]:
             if card == 5:
@@ -121,7 +123,7 @@ class Dominion_reward():
 
         Province_difference_reward = abs((province_main - province_adv)**1.5) * np.sign(province_main - province_adv)
 
-        Province_owned_reward = (province_main*5)**1.5
+        Province_owned_reward = (province_main*25)**1.5
 
 
 
@@ -330,7 +332,7 @@ class Deep_SARSA:
 
         ## Experimental design, where neural network is first updates at the end of the game using SARSA
 
-        self.expected_return_history = []
+
         self.games_played = 0
         self.turns_in_game = 0
 
@@ -398,7 +400,7 @@ class Deep_SARSA:
         self.model.add(layers.Dropout(0.4))
         self.model.add(Dense(1,activation='linear',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01)))
 
-        self.model.compile( optimizer='Adam',
+        self.model.compile( optimizer='SGD',
                             loss='mean_squared_error',
                             metrics='accuracy',
                             loss_weights=None,
@@ -476,21 +478,26 @@ class Deep_SARSA:
         NN_inputs = np.zeros((9000, len(action_list)))
         i = 0
 
-        for action in action_list:
-            list_NN_input = np.insert(list_NN_input, 0, action)
 
-            list_NN_input.resize((len(list_NN_input),1))
+        for action in action_list:
+            list_NN_input_with_action = np.append(float(action)/32, list_NN_input)
+            
+            
+            list_NN_input_with_action.resize((len(list_NN_input_with_action),1))
 
 
             # Padding the value to 9000
             input_padded = np.zeros((9000,1))
-            input_padded[:len(list_NN_input)] = list_NN_input
+            input_padded[:len(list_NN_input_with_action)] = list_NN_input_with_action
 
             NN_inputs[:,i] = input_padded[:,0]
 
             i += 1
 
         self.convert_state2list_time.append(time.time() - start_time)
+
+        print(NN_inputs[0,:])
+        print("\n")
 
         return NN_inputs.T # Apparently keras needs the matrix transposed
 
@@ -516,7 +523,7 @@ class Deep_SARSA:
         '''
 
         start_time = time.time()
-        self.alpha = 0.05 # Learning rate
+        self.alpha = 0.1 # Learning rate
         gamma = 0.9 # Discount factor
 
 
@@ -544,8 +551,7 @@ class Deep_SARSA:
         old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))
         # Train the neural network with the new values
 
-        # Store the updated values
-        self.expected_return_history.append(old_expected_return_updated)
+
 
         self.all_expected_returns.append(old_expected_return_updated)
         self.all_returns.append(reward)
@@ -557,14 +563,14 @@ class Deep_SARSA:
         if self.greedy_mode == False:
             # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
-            batch_size = 1
+            self.batch_size = 16
 
             # Every batch_size turns we will update the neural network with the batch_size new datasets
-            if self.turns_in_game % batch_size == 0:
-                input_matrix = self.game_state_list2NN_input(self.game_state_history[-batch_size:], self.action_history[-batch_size:])
-                output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-batch_size:])
+            if self.turns_in_game % self.batch_size == 0:
+                input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
+                output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
 
-        
+
                 self.update_NN_np_mat(input_matrix, output_matrix)
 
 
@@ -740,7 +746,6 @@ class Deep_SARSA:
 
         self.game_state_history = []
         self.action_history = []
-        self.expected_return_history = []
         self.all_expected_returns = []
         self.turns_in_game = 0
 
@@ -812,17 +817,17 @@ class Deep_Q_learning(Deep_SARSA):
 
         NN_error = (reward + gamma*expected_return - old_expected_return)**2
         self.NN_error.append(NN_error)
+        self.all_returns.append(reward)
+
 
         # Q_learning update
         old_expected_return_updated = old_expected_return + alpha * (reward + gamma*expected_return - old_expected_return)
+        self.all_expected_returns.append(old_expected_return_updated.astype(float)[0])
+
 
         old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))
         # Train the neural network with the new values
 
-        # Store the updated values
-        self.expected_return_history.append(old_expected_return_updated)
-
-        self.all_expected_returns.append(old_expected_return_updated)
 
 
         self.turns_in_game += 1
@@ -838,8 +843,6 @@ class Deep_Q_learning(Deep_SARSA):
 
                 input_matrix = self.game_state_list2NN_input(self.game_state_history[-batch_size:], self.action_history[-batch_size:])
                 output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-batch_size:])
-
-        
                 self.update_NN_np_mat(input_matrix, output_matrix)
 
 
@@ -860,9 +863,12 @@ class Deep_Q_learning(Deep_SARSA):
             if self.greedy_mode:
                 action = self.greedy_choice(list_of_actions, game_state)
             else:
-                self.Q_learning_update(game_state, list_of_actions, game_ended=False)
-            
-            action = self.epsilon_greedy_policy(list_of_actions, game_state, 1)
+                action = self.epsilon_greedy_policy(list_of_actions, game_state, 1)
+
+
+
+            self.Q_learning_update(game_state, list_of_actions, game_ended=False)
+
 
 
             self.game_state_history.append(copy.deepcopy(game_state))
@@ -877,7 +883,7 @@ class Deep_Q_learning(Deep_SARSA):
         This function is used to update the neural network with the new values
         '''
 
-        self.Q_learning_update(self.game_state_history[-1], list_of_actions=None, game_ended=True)
+        # self.Q_learning_update(self.game_state_history[-1], list_of_actions=None, game_ended=True)
 
 
 
@@ -927,9 +933,6 @@ class Deep_expected_sarsa(Deep_SARSA):
 
         old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))
         # Train the neural network with the new values
-
-        # Store the updated values
-        self.expected_return_history.append(old_expected_return_updated)
 
         self.all_expected_returns.append(old_expected_return_updated)
 
