@@ -22,6 +22,22 @@ import pickle
 
 deck = deck_generator()
 
+
+def make_card_set(kingdom_indexes):
+    '''
+    This function takes the indexes of all the kingdom cards that is desired to be in game, and generated a card set.
+    The standard cards remain the same always.
+    '''
+    kingdom_indexes = [i - 7 for i in kingdom_indexes]
+
+    numpy_kingdom = np.array(kingdom_cards_ed2_base)
+    kingdom_cards = numpy_kingdom[kingdom_indexes]
+
+    deck = deck_generator()
+    card_set = deck.get_card_set(kingdom_cards=kingdom_cards)
+
+    return card_set
+
 class Dominion:
 
     def __init__(self) -> None:
@@ -43,6 +59,8 @@ class Dominion:
 
         self.player0_bought_cards = np.array([0]*17)
         self.player1_bought_cards = np.array([0]*17)
+
+        self.testplayer_province_boosted = False
 
     def get_card_set(self):
         return self.card_set
@@ -130,6 +148,10 @@ class Dominion:
             player1 gets provinces inserted into deck at random times after 20 turns
         '''
 
+
+        self.player0_bought_cards = np.array([0]*17)
+        self.player1_bought_cards = np.array([0]*17)
+
         self.game_state = self.initialize_game_state()
 
 
@@ -202,19 +224,20 @@ class Dominion:
 
 
             # Give the player a time limit.
-            if turns >= 20 and main_player == 1:
-                province_chance = 0.4
+            if self.testplayer_province_boosted:
+                if turns >= 25 and main_player == 1:
+                    province_chance = 0.4
 
-                if turns >= 30:
-                    province_chance = 0.7
+                    if turns >= 30:
+                        province_chance = 0.5
 
-                if turns >= 40:
-                    province_chance = 0.9
+                    if turns >= 40:
+                        province_chance = 0.6
 
 
-                if np.random.rand() < province_chance:
-                    players[main_player], self.game_state = self.__buy_card_from_supply(player_state=players[main_player], game_state=self.game_state, card_idx=5)
-                    
+                    if np.random.rand() < province_chance:
+                        players[main_player], self.game_state = self.__buy_card_from_supply(player_state=players[main_player], game_state=self.game_state, card_idx=5)
+                        
 
 
            
@@ -265,11 +288,13 @@ class Dominion:
                 
 
                 if main_player_victory_points > advesary_victory_points:
+                    player_won = main_player
                     main_player_won = True
                     adv_player_won = False
                     if verbose:
                         game_history_file.write(f"Player {main_player} won the game! \n")
                 else:
+                    player_won = advesary
                     main_player_won = False
                     adv_player_won = True
                     if verbose:
@@ -329,7 +354,7 @@ class Dominion:
             
 
 
-        return 0 # return index of who wins.
+        return player_won # return index of who wins.
     
     def __game_is_over(self):
         '''[Summary]
@@ -387,7 +412,7 @@ class Dominion:
         # Choose action
         self.game_state = sm.merge_game_player_state(self.game_state, players[main], players[adversary])
         self.game_state["Unique_actions"] = "take_action"
-        play_action = int(players_input[main].choose_action(actions, self.game_state))
+        play_action = int(players_input[main].choose_action(actions, copy.deepcopy(self.game_state)))
 
 
 
@@ -427,7 +452,7 @@ class Dominion:
 
             actions = self.__get_actions(players[main])
             self.game_state["Unique_actions"] = "take_action"
-            play_action = int(players_input[main].choose_action(actions, self.game_state))
+            play_action = int(players_input[main].choose_action(actions, copy.deepcopy(self.game_state)))
 
 
             card_idx = sm.card_idx_2_set_idx(play_action, self.game_state)
@@ -489,7 +514,7 @@ class Dominion:
 
 
         # Choose a buy
-        buy_action = players_input[main].choose_action(list_of_actions_buy, self.game_state)
+        buy_action = players_input[main].choose_action(list_of_actions_buy, copy.deepcopy(self.game_state))
 
 
             
@@ -527,7 +552,8 @@ class Dominion:
 
             
             list_of_actions_buy = self.__get_buys(players[main], self.game_state)
-            buy_action = players_input[main].choose_action(list_of_actions_buy, self.game_state)
+            self.game_state["Unique_actions"] = "buy"
+            buy_action = players_input[main].choose_action(list_of_actions_buy, copy.deepcopy(self.game_state))
             card_idx = sm.card_idx_2_set_idx(buy_action, self.game_state)
             if card_idx != -1:
                 card_obj = self.game_state["dominion_cards"][card_idx]
@@ -575,12 +601,16 @@ class Dominion:
 
 
     def __Debug_state(self, players, game_state, main_player, players_input, game_history_file, gain_card = False, player_is_NN = False):
-            self.game_state = self.__Update_victory_points(self.game_state, players[main_player])
+
+
             game_state_temp = copy.deepcopy(game_state)
+            self.game_state = self.__Update_victory_points(game_state_temp, players[main_player])
+  
 
             player_state = sm.get_player_state_from_game_state(game_state_temp)
 
             advesary = main_player*(-1) + 1
+
 
             game_history_file.write("\n"*2)
             game_history_file.write(f" --- GAME STATE ---\n")
@@ -640,8 +670,9 @@ class Dominion:
 
             if player_is_NN and main_player == 0:
                 game_history_file.write("\n"*1)
-                game_history_file.write(f"Reward from previous game state: {players_input[main_player].latest_reward} \n")
-
+                reward = players_input[main_player].latest_reward
+                game_history_file.write(f"Reward from previous game state: {reward} \n")
+                game_history_file.write(f"Reward from previous game state: {np.sum(reward)} \n")
 
 
             game_history_file.write("\n"*2)
@@ -774,17 +805,12 @@ class Dominion:
 
 
 
-
-
-
-card_set = pickle.load(open("card_set.txt", "rb"))
-
 Dominion_game = Dominion()
-Dominion_game.card_set = card_set
+Dominion_game.card_set = make_card_set([16, 11, 8, 25, 29, 14, 23, 10, 22, 15])
 
 player_random1 = random_player(player_name="Ogus_bogus_man")
 
-# Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
+Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
 # sarsa_player2 = Deep_SARSA(player_name="Deep_sarsa_2")
 
 Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
@@ -793,30 +819,38 @@ Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
 
 
 # Deep sarsa 2 is trained to get provinces after 20 turns
-greedy_test_player = greedy_NN(player_name="Greedy_NN")
-greedy_test_player.load_NN_from_file("NN_models/Deep_sarsa_2_model.keras")
-Dominion_game.set_players(Q_learning_player, greedy_test_player) # Training the first player, testing with the second player
+# greedy_test_player = greedy_NN(player_name="Greedy_NN")
+# greedy_test_player.load_NN_from_file("NN_models/Deep_sarsa_2_model.keras")
+Dominion_game.set_players(Q_learning_player, player_random1) # Training the first player, testing with the second player
 
 
 # 
 for i in range(100000):
     print(f"Game: {i}")
 
-
+    Dominion_game.testplayer_province_boosted = True
     Dominion_game.player1.greedy_mode = False
-    Dominion_game.set_player2test(greedy_test_player)
-    Dominion_game.play_loop_AI(f"game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=False)
+    # Dominion_game.set_player2test(Sarsa_player)
+    index_player_won = Dominion_game.play_loop_AI(f"trainer_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
 
+    if index_player_won == 0:
+        print("Trained player won!")
+    else:
+        print("Test player won!")
+
+    Dominion_game.testplayer_province_boosted = False
     Dominion_game.player1.greedy_mode = True
-    Dominion_game.set_player2test(player_random1)
-    Dominion_game.play_loop_AI(f"game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
+    # Dominion_game.set_player2test(player_random1)
+    index_player_won = Dominion_game.play_loop_AI(f"test_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
 
 
+    if index_player_won == 0:
+        print("Trained player won!")
+    else:
+        print("Test player won!")
 
 
-
-
-
+    print("\n")
 
 
 

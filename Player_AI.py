@@ -2,11 +2,12 @@ import numpy as np
 
 import pickle
 import keras
-from keras import Sequential
 from keras.layers import Dense
 from keras import layers
 from keras.regularizers import L1
 from keras.regularizers import L2
+from keras import Model
+from keras import Input
 import time
 
 import state_manipulator as sm
@@ -36,14 +37,13 @@ class Dominion_reward():
         # The rewards based on cards in deck, should only be given, 
         # when the card enters the deck, not at all times with the given cards
 
-        reward = -10
+        reward = -20
         Victory_reward = 0 #20 if won -100 if lost, extra 180, if won by provinces
 
         Victory_points_difference_reward = 0 # 10 per victory point difference
         Victory_points_reward = 0 # 5 per victory point
 
         treasure_in_hand_reward = 0 # with 5 or more treasure in hand, gain 5 points for each treasure above 5.
-
 
         Province_owned_reward = 0 # 3 per province 
         Province_difference_reward = 0 # 5 per province difference
@@ -64,6 +64,7 @@ class Dominion_reward():
 
         Gained_expensive_cards_reward = 0 # Gain a reward based on the cost of the bought card to the power of 2
 
+        Too_many_cards_punishment = 0 # after 30, give punishment for cards in deck
         
 
 
@@ -81,7 +82,8 @@ class Dominion_reward():
 
 
         # ---------------- Gained card reward ----------------
-            
+        
+        # Check all new cards gained.
         owned_cards = copy.deepcopy(game_state["owned_cards"])
         pre_owned_cards = copy.deepcopy(previous_game_state["owned_cards"])
 
@@ -106,6 +108,8 @@ class Dominion_reward():
                 Gained_expensive_cards_reward *= 2
             elif game_state["value"] > 0 and game_state["buys"] == 0 and game_state["Unique_actions"] == "buy":
                 Gained_expensive_cards_reward /= 2
+        else:
+            new_cards = []
             
         
 
@@ -120,10 +124,18 @@ class Dominion_reward():
         for card in game_state["adv_owned_cards"]:
             if card == 5:
                 province_adv += 5
+        
+
+
+        new_province = 0
+        for card in new_cards:
+            if card == 5:
+                new_province += 1
+
 
         Province_difference_reward = abs((province_main - province_adv)**1.5) * np.sign(province_main - province_adv)
 
-        Province_owned_reward = (province_main*25)**1.5
+        Province_owned_reward = (new_province*25)**1.5
 
 
 
@@ -141,7 +153,7 @@ class Dominion_reward():
 
 
         # ---------------- reward for playing many cards ----------------
-        Cards_played_reward = (len(game_state["played_cards"])*5)**1.5
+        Cards_played_reward = (len(game_state["played_cards"])*30)**0.8
 
 
         # ---------------- reward for having few/no coppers ----------------
@@ -169,14 +181,16 @@ class Dominion_reward():
         else:
             no_estates_reward = -estates*40
 
+        no_estates_reward = 0
+
         # ---------------- gold reward ----------------
 
         gold_cards = 0
-        for card in game_state["owned_cards"]:
+        for card in new_cards:
             if card == 2:
                 gold_cards += 1
-
-        gold_reward = gold_cards*50
+        
+        gold_reward = (50*gold_cards**0.5)
 
 
         # ---------------- reward for having alot of value (weighted by deck size) ----------------
@@ -193,9 +207,10 @@ class Dominion_reward():
             elif card == 2:
                 golds += 1
 
-
         # deck_value_reward = int((coppers + 2 * silvers + 3 * golds)/len(game_state["owned_cards"])*50)
                 
+
+
         deck_value_reward = 0
 
         # ---------------- Punishment for having critically low treasure value ------------+++----
@@ -204,25 +219,45 @@ class Dominion_reward():
             deck_value_reward = -30 * (3 - (coppers + 2 * silvers + 3 * golds))
 
 
-        coppers = 0
-        silvers = 0
-        golds = 0
+        current_coppers = 0
+        current_silvers = 0
+        current_gold = 0
+
+
+        previous_coppers = 0
+        previous_silvers = 0
+        previous_gold = 0
+
 
         # ---------------- reward for having alot of treasure in hand ----------------
-        if len(game_state["cards_in_hand"]) > 0:
-            for card in game_state["cards_in_hand"]:
-                if card == 0:
-                    coppers += 1
-                elif card == 1:
-                    silvers += 1
-                elif card == 2:
-                    golds += 1
+        # Based on the difference between the current and the previous gamestate. Can only gain reward in the action state
+        if game_state["Unique_actions"] == "take_action" and previous_game_state["Unique_actions"] == "take_action":
+            if len(game_state["cards_in_hand"]) > 0:
+                for card in game_state["cards_in_hand"]:
+                    if card == 0:
+                        current_coppers += 1
+                    elif card == 1:
+                        current_silvers += 1
+                    elif card == 2:
+                        current_gold += 1
 
-            treasure_in_hand_reward = int(max(0, (coppers + 2*silvers + 3*golds - 5)))**2
+
+            if len(previous_game_state["cards_in_hand"]) > 0:
+                for card in previous_game_state["cards_in_hand"]:
+                    if card == 0:
+                        previous_coppers += 1
+                    elif card == 1:
+                        previous_silvers += 1
+                    elif card == 2:
+                        previous_gold += 1
+
+                treasure_in_hand_current = current_coppers + 2*current_silvers + 3*current_gold
+                treasure_in_hand_previous = previous_coppers + 2*previous_silvers + 3*previous_gold
+                gained_treasure = treasure_in_hand_current - treasure_in_hand_previous
+                treasure_in_hand_reward = int(max(0, gained_treasure))**1.3
 
 
         # ---------------- no_cards_punishment ----------------
-
 
         if len(game_state["owned_cards"]) < 5:
             no_cards_punishment = -50
@@ -230,19 +265,30 @@ class Dominion_reward():
 
         # ---------------- curse punishment ----------------
         curses = 0
-        for card in game_state["owned_cards"]:
+        for card in new_cards:
             if card == 6:
                 curses += 1
 
-        curses_owned = -100 * curses
+        curses_owned = -150 * curses
+
+        # ---------------- Too many cards punishment ----------------
+        deck_length = len(game_state["owned_cards"])
+        new_cards = len(new_cards)
+        deck_limit = 35
+
+        if new_cards > 0 and deck_length > deck_limit:
+            Too_many_cards_punishment = -(deck_length - deck_limit)**1.7
 
 
-
-
-        reward_list = np.array([reward, Victory_reward, Victory_points_reward,Victory_points_difference_reward, Province_owned_reward, Province_difference_reward, 
-                                Cards_played_reward, no_copper_reward, no_estates_reward, treasure_in_hand_reward,
-                                gold_reward, deck_value_reward, no_cards_punishment,Gained_expensive_cards_reward,  curses_owned])
-
+        reward_list = np.array([reward, Victory_reward, Victory_points_reward,
+                                Victory_points_difference_reward, Province_owned_reward, 
+                                Province_difference_reward, Cards_played_reward, 
+                                no_copper_reward, no_estates_reward, 
+                                gold_reward, deck_value_reward,
+                                Too_many_cards_punishment, no_cards_punishment,
+                                curses_owned, Gained_expensive_cards_reward,
+                                treasure_in_hand_reward
+                                ])
 
         return reward_list
 
@@ -391,17 +437,29 @@ class Deep_SARSA:
         
 
     def initialize_NN(self):
-        self.model = Sequential()
-        self.model.add(Dense(1024, activation='sigmoid', input_shape=(9000,),kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01)))
-        self.model.add(layers.Dropout(0.4))
-        self.model.add(Dense(512, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01)))
-        self.model.add(layers.Dropout(0.4))
-        self.model.add(Dense(256, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01)))
-        self.model.add(layers.Dropout(0.4))
-        self.model.add(Dense(1,activation='linear',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01)))
 
-        self.model.compile( optimizer='SGD',
-                            loss='mean_squared_error',
+
+
+        input_1 = keras.Input(shape=(9000,))
+        input_2 = keras.Input(shape=(1,))
+
+        Input_layer = Dense(2048, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(input_1)
+        Hidden_layer1 = Dense(1024, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Input_layer)
+        Hidden_layer2 = layers.Dropout(0.4)(Hidden_layer1)
+        Hidden_layer3 = Dense(512, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer2)
+        Hidden_layer4 = layers.Dropout(0.4)(Hidden_layer3)
+        Hidden_layer5 = Dense(256, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer4)
+
+        Concatenated_layer = layers.concatenate([Hidden_layer5, input_2], axis=1)
+        Hidden_layer6 = Dense(128, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
+
+        output = Dense(1,activation='linear',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer6)
+
+        self.model = Model(inputs=[input_1, input_2], outputs=output)
+
+
+        self.model.compile( optimizer='Adam',
+                            loss='huber',
                             metrics='accuracy',
                             loss_weights=None,
                             weighted_metrics=None,
@@ -413,14 +471,18 @@ class Deep_SARSA:
         self.model.summary()
 
 
+
+
+
+
     def update_NN(self, game_state, action, expected_return_updated):
         '''
         This function is used to update the neural network with the new values
         '''
 
 
-        list_NN_input = self.game_state2list_NN_input(game_state, [action])
-        self.model.fit(list_NN_input, np.array([[expected_return_updated]]), epochs=1, verbose=0)
+        NN_input_state, NN_input_action = self.game_state2list_NN_input(game_state, [action])
+        self.model.fit((NN_input_state, NN_input_action), np.array([[expected_return_updated]]), epochs=1, verbose=0)
 
     
     def game_state_list2NN_input(self, game_state_list, action_list):
@@ -429,13 +491,17 @@ class Deep_SARSA:
         It is assumed that the size of the gamestate value is 9000
         '''
 
-        input_matrix = np.zeros((len(game_state_list),9000))
+        input_state_matrix = np.zeros((len(game_state_list),9000))
+        input_action_matrix = np.zeros((len(action_list),1))
 
         for i in range(len(game_state_list)):
-            list_NN_input = self.game_state2list_NN_input(game_state_list[i], [action_list[i]])
-            input_matrix[i,:] = list_NN_input
+            NN_input_state, NN_input_action = self.game_state2list_NN_input(game_state_list[i], [action_list[i]])
+            input_state_matrix[i,:] = NN_input_state
 
-        return input_matrix
+            input_action_matrix[i,:] = NN_input_action
+
+
+        return input_state_matrix, input_action_matrix
     
 
     def expected_return_list2NN_output(self, expected_return_updated_list):
@@ -475,31 +541,29 @@ class Deep_SARSA:
         # Convert bytearray to list of integers
         list_NN_input = np.array([byte for byte in binarizeed_gamestate])
 
-        NN_inputs = np.zeros((9000, len(action_list)))
+        NN_inputs_state = np.zeros((9000, len(action_list)))
+        NN_inputs_actions = np.zeros((1, len(action_list)))
         i = 0
 
 
         for action in action_list:
-            list_NN_input_with_action = np.append(float(action)/32, list_NN_input)
-            
-            
-            list_NN_input_with_action.resize((len(list_NN_input_with_action),1))
-
 
             # Padding the value to 9000
             input_padded = np.zeros((9000,1))
-            input_padded[:len(list_NN_input_with_action)] = list_NN_input_with_action
+            input_padded[:len(list_NN_input)] = np.array(list_NN_input).reshape((len(list_NN_input),1))
 
-            NN_inputs[:,i] = input_padded[:,0]
+            NN_inputs_state[:,i] = input_padded[:,0]
 
+            # Creating the action input
+            NN_inputs_actions[0,i] = action
             i += 1
 
         self.convert_state2list_time.append(time.time() - start_time)
 
-        print(NN_inputs[0,:])
-        print("\n")
 
-        return NN_inputs.T # Apparently keras needs the matrix transposed
+
+
+        return NN_inputs_state.T, NN_inputs_actions.T  # Apparently keras needs the matrix transposed
 
 
     def NN_get_expected_return(self, game_state, actions_list):
@@ -507,11 +571,10 @@ class Deep_SARSA:
         This function gives the value from the neural network to the state action pair
         '''
 
-        list_NN_inputs = self.game_state2list_NN_input(game_state, actions_list)
+        NN_input_state, NN_input_action = self.game_state2list_NN_input(game_state, actions_list)
 
 
-        expected_return = self.model.predict(list_NN_inputs, verbose=0)
-
+        expected_return = self.model.predict([NN_input_state, NN_input_action], verbose=0)
 
 
         return expected_return
@@ -796,8 +859,8 @@ class Deep_Q_learning(Deep_SARSA):
         '''
 
         start_time = time.time()
-        alpha = 0.1 # Learning rate
-        gamma = 0.9 # Discount factor
+        alpha = 0.02 # Learning rate
+        gamma = 0.8 # Discount factor
 
 
         # SA -> State action
@@ -812,8 +875,9 @@ class Deep_Q_learning(Deep_SARSA):
 
         old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
 
-        reward = np.sum(self.rf.get_reward_from_state(game_state, self.game_state_history[-1]))
-
+        reward_list = self.rf.get_reward_from_state(game_state, self.game_state_history[-1])
+        reward = np.sum(reward_list)
+        self.latest_reward = reward_list
 
         NN_error = (reward + gamma*expected_return - old_expected_return)**2
         self.NN_error.append(NN_error)
@@ -836,7 +900,7 @@ class Deep_Q_learning(Deep_SARSA):
         if self.greedy_mode == False:
             # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
-            batch_size = 1
+            batch_size = 32
 
             # Every batch_size turns we will update the neural network with the batch_size new datasets
             if self.turns_in_game % batch_size == 0:
@@ -863,7 +927,7 @@ class Deep_Q_learning(Deep_SARSA):
             if self.greedy_mode:
                 action = self.greedy_choice(list_of_actions, game_state)
             else:
-                action = self.epsilon_greedy_policy(list_of_actions, game_state, 1)
+                action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.5)
 
 
 
@@ -922,8 +986,10 @@ class Deep_expected_sarsa(Deep_SARSA):
 
         old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
 
-        reward = np.sum(self.rf.get_reward_from_state(game_state, self.game_state_history[-1]))
 
+        reward_list = self.rf.get_reward_from_state(game_state, self.game_state_history[-1])
+        reward = np.sum(reward_list)
+        self.latest_reward = reward_list
 
         NN_error = (reward + gamma*expected_return - old_expected_return)**2
         self.NN_error.append(NN_error)
