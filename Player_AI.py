@@ -153,7 +153,7 @@ class Dominion_reward():
 
 
         # ---------------- reward for playing many cards ----------------
-        Cards_played_reward = (len(game_state["played_cards"])*30)**0.8
+        Cards_played_reward = (len(game_state["played_cards"])*150)**0.8
 
 
         # ---------------- reward for having few/no coppers ----------------
@@ -438,8 +438,6 @@ class Deep_SARSA:
 
     def initialize_NN(self):
 
-
-
         input_1 = keras.Input(shape=(9000,))
         input_2 = keras.Input(shape=(1,))
 
@@ -658,7 +656,21 @@ class Deep_SARSA:
         This function is used to get the action from the epsilon greedy policy
         '''
         if np.random.rand() < epsilon:
-            return np.random.choice(list_of_actions)
+
+            # If random choice is choosen, then reduce the probability of choosing action -> -1.
+            choice = np.random.choice(list_of_actions)
+
+            # Reroll random choice, if the choice was -1
+            if len(list_of_actions) != 1:
+                rerolls = 0
+                for i in range(rerolls):
+                    if choice == -1:
+                        choice = np.random.choice(list_of_actions)
+                    else:
+                        break
+                
+
+            return choice
         else:
             return self.greedy_choice(list_of_actions, game_state)
 
@@ -859,8 +871,8 @@ class Deep_Q_learning(Deep_SARSA):
         '''
 
         start_time = time.time()
-        alpha = 0.02 # Learning rate
-        gamma = 0.8 # Discount factor
+        alpha = 0.1 # Learning rate
+        gamma = 0.95 # Discount factor
 
 
         # SA -> State action
@@ -927,7 +939,7 @@ class Deep_Q_learning(Deep_SARSA):
             if self.greedy_mode:
                 action = self.greedy_choice(list_of_actions, game_state)
             else:
-                action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.5)
+                action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.7)
 
 
 
