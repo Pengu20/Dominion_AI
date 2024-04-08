@@ -165,9 +165,6 @@ class Dominion_reward():
         
         if coppers == 0:
             no_copper_reward = 10
-        else:
-            no_copper_reward = -coppers*50
-        
         
 
         # ---------------- reward for having no estates ----------------
@@ -269,7 +266,7 @@ class Dominion_reward():
             if card == 6:
                 curses += 1
 
-        curses_owned = -150 * curses
+        curses_owned = -300 * curses
 
         # ---------------- Too many cards punishment ----------------
         deck_length = len(game_state["owned_cards"])
@@ -351,7 +348,7 @@ class Deep_SARSA:
         self.player_name = player_name
         self.file_address = f"reward_history/{self.player_name}/{self.player_name}_reward_history.txt"
 
-        self.file_average_expected_rewards = f"reward_history/{self.player_name}/{self.player_name}_sum_expected_rewards.txt"
+        self.file_average_expected_rewards = f"reward_history/{self.player_name}/{self.player_name}_average_expected_rewards.txt"
         self.file_variance_expected_rewards = f"reward_history/{self.player_name}/{self.player_name}_variance_expected_rewards.txt"
 
         self.file_average_returns = f"reward_history/{self.player_name}/{self.player_name}_average_returns.txt"
@@ -389,6 +386,10 @@ class Deep_SARSA:
         # DEBUG, so i can see the latest reward
 
         self.latest_reward = None
+        self.latest_action = None
+        self.latest_action_type = None
+        self.latest_updated_expected_return = None
+        self.latest_desired_expected_return = None
 
         self.greedy_mode = False
 
@@ -432,8 +433,6 @@ class Deep_SARSA:
         open_file = open(self.file_variance_returns, "w")
         open_file.close()
 
-
-
         
 
     def initialize_NN(self):
@@ -476,7 +475,7 @@ class Deep_SARSA:
 
 
         NN_input_state, NN_input_action = self.game_state2list_NN_input(game_state, [action])
-        self.model.fit((NN_input_state, NN_input_action), np.array([[expected_return_updated]]), epochs=1, verbose=0)
+        self.model.fit((NN_input_state, NN_input_action), np.array([[expected_return_updated]]), epochs=10, verbose=0)
 
     
     def game_state_list2NN_input(self, game_state_list, action_list):
@@ -744,8 +743,6 @@ class Deep_SARSA:
         self.all_returns = []
 
 
-
-
         open_file = open(self.file_games_won, "a")
         if game_state["main_Player_won"] == 1:
             open_file.write("1\n")
@@ -757,8 +754,6 @@ class Deep_SARSA:
         open_file = open(self.file_game_length, "a")
         open_file.write(f"{np.sum(self.turns_in_game)}\n")
         open_file.close()
-
-
 
 
         print("Average times: ")
@@ -814,11 +809,17 @@ class Deep_SARSA:
         # Saving the game data
 
         # self.update_NN_np_mat(input_matrix, output_matrix)
+            
+        self.latest_reward = None
+        self.latest_action = None
+        self.latest_action_type = None
+        self.latest_updated_expected_return = None
+        self.latest_desired_expected_return = None
+
 
         self.game_state_history = []
         self.action_history = []
         self.all_expected_returns = []
-        self.latest_reward = None
         self.turns_in_game = 0
 
         self.games_played += 1
@@ -903,13 +904,21 @@ class Deep_Q_learning(Deep_SARSA):
 
 
 
+        # Print out the learned update for the given action.
+        if self.greedy_mode == False:
+            # Printing the reward update step.
+            self.latest_action = self.action_history[-1]
+            self.latest_updated_expected_return = alpha * (reward + gamma*expected_return - old_expected_return)
+            self.latest_action_type = self.game_state_history[-1]["Unique_actions"]
+            self.latest_desired_expected_return = self.all_expected_returns[-1]
+
+
+
         self.turns_in_game += 1
-
-
         if self.greedy_mode == False:
             # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
-            batch_size = 32
+            batch_size = 1
 
             # Every batch_size turns we will update the neural network with the batch_size new datasets
             if self.turns_in_game % batch_size == 0:
@@ -935,7 +944,7 @@ class Deep_Q_learning(Deep_SARSA):
             if self.greedy_mode:
                 action = self.greedy_choice(list_of_actions, game_state)
             else:
-                action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.7)
+                action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.90)
 
 
 
@@ -945,6 +954,8 @@ class Deep_Q_learning(Deep_SARSA):
 
             self.game_state_history.append(copy.deepcopy(game_state))
             self.action_history.append(copy.deepcopy(action))
+
+
 
             #Remove the previous old values of game state and action history
             return action
