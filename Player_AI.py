@@ -918,7 +918,7 @@ class Deep_Q_learning(Deep_SARSA):
         if self.greedy_mode == False:
             # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
-            batch_size = 1
+            batch_size = 32
 
             # Every batch_size turns we will update the neural network with the batch_size new datasets
             if self.turns_in_game % batch_size == 0:
@@ -1029,15 +1029,19 @@ class Deep_expected_sarsa(Deep_SARSA):
         if self.greedy_mode == False:
             # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
-            batch_size = 32
+            self.batch_size = 32
 
             # Every batch_size turns we will update the neural network with the batch_size new datasets
-            if self.turns_in_game % batch_size == 0:
+            if self.turns_in_game % self.batch_size == 0:
 
-                input_matrix = self.game_state_list2NN_input(self.game_state_history[-batch_size:], self.action_history[-batch_size:])
-                output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-batch_size:])
+                input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
+                output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
                 self.update_NN_np_mat(input_matrix, output_matrix)
 
+        elif game_ended:
+            input_matrix = self.game_state_list2NN_input(self.game_state_history[-1:], self.action_history[-1:])
+            output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-1:])
+            self.update_NN_np_mat(input_matrix, output_matrix)
 
 
         self.SARSA_update_time.append(time.time() - start_time)
@@ -1073,6 +1077,10 @@ class Deep_expected_sarsa(Deep_SARSA):
         '''
         This function is used to update the neural network with the new values
         '''
+        input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
+        output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
+        self.update_NN_np_mat(input_matrix, output_matrix)
+
 
         self.expected_sarsa_update(self.game_state_history[-1], list_of_actions=None, game_ended=True)
 
