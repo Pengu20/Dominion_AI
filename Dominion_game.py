@@ -152,8 +152,7 @@ class Dominion:
         self.player0_bought_cards = np.array([0]*17)
         self.player1_bought_cards = np.array([0]*17)
 
-        self.game_state = self.initialize_game_state()
-
+        self.game_state = copy.deepcopy(self.initialize_game_state())
 
         if verbose:
             game_history_file = open(f"game_history/{game_name}.txt", "w")
@@ -175,8 +174,8 @@ class Dominion:
 
 
 
-        player1_state = self.__startup_player_state()
-        player2_state = self.__startup_player_state()
+        player1_state = copy.deepcopy(self.__startup_player_state())
+        player2_state = copy.deepcopy(self.__startup_player_state())
 
         # randomize starting player
         main_player = np.random.choice([0, 1])
@@ -224,8 +223,8 @@ class Dominion:
 
 
             # Give the player a time limit.
-            if self.testplayer_province_boosted:
-                if turns >= 25 and main_player == 1:
+            if self.testplayer_province_boosted and main_player == 1:
+                if turns >= 25 :
                     province_chance = 0.4
 
                     if turns >= 30:
@@ -237,7 +236,7 @@ class Dominion:
 
                     if np.random.rand() < province_chance:
                         players[main_player], self.game_state = self.__buy_card_from_supply(player_state=players[main_player], game_state=self.game_state, card_idx=5)
-                        
+                        self.game_state = sm.merge_game_player_state(self.game_state, players[main_player])
 
 
            
@@ -534,10 +533,9 @@ class Dominion:
             buy_actions_amount += 1
             players[main]["buys"] -= 1
 
-
-
             players[main], self.game_state = self.__buy_card_from_supply(player_state=players[main], game_state=self.game_state, card_idx=buy_action)
-            
+            self.game_state = sm.merge_game_player_state(self.game_state, players[main])
+
             if main == 0: # We only want to log the cards bought by player 0 (Sarsa trained player)
                 card_set_index = sm.card_idx_2_set_idx(buy_action, self.game_state)
                 self.player0_bought_cards[card_set_index] += 1

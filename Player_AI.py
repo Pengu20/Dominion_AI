@@ -469,10 +469,6 @@ class Deep_SARSA:
         self.model.summary()
 
 
-
-
-
-
     def update_NN(self, game_state, action, expected_return_updated):
         '''
         This function is used to update the neural network with the new values
@@ -793,12 +789,12 @@ class Deep_SARSA:
 
 
 
-    def game_end_update(self):
+    def game_end_update(self, game_state):
         '''
         This function is used to update the neural network with the new values
         '''
 
-        self.SARSA_update(self.game_state_history[-1], self.action_history[-1], game_ended=True)
+        self.SARSA_update(game_state, None, game_ended=True)
 
 
 
@@ -812,7 +808,7 @@ class Deep_SARSA:
             self.write_state_reward_to_file(game_state)
         else:
             # Deep sarsa will update its neural network with the new values
-            self.game_end_update()
+            self.game_end_update(game_state)
         
 
         # Saving the game data
@@ -822,6 +818,7 @@ class Deep_SARSA:
         self.game_state_history = []
         self.action_history = []
         self.all_expected_returns = []
+        self.latest_reward = None
         self.turns_in_game = 0
 
         self.games_played += 1
@@ -929,7 +926,6 @@ class Deep_Q_learning(Deep_SARSA):
     def choose_action(self, list_of_actions, game_state):
 
         
-
         if self.game_state_history == []:
             self.game_state_history.append(copy.deepcopy(game_state))
             self.action_history.append(np.random.choice(list_of_actions))
@@ -954,27 +950,28 @@ class Deep_Q_learning(Deep_SARSA):
             return action
 
 
-    def game_end_update(self):
+    def game_end_update(self, game_state):
         '''
         This function is used to update the neural network with the new values
         '''
 
-        # self.Q_learning_update(self.game_state_history[-1], list_of_actions=None, game_ended=True)
+        self.Q_learning_update(game_state, None, game_ended=True)
+
+
 
 
 
 
 class Deep_expected_sarsa(Deep_SARSA):
     
-    def Expected_sarsa_update(self, game_state, list_of_actions, game_ended=False):
+    def expected_sarsa_update(self, game_state, list_of_actions, game_ended=False):
         '''
         This function is used to update the neural network based on the Q_learning_algorithm
         '''
 
         start_time = time.time()
-        alpha = 0.7 # Learning rate
-        gamma = 0.9 # Discount factor
-        self.epsilon = 0.1
+        alpha = 0.1 # Learning rate
+        gamma = 0.95 # Discount factor
 
 
         # SA -> State action
@@ -998,37 +995,37 @@ class Deep_expected_sarsa(Deep_SARSA):
 
         old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
 
-
         reward_list = self.rf.get_reward_from_state(game_state, self.game_state_history[-1])
         reward = np.sum(reward_list)
         self.latest_reward = reward_list
 
         NN_error = (reward + gamma*expected_return - old_expected_return)**2
         self.NN_error.append(NN_error)
+        self.all_returns.append(reward)
 
-        # Q_learning update
+
         old_expected_return_updated = old_expected_return + alpha * (reward + gamma*expected_return - old_expected_return)
+        self.all_expected_returns.append(old_expected_return_updated.astype(float)[0])
+
 
         old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))
         # Train the neural network with the new values
 
-        self.all_expected_returns.append(old_expected_return_updated)
-
-
-
-        # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
         self.turns_in_game += 1
-        batch_size = 32
 
-        # Every batch_size turns we will update the neural network with the batch_size new datasets
-        if self.turns_in_game % batch_size == 0:
 
-            input_matrix = self.game_state_list2NN_input(self.game_state_history[-batch_size:], self.action_history[-batch_size:])
-            output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-batch_size:])
+        if self.greedy_mode == False:
+            # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
-    
-            self.update_NN_np_mat(input_matrix, output_matrix)
+            batch_size = 32
+
+            # Every batch_size turns we will update the neural network with the batch_size new datasets
+            if self.turns_in_game % batch_size == 0:
+
+                input_matrix = self.game_state_list2NN_input(self.game_state_history[-batch_size:], self.action_history[-batch_size:])
+                output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-batch_size:])
+                self.update_NN_np_mat(input_matrix, output_matrix)
 
 
 
@@ -1037,13 +1034,21 @@ class Deep_expected_sarsa(Deep_SARSA):
 
     def choose_action(self, list_of_actions, game_state):
 
+        
         if self.game_state_history == []:
             self.game_state_history.append(copy.deepcopy(game_state))
             self.action_history.append(np.random.choice(list_of_actions))
             return self.action_history[-1]
         else:
-            self.Expected_sarsa_update(game_state, list_of_actions, game_ended=False)
-            action = self.epsilon_greedy_policy(list_of_actions, game_state, self.epsilon)
+
+            if self.greedy_mode:
+                action = self.greedy_choice(list_of_actions, game_state)
+            else:
+                action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.7)
+
+
+            self.expected_sarsa_update(game_state, list_of_actions, game_ended=False)
+
 
 
             self.game_state_history.append(copy.deepcopy(game_state))
@@ -1058,11 +1063,7 @@ class Deep_expected_sarsa(Deep_SARSA):
         This function is used to update the neural network with the new values
         '''
 
-        self.Expected_sarsa_update(self.game_state_history[-1], list_of_actions=None, game_ended=True)
-
-
-
-
+        self.expected_sarsa_update(self.game_state_history[-1], list_of_actions=None, game_ended=True)
 
 
 
