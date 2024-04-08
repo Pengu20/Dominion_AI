@@ -392,6 +392,9 @@ class Deep_SARSA:
         self.latest_desired_expected_return = None
 
         self.greedy_mode = False
+        
+
+        self.only_terminate_action = True
 
 
     def load_NN_from_file(self, path):
@@ -438,7 +441,7 @@ class Deep_SARSA:
     def initialize_NN(self):
 
         input_1 = keras.Input(shape=(9000,))
-        input_2 = keras.Input(shape=(1,))
+        input_2 = keras.Input(shape=(8,))
 
         Input_layer = Dense(2048, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(input_1)
         Hidden_layer1 = Dense(1024, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Input_layer)
@@ -447,7 +450,10 @@ class Deep_SARSA:
         Hidden_layer4 = layers.Dropout(0.4)(Hidden_layer3)
         Hidden_layer5 = Dense(256, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer4)
 
-        Concatenated_layer = layers.concatenate([Hidden_layer5, input_2], axis=1)
+        #action handling layers
+        action_layer1 = Dense(50, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(input_2)
+        Concatenated_layer = layers.concatenate([Hidden_layer5, action_layer1], axis=1)
+
         Hidden_layer6 = Dense(128, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
 
         output = Dense(1,activation='linear',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer6)
@@ -485,7 +491,7 @@ class Deep_SARSA:
         '''
 
         input_state_matrix = np.zeros((len(game_state_list),9000))
-        input_action_matrix = np.zeros((len(action_list),1))
+        input_action_matrix = np.zeros((len(action_list),8)) # Number of bits used to represent the action value
 
         for i in range(len(game_state_list)):
             NN_input_state, NN_input_action = self.game_state2list_NN_input(game_state_list[i], [action_list[i]])
@@ -535,7 +541,7 @@ class Deep_SARSA:
         list_NN_input = np.array([byte for byte in binarizeed_gamestate])
 
         NN_inputs_state = np.zeros((9000, len(action_list)))
-        NN_inputs_actions = np.zeros((1, len(action_list)))
+        NN_inputs_actions = np.zeros((8, len(action_list))) # 8 is the bit number representation of the action
         i = 0
 
 
@@ -548,7 +554,14 @@ class Deep_SARSA:
             NN_inputs_state[:,i] = input_padded[:,0]
 
             # Creating the action input
-            NN_inputs_actions[0,i] = action
+            # Binarise into two complements 8 bit number
+
+
+            binarised_action = np.binary_repr(action.astype(int), width=8)
+            
+            for bin in range(8):
+                NN_inputs_actions[bin,i] = int(binarised_action[bin])
+
             i += 1
 
         self.convert_state2list_time.append(time.time() - start_time)
@@ -893,9 +906,16 @@ class Deep_Q_learning(Deep_SARSA):
         self.NN_error.append(NN_error)
         self.all_returns.append(reward)
 
+        # Defining learning step - Is 0 if the only action available is the terminate action
+        learning_step = alpha * (reward + gamma*expected_return - old_expected_return)
+
+        if self.only_terminate_action:
+            learning_step = 0
+
+
 
         # Q_learning update
-        old_expected_return_updated = old_expected_return + alpha * (reward + gamma*expected_return - old_expected_return)
+        old_expected_return_updated = old_expected_return + learning_step
         self.all_expected_returns.append(old_expected_return_updated.astype(float)[0])
 
 
@@ -908,7 +928,7 @@ class Deep_Q_learning(Deep_SARSA):
         if self.greedy_mode == False:
             # Printing the reward update step.
             self.latest_action = self.action_history[-1]
-            self.latest_updated_expected_return = alpha * (reward + gamma*expected_return - old_expected_return)
+            self.latest_updated_expected_return = learning_step
             self.latest_action_type = self.game_state_history[-1]["Unique_actions"]
             self.latest_desired_expected_return = self.all_expected_returns[-1]
 
@@ -925,6 +945,8 @@ class Deep_Q_learning(Deep_SARSA):
 
                 input_matrix = self.game_state_list2NN_input(self.game_state_history[-batch_size:], self.action_history[-batch_size:])
                 output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-batch_size:])
+                
+
                 self.update_NN_np_mat(input_matrix, output_matrix)
 
 
@@ -947,9 +969,15 @@ class Deep_Q_learning(Deep_SARSA):
                 action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.90)
 
 
-
             self.Q_learning_update(game_state, list_of_actions, game_ended=False)
 
+
+
+            # Set boolean so the reward function is constricted for the next state
+            if len(list_of_actions) == 1 and action == -1:
+                self.only_terminate_action = True
+            else:
+                self.only_terminate_action = False
 
 
             self.game_state_history.append(copy.deepcopy(game_state))
@@ -1006,6 +1034,8 @@ class Deep_expected_sarsa(Deep_SARSA):
 
         old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
 
+
+        # Save the reward to be sure that they work
         reward_list = self.rf.get_reward_from_state(game_state, self.game_state_history[-1])
         reward = np.sum(reward_list)
         self.latest_reward = reward_list
@@ -1047,6 +1077,10 @@ class Deep_expected_sarsa(Deep_SARSA):
         self.SARSA_update_time.append(time.time() - start_time)
 
 
+
+
+
+
     def choose_action(self, list_of_actions, game_state):
 
         
@@ -1062,8 +1096,13 @@ class Deep_expected_sarsa(Deep_SARSA):
                 action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.7)
 
 
+
             self.expected_sarsa_update(game_state, list_of_actions, game_ended=False)
 
+            if len(list_of_actions) == 1:
+                self.only_terminate_action = True
+            else:
+                self.only_terminate_action = False
 
 
             self.game_state_history.append(copy.deepcopy(game_state))
