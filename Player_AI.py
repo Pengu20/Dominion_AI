@@ -133,15 +133,15 @@ class Dominion_reward():
                 new_province += 1
 
 
-        Province_difference_reward = abs((province_main - province_adv)**1.5) * np.sign(province_main - province_adv)
+        Province_difference_reward = abs((province_main - province_adv)) * np.sign(province_main - province_adv)
 
-        Province_owned_reward = (new_province*25)**1.5
+        Province_owned_reward = (new_province*25)
 
 
 
         # ---------------- Points for having more victory points than the other players ----------------
         Victory_points_diff = copy.deepcopy(game_state["Victory_points"]) - copy.deepcopy( game_state["adv_Victory_points"])
-        Victory_points_difference_reward = np.real((10*Victory_points_diff)**0.7)
+        Victory_points_difference_reward = np.real((10*Victory_points_diff))
 
 
         
@@ -149,11 +149,11 @@ class Dominion_reward():
 
         
         if len(game_state["owned_cards"]) > 0:
-            Victory_points_reward = (copy.deepcopy(game_state["Victory_points"]))**0.5
+            Victory_points_reward = (copy.deepcopy(game_state["Victory_points"]))
 
 
         # ---------------- reward for playing many cards ----------------
-        Cards_played_reward = (len(game_state["played_cards"])*150)**0.8
+        Cards_played_reward = (len(game_state["played_cards"])*150)
 
 
         # ---------------- reward for having few/no coppers ----------------
@@ -187,7 +187,7 @@ class Dominion_reward():
             if card == 2:
                 gold_cards += 1
         
-        gold_reward = (50*gold_cards**0.5)
+        gold_reward = (50*gold_cards)
 
 
         # ---------------- reward for having alot of value (weighted by deck size) ----------------
@@ -251,7 +251,7 @@ class Dominion_reward():
                 treasure_in_hand_current = current_coppers + 2*current_silvers + 3*current_gold
                 treasure_in_hand_previous = previous_coppers + 2*previous_silvers + 3*previous_gold
                 gained_treasure = treasure_in_hand_current - treasure_in_hand_previous
-                treasure_in_hand_reward = int(max(0, gained_treasure))**1.3
+                treasure_in_hand_reward = int(max(0, gained_treasure))
 
 
         # ---------------- no_cards_punishment ----------------
@@ -274,7 +274,7 @@ class Dominion_reward():
         deck_limit = 35
 
         if new_cards > 0 and deck_length > deck_limit:
-            Too_many_cards_punishment = -(deck_length - deck_limit)**1.7
+            Too_many_cards_punishment = -(deck_length - deck_limit)
 
 
         reward_list = np.array([reward, Victory_reward, Victory_points_reward,
@@ -286,6 +286,7 @@ class Dominion_reward():
                                 curses_owned, Gained_expensive_cards_reward,
                                 treasure_in_hand_reward
                                 ])
+
 
         return reward_list
 
@@ -445,9 +446,9 @@ class Deep_SARSA:
 
         Input_layer = Dense(2048, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(input_1)
         Hidden_layer1 = Dense(1024, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Input_layer)
-        Hidden_layer2 = layers.Dropout(0.4)(Hidden_layer1)
+        Hidden_layer2 = layers.Dropout(0.8)(Hidden_layer1)
         Hidden_layer3 = Dense(512, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer2)
-        Hidden_layer4 = layers.Dropout(0.4)(Hidden_layer3)
+        Hidden_layer4 = layers.Dropout(0.6)(Hidden_layer3)
         Hidden_layer5 = Dense(256, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer4)
 
         #action handling layers
@@ -456,8 +457,10 @@ class Deep_SARSA:
         Concatenated_layer = layers.concatenate([Hidden_layer5, action_layer1], axis=1)
 
         Hidden_layer6 = Dense(128, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
-        linear_layer1 = Dense(12,activation='linear')(Hidden_layer6)
-        output = Dense(1,activation='linear')(linear_layer1)
+        Hidden_layer7 = layers.Dropout(0.6)(Hidden_layer6)
+        linear_layer1 = Dense(12,activation='linear')(Hidden_layer7)
+        linear_dropout1 = layers.Dropout(0.5)(linear_layer1)
+        output = Dense(1,activation='linear')(linear_dropout1)
 
         self.model = Model(inputs=[input_1, input_2], outputs=output)
 
@@ -1011,7 +1014,7 @@ class Deep_expected_sarsa(Deep_SARSA):
 
         start_time = time.time()
         alpha = 0.1 # Learning rate
-        gamma = 0.95 # Discount factor
+        gamma = 0.7 # Discount factor
 
 
         # SA -> State action
