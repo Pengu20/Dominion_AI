@@ -672,7 +672,7 @@ class Dominion:
             victory_points = player_state["Victory_points"]
             game_history_file.write(f"player victory points: {victory_points} \n")
 
-            if player_is_NN and main_player == 0:
+            if player_is_NN:
                 game_history_file.write("\n"*1)
                 reward = players_input[main_player].latest_reward
                 game_history_file.write(f"Reward from previous game state: \n{reward} \n")
@@ -848,9 +848,9 @@ for i in range(100000):
     if i % 50 == 0:
         # All learned parameters from the trained player, is passed to the test player
         greedy_test_player.model.set_weights(Q_learning_player.model.get_weights())
-    
-    
-    Dominion_game.set_player2test(greedy_test_player)
+        Dominion_game.set_player2test(greedy_test_player)
+
+
     Dominion_game.testplayer_province_boosted = True
     Dominion_game.player1.greedy_mode = False
     # Dominion_game.set_player2test(Sarsa_player)
@@ -866,7 +866,6 @@ for i in range(100000):
 
     Dominion_game.testplayer_province_boosted = False
     Dominion_game.player1.greedy_mode = True
-    Dominion_game.set_player2test(player_random1)
     index_player_won = Dominion_game.play_loop_AI(f"test_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
 
 
