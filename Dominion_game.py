@@ -840,12 +840,12 @@ greedy_test_player = greedy_NN(player_name="Greedy_NN")
 Dominion_game.set_players(Q_learning_player, greedy_test_player) # Training the first player, testing with the second player
 
 
-
+trained_player_wins_in_row = 0
 for i in range(100000):
     print(f"Game: {i}")
 
 
-    if i % 50 == 0:
+    if trained_player_wins_in_row >= 15:
         # All learned parameters from the trained player, is passed to the test player
         greedy_test_player.model.set_weights(Q_learning_player.model.get_weights())
         Dominion_game.set_player2test(greedy_test_player)
@@ -858,8 +858,10 @@ for i in range(100000):
 
     if index_player_won == 0:
         print("Trained player won!")
+        trained_player_wins_in_row += 1
     elif index_player_won == 1:
         print("Test player won!")
+        trained_player_wins_in_row = 0
     else:
         print("Draw!")
 
