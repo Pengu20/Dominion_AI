@@ -141,7 +141,7 @@ class Dominion_reward():
 
         # ---------------- Points for having more victory points than the other players ----------------
         Victory_points_diff = copy.deepcopy(game_state["Victory_points"]) - copy.deepcopy( game_state["adv_Victory_points"])
-        Victory_points_difference_reward = 10 * np.sign(Victory_points_diff)
+        Victory_points_difference_reward = np.real((10*Victory_points_diff)**0.7)
 
 
         
@@ -149,7 +149,7 @@ class Dominion_reward():
 
         
         if len(game_state["owned_cards"]) > 0:
-            Victory_points_reward = 10 * copy.deepcopy(game_state["Victory_points"])
+            Victory_points_reward = (copy.deepcopy(game_state["Victory_points"]))**0.5
 
 
         # ---------------- reward for playing many cards ----------------
@@ -456,8 +456,8 @@ class Deep_SARSA:
         Concatenated_layer = layers.concatenate([Hidden_layer5, action_layer1], axis=1)
 
         Hidden_layer6 = Dense(128, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
-
-        output = Dense(1,activation='linear',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer6)
+        linear_layer1 = Dense(12,activation='linear')(Hidden_layer6)
+        output = Dense(1,activation='linear')(linear_layer1)
 
         self.model = Model(inputs=[input_1, input_2], outputs=output)
 
@@ -1060,7 +1060,7 @@ class Deep_expected_sarsa(Deep_SARSA):
         if self.greedy_mode == False:
             # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
-            self.batch_size = 32
+            self.batch_size = 16
 
             # Every batch_size turns we will update the neural network with the batch_size new datasets
             if self.turns_in_game % self.batch_size == 0:
