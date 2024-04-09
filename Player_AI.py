@@ -584,7 +584,7 @@ class Deep_SARSA:
         NN_input_state, NN_input_action = self.game_state2list_NN_input(game_state, actions_list)
 
 
-        expected_return = self.model.predict([NN_input_state, NN_input_action], verbose=0)
+        expected_return = self.model([NN_input_state, NN_input_action])
 
 
         return expected_return
@@ -848,9 +848,6 @@ class greedy_NN(Deep_SARSA):
     This class is for loading the neural network gained from deep sarsa to make all the greedy actions.
     '''
 
-    def initialize_NN(self):
-        pass
-
 
     def greedy_choice(self, list_of_actions, game_state):
         '''
@@ -926,7 +923,7 @@ class Deep_Q_learning(Deep_SARSA):
 
         # Q_learning update
         old_expected_return_updated = old_expected_return + learning_step
-        self.all_expected_returns.append(old_expected_return_updated.astype(float)[0])
+        self.all_expected_returns.append(old_expected_return_updated[0])
 
 
         old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))

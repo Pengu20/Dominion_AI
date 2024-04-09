@@ -271,7 +271,7 @@ class Dominion:
 
 
             # ---------- HIDDEN PHASE: check if game should terminate ---------
-            if self.__game_is_over() or turns >= 1000:
+            if self.__game_is_over() or turns >= 100:
                 game_ongoing = False
 
 
@@ -292,12 +292,18 @@ class Dominion:
                     adv_player_won = False
                     if verbose:
                         game_history_file.write(f"Player {main_player} won the game! \n")
-                else:
+                elif main_player_victory_points < advesary_victory_points:
                     player_won = advesary
                     main_player_won = False
                     adv_player_won = True
                     if verbose:
                         game_history_file.write(f"Player {advesary} won the game! \n")
+                else:
+                    player_won = 0.5
+                    main_player_won = False
+                    adv_player_won = False
+                    if verbose:
+                        game_history_file.write(f"Game is draw!\n")
 
                 if verbose:
                     game_history_file.write(f"\n\n\n")
@@ -839,9 +845,9 @@ for i in range(100000):
     print(f"Game: {i}")
 
 
-    if i % 5 == 0:
+    if i % 20 == 0:
         # All learned parameters from the trained player, is passed to the test player
-        greedy_test_player.model = copy.deepcopy(Q_learning_player.model)
+        greedy_test_player.model.set_weights(Q_learning_player.model.get_weights())
         Dominion_game.set_player2test(greedy_test_player)
 
 
@@ -852,10 +858,12 @@ for i in range(100000):
 
     if index_player_won == 0:
         print("Trained player won!")
-    else:
+    elif index_player_won == 1:
         print("Test player won!")
+    else:
+        print("Draw!")
 
-    Dominion_game.testplayer_province_boosted = True
+    Dominion_game.testplayer_province_boosted = False
     Dominion_game.player1.greedy_mode = True
     # Dominion_game.set_player2test(player_random1)
     index_player_won = Dominion_game.play_loop_AI(f"test_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
@@ -863,9 +871,10 @@ for i in range(100000):
 
     if index_player_won == 0:
         print("Trained player won!")
-    else:
+    elif index_player_won == 1:
         print("Test player won!")
-
+    else:
+        print("Draw!")
 
     print("\n")
 
