@@ -669,8 +669,19 @@ class Dominion:
             if player_is_NN and main_player == 0:
                 game_history_file.write("\n"*1)
                 reward = players_input[main_player].latest_reward
-                game_history_file.write(f"Reward from previous game state: {reward} \n")
-                game_history_file.write(f"Reward from previous game state: {np.sum(reward)} \n")
+                game_history_file.write(f"Reward from previous game state: \n{reward} \n")
+                game_history_file.write(f"sum of rewards: {np.sum(reward)} \n\n")
+
+                latest_action = players_input[main_player].latest_action
+                action_type = players_input[main_player].latest_action_type
+                expected_reward_update = players_input[main_player].latest_updated_expected_return
+                expected_reward_desired = players_input[main_player].latest_desired_expected_return
+
+                game_history_file.write(f"action type: {action_type} - action {latest_action}\n")
+                game_history_file.write(f"Learning step: {expected_reward_update}\n")
+                game_history_file.write(f"desired expected reward: {expected_reward_desired}\n\n")
+
+
 
 
             game_history_file.write("\n"*2)
@@ -817,14 +828,22 @@ Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
 
 
 # Deep sarsa 2 is trained to get provinces after 20 turns
-# greedy_test_player = greedy_NN(player_name="Greedy_NN")
+
+greedy_test_player = greedy_NN(player_name="Greedy_NN")
 # greedy_test_player.load_NN_from_file("NN_models/Deep_sarsa_2_model.keras")
-Dominion_game.set_players(Q_learning_player, player_random1) # Training the first player, testing with the second player
+Dominion_game.set_players(Q_learning_player, greedy_test_player) # Training the first player, testing with the second player
 
 
-# 
+
 for i in range(100000):
     print(f"Game: {i}")
+
+
+    if i % 5 == 0:
+        # All learned parameters from the trained player, is passed to the test player
+        greedy_test_player.model = copy.deepcopy(Q_learning_player.model)
+        Dominion_game.set_player2test(greedy_test_player)
+
 
     Dominion_game.testplayer_province_boosted = True
     Dominion_game.player1.greedy_mode = False
@@ -836,7 +855,7 @@ for i in range(100000):
     else:
         print("Test player won!")
 
-    Dominion_game.testplayer_province_boosted = False
+    Dominion_game.testplayer_province_boosted = True
     Dominion_game.player1.greedy_mode = True
     # Dominion_game.set_player2test(player_random1)
     index_player_won = Dominion_game.play_loop_AI(f"test_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)

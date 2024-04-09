@@ -135,7 +135,7 @@ class Dominion_reward():
 
         Province_difference_reward = abs((province_main - province_adv)) * np.sign(province_main - province_adv)
 
-        Province_owned_reward = (new_province*25)
+        Province_owned_reward = (new_province*50)
 
 
 
@@ -446,10 +446,10 @@ class Deep_SARSA:
 
         Input_layer = Dense(2048, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(input_1)
         Hidden_layer1 = Dense(1024, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Input_layer)
-        Hidden_layer2 = layers.Dropout(0.8)(Hidden_layer1)
-        Hidden_layer3 = Dense(512, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer2)
-        Hidden_layer4 = layers.Dropout(0.6)(Hidden_layer3)
-        Hidden_layer5 = Dense(256, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer4)
+        #Hidden_layer2 = layers.Dropout(0.8)(Hidden_layer1)
+        Hidden_layer3 = Dense(512, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer1)
+        #Hidden_layer4 = layers.Dropout(0.6)(Hidden_layer3)
+        Hidden_layer5 = Dense(256, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer3)
 
         #action handling layers
         action_layer1 = Dense(4, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(input_2)
@@ -457,10 +457,10 @@ class Deep_SARSA:
         Concatenated_layer = layers.concatenate([Hidden_layer5, action_layer1], axis=1)
 
         Hidden_layer6 = Dense(128, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
-        Hidden_layer7 = layers.Dropout(0.6)(Hidden_layer6)
-        linear_layer1 = Dense(12,activation='linear')(Hidden_layer7)
-        linear_dropout1 = layers.Dropout(0.5)(linear_layer1)
-        output = Dense(1,activation='linear')(linear_dropout1)
+        #idden_layer7 = layers.Dropout(0.6)(Hidden_layer6)
+        # linear_layer1 = Dense(12,activation='linear')(Hidden_layer6)
+        #linear_dropout1 = layers.Dropout(0.5)(linear_layer1)
+        output = Dense(1,activation='linear')(Hidden_layer6)
 
         self.model = Model(inputs=[input_1, input_2], outputs=output)
 
@@ -861,6 +861,7 @@ class greedy_NN(Deep_SARSA):
         return list_of_actions[np.argmax(expected_return)]
 
 
+
     def choose_action(self, list_of_actions, game_state):
 
 
@@ -869,6 +870,7 @@ class greedy_NN(Deep_SARSA):
 
         #Remove the previous old values of game state and action history
         return action
+   
    
    
     def notify_game_end(self, game_state):
@@ -1013,7 +1015,7 @@ class Deep_expected_sarsa(Deep_SARSA):
         '''
 
         start_time = time.time()
-        alpha = 0.1 # Learning rate
+        alpha = 0.95 # Learning rate
         gamma = 0.7 # Discount factor
 
 
