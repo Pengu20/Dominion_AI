@@ -451,7 +451,8 @@ class Deep_SARSA:
         Hidden_layer5 = Dense(256, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer4)
 
         #action handling layers
-        action_layer1 = Dense(50, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(input_2)
+        action_layer1 = Dense(10, activation='sigmoid',kernel_regularizer=L1(0.005),activity_regularizer=L2(0.005))(input_2)
+        #action_layer_dropout = layers.Dropout(0.2)(action_layer1) # Super spicey dropout, might be kinda shit
         Concatenated_layer = layers.concatenate([Hidden_layer5, action_layer1], axis=1)
 
         Hidden_layer6 = Dense(128, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
