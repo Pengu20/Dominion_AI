@@ -845,7 +845,7 @@ for i in range(100000):
     print(f"Game: {i}")
 
 
-    if i % 20 == 0:
+    if i % 50 == 0:
         # All learned parameters from the trained player, is passed to the test player
         greedy_test_player.model.set_weights(Q_learning_player.model.get_weights())
         Dominion_game.set_player2test(greedy_test_player)
@@ -854,7 +854,7 @@ for i in range(100000):
     Dominion_game.testplayer_province_boosted = True
     Dominion_game.player1.greedy_mode = False
     # Dominion_game.set_player2test(Sarsa_player)
-    index_player_won = Dominion_game.play_loop_AI(f"trainer_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
+    index_player_won = Dominion_game.play_loop_AI(f"trainer_game_{i}",player_0_is_NN=True, player_1_is_NN=True, verbose=True)
 
     if index_player_won == 0:
         print("Trained player won!")
