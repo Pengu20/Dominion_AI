@@ -848,6 +848,10 @@ class greedy_NN(Deep_SARSA):
     This class is for loading the neural network gained from deep sarsa to make all the greedy actions.
     '''
 
+    def initialize_NN(self):
+        pass
+
+
     def greedy_choice(self, list_of_actions, game_state):
         '''
         Until a neural network can give us the best state action rewards, we will use this function to give us the rewards

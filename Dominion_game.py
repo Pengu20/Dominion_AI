@@ -819,7 +819,7 @@ Dominion_game.card_set = make_card_set([16, 11, 8, 25, 29, 14, 23, 10, 22, 15])
 
 player_random1 = random_player(player_name="Ogus_bogus_man")
 
-Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
+# Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
 # sarsa_player2 = Deep_SARSA(player_name="Deep_sarsa_2")
 
 Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
