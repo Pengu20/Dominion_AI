@@ -135,7 +135,7 @@ class Dominion_reward():
 
         Province_difference_reward = abs((province_main - province_adv)) * np.sign(province_main - province_adv)
 
-        Province_owned_reward = (new_province*50)
+        Province_owned_reward = (new_province*75)
 
 
 
@@ -153,7 +153,7 @@ class Dominion_reward():
 
 
         # ---------------- reward for playing many cards ----------------
-        Cards_played_reward = (len(game_state["played_cards"])*150)
+        Cards_played_reward = (len(game_state["played_cards"])*20)
 
 
         # ---------------- reward for having few/no coppers ----------------
@@ -164,7 +164,7 @@ class Dominion_reward():
 
         
         if coppers == 0:
-            no_copper_reward = 10
+            no_copper_reward = 50
         
 
         # ---------------- reward for having no estates ----------------
@@ -187,7 +187,7 @@ class Dominion_reward():
             if card == 2:
                 gold_cards += 1
         
-        gold_reward = (50*gold_cards)
+        gold_reward = (60*gold_cards)
 
 
         # ---------------- reward for having alot of value (weighted by deck size) ----------------
@@ -441,26 +441,28 @@ class Deep_SARSA:
 
     def initialize_NN(self):
 
-        input_1 = keras.Input(shape=(9000,))
-        input_2 = keras.Input(shape=(8,))
+        input_1 = keras.Input(shape=(6000,))
+        input_2 = keras.Input(shape=(1,))
 
         Input_layer = Dense(2048, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(input_1)
         Hidden_layer1 = Dense(1024, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Input_layer)
         #Hidden_layer2 = layers.Dropout(0.8)(Hidden_layer1)
         Hidden_layer3 = Dense(512, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer1)
-        #Hidden_layer4 = layers.Dropout(0.6)(Hidden_layer3)
+        #Hidden_layer4 = layers.Dropout(0.8)(Hidden_layer3)
         Hidden_layer5 = Dense(256, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer3)
 
         #action handling layers
-        action_layer1 = Dense(4, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(input_2)
+        action_layer1 = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(input_2)
+        action_layer2 = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(action_layer1)
+        action_layer3 = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(action_layer2)
         #action_layer_dropout = layers.Dropout(0.2)(action_layer1) # Super spicey dropout, might be kinda shit
-        Concatenated_layer = layers.concatenate([Hidden_layer5, action_layer1], axis=1)
+        Concatenated_layer = layers.concatenate([Hidden_layer5, action_layer3], axis=1)
 
         Hidden_layer6 = Dense(128, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
-        #idden_layer7 = layers.Dropout(0.6)(Hidden_layer6)
-        # linear_layer1 = Dense(12,activation='linear')(Hidden_layer6)
+        #Hidden_layer7 = layers.Dropout(0.8)(Hidden_layer6)
+        linear_layer1 = Dense(12,activation='linear')(Hidden_layer6)
         #linear_dropout1 = layers.Dropout(0.5)(linear_layer1)
-        output = Dense(1,activation='linear')(Hidden_layer6)
+        output = Dense(1,activation='linear')(linear_layer1)
 
         self.model = Model(inputs=[input_1, input_2], outputs=output)
 
@@ -494,8 +496,8 @@ class Deep_SARSA:
         It is assumed that the size of the gamestate value is 9000
         '''
 
-        input_state_matrix = np.zeros((len(game_state_list),9000))
-        input_action_matrix = np.zeros((len(action_list),8)) # Number of bits used to represent the action value
+        input_state_matrix = np.zeros((len(game_state_list),6000))
+        input_action_matrix = np.zeros((len(action_list),1)) # Number of bits used to represent the action value
 
         for i in range(len(game_state_list)):
             NN_input_state, NN_input_action = self.game_state2list_NN_input(game_state_list[i], [action_list[i]])
@@ -544,15 +546,19 @@ class Deep_SARSA:
         # Convert bytearray to list of integers
         list_NN_input = np.array([byte for byte in binarizeed_gamestate])
 
-        NN_inputs_state = np.zeros((9000, len(action_list)))
-        NN_inputs_actions = np.zeros((8, len(action_list))) # 8 is the bit number representation of the action
+        NN_inputs_state = np.zeros((6000, len(action_list)))
+        NN_inputs_actions = np.zeros((1, len(action_list))) # 8 is the bit number representation of the action
         i = 0
+
+        # Crop NN_input if the value is above the input size.
+        if len(list_NN_input) > 6000:
+            list_NN_input = list_NN_input[:6000]
 
 
         for action in action_list:
 
             # Padding the value to 9000
-            input_padded = np.zeros((9000,1))
+            input_padded = np.zeros((6000,1))
             input_padded[:len(list_NN_input)] = np.array(list_NN_input).reshape((len(list_NN_input),1))
 
             NN_inputs_state[:,i] = input_padded[:,0]
@@ -561,10 +567,17 @@ class Deep_SARSA:
             # Binarise into two complements 8 bit number
 
 
+            '''
             binarised_action = np.binary_repr(action.astype(int), width=8)
             
-            for bin in range(8):
+            for bin in range(1):
                 NN_inputs_actions[bin,i] = int(binarised_action[bin])
+
+            '''
+
+
+            NN_inputs_actions[0,i] = action
+
 
             i += 1
 
@@ -889,7 +902,7 @@ class Deep_Q_learning(Deep_SARSA):
         '''
 
         start_time = time.time()
-        alpha = 0.1 # Learning rate
+        alpha = 0.3 # Learning rate
         gamma = 0.80 # Discount factor
 
 
@@ -973,7 +986,7 @@ class Deep_Q_learning(Deep_SARSA):
             if self.greedy_mode:
                 action = self.greedy_choice(list_of_actions, game_state)
             else:
-                action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.90)
+                action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.95)
 
 
             self.Q_learning_update(game_state, list_of_actions, game_ended=False)

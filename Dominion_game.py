@@ -155,7 +155,7 @@ class Dominion:
         self.game_state = copy.deepcopy(self.initialize_game_state())
 
         if verbose:
-            game_history_file = open(f"game_history/{game_name}.txt", "w")
+            game_history_file = open(f"game_history/{game_name}.md", "w")
             game_history_file.write(" --------- CARDS IN THIS GAME --------- \n")
         else:
             game_history_file = None
@@ -205,7 +205,7 @@ class Dominion:
                 # print("         -------------------- Turn: ", turns, " -------------------- ")
 
                 if verbose:
-                    game_history_file.write(f"         -------------------- Turn: {turns} -------------------- \n")
+                    game_history_file.write(f"#         -------------------- Turn: {turns} -------------------- \n")
 
 
             cards_in_hand = players[main_player]["cards_in_hand"]
@@ -248,7 +248,7 @@ class Dominion:
 
             # --------- ACTION PHASE ---------
             if verbose:
-                game_history_file.write(f"----------- ACTION PHASE ----------- \n")
+                game_history_file.write(f"##----------- ACTION PHASE ----------- \n")
 
             action_turns = self.__action_phase(players, players_input, NN_player, main, advesary, game_history_file, verbose=verbose)
 
@@ -257,7 +257,7 @@ class Dominion:
             # --------- BUY PHASE ---------
             if verbose:
                 game_history_file.write("\n"*2)
-                game_history_file.write(f"----------- BUY PHASE ----------- \n")
+                game_history_file.write(f"##----------- BUY PHASE ----------- \n")
             buy_turns = self.__buy_phase(players, players_input, NN_player, main, advesary, game_history_file, verbose=verbose)
 
             self.game_state["Unique_actions"] = None
@@ -829,6 +829,7 @@ player_random1 = random_player(player_name="Ogus_bogus_man")
 # sarsa_player2 = Deep_SARSA(player_name="Deep_sarsa_2")
 
 Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
+Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning2")
 
 # DES_ai = Deep_expected_sarsa(player_name="Deep_expected_sarsa")
 
@@ -841,27 +842,50 @@ Dominion_game.set_players(Q_learning_player, greedy_test_player) # Training the 
 
 
 trained_player_wins_in_row = 0
+test_player_wins_in_row = 0
+
+win_streak_limit = 15
+
 for i in range(100000):
     print(f"Game: {i}")
 
 
-    if trained_player_wins_in_row >= 15:
+    if trained_player_wins_in_row >= win_streak_limit:
         # All learned parameters from the trained player, is passed to the test player
         greedy_test_player.model.set_weights(Q_learning_player.model.get_weights())
         Dominion_game.set_player2test(greedy_test_player)
+        print("Training player wins in a row: ", trained_player_wins_in_row)
+        print("Giving weights of trained player to test player.")
+        trained_player_wins_in_row = 0
+        test_player_wins_in_row = 0
+
+
+    elif test_player_wins_in_row >= win_streak_limit:
+        # All learned parameters from the test player, is passed to the trained player
+        Q_learning_player.model.set_weights(greedy_test_player.model.get_weights())
+        Dominion_game.set_player2train(Q_learning_player)
+        print("test player wins in a row: ", test_player_wins_in_row)
+        print("Giving weights of test player to training player.")
+        trained_player_wins_in_row = 0
+        test_player_wins_in_row = 0
+
 
 
     Dominion_game.testplayer_province_boosted = True
     Dominion_game.player1.greedy_mode = False
     # Dominion_game.set_player2test(Sarsa_player)
-    index_player_won = Dominion_game.play_loop_AI(f"trainer_game_{i}",player_0_is_NN=True, player_1_is_NN=True, verbose=True)
+    index_player_won = Dominion_game.play_loop_AI(f"trainer_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
 
     if index_player_won == 0:
         print("Trained player won!")
         trained_player_wins_in_row += 1
+        test_player_wins_in_row = 0
+
     elif index_player_won == 1:
         print("Test player won!")
         trained_player_wins_in_row = 0
+        test_player_wins_in_row += 1
+
     else:
         print("Draw!")
 
