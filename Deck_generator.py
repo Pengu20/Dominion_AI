@@ -61,18 +61,22 @@ class deck_generator:
     def get_standard_set(self):
         return self.set2numpy(self.standard_set)
     
-    def get_card_set(self):
-        kingdom_cards = self.get_rand_kingdom_set()
+    def get_card_set(self, kingdom_cards = []):
+        if len(kingdom_cards) == 0:
+            kingdom_cards = self.get_rand_kingdom_set()
+
+
         standard_set = self.get_standard_set()
 
         card_list = []
 
         for card in standard_set:
             card_list.append(card)
-
+        
         for card in kingdom_cards:
             card_list.append(card)
 
+        
   
         card_list = np.array(card_list)
 

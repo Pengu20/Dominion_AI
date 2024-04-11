@@ -829,7 +829,6 @@ player_random1 = random_player(player_name="Ogus_bogus_man")
 # sarsa_player2 = Deep_SARSA(player_name="Deep_sarsa_2")
 
 Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
-Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning2")
 
 # DES_ai = Deep_expected_sarsa(player_name="Deep_expected_sarsa")
 
