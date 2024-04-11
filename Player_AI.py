@@ -441,28 +441,29 @@ class Deep_SARSA:
 
     def initialize_NN(self):
 
-        input_1 = keras.Input(shape=(6000,))
+        input_1 = keras.Input(shape=(110,))
         input_2 = keras.Input(shape=(1,))
 
-        Input_layer = Dense(2048, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(input_1)
-        Hidden_layer1 = Dense(1024, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Input_layer)
+
         #Hidden_layer2 = layers.Dropout(0.8)(Hidden_layer1)
-        Hidden_layer3 = Dense(512, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer1)
+        Hidden_layer = Dense(80, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(input_1)
         #Hidden_layer4 = layers.Dropout(0.8)(Hidden_layer3)
-        Hidden_layer5 = Dense(256, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer3)
+        Hidden_layer = Dense(64, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer)
+
 
         #action handling layers
-        action_layer1 = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(input_2)
-        action_layer2 = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(action_layer1)
-        action_layer3 = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(action_layer2)
+        action_layer = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(input_2)
+        action_layer = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(action_layer)
         #action_layer_dropout = layers.Dropout(0.2)(action_layer1) # Super spicey dropout, might be kinda shit
-        Concatenated_layer = layers.concatenate([Hidden_layer5, action_layer3], axis=1)
+        Concatenated_layer = layers.concatenate([Hidden_layer, action_layer], axis=1)
 
-        Hidden_layer6 = Dense(128, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
+        Hidden_layer = Dense(128, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
         #Hidden_layer7 = layers.Dropout(0.8)(Hidden_layer6)
-        linear_layer1 = Dense(12,activation='linear')(Hidden_layer6)
+        linear_layer = Dense(12,activation='linear')(Hidden_layer)
         #linear_dropout1 = layers.Dropout(0.5)(linear_layer1)
-        output = Dense(1,activation='linear')(linear_layer1)
+        output = Dense(1,activation='linear')(linear_layer)
+
+
 
         self.model = Model(inputs=[input_1, input_2], outputs=output)
 
@@ -496,7 +497,7 @@ class Deep_SARSA:
         It is assumed that the size of the gamestate value is 9000
         '''
 
-        input_state_matrix = np.zeros((len(game_state_list),6000))
+        input_state_matrix = np.zeros((len(game_state_list),110))
         input_action_matrix = np.zeros((len(action_list),1)) # Number of bits used to represent the action value
 
         for i in range(len(game_state_list)):
@@ -532,6 +533,60 @@ class Deep_SARSA:
 
         self.NN_training_time.append(time.time() - time_start)
 
+    def decompose_gamestate2_NN_input(self, game_state, actions_count):
+
+        '''
+        This function decomposes the gametate into an input that a neural network is capable of reading.
+        '''
+
+
+        NN_inputs_state = np.zeros((110, actions_count))
+
+
+        # Process game data to neural netowrk input
+        i = 0
+        max_size = 110
+
+        str_values = [] # Only occupied by the state "unique actions type"
+        for data_bin in game_state:
+            if i >= max_size:
+                break
+
+
+            if isinstance(game_state[data_bin], int):
+                NN_inputs_state[i] = game_state[data_bin]
+                i += 1
+            elif isinstance(game_state[data_bin], np.ndarray):
+
+                for val in game_state[data_bin]:
+                    if i >= max_size:
+                        break
+
+                    if isinstance(val, np.ndarray): # If this is the case, then the value was a card ["name", "ID", "cost"]
+                    
+                        NN_inputs_state[i] = val[1]
+                    else:
+                        NN_inputs_state[i] = val
+
+
+                    i += 1
+            elif isinstance(game_state[data_bin], str):
+                string2bytes = bytes(game_state[data_bin], 'ascii')
+                str_values.append(string2bytes)
+
+
+
+        for strings_in_bytes in str_values:  
+
+
+            for byte in strings_in_bytes:
+                if i >= max_size:
+                    break
+
+                NN_inputs_state[i] = byte/255 # normalize the value
+                i += 1
+        
+        return NN_inputs_state
 
     def game_state2list_NN_input(self, game_state, action_list):
         '''
@@ -541,41 +596,10 @@ class Deep_SARSA:
 
         start_time = time.time()
 
-        binarizeed_gamestate = pickle.dumps(game_state)
-
-        # Convert bytearray to list of integers
-        list_NN_input = np.array([byte for byte in binarizeed_gamestate])
-
-        NN_inputs_state = np.zeros((6000, len(action_list)))
+        NN_inputs_state = self.decompose_gamestate2_NN_input(game_state=game_state, actions_count=len(action_list))
         NN_inputs_actions = np.zeros((1, len(action_list))) # 8 is the bit number representation of the action
         i = 0
-
-        # Crop NN_input if the value is above the input size.
-        if len(list_NN_input) > 6000:
-            list_NN_input = list_NN_input[:6000]
-
-
         for action in action_list:
-
-            # Padding the value to 9000
-            input_padded = np.zeros((6000,1))
-            input_padded[:len(list_NN_input)] = np.array(list_NN_input).reshape((len(list_NN_input),1))
-
-            NN_inputs_state[:,i] = input_padded[:,0]
-
-            # Creating the action input
-            # Binarise into two complements 8 bit number
-
-
-            '''
-            binarised_action = np.binary_repr(action.astype(int), width=8)
-            
-            for bin in range(1):
-                NN_inputs_actions[bin,i] = int(binarised_action[bin])
-
-            '''
-
-
             NN_inputs_actions[0,i] = action
 
 

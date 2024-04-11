@@ -155,7 +155,7 @@ class Dominion:
         self.game_state = copy.deepcopy(self.initialize_game_state())
 
         if verbose:
-            game_history_file = open(f"game_history/{game_name}.md", "w")
+            game_history_file = open(f"game_history/{game_name}.txt", "w")
             game_history_file.write(" --------- CARDS IN THIS GAME --------- \n")
         else:
             game_history_file = None
@@ -205,7 +205,7 @@ class Dominion:
                 # print("         -------------------- Turn: ", turns, " -------------------- ")
 
                 if verbose:
-                    game_history_file.write(f"#         -------------------- Turn: {turns} -------------------- \n")
+                    game_history_file.write(f"         -------------------- Turn: {turns} -------------------- \n")
 
 
             cards_in_hand = players[main_player]["cards_in_hand"]
@@ -248,7 +248,7 @@ class Dominion:
 
             # --------- ACTION PHASE ---------
             if verbose:
-                game_history_file.write(f"##----------- ACTION PHASE ----------- \n")
+                game_history_file.write(f"----------- ACTION PHASE ----------- \n")
 
             action_turns = self.__action_phase(players, players_input, NN_player, main, advesary, game_history_file, verbose=verbose)
 
@@ -257,7 +257,7 @@ class Dominion:
             # --------- BUY PHASE ---------
             if verbose:
                 game_history_file.write("\n"*2)
-                game_history_file.write(f"##----------- BUY PHASE ----------- \n")
+                game_history_file.write(f"----------- BUY PHASE ----------- \n")
             buy_turns = self.__buy_phase(players, players_input, NN_player, main, advesary, game_history_file, verbose=verbose)
 
             self.game_state["Unique_actions"] = None
