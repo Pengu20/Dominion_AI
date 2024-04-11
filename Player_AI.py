@@ -457,7 +457,7 @@ class Deep_SARSA:
         #action_layer_dropout = layers.Dropout(0.2)(action_layer1) # Super spicey dropout, might be kinda shit
         Concatenated_layer = layers.concatenate([Hidden_layer, action_layer], axis=1)
 
-        Hidden_layer = Dense(128, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
+        Hidden_layer = Dense(32, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
         #Hidden_layer7 = layers.Dropout(0.8)(Hidden_layer6)
         linear_layer = Dense(12,activation='linear')(Hidden_layer)
         #linear_dropout1 = layers.Dropout(0.5)(linear_layer1)
@@ -709,10 +709,11 @@ class Deep_SARSA:
             # If random choice is choosen, then reduce the probability of choosing action -> -1.
             choice = np.random.choice(list_of_actions)
 
+
             # Reroll random choice, if the choice was -1
             if len(list_of_actions) != 1:
-                rerolls = 0
-                for i in range(rerolls):
+                choose_terminate_luck_score = 2
+                for i in range(choose_terminate_luck_score):
                     if choice == -1:
                         choice = np.random.choice(list_of_actions)
                     else:
