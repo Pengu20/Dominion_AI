@@ -457,14 +457,14 @@ class Deep_SARSA:
 
         Hidden_layer = layers.concatenate([input_1, action_layer], axis=1)
 
-        Hidden_layer = Dense(80, activation='sigmoid')(Hidden_layer)
+        Hidden_layer = Dense(80, activation='relu')(Hidden_layer)
 
-        Hidden_layer = Dense(64, activation='sigmoid')(Hidden_layer)
+        Hidden_layer = Dense(64, activation='relu')(Hidden_layer)
 
         #action handling layers
         Concatenated_layer = layers.concatenate([Hidden_layer, action_layer], axis=1)
 
-        Hidden_layer = Dense(32, activation='sigmoid')(Concatenated_layer)
+        Hidden_layer = Dense(32, activation='relu')(Concatenated_layer)
 
         linear_layer = Dense(12,activation='linear')(Hidden_layer)
 
@@ -1166,7 +1166,7 @@ class Deep_Q_learning(Deep_SARSA):
 
 
 
-        if len(self.input_data_past_game_states) >= 10:
+        if len(self.input_data_past_game_states) >= 30:
             self.input_data_past_game_states = self.input_data_past_game_states[1:]
             self.input_data_past_actions = self.input_data_past_actions[1:]
 
@@ -1174,8 +1174,11 @@ class Deep_Q_learning(Deep_SARSA):
 
         
         # If 5 games has passed, then update the target neural network
-        if self.games_played % 5 == 0:
+        if self.games_played % 15 == 0:
             self.update_target_NN_np_mat((all_game_states, all_actions), all_output, epochs=30, verybose=0, batch_size=32)
+
+
+
 
 
 

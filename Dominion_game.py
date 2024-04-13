@@ -843,8 +843,8 @@ Dominion_game.set_players(Q_learning_player, greedy_test_player) # Training the 
 trained_player_wins_in_row = 0
 test_player_wins_in_row = 0
 
-win_streak_limit = 15
-win_streak_limit_test_player = 30
+win_streak_limit = 30
+win_streak_limit_test_player = 300
 
 for i in range(100000):
     print(f"Game: {i}")
