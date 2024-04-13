@@ -853,8 +853,7 @@ Dominion_game.set_players(Q_learning_player, greedy_test_player) # Training the 
 trained_player_wins_in_row = 0
 test_player_wins_in_row = 0
 
-win_streak_limit = 30
-win_streak_limit_test_player = 300
+win_streak_limit = 50
 
 for i in range(100000):
     print(f"Game: {i}")
@@ -866,16 +865,6 @@ for i in range(100000):
         Dominion_game.set_player2test(greedy_test_player)
         print("Training player wins in a row: ", trained_player_wins_in_row)
         print("Giving weights of trained player to test player.")
-        trained_player_wins_in_row = 0
-        test_player_wins_in_row = 0
-
-
-    elif test_player_wins_in_row >= win_streak_limit_test_player:
-        # All learned parameters from the test player, is passed to the trained player
-        Q_learning_player.model.set_weights(greedy_test_player.model.get_weights())
-        Dominion_game.set_player2train(Q_learning_player)
-        print("test player wins in a row: ", test_player_wins_in_row)
-        print("Giving weights of test player to training player.")
         trained_player_wins_in_row = 0
         test_player_wins_in_row = 0
 

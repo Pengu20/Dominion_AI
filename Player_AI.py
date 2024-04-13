@@ -721,11 +721,13 @@ class Deep_SARSA:
         '''
         if np.random.rand() < epsilon:
 
-            # If random choice is choosen, then reduce the probability of choosing action -> -1.
+
             choice = np.random.choice(list_of_actions)
 
 
+            # If random choice is choosen, then reduce the probability of choosing action -> -1.
             # Reroll random choice, if the choice was -1
+            # Disabled if luck is 0
             if len(list_of_actions) != 1:
                 choose_terminate_luck_score = 0
                 for i in range(choose_terminate_luck_score):
@@ -977,7 +979,16 @@ class Deep_Q_learning(Deep_SARSA):
     def __init__(self, player_name) -> None:
         super().__init__(player_name)
         self.initialize_target_NN()
+        # Set epsilon randomly, such that the player sometimes learns using the known knowledge, and sometimes completely explores.
+        self.set_new_epsilon_value(min_val=0.4, max_val=1.0)
 
+    
+    def set_new_epsilon_value(self, min_val, max_val):
+        '''
+        this function is for updating the epsilon value randomly.
+        '''
+
+        self.epsilon_value = np.random.rand()*(max_val - min_val) + min_val
 
     def Q_learning_update(self, game_state, list_of_actions, game_ended=False):
         '''
@@ -1012,8 +1023,8 @@ class Deep_Q_learning(Deep_SARSA):
         # Defining learning step - Is 0 if the only action available is the terminate action
         learning_step = alpha * (reward + gamma*expected_return - old_expected_return)
 
-        if self.only_terminate_action:
-            learning_step = 0
+        # if self.only_terminate_action:
+        #     learning_step = 0
 
 
 
@@ -1110,7 +1121,6 @@ class Deep_Q_learning(Deep_SARSA):
 
     def choose_action(self, list_of_actions, game_state):
 
-        
         if self.game_state_history == []:
             self.game_state_history.append(copy.deepcopy(game_state))
             self.action_history.append(np.random.choice(list_of_actions))
@@ -1120,7 +1130,7 @@ class Deep_Q_learning(Deep_SARSA):
             if self.greedy_mode:
                 action = self.greedy_choice(list_of_actions, game_state)
             else:
-                action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.95)
+                action = self.epsilon_greedy_policy(list_of_actions, game_state, self.epsilon_value)
 
 
             self.Q_learning_update(game_state, list_of_actions, game_ended=False)
@@ -1166,7 +1176,7 @@ class Deep_Q_learning(Deep_SARSA):
 
 
 
-        if len(self.input_data_past_game_states) >= 30:
+        if len(self.input_data_past_game_states) >= 100:
             self.input_data_past_game_states = self.input_data_past_game_states[1:]
             self.input_data_past_actions = self.input_data_past_actions[1:]
 
@@ -1177,6 +1187,10 @@ class Deep_Q_learning(Deep_SARSA):
         if self.games_played % 15 == 0:
             self.update_target_NN_np_mat((all_game_states, all_actions), all_output, epochs=30, verybose=0, batch_size=32)
 
+
+        # Set new epsilon value.
+        self.set_new_epsilon_value(min_val=0.4, max_val=1.0)
+        print("Q-learning AI - New epsilon value: ", self.epsilon_value)
 
 
 
