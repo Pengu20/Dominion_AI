@@ -513,7 +513,7 @@ class Dominion:
         players[main] = self.__update_player_treasure_value(players[main], self.game_state, players_input[main])
         self.game_state = sm.merge_game_player_state(self.game_state, players[main], players[adversary])
         self.game_state["Unique_actions"] = "buy"
-        players[main]["buys"] = 1
+        players[main]["buys"] += 1
 
 
 
