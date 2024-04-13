@@ -967,6 +967,11 @@ class greedy_NN(Deep_SARSA):
 
 class Deep_Q_learning(Deep_SARSA):
 
+    def __init__(self, player_name) -> None:
+        super().__init__(player_name)
+        self.initialize_target_NN()
+
+
     def Q_learning_update(self, game_state, list_of_actions, game_ended=False):
         '''
         This function is used to update the neural network based on the Q_learning_algorithm
@@ -1045,7 +1050,6 @@ class Deep_Q_learning(Deep_SARSA):
         self.SARSA_update_time.append(time.time() - start_time)
 
 
-
     def initialize_target_NN(self):
         '''
         To avoid maximation bias, a target neural network is formed, which is updated every 5 games.
@@ -1090,6 +1094,8 @@ class Deep_Q_learning(Deep_SARSA):
                             )
         
         self.target_model.summary()
+
+
 
     def target_NN_get_expected_return(self, game_state, actions_list):
         '''
