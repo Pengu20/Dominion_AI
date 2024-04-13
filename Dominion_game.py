@@ -844,6 +844,7 @@ trained_player_wins_in_row = 0
 test_player_wins_in_row = 0
 
 win_streak_limit = 15
+win_streak_limit_test_player = 30
 
 for i in range(100000):
     print(f"Game: {i}")
@@ -859,7 +860,7 @@ for i in range(100000):
         test_player_wins_in_row = 0
 
 
-    elif test_player_wins_in_row >= win_streak_limit:
+    elif test_player_wins_in_row >= win_streak_limit_test_player:
         # All learned parameters from the test player, is passed to the trained player
         Q_learning_player.model.set_weights(greedy_test_player.model.get_weights())
         Dominion_game.set_player2train(Q_learning_player)
@@ -872,8 +873,23 @@ for i in range(100000):
 
     Dominion_game.testplayer_province_boosted = True
     Dominion_game.player1.greedy_mode = False
+    
     # Dominion_game.set_player2test(Sarsa_player)
     index_player_won = Dominion_game.play_loop_AI(f"trainer_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
+
+
+    if index_player_won == 0:
+        print("Trained player won!")
+    elif index_player_won == 1:
+        print("Test player won!")
+    else:
+        print("Draw!")
+    Dominion_game.testplayer_province_boosted = False
+    Dominion_game.player1.greedy_mode = True
+    index_player_won = Dominion_game.play_loop_AI(f"test_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
+
+
+
 
     if index_player_won == 0:
         print("Trained player won!")
@@ -884,22 +900,10 @@ for i in range(100000):
         print("Test player won!")
         trained_player_wins_in_row = 0
         test_player_wins_in_row += 1
-
     else:
         print("Draw!")
 
 
-    Dominion_game.testplayer_province_boosted = False
-    Dominion_game.player1.greedy_mode = True
-    index_player_won = Dominion_game.play_loop_AI(f"test_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
-
-
-    if index_player_won == 0:
-        print("Trained player won!")
-    elif index_player_won == 1:
-        print("Test player won!")
-    else:
-        print("Draw!")
 
     print("\n")
 

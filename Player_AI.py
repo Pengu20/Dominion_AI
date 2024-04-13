@@ -451,16 +451,18 @@ class Deep_SARSA:
 
 
         #Hidden_layer2 = layers.Dropout(0.8)(Hidden_layer1)
-        Hidden_layer = Dense(80, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(input_1)
+        Hidden_layer = layers.concatenate([input_1, input_2], axis=1)
+
+        Hidden_layer = Dense(80, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer)
         #Hidden_layer4 = layers.Dropout(0.8)(Hidden_layer3)
         Hidden_layer = Dense(64, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer)
 
 
         #action handling layers
-        action_layer = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(input_2)
-        action_layer = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(action_layer)
+        #action_layer = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(input_2)
+        #action_layer = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(action_layer)
         #action_layer_dropout = layers.Dropout(0.2)(action_layer1) # Super spicey dropout, might be kinda shit
-        Concatenated_layer = layers.concatenate([Hidden_layer, action_layer], axis=1)
+        Concatenated_layer = layers.concatenate([Hidden_layer, input_2], axis=1)
 
         Hidden_layer = Dense(32, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
         #Hidden_layer7 = layers.Dropout(0.8)(Hidden_layer6)
@@ -717,7 +719,7 @@ class Deep_SARSA:
 
             # Reroll random choice, if the choice was -1
             if len(list_of_actions) != 1:
-                choose_terminate_luck_score = 2
+                choose_terminate_luck_score = 0
                 for i in range(choose_terminate_luck_score):
                     if choice == -1:
                         choice = np.random.choice(list_of_actions)
@@ -927,6 +929,13 @@ class greedy_NN(Deep_SARSA):
 
         self.all_expected_returns.append(np.max(expected_return))
 
+        best_action = list_of_actions[np.argmax(expected_return)]
+
+        # Greedy player may never buy curses
+        if game_state[game_state["Unique_actions"]] == "buy" and best_action == 6:
+            expected_return[np.argmax(expected_return)] = -np.Infinity
+            best_action = list_of_actions[np.argmax(expected_return)]
+
 
         return list_of_actions[np.argmax(expected_return)]
 
@@ -934,7 +943,7 @@ class greedy_NN(Deep_SARSA):
 
     def choose_action(self, list_of_actions, game_state):
 
-
+        
         action = self.greedy_choice(list_of_actions=list_of_actions, game_state=game_state)
         self.turns_in_game += 1
 
