@@ -234,13 +234,13 @@ class Dominion:
             # Give the player a time limit.
             if self.testplayer_province_boosted and main_player == 1:
                 if turns >= 25 :
-                    province_chance = 0.4
+                    province_chance = 0.2
 
                     if turns >= 30:
-                        province_chance = 0.5
+                        province_chance = 0.3
 
                     if turns >= 40:
-                        province_chance = 0.6
+                        province_chance = 0.4
 
 
                     if np.random.rand() < province_chance:
