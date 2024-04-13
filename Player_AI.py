@@ -528,13 +528,13 @@ class Deep_SARSA:
 
 
 
-    def update_NN_np_mat(self, input_matrix, output_matrix, epochs=1, verybose=0):
+    def update_NN_np_mat(self, input_matrix, output_matrix, epochs=1, verybose=0, batch_size=16):
         '''
         This function is used to update the neural network using a list of all the values used in the game
         '''
         time_start = time.time()
 
-        self.model.fit(input_matrix, output_matrix, epochs=10, verbose=0)
+        self.model.fit(input_matrix, output_matrix, epochs=10, verbose=0, batch_size=16)
 
         self.NN_training_time.append(time.time() - time_start)
 
@@ -886,7 +886,7 @@ class Deep_SARSA:
             all_actions = np.concatenate(self.input_data_past_actions, axis=0)
             all_output = np.concatenate(self.output_label_past_games, axis=0)
 
-            self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=30, verybose=0)
+            self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=30, verybose=0, batch_size=32)
 
 
 
@@ -1017,16 +1017,16 @@ class Deep_Q_learning(Deep_SARSA):
         if self.greedy_mode == False:
             # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
-            batch_size = 16
+            self.batch_size = 16
 
             # Every batch_size turns we will update the neural network with the batch_size new datasets
-            if self.turns_in_game % batch_size == 0:
+            if self.turns_in_game % self.batch_size == 0:
 
-                input_matrix = self.game_state_list2NN_input(self.game_state_history[-batch_size:], self.action_history[-batch_size:])
-                output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-batch_size:])
+                input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
+                output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
                 
 
-                self.update_NN_np_mat(input_matrix, output_matrix)
+                self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size)
 
 
 
@@ -1075,6 +1075,8 @@ class Deep_Q_learning(Deep_SARSA):
         '''
 
         self.Q_learning_update(game_state, None, game_ended=True)
+
+
 
 
 
