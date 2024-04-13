@@ -540,6 +540,8 @@ class Deep_SARSA:
 
         self.NN_training_time.append(time.time() - time_start)
 
+
+
     def decompose_gamestate2_NN_input(self, game_state, actions_count):
 
         '''
@@ -857,6 +859,31 @@ class Deep_SARSA:
         self.SARSA_update(game_state, None, game_ended=True)
 
 
+        # At game end, train the neural network with all the new values of the 10 past games.
+        input_matrix_gamestate, action_matrix = self.game_state_list2NN_input(self.game_state_history, self.action_history)
+        output_matrix = self.expected_return_list2NN_output(self.all_expected_returns)
+
+
+        self.input_data_past_game_states.append(input_matrix_gamestate)
+        self.input_data_past_actions.append(action_matrix)
+
+
+        self.output_label_past_games.append(output_matrix)
+        all_game_states = np.concatenate(self.input_data_past_game_states, axis=0)
+        all_actions = np.concatenate(self.input_data_past_actions, axis=0)
+        all_output = np.concatenate(self.output_label_past_games, axis=0)
+
+        self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=30, verybose=0, batch_size=32)
+
+
+
+        if len(self.input_data_past_game_states) >= 10:
+            self.input_data_past_game_states = self.input_data_past_game_states[1:]
+            self.input_data_past_actions = self.input_data_past_actions[1:]
+
+            self.output_label_past_games = self.output_label_past_games[1:]
+
+
 
     def notify_game_end(self, game_state):
         ''' [summary]
@@ -871,29 +898,7 @@ class Deep_SARSA:
             self.game_end_update(game_state)
 
 
-            # At game end, train the neural network with all the new values of the 10 past games.
-            input_matrix_gamestate, action_matrix = self.game_state_list2NN_input(self.game_state_history, self.action_history)
-            output_matrix = self.expected_return_list2NN_output(self.all_expected_returns)
 
-
-            self.input_data_past_game_states.append(input_matrix_gamestate)
-            self.input_data_past_actions.append(action_matrix)
-
-
-            self.output_label_past_games.append(output_matrix)
-            all_game_states = np.concatenate(self.input_data_past_game_states, axis=0)
-            all_actions = np.concatenate(self.input_data_past_actions, axis=0)
-            all_output = np.concatenate(self.output_label_past_games, axis=0)
-
-            self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=30, verybose=0, batch_size=32)
-
-
-
-            if len(self.input_data_past_game_states) >= 10:
-                self.input_data_past_game_states = self.input_data_past_game_states[1:]
-                self.input_data_past_actions = self.input_data_past_actions[1:]
-
-                self.output_label_past_games = self.output_label_past_games[1:]
 
         # Saving the game data
 
@@ -1040,6 +1045,82 @@ class Deep_Q_learning(Deep_SARSA):
         self.SARSA_update_time.append(time.time() - start_time)
 
 
+
+    def initialize_target_NN(self):
+        '''
+        To avoid maximation bias, a target neural network is formed, which is updated every 5 games.
+        '''
+        input_1 = keras.Input(shape=(110,))
+        input_2 = keras.Input(shape=(1,))
+
+
+        #Hidden_layer2 = layers.Dropout(0.8)(Hidden_layer1)
+        Hidden_layer = layers.concatenate([input_1, input_2], axis=1)
+
+        Hidden_layer = Dense(80, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer)
+        #Hidden_layer4 = layers.Dropout(0.8)(Hidden_layer3)
+        Hidden_layer = Dense(64, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer)
+
+
+        #action handling layers
+        #action_layer = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(input_2)
+        #action_layer = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(action_layer)
+        #action_layer_dropout = layers.Dropout(0.2)(action_layer1) # Super spicey dropout, might be kinda shit
+        Concatenated_layer = layers.concatenate([Hidden_layer, input_2], axis=1)
+
+        Hidden_layer = Dense(32, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
+        #Hidden_layer7 = layers.Dropout(0.8)(Hidden_layer6)
+        linear_layer = Dense(12,activation='linear')(Hidden_layer)
+        #linear_dropout1 = layers.Dropout(0.5)(linear_layer1)
+        output = Dense(1,activation='linear')(linear_layer)
+
+
+
+        self.target_model = Model(inputs=[input_1, input_2], outputs=output)
+
+
+        self.target_model.compile( optimizer='SGD',
+                            loss='huber',
+                            metrics='accuracy',
+                            loss_weights=None,
+                            weighted_metrics=None,
+                            run_eagerly=None,
+                            steps_per_execution=None,
+                            jit_compile=None,
+                            )
+        
+        self.target_model.summary()
+
+    def target_NN_get_expected_return(self, game_state, actions_list):
+        '''
+        This function gives the value from the target neural network to the state action pair
+        '''
+
+        NN_input_state, NN_input_action = self.game_state2list_NN_input(game_state, actions_list)
+        expected_return = self.target_model([NN_input_state, NN_input_action])
+
+
+        return expected_return
+
+    def greedy_choice_target_NN(self, list_of_actions, game_state):
+        '''
+        Until a neural network can give us the best state action rewards, we will use this function to give us the rewards
+        '''
+        time_start = time.time()
+        expected_return = self.target_NN_get_expected_return(game_state, list_of_actions)
+
+        self.NN_predict_time.append(time.time() - time_start)
+
+        return list_of_actions[np.argmax(expected_return)]
+
+    def update_target_NN_np_mat(self, input_matrix, output_matrix, epochs=1, verybose=0, batch_size=16):
+        '''
+        This function is used to update the neural network using a list of all the values used in the game
+        '''
+        self.target_model.fit(input_matrix, output_matrix, epochs=10, verbose=0, batch_size=16)
+
+
+
     def choose_action(self, list_of_actions, game_state):
 
         
@@ -1050,7 +1131,7 @@ class Deep_Q_learning(Deep_SARSA):
         else:
 
             if self.greedy_mode:
-                action = self.greedy_choice(list_of_actions, game_state)
+                action = self.greedy_choice_target_NN(list_of_actions, game_state)
             else:
                 action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.95)
 
@@ -1080,9 +1161,34 @@ class Deep_Q_learning(Deep_SARSA):
 
         self.Q_learning_update(game_state, None, game_ended=True)
 
+        # At game end, train the neural network with all the new values of the 10 past games.
+        input_matrix_gamestate, action_matrix = self.game_state_list2NN_input(self.game_state_history, self.action_history)
+        output_matrix = self.expected_return_list2NN_output(self.all_expected_returns)
+
+
+        self.input_data_past_game_states.append(input_matrix_gamestate)
+        self.input_data_past_actions.append(action_matrix)
+
+
+        self.output_label_past_games.append(output_matrix)
+        all_game_states = np.concatenate(self.input_data_past_game_states, axis=0)
+        all_actions = np.concatenate(self.input_data_past_actions, axis=0)
+        all_output = np.concatenate(self.output_label_past_games, axis=0)
+
+        self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=30, verybose=0, batch_size=32)
 
 
 
+        if len(self.input_data_past_game_states) >= 10:
+            self.input_data_past_game_states = self.input_data_past_game_states[1:]
+            self.input_data_past_actions = self.input_data_past_actions[1:]
+
+            self.output_label_past_games = self.output_label_past_games[1:]
+
+        
+        # If 5 games has passed, then update the target neural network
+        if self.games_played % 5 == 0:
+            self.update_target_NN_np_mat(all_game_states, all_output, epochs=30, verybose=0, batch_size=32)
 
 
 
