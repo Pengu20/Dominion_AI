@@ -239,8 +239,6 @@ class Dominion:
                     if turns >= 30:
                         province_chance = 0.3
 
-                    if turns >= 40:
-                        province_chance = 0.4
 
 
                     if np.random.rand() < province_chance:
