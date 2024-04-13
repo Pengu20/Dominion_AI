@@ -932,7 +932,7 @@ class greedy_NN(Deep_SARSA):
         best_action = list_of_actions[np.argmax(expected_return)]
 
         # Greedy player may never buy curses
-        if game_state[game_state["Unique_actions"]] == "buy" and best_action == 6:
+        if game_state["Unique_actions"] == "buy" and best_action == 6:
             expected_return[np.argmax(expected_return)] = -np.Infinity
             best_action = list_of_actions[np.argmax(expected_return)]
 
