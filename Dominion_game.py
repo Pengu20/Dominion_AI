@@ -23,6 +23,15 @@ import pickle
 deck = deck_generator()
 
 
+'''
+GAME NOTES:
+cards cannot be drawn after being bought
+
+choosing expedted return fails.
+
+'''
+
+
 def make_card_set(kingdom_indexes):
     '''
     This function takes the indexes of all the kingdom cards that is desired to be in game, and generated a card set.
@@ -406,16 +415,17 @@ class Dominion:
 
         # Get all possible actions
         actions = self.__get_actions(players[main])
-        
+        self.game_state = sm.merge_game_player_state(self.game_state, players[main], players[adversary])
+
+
+
         if verbose:
             game_history_file.write(f"action possibilites: {actions} \n")
             if main == 0: # We only want to log the cards bought by player 0 (Sarsa trained player)
                 NN_return = players_input[main].NN_get_expected_return(self.game_state, actions)
                 game_history_file.write(f"expected returns: {NN_return}\n")
 
-
         # Choose action
-        self.game_state = sm.merge_game_player_state(self.game_state, players[main], players[adversary])
         self.game_state["Unique_actions"] = "take_action"
         play_action = int(players_input[main].choose_action(actions, copy.deepcopy(self.game_state)))
 

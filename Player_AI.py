@@ -475,7 +475,7 @@ class Deep_SARSA:
         self.model = Model(inputs=[input_1, input_2], outputs=output)
 
 
-        self.model.compile( optimizer='SGD',
+        self.model.compile( optimizer='adam',
                             loss='huber',
                             metrics='accuracy',
                             loss_weights=None,
@@ -999,7 +999,7 @@ class Deep_Q_learning(Deep_SARSA):
             action = self.greedy_choice_target_NN(list_of_actions, game_state)
             expected_return = self.target_NN_get_expected_return(game_state, [action])[0]
 
-        old_expected_return = self.target_NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
+        old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
 
         reward_list = self.rf.get_reward_from_state(game_state, self.game_state_history[-1])
         reward = np.sum(reward_list)
@@ -1063,7 +1063,7 @@ class Deep_Q_learning(Deep_SARSA):
         '''
         self.target_model = keras.models.clone_model(self.model)
 
-        self.target_model.compile( optimizer='SGD',
+        self.target_model.compile( optimizer='adam',
                             loss='huber',
                             metrics='accuracy',
                             loss_weights=None,
@@ -1118,7 +1118,7 @@ class Deep_Q_learning(Deep_SARSA):
         else:
 
             if self.greedy_mode:
-                action = self.greedy_choice_target_NN(list_of_actions, game_state)
+                action = self.greedy_choice(list_of_actions, game_state)
             else:
                 action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.95)
 
