@@ -2,6 +2,7 @@ import numpy as np
 
 import pickle
 import keras
+from keras.models import clone_model
 from keras.layers import Dense
 from keras import layers
 from keras.regularizers import L1
@@ -445,27 +446,26 @@ class Deep_SARSA:
         
 
     def initialize_NN(self):
-
+        
         input_1 = keras.Input(shape=(110,))
         input_2 = keras.Input(shape=(1,))
 
+        # action layer handling
+        # action_layer = Dense(8, activation='relu')(input_2)
 
-        #Hidden_layer2 = layers.Dropout(0.8)(Hidden_layer1)
+
+
         Hidden_layer = layers.concatenate([input_1, input_2], axis=1)
 
-        Hidden_layer = Dense(80, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer)
-        #Hidden_layer4 = layers.Dropout(0.8)(Hidden_layer3)
-        Hidden_layer = Dense(64, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer)
+        Hidden_layer = Dense(80, activation='sigmoid')(Hidden_layer)
 
+        Hidden_layer = Dense(64, activation='sigmoid')(Hidden_layer)
 
         #action handling layers
-        #action_layer = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(input_2)
-        #action_layer = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(action_layer)
-        #action_layer_dropout = layers.Dropout(0.2)(action_layer1) # Super spicey dropout, might be kinda shit
         Concatenated_layer = layers.concatenate([Hidden_layer, input_2], axis=1)
 
-        Hidden_layer = Dense(32, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
-        #Hidden_layer7 = layers.Dropout(0.8)(Hidden_layer6)
+        Hidden_layer = Dense(32, activation='sigmoid')(Concatenated_layer)
+
         linear_layer = Dense(12,activation='linear')(Hidden_layer)
         #linear_dropout1 = layers.Dropout(0.5)(linear_layer1)
         output = Dense(1,activation='linear')(linear_layer)
@@ -611,6 +611,12 @@ class Deep_SARSA:
         for action in action_list:
             NN_inputs_actions[0,i] = action
 
+            # Action binarisation
+            binarised_action = np.binary_repr(action.astype(int), width=8)
+            for bin in range(1): # 8 is the bit number representation of the action
+                NN_inputs_actions[bin,i] = int(binarised_action[bin])
+
+
 
             i += 1
 
@@ -690,7 +696,7 @@ class Deep_SARSA:
                 output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
 
 
-                self.update_NN_np_mat(input_matrix, output_matrix)
+                self.update_NN_np_mat(input_matrix, output_matrix, epochs=4)
 
 
 
@@ -937,6 +943,7 @@ class greedy_NN(Deep_SARSA):
 
         best_action = list_of_actions[np.argmax(expected_return)]
 
+
         # Greedy player may never buy curses
         if game_state["Unique_actions"] == "buy" and best_action == 6:
             expected_return[np.argmax(expected_return)] = -np.Infinity
@@ -1043,7 +1050,7 @@ class Deep_Q_learning(Deep_SARSA):
                 output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
                 
 
-                self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size)
+                self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=4)
 
 
 
@@ -1054,34 +1061,7 @@ class Deep_Q_learning(Deep_SARSA):
         '''
         To avoid maximation bias, a target neural network is formed, which is updated every 5 games.
         '''
-        input_1 = keras.Input(shape=(110,))
-        input_2 = keras.Input(shape=(1,))
-
-
-        #Hidden_layer2 = layers.Dropout(0.8)(Hidden_layer1)
-        Hidden_layer = layers.concatenate([input_1, input_2], axis=1)
-
-        Hidden_layer = Dense(80, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer)
-        #Hidden_layer4 = layers.Dropout(0.8)(Hidden_layer3)
-        Hidden_layer = Dense(64, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Hidden_layer)
-
-
-        #action handling layers
-        #action_layer = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(input_2)
-        #action_layer = Dense(2, activation='sigmoid',kernel_regularizer=L1(0.1),activity_regularizer=L2(0.1))(action_layer)
-        #action_layer_dropout = layers.Dropout(0.2)(action_layer1) # Super spicey dropout, might be kinda shit
-        Concatenated_layer = layers.concatenate([Hidden_layer, input_2], axis=1)
-
-        Hidden_layer = Dense(32, activation='sigmoid',kernel_regularizer=L1(0.01),activity_regularizer=L2(0.01))(Concatenated_layer)
-        #Hidden_layer7 = layers.Dropout(0.8)(Hidden_layer6)
-        linear_layer = Dense(12,activation='linear')(Hidden_layer)
-        #linear_dropout1 = layers.Dropout(0.5)(linear_layer1)
-        output = Dense(1,activation='linear')(linear_layer)
-
-
-
-        self.target_model = Model(inputs=[input_1, input_2], outputs=output)
-
+        self.target_model = keras.models.clone_model(self.model)
 
         self.target_model.compile( optimizer='SGD',
                             loss='huber',
@@ -1093,6 +1073,7 @@ class Deep_Q_learning(Deep_SARSA):
                             jit_compile=None,
                             )
         
+
         self.target_model.summary()
 
 
