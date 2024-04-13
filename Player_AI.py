@@ -873,9 +873,6 @@ class Deep_SARSA:
             input_matrix_gamestate, action_matrix = self.game_state_list2NN_input(self.game_state_history, self.action_history)
             output_matrix = self.expected_return_list2NN_output(self.all_expected_returns)
 
-            print(f"Input matrix shape: {input_matrix_gamestate.shape}")
-            print(f"Output matrix shape: {output_matrix.shape}")
-
 
             self.input_data_past_game_states.append(input_matrix_gamestate)
             self.input_data_past_actions.append(action_matrix)
@@ -1061,9 +1058,6 @@ class Deep_Q_learning(Deep_SARSA):
 
             self.game_state_history.append(copy.deepcopy(game_state))
             self.action_history.append(copy.deepcopy(action))
-
-            print(f"Input matrix shape: {len(self.game_state_history)}")
-            print(f"Output matrix shape: {len(self.all_expected_returns)}")
 
             #Remove the previous old values of game state and action history
             return action
