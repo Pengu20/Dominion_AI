@@ -448,26 +448,26 @@ class Deep_SARSA:
     def initialize_NN(self):
         
         input_1 = keras.Input(shape=(110,))
-        input_2 = keras.Input(shape=(1,))
+        input_2 = keras.Input(shape=(8,))
 
         # action layer handling
-        # action_layer = Dense(8, activation='relu')(input_2)
+        action_layer = Dense(8, activation='relu')(input_2)
 
 
 
-        Hidden_layer = layers.concatenate([input_1, input_2], axis=1)
+        Hidden_layer = layers.concatenate([input_1, action_layer], axis=1)
 
         Hidden_layer = Dense(80, activation='sigmoid')(Hidden_layer)
 
         Hidden_layer = Dense(64, activation='sigmoid')(Hidden_layer)
 
         #action handling layers
-        Concatenated_layer = layers.concatenate([Hidden_layer, input_2], axis=1)
+        Concatenated_layer = layers.concatenate([Hidden_layer, action_layer], axis=1)
 
         Hidden_layer = Dense(32, activation='sigmoid')(Concatenated_layer)
 
         linear_layer = Dense(12,activation='linear')(Hidden_layer)
-        #linear_dropout1 = layers.Dropout(0.5)(linear_layer1)
+
         output = Dense(1,activation='linear')(linear_layer)
 
 
@@ -505,7 +505,7 @@ class Deep_SARSA:
         '''
 
         input_state_matrix = np.zeros((len(game_state_list),110))
-        input_action_matrix = np.zeros((len(action_list),1)) # Number of bits used to represent the action value
+        input_action_matrix = np.zeros((len(action_list),8)) # Number of bits used to represent the action value
 
         for i in range(len(game_state_list)):
             NN_input_state, NN_input_action = self.game_state2list_NN_input(game_state_list[i], [action_list[i]])
@@ -606,14 +606,14 @@ class Deep_SARSA:
         start_time = time.time()
 
         NN_inputs_state = self.decompose_gamestate2_NN_input(game_state=game_state, actions_count=len(action_list))
-        NN_inputs_actions = np.zeros((1, len(action_list))) # 8 is the bit number representation of the action
+        NN_inputs_actions = np.zeros((8, len(action_list))) # 8 is the bit number representation of the action
         i = 0
         for action in action_list:
             NN_inputs_actions[0,i] = action
 
             # Action binarisation
             binarised_action = np.binary_repr(action.astype(int), width=8)
-            for bin in range(1): # 8 is the bit number representation of the action
+            for bin in range(8):
                 NN_inputs_actions[bin,i] = int(binarised_action[bin])
 
 
