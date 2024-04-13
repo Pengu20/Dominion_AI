@@ -989,10 +989,10 @@ class Deep_Q_learning(Deep_SARSA):
         else:
 
             ## Take the next step based on a greedy policy
-            action = self.greedy_choice(list_of_actions, game_state)
-            expected_return = self.NN_get_expected_return(game_state, [action])[0]
+            action = self.greedy_choice_target_NN(list_of_actions, game_state)
+            expected_return = self.target_NN_get_expected_return(game_state, [action])[0]
 
-        old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
+        old_expected_return = self.target_NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
 
         reward_list = self.rf.get_reward_from_state(game_state, self.game_state_history[-1])
         reward = np.sum(reward_list)
