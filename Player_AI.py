@@ -926,6 +926,7 @@ class greedy_NN(Deep_SARSA):
         '''
 
         expected_return = self.NN_get_expected_return(game_state, list_of_actions)
+        expected_return = np.array(expected_return)
 
         self.all_expected_returns.append(np.max(expected_return))
 
