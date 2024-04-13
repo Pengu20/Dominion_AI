@@ -397,6 +397,11 @@ class Deep_SARSA:
 
         self.only_terminate_action = True
 
+        # This variables is used to log the data from the previous games
+        self.input_data_past_game_states = []
+        self.input_data_past_actions = []
+        self.output_label_past_games = []
+
 
     def load_NN_from_file(self, path):
         self.model = keras.models.load_model(path)
@@ -468,7 +473,7 @@ class Deep_SARSA:
         self.model = Model(inputs=[input_1, input_2], outputs=output)
 
 
-        self.model.compile( optimizer='Adam',
+        self.model.compile( optimizer='SGD',
                             loss='huber',
                             metrics='accuracy',
                             loss_weights=None,
@@ -523,13 +528,13 @@ class Deep_SARSA:
 
 
 
-    def update_NN_np_mat(self, input_matrix, output_matrix):
+    def update_NN_np_mat(self, input_matrix, output_matrix, epochs=1, verybose=0):
         '''
         This function is used to update the neural network using a list of all the values used in the game
         '''
         time_start = time.time()
 
-        self.model.fit(input_matrix, output_matrix, epochs=1, verbose=0)
+        self.model.fit(input_matrix, output_matrix, epochs=10, verbose=0)
 
         self.NN_training_time.append(time.time() - time_start)
 
@@ -744,6 +749,9 @@ class Deep_SARSA:
             self.game_state_history.append(copy.deepcopy(game_state))
             self.action_history.append(copy.deepcopy(action))
 
+
+
+
             #Remove the previous old values of game state and action history
             return action
 
@@ -859,11 +867,37 @@ class Deep_SARSA:
         else:
             # Deep sarsa will update its neural network with the new values
             self.game_end_update(game_state)
-        
+
+
+            # At game end, train the neural network with all the new values of the 10 past games.
+            input_matrix_gamestate, action_matrix = self.game_state_list2NN_input(self.game_state_history, self.action_history)
+            output_matrix = self.expected_return_list2NN_output(self.all_expected_returns)
+
+            print(f"Input matrix shape: {input_matrix_gamestate.shape}")
+            print(f"Output matrix shape: {output_matrix.shape}")
+
+
+            self.input_data_past_game_states.append(input_matrix_gamestate)
+            self.input_data_past_actions.append(action_matrix)
+
+
+            self.output_label_past_games.append(output_matrix)
+            all_game_states = np.concatenate(self.input_data_past_game_states, axis=0)
+            all_actions = np.concatenate(self.input_data_past_actions, axis=0)
+            all_output = np.concatenate(self.output_label_past_games, axis=0)
+
+            self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=30, verybose=0)
+
+
+
+            if len(self.input_data_past_game_states) >= 10:
+                self.input_data_past_game_states = self.input_data_past_game_states[1:]
+                self.input_data_past_actions = self.input_data_past_actions[1:]
+
+                self.output_label_past_games = self.output_label_past_games[1:]
 
         # Saving the game data
 
-        # self.update_NN_np_mat(input_matrix, output_matrix)
             
         self.latest_reward = None
         self.latest_action = None
@@ -1028,7 +1062,8 @@ class Deep_Q_learning(Deep_SARSA):
             self.game_state_history.append(copy.deepcopy(game_state))
             self.action_history.append(copy.deepcopy(action))
 
-
+            print(f"Input matrix shape: {len(self.game_state_history)}")
+            print(f"Output matrix shape: {len(self.all_expected_returns)}")
 
             #Remove the previous old values of game state and action history
             return action
