@@ -1194,7 +1194,7 @@ class Deep_Q_learning(Deep_SARSA):
         
         # If 5 games has passed, then update the target neural network
         if self.games_played % 5 == 0:
-            self.update_target_NN_np_mat(all_game_states, all_output, epochs=30, verybose=0, batch_size=32)
+            self.update_target_NN_np_mat((all_game_states, all_actions), all_output, epochs=30, verybose=0, batch_size=32)
 
 
 
