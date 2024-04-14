@@ -868,7 +868,7 @@ for i in range(100000):
 
 
 
-    Dominion_game.testplayer_province_boosted = True
+
     Dominion_game.player1.greedy_mode = False
     
     # Dominion_game.set_player2test(Sarsa_player)
@@ -881,7 +881,7 @@ for i in range(100000):
         print("Test player won!")
     else:
         print("Draw!")
-    Dominion_game.testplayer_province_boosted = False
+
     Dominion_game.player1.greedy_mode = True
     index_player_won = Dominion_game.play_loop_AI(f"test_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
 

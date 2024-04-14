@@ -136,7 +136,7 @@ class Dominion_reward():
 
         Province_difference_reward = abs((province_main - province_adv)) * np.sign(province_main - province_adv)
 
-        Province_owned_reward = (new_province*150)
+        Province_owned_reward = (new_province*200)
 
 
 
@@ -188,7 +188,7 @@ class Dominion_reward():
             if card == 2:
                 gold_cards += 1
         
-        gold_reward = (100*gold_cards)
+        gold_reward = (150*gold_cards)
 
 
         # ---------------- reward for having alot of value (weighted by deck size) ----------------
@@ -402,6 +402,17 @@ class Deep_SARSA:
         self.input_data_past_game_states = []
         self.input_data_past_actions = []
         self.output_label_past_games = []
+
+        self.set_new_epsilon_value(min_val=0.8, max_val=1)
+
+
+
+    def set_new_epsilon_value(self, min_val, max_val):
+        '''
+        this function is for updating the epsilon value randomly.
+        '''
+        self.epsilon_value = np.random.rand()*(max_val - min_val) + min_val
+
 
 
     def load_NN_from_file(self, path):
@@ -753,7 +764,7 @@ class Deep_SARSA:
             if self.greedy_mode:
                 action = self.greedy_choice(list_of_actions, game_state)
             else:
-                action = self.epsilon_greedy_policy(list_of_actions, copy.deepcopy(game_state), 0.1)
+                action = self.epsilon_greedy_policy(list_of_actions, copy.deepcopy(game_state), self.epsilon_value)
             
             self.SARSA_update(copy.deepcopy(game_state), action)
 
@@ -931,7 +942,9 @@ class greedy_NN(Deep_SARSA):
     '''
     This class is for loading the neural network gained from deep sarsa to make all the greedy actions.
     '''
-
+    def __init__(self, player_name) -> None:
+        super().__init__(player_name)
+        self.greedy_mode = True
 
     def greedy_choice(self, list_of_actions, game_state):
         '''
@@ -940,6 +953,11 @@ class greedy_NN(Deep_SARSA):
 
         expected_return = self.NN_get_expected_return(game_state, list_of_actions)
         expected_return = np.array(expected_return)
+
+        if len(self.game_state_history) > 0:
+            reward_list = self.rf.get_reward_from_state(game_state, self.game_state_history[-1])
+
+            self.all_returns.append(np.sum(reward_list))
 
         self.all_expected_returns.append(np.max(expected_return))
 
@@ -957,21 +975,25 @@ class greedy_NN(Deep_SARSA):
 
 
     def choose_action(self, list_of_actions, game_state):
+        
+
+        # now... i know i'ts called a greedy agent, but lets just sweep under the rug, that it actually uses an epsilon greedy policy
+        action = self.epsilon_greedy_policy(list_of_actions=list_of_actions, game_state=game_state, epsilon=self.epsilon_value)
+        # action = self.greedy_choice(list_of_actions=list_of_actions, game_state=game_state)
 
         
-        action = self.greedy_choice(list_of_actions=list_of_actions, game_state=game_state)
         self.turns_in_game += 1
+
+        self.game_state_history.append(game_state)
 
         #Remove the previous old values of game state and action history
         return action
    
    
    
-    def notify_game_end(self, game_state):
-        ''' [summary]
-            This function is used to notify the player that the game has ended
-        '''
-
+    def game_end_update(self, game_state):
+        self.set_new_epsilon_value(min_val=0.2, max_val=0.99)
+        pass
 
 
 class Deep_Q_learning(Deep_SARSA):
@@ -980,7 +1002,7 @@ class Deep_Q_learning(Deep_SARSA):
         super().__init__(player_name)
         self.initialize_target_NN()
         # Set epsilon randomly, such that the player sometimes learns using the known knowledge, and sometimes completely explores.
-        self.set_new_epsilon_value(min_val=0.4, max_val=1.0)
+        self.set_new_epsilon_value(min_val=0.2, max_val=0.99)
 
     
     def set_new_epsilon_value(self, min_val, max_val):
@@ -997,7 +1019,7 @@ class Deep_Q_learning(Deep_SARSA):
 
         start_time = time.time()
         alpha = 0.3 # Learning rate
-        gamma = 0.80 # Discount factor
+        gamma = 0.70 # Discount factor
 
 
         # SA -> State action
@@ -1111,7 +1133,7 @@ class Deep_Q_learning(Deep_SARSA):
 
         return list_of_actions[np.argmax(expected_return)]
 
-    def update_target_NN_np_mat(self, input_matrix, output_matrix, epochs=1, verybose=0, batch_size=16):
+    def update_target_NN_np_mat(self, input_matrix, output_matrix, epochs=1, verbose=0, batch_size=16):
         '''
         This function is used to update the neural network using a list of all the values used in the game
         '''
@@ -1183,13 +1205,13 @@ class Deep_Q_learning(Deep_SARSA):
             self.output_label_past_games = self.output_label_past_games[1:]
 
         
-        # If 5 games has passed, then update the target neural network
+        # If n games has passed, then update the target neural network
         if self.games_played % 15 == 0:
-            self.update_target_NN_np_mat((all_game_states, all_actions), all_output, epochs=30, verybose=0, batch_size=32)
+            self.update_target_NN_np_mat((all_game_states, all_actions), all_output, epochs=30, verbose=0, batch_size=32)
 
 
         # Set new epsilon value.
-        self.set_new_epsilon_value(min_val=0.4, max_val=1.0)
+        self.set_new_epsilon_value(min_val=0.2, max_val=1)
         print("Q-learning AI - New epsilon value: ", self.epsilon_value)
 
 
