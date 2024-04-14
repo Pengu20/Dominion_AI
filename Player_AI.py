@@ -945,6 +945,7 @@ class greedy_NN(Deep_SARSA):
     def __init__(self, player_name) -> None:
         super().__init__(player_name)
         self.greedy_mode = True
+        self.set_new_epsilon_value(min_val=0.2, max_val=0.6)
 
     def greedy_choice(self, list_of_actions, game_state):
         '''
@@ -981,7 +982,7 @@ class greedy_NN(Deep_SARSA):
         action = self.epsilon_greedy_policy(list_of_actions=list_of_actions, game_state=game_state, epsilon=self.epsilon_value)
         # action = self.greedy_choice(list_of_actions=list_of_actions, game_state=game_state)
 
-        
+
         self.turns_in_game += 1
 
         self.game_state_history.append(game_state)
@@ -992,7 +993,7 @@ class greedy_NN(Deep_SARSA):
    
    
     def game_end_update(self, game_state):
-        self.set_new_epsilon_value(min_val=0.2, max_val=0.99)
+        self.set_new_epsilon_value(min_val=0.2, max_val=0.6)
         pass
 
 
@@ -1002,7 +1003,7 @@ class Deep_Q_learning(Deep_SARSA):
         super().__init__(player_name)
         self.initialize_target_NN()
         # Set epsilon randomly, such that the player sometimes learns using the known knowledge, and sometimes completely explores.
-        self.set_new_epsilon_value(min_val=0.2, max_val=0.99)
+        self.set_new_epsilon_value(min_val=0.4, max_val=1)
 
     
     def set_new_epsilon_value(self, min_val, max_val):
@@ -1211,7 +1212,7 @@ class Deep_Q_learning(Deep_SARSA):
 
 
         # Set new epsilon value.
-        self.set_new_epsilon_value(min_val=0.2, max_val=1)
+        self.set_new_epsilon_value(min_val=0.4, max_val=1)
         print("Q-learning AI - New epsilon value: ", self.epsilon_value)
 
 
