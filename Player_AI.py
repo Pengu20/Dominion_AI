@@ -9,6 +9,7 @@ from keras.regularizers import L1
 from keras.regularizers import L2
 from keras import Model
 from keras import Input
+from keras import initializers
 import time
 
 import state_manipulator as sm
@@ -461,25 +462,28 @@ class Deep_SARSA:
         input_1 = keras.Input(shape=(110,))
         input_2 = keras.Input(shape=(8,))
 
+        weight_mean = 50
+        weight_dev = 10
+
         # action layer handling
-        action_layer = Dense(8, activation='relu')(input_2)
+        action_layer = Dense(8, activation='relu', kernel_initializer=initializers.RandomNormal(mean=weight_mean, stddev=weight_dev))(input_2)
 
 
 
         Hidden_layer = layers.concatenate([input_1, action_layer], axis=1)
 
-        Hidden_layer = Dense(80, activation='relu')(Hidden_layer)
+        Hidden_layer = Dense(80, activation='relu', kernel_initializer=initializers.RandomNormal(mean=weight_mean, stddev=weight_dev))(Hidden_layer)
 
-        Hidden_layer = Dense(64, activation='relu')(Hidden_layer)
+        Hidden_layer = Dense(64, activation='relu', kernel_initializer=initializers.RandomNormal(mean=weight_mean, stddev=weight_dev))(Hidden_layer)
 
         #action handling layers
         Concatenated_layer = layers.concatenate([Hidden_layer, action_layer], axis=1)
 
-        Hidden_layer = Dense(32, activation='relu')(Concatenated_layer)
+        Hidden_layer = Dense(32, activation='relu', kernel_initializer=initializers.RandomNormal(mean=weight_mean, stddev=weight_dev))(Concatenated_layer)
 
-        linear_layer = Dense(12,activation='linear')(Hidden_layer)
+        linear_layer = Dense(12,activation='linear', kernel_initializer=initializers.RandomNormal(mean=weight_mean, stddev=weight_dev))(Hidden_layer)
 
-        output = Dense(1,activation='linear')(linear_layer)
+        output = Dense(1,activation='linear', kernel_initializer=initializers.RandomNormal(mean=weight_mean, stddev=weight_dev))(linear_layer)
 
 
 
@@ -977,8 +981,8 @@ class greedy_NN(Deep_SARSA):
 
     def choose_action(self, list_of_actions, game_state):
         
-
         # now... i know i'ts called a greedy agent, but lets just sweep under the rug, that it actually uses an epsilon greedy policy
+
         action = self.epsilon_greedy_policy(list_of_actions=list_of_actions, game_state=game_state, epsilon=self.epsilon_value)
         # action = self.greedy_choice(list_of_actions=list_of_actions, game_state=game_state)
 
