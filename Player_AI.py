@@ -462,8 +462,8 @@ class Deep_SARSA:
         input_1 = keras.Input(shape=(110,))
         input_2 = keras.Input(shape=(8,))
 
-        weight_mean = 50
-        weight_dev = 10
+        weight_mean = 0.05
+        weight_dev = 0.01
 
         # action layer handling
         action_layer = Dense(8, activation='relu', kernel_initializer=initializers.RandomNormal(mean=weight_mean, stddev=weight_dev))(input_2)
