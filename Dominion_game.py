@@ -54,7 +54,7 @@ class Dominion:
         self.deck = deck_generator()
 
         # Standard supply [Copper, Silver, Gold, Estate, Duchy, Province, Curse]
-        self.standard_supply = np.array([30, 30, 30, 30, 30, 8, 30])
+        self.standard_supply = np.array([30, 30, 30, 30, 30, 8, 10])
 
         self.card_set = self.deck.get_card_set()
 
@@ -252,27 +252,29 @@ class Dominion:
            
 
 
-
-            # --------- ACTION PHASE ---------
-            if verbose:
-                game_history_file.write(f"----------- ACTION PHASE ----------- \n")
-
-            action_turns = self.__action_phase(players, players_input, NN_player, main, advesary, game_history_file, verbose=verbose)
+            if not(self.__game_is_over()):
+                # --------- ACTION PHASE ---------
+                if verbose:
+                    game_history_file.write(f"----------- ACTION PHASE ----------- \n")
 
 
-
-            # --------- BUY PHASE ---------
-            if verbose:
-                game_history_file.write("\n"*2)
-                game_history_file.write(f"----------- BUY PHASE ----------- \n")
-            buy_turns = self.__buy_phase(players, players_input, NN_player, main, advesary, game_history_file, verbose=verbose)
-
-            self.game_state["Unique_actions"] = None
+                action_turns = self.__action_phase(players, players_input, NN_player, main, advesary, game_history_file, verbose=verbose)
 
 
-            if action_turns == 0 and buy_turns == 0 and verbose:
-                game_history_file.write(f" --------- NOTHING HAPPENED --------- \n")
-                # self.__Debug_state(players, main_player, players_input, game_history_file)
+
+            if not(self.__game_is_over()):
+                # --------- BUY PHASE ---------
+                if verbose:
+                    game_history_file.write("\n"*2)
+                    game_history_file.write(f"----------- BUY PHASE ----------- \n")
+                buy_turns = self.__buy_phase(players, players_input, NN_player, main, advesary, game_history_file, verbose=verbose)
+
+                self.game_state["Unique_actions"] = None
+
+
+                if action_turns == 0 and buy_turns == 0 and verbose:
+                    game_history_file.write(f" --------- NOTHING HAPPENED --------- \n")
+                    # self.__Debug_state(players, main_player, players_input, game_history_file)
 
 
 
@@ -312,6 +314,7 @@ class Dominion:
                     if verbose:
                         game_history_file.write(f"Game is draw!\n")
 
+
                 if verbose:
                     game_history_file.write(f"\n\n\n")
                     game_history_file.write(f"Player 0 bought cards:\n")
@@ -325,6 +328,7 @@ class Dominion:
                     self.player0_bought_cards = np.array([0]*17)
 
 
+
                 game_state_player0["main_Player_won"] = main_player_won
                 game_state_player0["adv_Player_won"] = adv_player_won
                 players_input[main].notify_game_end(game_state_player0)
@@ -335,6 +339,16 @@ class Dominion:
                 players_input[advesary].notify_game_end(game_state_player1)
 
 
+
+                if verbose:
+                    if main == 0:
+                        game_state = game_state_player0
+                    else:
+                        game_state = game_state_player1
+
+
+                    # Last game update log
+                    self.__Debug_state(players=players, game_state=game_state, main_player=0, players_input=players_input, game_history_file=game_history_file, player_is_NN=True)
 
 
 
@@ -461,6 +475,10 @@ class Dominion:
 
             self.card_effects.play_card(play_action, self.game_state, players[main], players_input[main],  players[adversary], players_input[adversary])
             players[main] = self.__Update_victory_points(self.game_state, players[main])
+
+            # Check if game terminates:
+            if self.__game_is_over():
+                return action_turns
             
 
             actions = self.__get_actions(players[main])
@@ -555,12 +573,16 @@ class Dominion:
                 self.player0_bought_cards[card_set_index] += 1
             
 
-
             players[main] = self.__Update_victory_points(self.game_state, players[main])
             
             
             self.game_state = sm.merge_game_player_state(self.game_state, players[main], players[adversary])
             
+
+            # Check if game terminates:
+            if self.__game_is_over():
+                return buy_actions_amount
+
 
             
             list_of_actions_buy = self.__get_buys(players[main], self.game_state)

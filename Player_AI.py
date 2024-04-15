@@ -72,15 +72,15 @@ class Dominion_reward():
 
         # ---------------- Reward based on game end ----------------
         if   (game_state["main_Player_won"] == 1):
-            Victory_reward = 500
+            Victory_reward = 1000
 
             # If the province pile is empty, the player won by provinces and gets an extra reward
             if game_state["supply_amount"][5] == 0:
-                Victory_reward += 500
+                Victory_reward += 5000
 
 
         elif (game_state["adv_Player_won"] == 1):
-            Victory_reward = -150
+            Victory_reward = -1000
 
 
         # ---------------- Gained card reward ----------------
@@ -916,22 +916,22 @@ class Deep_SARSA:
 
         if self.greedy_mode:
             self.write_state_reward_to_file(game_state)
-        else:
-            # Deep sarsa will update its neural network with the new values
-            self.game_end_update(game_state)
 
 
+        # Deep sarsa will update its neural network with the new values
+        self.game_end_update(game_state)
 
 
         # Saving the game data
 
             
+        ''' Removed these so that we can see the last reward
         self.latest_reward = None
         self.latest_action = None
         self.latest_action_type = None
         self.latest_updated_expected_return = None
         self.latest_desired_expected_return = None
-
+        '''
 
         self.game_state_history = []
         self.action_history = []
@@ -949,7 +949,7 @@ class greedy_NN(Deep_SARSA):
     def __init__(self, player_name) -> None:
         super().__init__(player_name)
         self.greedy_mode = True
-        self.set_new_epsilon_value(min_val=0.2, max_val=0.6)
+        self.set_new_epsilon_value(min_val=0.7, max_val=1.0)
 
     def greedy_choice(self, list_of_actions, game_state):
         '''
@@ -997,7 +997,7 @@ class greedy_NN(Deep_SARSA):
    
    
     def game_end_update(self, game_state):
-        self.set_new_epsilon_value(min_val=0.2, max_val=0.6)
+        self.set_new_epsilon_value(min_val=0.7, max_val=1.0)
         pass
 
 
@@ -1064,14 +1064,11 @@ class Deep_Q_learning(Deep_SARSA):
         # Train the neural network with the new values
 
 
-
-        # Print out the learned update for the given action.
-        if self.greedy_mode == False:
-            # Printing the reward update step.
-            self.latest_action = self.action_history[-1]
-            self.latest_updated_expected_return = learning_step
-            self.latest_action_type = self.game_state_history[-1]["Unique_actions"]
-            self.latest_desired_expected_return = self.all_expected_returns[-1]
+        # Printing the reward update step.
+        self.latest_action = self.action_history[-1]
+        self.latest_updated_expected_return = learning_step
+        self.latest_action_type = self.game_state_history[-1]["Unique_actions"]
+        self.latest_desired_expected_return = self.all_expected_returns[-1]
 
 
 
@@ -1212,7 +1209,7 @@ class Deep_Q_learning(Deep_SARSA):
         
         # If n games has passed, then update the target neural network
         if self.games_played % 15 == 0:
-            self.update_target_NN_np_mat((all_game_states, all_actions), all_output, epochs=30, verbose=0, batch_size=32)
+            self.update_target_NN_np_mat((all_game_states, all_actions), all_output, epochs=10, verbose=0, batch_size=32)
 
 
         # Set new epsilon value.
