@@ -1,9 +1,1 @@
 \chapter{Conclusion} \label{ch:conclusion}
-For this thesis, the problem has been given: 
-\\\\
-if a system can be developed to use natural language input to control a UR5e robot arm equipped with a Hand-E gripper.
-\\\\
-A system has been developed that consists of three pipelines. The system starts with a natural language processing (NLP) pipeline that uses the stanza package to implement neural network language models used to analyze the input sentences and output instructions accompanied by information regarding sentence structure and POS-tags. Afterward, a parser pipeline was designed and developed to interpret the NLP pipeline output and extract the actions within it using grammatical rules. A set of actions was developed to move the robot manipulator, consisting of a UR5e robot arm equipped with a Hand-E gripper. The actions were then passed into a kinematics pipeline, tasked with executing the given actions. Furthermore, the kinematics pipeline also calculated the position and pose of points and frames in space, respectively.
-\\\\
-The evaluation was made based on the results of the system tests, which showed that it was capable of extracting actions from natural language instructions with a success rate of 70\%. But lacked the ability to interpret instructions with specifications relative to the given environment, like \textit{"move up to the height of the starting position of the task}. 
-It was stated in the problem constraints, that context based commands was out of scope for this thesis. But that ultimately meant, that the system became harder to control for the test users. The system solved the problem formulation given the contraint set on the thesis. However, based on the evaluation results, then the 70\% success rate could be increased, if context-based commands was supported.

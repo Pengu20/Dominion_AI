@@ -1,9 +1,0 @@
-\setlength{\parindent}{0pt}
-\normalsize
-The aim of this thesis is to create a system capable of controlling the motion of a 6-DOF manipulator, equipped with a parallel gripper, using natural language. The manipulator is a UR5e robot arm, and the parallel gripper is a Hand-e robotiq gripper. The intent is to enable an arbitrary user to solve tasks using the robot, without the user needing prior knowledge about robot control.
-\\\\
-The system is created using three pipelines. The first pipeline processes natural language and outputs grammatical information. The second pipeline parses the information into executable actions for the robot. The third pipeline executes the actions on the robot. Furthermore, the system can also calculate and store positions and frames in space. These points and frames are used to set up tasks in the robot manipulator's work environment.
-\\\\
-The system is evaluated based on a test using volunteers that solves robot manipulation tasks using natural language. The results show that the system has a 70\% success rate in interpretation, in which 50\% of all errors stems from the users formulating instructions for moving the robot relatively. The reason is that they typically use context-based language that the system cannot interpret. An example is \textit{'move up to the height of the starting position of the task'}, where an interpretable alternative is \textit{'move 20 centimeters along the z-axis'}.
-\\\\
-The final conclusion is that the system performs with 70\% success rate, but does not support the use of context-based language along with high level instructions that contain several actions, like \textit{'remove all blocks from the table'}. Based on user experience, these abilities would likely increase the success rate of the system.

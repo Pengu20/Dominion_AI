@@ -1,16 +1,1 @@
 \chapter{Future work} \label{ch:future_work}
-This thesis builds a foundation for future work in many directions in the field of NLP for robot control. Specifically, NLP control that uses grammar analysis methods. The possible expansions of the system is based on the observations made in the discussion, chapter \ref{ch:discussion}.
-\\\\
-For language analysis using neural networks, it might prove useful to fine-tune an encoder language model with instruction-type sentences. This is due to the observation in the discussion, chapter \ref{ch:discussion}, that the natural language model used, is prone to choosing noun interpretation of words, where errors would have been avoided if the model chose verb interpretation. Like in the sentence \textit{robot grip}, where the system sees both words as nouns.
-\\\\
-Contextual instructions might be interpretable by the parser if more information was stored in the system database. The parser would then match context-based instructions like \textit{'Move up to the height of the start point of the task.'} with context knowledge in the database for instruction interpretation and finally instruction execution.
-\\\\
-Another field that could be expanded upon is kinematic actions. More actions could include object avoidance, movement velocity specifications, and workspace constraints. These actions could be used to solve more complex tasks than those given in the thesis and to make the robot arm safer in stricter environments. 
-\\\\
-Another implementation that could be added for future work is a decoder language model used as a chatbot. The reason for using a decoder model is for exploiting the unsupervised learning technique of decoder models. Which is training the model on arbitrary unlabeled text. The model could then train on significantly more data, than when training encoders, as the data for the decoder does not need to be tagged in comparison to the encoder model data. The result would be a decoder model that potentially is capable of processing complex natural language. 
-\\
-It could be implemented for communication with the user to make communication more natural than the user communication protocol in this thesis.
-\\
-A likely area of the thesis where a decoder model could be of use, is within the parser. The parser uses grammatical information to find several high-level representations of instructions. This includes verbs describing environment manipulation, nouns serving as subjects of the instructions, nouns describing destinations, cardinal numbers describing units or point indexes, and more. The decoder model could aid the parser in finding these representations, by highlighting areas within the sentence where specific words might have a high importance. It could also be used to pick a candidate, given that several words match the criteria that the parser is looking for. This method could enable the parser to process more complex information, and maybe handle context-based instructions, as the decoder might be able to reformulate the context-based instructions into simpler instructions that the parser can interpret.
-\\\\
-The thesis holds many areas for future work, summarized as the implementation of more analytical processing tools, expansion of the system's kinematic action repertoire, and implementation of AI decoder models for NLP processing.

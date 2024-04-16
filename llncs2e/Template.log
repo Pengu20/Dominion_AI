@@ -1,0 +1,276 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.22)  16 APR 2024 08:41
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**"/home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI/llncs2e/Template.tex"
+(/home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI/llncs2e/Template.tex
+LaTeX2e <2023-06-01> patch level 1
+L3 programming layer <2023-10-10>
+(llncs.cls
+Document Class: llncs 2013/09/27 v2.18 
+ LaTeX document class for Lecture Notes in Computer Science
+(/home/peter/.miktex/texmfs/install/tex/latex/base/article.cls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+(/home/peter/.miktex/texmfs/install/tex/latex/base/size10.clo
+File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
+) (/home/peter/.miktex/texmfs/install/tex/latex/tools/multicol.sty
+Package: multicol 2023/03/30 v1.9f multicolumn formatting (FMi)
+\c@tracingmulticols=\count193
+\mult@box=\box51
+\multicol@leftmargin=\dimen141
+\c@unbalance=\count194
+\c@collectmore=\count195
+\doublecol@number=\count196
+\multicoltolerance=\count197
+\multicolpretolerance=\count198
+\full@width=\dimen142
+\page@free=\dimen143
+\premulticols=\dimen144
+\postmulticols=\dimen145
+\multicolsep=\skip50
+\multicolbaselineskip=\skip51
+\partial@page=\box52
+\last@line=\box53
+\mc@boxedresult=\box54
+\maxbalancingoverflow=\dimen146
+\mult@rightbox=\box55
+\mult@grightbox=\box56
+\mult@firstbox=\box57
+\mult@gfirstbox=\box58
+\@tempa=\box59
+\@tempa=\box60
+\@tempa=\box61
+\@tempa=\box62
+\@tempa=\box63
+\@tempa=\box64
+\@tempa=\box65
+\@tempa=\box66
+\@tempa=\box67
+\@tempa=\box68
+\@tempa=\box69
+\@tempa=\box70
+\@tempa=\box71
+\@tempa=\box72
+\@tempa=\box73
+\@tempa=\box74
+\@tempa=\box75
+\@tempa=\box76
+\@tempa=\box77
+\@tempa=\box78
+\@tempa=\box79
+\@tempa=\box80
+\@tempa=\box81
+\@tempa=\box82
+\@tempa=\box83
+\@tempa=\box84
+\@tempa=\box85
+\@tempa=\box86
+\@tempa=\box87
+\@tempa=\box88
+\@tempa=\box89
+\@tempa=\box90
+\@tempa=\box91
+\@tempa=\box92
+\@tempa=\box93
+\@tempa=\box94
+\c@minrows=\count199
+\c@columnbadness=\count266
+\c@finalcolumnbadness=\count267
+\last@try=\dimen147
+\multicolovershoot=\dimen148
+\multicolundershoot=\dimen149
+\mult@nat@firstbox=\box95
+\colbreak@box=\box96
+\mc@col@check@num=\count268
+) (aliascnt.sty
+Package: aliascnt 2009/09/08 v1.3 Alias counter (HO)
+ (remreset.sty))
+\c@chapter=\count269
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 363.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 364.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 365.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 366.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 367.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 368.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 369.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 370.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 371.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 372.
+\tocchpnum=\dimen150
+\tocsecnum=\dimen151
+\tocsectotal=\dimen152
+\tocsubsecnum=\dimen153
+\tocsubsectotal=\dimen154
+\tocsubsubsecnum=\dimen155
+\tocsubsubsectotal=\dimen156
+\tocparanum=\dimen157
+\tocparatotal=\dimen158
+\tocsubparanum=\dimen159
+\@tempcntc=\count270
+\fnindent=\dimen160
+\c@@inst=\count271
+\c@@auth=\count272
+\c@auco=\count273
+\instindent=\dimen161
+\authrun=\box97
+\authorrunning=\toks17
+\tocauthor=\toks18
+\titrun=\box98
+\titlerunning=\toks19
+\toctitle=\toks20
+\c@theorem=\count274
+\c@case=\count275
+\c@conjecture=\count276
+\c@corollary=\count277
+\c@definition=\count278
+\c@example=\count279
+\c@exercise=\count280
+\c@lemma=\count281
+\c@note=\count282
+\c@problem=\count283
+\c@property=\count284
+\c@proposition=\count285
+\c@question=\count286
+\c@solution=\count287
+\c@remark=\count288
+\headlineindent=\dimen162
+) (llncsdoc.sty) (/home/peter/.miktex/texmfs/install/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2023-10-10 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count289
+\l__pdf_internal_box=\box99
+) (Template.aux)
+\openout1 = `Template.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 78.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 78.
+
+Overfull \hbox (4.46051pt too wide) in paragraph at lines 93--95
+[]\OT1/cmr/m/n/10 The text output area is automatically set within an area of 12.2cm horizontally
+ []
+
+
+Overfull \hbox (6.06851pt too wide) in paragraph at lines 113--120
+\OT1/cmr/m/n/10 your use of L[]T[]X in general. Furthermore, the documentation provides suggestions
+ []
+
+
+Underfull \vbox (badness 2181) has occurred while \output is active []
+
+ [1
+
+{/home/peter/.miktex/texmfs/data/fonts/map/pdftex/pdftex.map}] [2]
+Overfull \hbox (16.87723pt too wide) in paragraph at lines 182--185
+[]\OT1/cmr/m/n/10 Equations are automatically numbered sequentially throughout your contribution
+ []
+
+
+Overfull \hbox (5.96042pt too wide) in paragraph at lines 186--190
+[]\OT1/cmr/m/n/10 When you are working in math mode everything is typeset in italics. Sometimes
+ []
+
+[3]
+Overfull \hbox (0.37598pt too wide) in paragraph at lines 311--315
+\OT1/cmr/m/n/10 should be defined at first occurrence, e.g. Plurisubharmonic (PSH) Functions,
+ []
+
+[4]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 372.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 372.
+ [5]
+Overfull \hbox (3.57158pt too wide) in paragraph at lines 447--451
+\OT1/cmr/m/n/10 The volume editor can produce a complete camera ready output including running
+ []
+
+
+Overfull \vbox (8.0pt too high) has occurred while \output is active []
+
+ [6]
+Overfull \hbox (13.37715pt too wide) in paragraph at lines 473--478
+\OT1/cmr/m/n/10 The contribution title and all headings should be capitalized except for conjunctions,
+ []
+
+[7] [8]
+Overfull \hbox (13.48703pt too wide) in paragraph at lines 597--603
+\OT1/cmr/m/n/10 in the font []\OT1/cmtt/m/n/10 <cap_font> \OT1/cmr/m/n/10 and the text itself in the font []\OT1/cmtt/m/n/10 <body_font>\OT1/cmr/m/n/10 . The environment
+ []
+
+
+Overfull \hbox (11.34877pt too wide) in paragraph at lines 625--631
+\OT1/cmr/m/n/10 In case you want to show pieces of program code, just use the []\OT1/cmtt/m/n/10 verbatim \OT1/cmr/m/n/10 environment
+ []
+
+[9] [10]
+\c@save=\count290
+ [11] [12] [13]
+Overfull \hbox (0.73824pt too wide) in paragraph at lines 877--888
+\OT1/cmr/m/n/10 for a separate production, the figures (line drawings and those containing halftone
+ []
+
+
+Overfull \hbox (7.50465pt too wide) in paragraph at lines 877--888
+\OT1/cmr/m/it/10 output\OT1/cmr/m/n/10 . They should be enclosed separately in camera-ready form (original artwork,
+ []
+
+[14] [15] [16]
+Overfull \hbox (14.5923pt too wide) in paragraph at lines 1036--1046
+\OT1/cmr/m/n/10 problems in loading additional \OMS/cmsy/m/n/10 A[]S\OT1/cmr/m/n/10 -T[]X fonts. Therefore we created the blackboard
+ []
+
+[17] [18] [19]
+Overfull \hbox (42.59766pt too wide) in paragraph at lines 1246--1250
+\OT1/cmr/m/n/10 (1982); the minimality...''. Then the []\OT1/cmtt/m/n/10 \bibitem \OT1/cmr/m/n/10 entry of []\OT1/cmtt/m/n/10 clar:eke \OT1/cmr/m/n/10 in the []\OT1/cmtt/m/n/10 thebibliography
+ []
+
+[20] (Template.aux)
+ ***********
+LaTeX2e <2023-06-01> patch level 1
+L3 programming layer <2023-10-10>
+ ***********
+ ) 
+Here is how much of TeX's memory you used:
+ 1066 strings out of 476759
+ 17908 string characters out of 5802701
+ 1937040 words of memory out of 5000000
+ 22809 multiletter control sequences out of 15000+600000
+ 567703 words of font info for 68 fonts, out of 8000000 for 9000
+ 0 hyphenation exceptions out of 8191
+ 57i,15n,65p,306b,312s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ </home/peter/.miktex/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx10.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx12.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx7.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx9.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi6.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi7.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi9.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmib10.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr5.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr7.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr9.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy6.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy7.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmti10.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmti7.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmtt10.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on Template.pdf (20 pages, 379887 bytes).
+PDF statistics:
+ 197 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
