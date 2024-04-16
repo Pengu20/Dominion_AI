@@ -61,9 +61,17 @@ def draw_n_cards_from_deck(player_state, n):
     # Shuffle deck if necessary
     
     if int(player_state["cards_in_deck"]) - n < 0:
+        
+        # Make sure, that the cards in deck that is already there before shuffling, is the first to be drawn.
+        for card in get_cards_in_deck(player_state):
+            player_state["known_cards_top_deck"] = np.append(player_state["known_cards_top_deck"], card)
+        
+        
         cards_in_discard = len(player_state["cards_in_discard"])
         player_state["cards_in_deck"] += cards_in_discard
         player_state["cards_in_discard"] = np.array([])
+
+
 
 
     deck = get_cards_in_deck(player_state)
