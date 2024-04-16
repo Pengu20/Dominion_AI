@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1713250009 "main.bcf" "main.bbl" "main" 1713250138 0
+["biber main"] 0 "main.bcf" "main.bbl" "main" 1713252834 -1
   "./resources.bib" 1713248760 7666 77025c34b1c7e20c54f0a69f370233e2 ""
-  "main.bcf" 1713250138 107149 62256bbed21eb10fe798adc52b5814d2 "pdflatex"
+  "main.bcf" 1713252834 107149 62256bbed21eb10fe798adc52b5814d2 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1713250136 "/home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI/Project_paper/main.tex" "main.pdf" "main" 1713250138 0
+["pdflatex"] 1713252832 "/home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI/Project_paper/main.tex" "main.pdf" "main" 1713252834 0
   "/home/peter/.miktex/texmfs/data/fonts/map/pdftex/pdftex.map" 1713249539 111327 a833ac442b5d17c8ef07af257d6af144 ""
   "/home/peter/.miktex/texmfs/data/miktex/data/le/pdftex/pdflatex.fmt" 1697982391 20996209 8df4b0d66d6a3d3cdec817326215c6f1 ""
   "/home/peter/.miktex/texmfs/install/fonts/enc/dvips/newtx/ntx-ec-tlf.enc" 1711706319 2914 fdbc4a54b9bc76f4551b5303f2737d33 ""
@@ -233,24 +233,27 @@
   "/home/peter/.miktex/texmfs/install/tex/latex/xkeyval/xkeyval.sty" 1697983705 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "/home/peter/.miktex/texmfs/install/tex/latex/xpatch/xpatch.sty" 1711706320 8510 9829c50ab36366d4da41fdc87e7d0699 ""
   "/home/peter/.miktex/texmfs/install/tex/latex/xstring/xstring.sty" 1711706321 123 a302f2c651a95033260db60e51527ae8 ""
-  "/home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI/Project_paper/main.tex" 1713250133 1132 3ffd065b74564f268bc6de064647796f ""
+  "/home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI/Project_paper/main.tex" 1713252829 1361 1185070e5a1b9957a1ee0ab042446093 ""
+  "chapters/Dominion_engine/Dominion_engine.tex" 1713252800 92 334ba97f59a18f62fad898737def48ca ""
   "chapters/Evaluation/Evaluation.tex" 1713250089 38 2eacaa2a8a4b788509a88ee8ae536ec1 ""
   "chapters/Future_work/future_work.tex" 1713250085 45 a5a4bb34a6b24f7331529dad8f4422fd ""
-  "chapters/Problem_formulation/problem_formulation.tex" 1713250004 77 90cac840f4a4d0f6c2f3d03ce16f6869 ""
-  "chapters/SOTA/SOTA.tex" 1713249879 44 a90f7cd1856cfe9e3ea3b450bbffdad1 ""
+  "chapters/Neural_networks_integration/NN_integrations.tex" 1713252684 80 5aa32b6561ce0e158b034b5cc479fe71 ""
+  "chapters/Problem_formulation/problem_formulation.tex" 1713252262 684 e81bb7c262c44ca6e92582bf8435b3ad ""
+  "chapters/RL_Training_scheme/Training_scheme.tex" 1713252707 60 291cfc564b431911200420fc41caa79d ""
+  "chapters/RL_methods/RL_methods.tex" 1713252639 70 469d4815469a85c8d7491d22e54744dc ""
   "chapters/conclusion/conclusion.tex" 1713250088 43 165844c8946d28acdff4642131583e30 ""
   "chapters/discussion/discussion.tex" 1713250088 43 a9c065f3e20b6aae3bd381eff118d122 ""
   "defs.tex" 1713248760 9025 1c16ec556e1e7914add2531468ff3ada ""
   "glossary.tex" 1713248760 319 93c9099c9016bfe4345a0dea8d57719c ""
   "img/SDU_logo.jpg" 1713248760 40796 6a194db3f131a7ed271c33bc9e2e3409 ""
-  "main.acn" 1713250137 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main.aux" 1713250138 2163 79aef5b6954b3319ec5fcd3bbd4915c8 "pdflatex"
+  "main.acn" 1713252833 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main.aux" 1713252834 3149 09814b9fda3cd2d4c878c0e1a8bbb334 "pdflatex"
   "main.bbl" 1713250010 466 ee04f40f768daeed26442158e95aba61 "biber main"
-  "main.glo" 1713250137 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main.out" 1713250138 723 9f5463bcaa8dd839af122676e5361ac7 "pdflatex"
-  "main.run.xml" 1713250138 2401 7db49f29b93d4323988d42f9644d11ae "pdflatex"
-  "main.tex" 1713250133 1132 3ffd065b74564f268bc6de064647796f ""
-  "main.toc" 1713250138 507 344e9a460b2c8a3e4ffab16626694dc2 "pdflatex"
+  "main.glo" 1713252833 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main.out" 1713252834 1689 2523302c664bc2c536fb14a287cbbb89 "pdflatex"
+  "main.run.xml" 1713252834 2401 7db49f29b93d4323988d42f9644d11ae "pdflatex"
+  "main.tex" 1713252829 1361 1185070e5a1b9957a1ee0ab042446093 ""
+  "main.toc" 1713252834 829 80b14995d00ee3e20bea662607586ec7 "pdflatex"
   "titlepage.tex" 1713248760 1109 cd74f55e3893757e12dac0ceadd233b0 ""
   (generated)
   "main.acn"

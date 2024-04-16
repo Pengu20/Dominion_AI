@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.22)  16 APR 2024 08:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.22)  16 APR 2024 09:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1307,7 +1307,11 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
- (main.aux)
+ (main.aux
+
+LaTeX Warning: Label `ch:Dominion_engine' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 8.
@@ -1479,7 +1483,7 @@ LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 17.28pt on input line 5.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
 (Font)              scaled to size 10.0pt on input line 9.
-<img/SDU_logo.jpg, id=31, 1204.5pt x 632.3625pt>
+<img/SDU_logo.jpg, id=43, 1204.5pt x 632.3625pt>
 File: img/SDU_logo.jpg Graphic file (type jpg)
 <use img/SDU_logo.jpg>
 Package pdftex.def Info: img/SDU_logo.jpg  used on input line 24.
@@ -1490,11 +1494,11 @@ Package pdftex.def Info: img/SDU_logo.jpg  used on input line 24.
 
 {/home/peter/.miktex/texmfs/data/fonts/map/pdftex/pdftex.map}{/home/peter/.miktex/texmfs/install/fonts/enc/dvips/newtx/ntx-ec-tlf.enc} <./img/SDU_logo.jpg>])
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 14.4pt on input line 22.
+(Font)              scaled to size 14.4pt on input line 24.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 20.74pt on input line 22.
+(Font)              scaled to size 20.74pt on input line 24.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 20.74pt on input line 22.
+(Font)              scaled to size 20.74pt on input line 24.
  (main.toc)
 \tf@toc=\write8
 \openout8 = `main.toc'.
@@ -1510,34 +1514,46 @@ LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.35 
+l.37 
       [1
 
 
 
-] (chapters/SOTA/SOTA.tex
+] (chapters/Dominion_engine/Dominion_engine.tex
 Chapter 2.
 ) [2
 
-] (chapters/Evaluation/Evaluation.tex
+] (chapters/RL_methods/RL_methods.tex
 Chapter 3.
 ) [3
 
-] (chapters/discussion/discussion.tex
+] (chapters/Neural_networks_integration/NN_integrations.tex
 Chapter 4.
 ) [4
 
-] (chapters/conclusion/conclusion.tex
+] (chapters/RL_Training_scheme/Training_scheme.tex
 Chapter 5.
 ) [5
 
-] (chapters/Future_work/future_work.tex
+] (chapters/Evaluation/Evaluation.tex
 Chapter 6.
 ) [6
 
+] (chapters/discussion/discussion.tex
+Chapter 7.
+) [7
+
+] (chapters/conclusion/conclusion.tex
+Chapter 8.
+) [8
+
+] (chapters/Future_work/future_work.tex
+Chapter 9.
+) [9
+
 ]
 
-LaTeX Warning: Empty bibliography on input line 59.
+LaTeX Warning: Empty bibliography on input line 67.
 
 
 Package caption Warning: Unused \captionsetup[figure] on input line 8.
@@ -1556,31 +1572,35 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[7
+[10
 
 ] (main.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2020/03/25>
  ***********
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 9F5463BCAA8DD839AF122676E5361AC7;723.
+(rerunfilecheck)             Checksum: 2523302C664BC2C536FB14A287CBBB89;1689.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 39591 strings out of 476759
- 721075 string characters out of 5802701
+ 39626 strings out of 476759
+ 722780 string characters out of 5802701
  1928040 words of memory out of 5000000
- 60640 multiletter control sequences out of 15000+600000
+ 60654 multiletter control sequences out of 15000+600000
  608331 words of font info for 87 fonts, out of 8000000 for 9000
  0 hyphenation exceptions out of 8191
  87i,6n,122p,2445b,1833s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </home/peter/.miktex/texmfs/install/fonts/type1/public/txfonts/t1xtt.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/ztmb.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/ztmr.pfb>
-Output written on main.pdf (9 pages, 132133 bytes).
+Output written on main.pdf (12 pages, 144596 bytes).
 PDF statistics:
- 103 PDF objects out of 1000 (max. 8388607)
- 18 named destinations out of 1000 (max. 500000)
- 62 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 131 PDF objects out of 1000 (max. 8388607)
+ 24 named destinations out of 1000 (max. 500000)
+ 86 words of extra memory for PDF output out of 10000 (max. 10000000)
 

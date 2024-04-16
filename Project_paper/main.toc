@@ -1,8 +1,11 @@
 \babel@toc {english}{}\relax 
-\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {1}Project specification}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Problem constraint}{1}{section.1.1}%
-\contentsline {chapter}{\numberline {2}Background}{2}{chapter.2}%
-\contentsline {chapter}{\numberline {3}evaluation}{3}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Discussion}{4}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Conclusion}{5}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Future work}{6}{chapter.6}%
+\contentsline {chapter}{\numberline {2}Task: Creating a dominion engine suited for a RL agent}{2}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Task: choosing and creating RL agents}{3}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Task: implementing a neural network Q-table}{4}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Task: Training scheme}{5}{chapter.5}%
+\contentsline {chapter}{\numberline {6}evaluation}{6}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Discussion}{7}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Conclusion}{8}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Future work}{9}{chapter.9}%
