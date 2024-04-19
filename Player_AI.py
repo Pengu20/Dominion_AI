@@ -36,6 +36,7 @@ class Dominion_reward():
                 reward (int): [description] The reward that the player gets from the game state
         '''
 
+
         # The rewards based on cards in deck, should only be given, 
         # when the card enters the deck, not at all times with the given cards
 
@@ -551,7 +552,7 @@ class Deep_SARSA:
         '''
         time_start = time.time()
 
-        self.model.fit(input_matrix, output_matrix, epochs=10, verbose=0, batch_size=16)
+        self.model.fit(input_matrix, output_matrix, epochs=epochs, verbose=0, batch_size=16)
 
         self.NN_training_time.append(time.time() - time_start)
 
@@ -1221,6 +1222,7 @@ class Deep_Q_learning(Deep_SARSA):
 
 
 
+
 class Deep_expected_sarsa(Deep_SARSA):
     
     def expected_sarsa_update(self, game_state, list_of_actions, game_ended=False):
@@ -1347,7 +1349,6 @@ class Deep_expected_sarsa(Deep_SARSA):
 
 
 
-
 class random_player:
     def __init__(self, player_name):
         self.rf = Dominion_reward()
@@ -1377,7 +1378,16 @@ class random_player:
     
 
     def choose_action(self, list_of_actions, game_state):
-        return np.random.choice(list_of_actions)
+
+        ## Can never buy curses.
+        action = np.random.choice(list_of_actions)
+        if game_state["Unique_actions"] == "buy":
+            while action == 6:
+                action = np.random.choice(list_of_actions)
+
+
+
+        return action
 
 
     def write_state_reward_to_file(self, game_state):
