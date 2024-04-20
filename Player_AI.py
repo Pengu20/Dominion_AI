@@ -1051,10 +1051,9 @@ class Deep_Q_learning(Deep_SARSA):
         # Defining learning step - Is 0 if the only action available is the terminate action
         learning_step = alpha * (reward + gamma*expected_return - old_expected_return)
 
-        # if self.only_terminate_action:
-        #     learning_step = 0
 
-
+        if not(not(self.greedy_mode) or game_ended):
+            learning_step = 0
 
         # Q_learning update
         old_expected_return_updated = old_expected_return + learning_step
