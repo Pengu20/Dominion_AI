@@ -1024,8 +1024,8 @@ class Deep_Q_learning(Deep_SARSA):
         '''
 
         start_time = time.time()
-        alpha = 0.3 # Learning rate
-        gamma = 0.70 # Discount factor
+        alpha = 0.1 # Learning rate
+        gamma = 0.65 # Discount factor
 
 
         # SA -> State action
