@@ -138,7 +138,7 @@ class Dominion_reward():
 
         Province_difference_reward = abs((province_main - province_adv)) * np.sign(province_main - province_adv)
 
-        Province_owned_reward = (new_province*200)
+        Province_owned_reward = (new_province*500)
 
 
 
@@ -190,7 +190,7 @@ class Dominion_reward():
             if card == 2:
                 gold_cards += 1
         
-        gold_reward = (150*gold_cards)
+        gold_reward = (300*gold_cards)
 
 
         # ---------------- reward for having alot of value (weighted by deck size) ----------------
