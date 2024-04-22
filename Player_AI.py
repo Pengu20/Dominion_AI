@@ -858,7 +858,7 @@ class Deep_SARSA:
 
 
 
-        print(f"SARSA avg_time: {np.mean(self.take_action_time)} - RUN TIMES {len(self.take_action_time)}")
+        print(f"{self.player_name} avg_time: {np.mean(self.take_action_time)} - RUN TIMES {len(self.take_action_time)}")
         # print(f"NN predict: {np.mean(NN_predict_time)} - RUN {len(NN_predict_time)}")
         # print(f"NN training: {np.mean(NN_training_time)} - RUN {len(NN_training_time)}")
 
@@ -1053,7 +1053,7 @@ class Deep_Q_learning(Deep_SARSA):
         self.all_returns.append(reward)
 
         # Defining learning step - Is 0 if the only action available is the terminate action
-        learning_step = alpha * (reward + gamma*expected_return - old_expected_return)
+        learning_step = float(alpha * (reward + gamma*expected_return - old_expected_return))
 
 
         if not(not(self.greedy_mode) or game_ended):
@@ -1077,7 +1077,7 @@ class Deep_Q_learning(Deep_SARSA):
 
 
         self.turns_in_game += 1
-        if self.greedy_mode == False:
+        if self.greedy_mode == False and not game_ended:
             # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
             self.batch_size = 16
@@ -1090,6 +1090,17 @@ class Deep_Q_learning(Deep_SARSA):
                 
 
                 self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=4)
+
+
+        # Game end update
+        if game_ended:
+
+
+            self.batch_size = 1
+
+            input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
+            output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
+            self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=4)
 
 
 
