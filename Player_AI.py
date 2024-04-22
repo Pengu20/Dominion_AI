@@ -77,7 +77,7 @@ class Dominion_reward():
 
             # If the province pile is empty, the player won by provinces and gets an extra reward
             if game_state["supply_amount"][5] == 0:
-                Victory_reward += 5000
+                Victory_reward += 9000
 
 
         elif (game_state["adv_Player_won"] == 1):
@@ -1029,7 +1029,7 @@ class Deep_Q_learning(Deep_SARSA):
 
         start_time = time.time()
         alpha = 0.1 # Learning rate
-        gamma = 0.65 # Discount factor
+        gamma = 0.55 # Discount factor
 
 
         # SA -> State action
