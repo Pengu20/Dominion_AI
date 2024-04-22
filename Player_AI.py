@@ -864,8 +864,7 @@ class Deep_SARSA:
 
 
 
-
-
+        self.take_action_time = []
         self.SARSA_update_time = []
         self.convert_state2list_time = []
         self.NN_predict_time = []
@@ -1203,11 +1202,11 @@ class Deep_Q_learning(Deep_SARSA):
         all_actions = np.concatenate(self.input_data_past_actions, axis=0)
         all_output = np.concatenate(self.output_label_past_games, axis=0)
 
-        self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=30, verybose=0, batch_size=32)
+        self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=10, verybose=0, batch_size=32)
 
 
 
-        if len(self.input_data_past_game_states) >= 100:
+        if len(self.input_data_past_game_states) >= 30:
             self.input_data_past_game_states = self.input_data_past_game_states[1:]
             self.input_data_past_actions = self.input_data_past_actions[1:]
 
