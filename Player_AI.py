@@ -375,8 +375,11 @@ class Deep_SARSA:
         self.convert_state2list_time = []
         self.NN_predict_time = []
         self.NN_training_time = []
-        self.NN_error = []
+        self.take_action_time = []
 
+
+
+        self.NN_error = []
         ## Experimental design, where neural network is first updates at the end of the game using SARSA
 
 
@@ -847,7 +850,7 @@ class Deep_SARSA:
         open_file.close()
 
 
-        print("Average times: ")
+
         sarsa_time = np.array(self.SARSA_update_time)
         convert2list_time = np.array(self.convert_state2list_time)
         NN_predict_time = np.array(self.NN_predict_time)
@@ -855,9 +858,8 @@ class Deep_SARSA:
 
 
 
-        print(f"SARSA update: {np.mean(sarsa_time)} - RUN {len(sarsa_time)} times")
-        print(f"Convert to list: {np.mean(convert2list_time)} - RUN {len(convert2list_time)}")
-        print(f"NN predict: {np.mean(NN_predict_time)} - RUN {len(NN_predict_time)}")
+        print(f"SARSA avg_time: {np.mean(self.take_action_time)} - RUN TIMES {len(self.take_action_time)}")
+        # print(f"NN predict: {np.mean(NN_predict_time)} - RUN {len(NN_predict_time)}")
         # print(f"NN training: {np.mean(NN_training_time)} - RUN {len(NN_training_time)}")
 
 
@@ -983,6 +985,7 @@ class greedy_NN(Deep_SARSA):
     def choose_action(self, list_of_actions, game_state):
         
         # now... i know i'ts called a greedy agent, but lets just sweep under the rug, that it actually uses an epsilon greedy policy
+        action_time = time.time()
 
         action = self.epsilon_greedy_policy(list_of_actions=list_of_actions, game_state=game_state, epsilon=self.epsilon_value)
         # action = self.greedy_choice(list_of_actions=list_of_actions, game_state=game_state)
@@ -992,6 +995,8 @@ class greedy_NN(Deep_SARSA):
 
         self.game_state_history.append(game_state)
 
+
+        self.take_action_time.append(time.time() - action_time)
         #Remove the previous old values of game state and action history
         return action
    
@@ -1150,6 +1155,7 @@ class Deep_Q_learning(Deep_SARSA):
             self.action_history.append(np.random.choice(list_of_actions))
             return self.action_history[-1]
         else:
+            action_time = time.time()
 
             if self.greedy_mode:
                 action = self.greedy_choice(list_of_actions, game_state)
@@ -1172,6 +1178,7 @@ class Deep_Q_learning(Deep_SARSA):
             self.action_history.append(copy.deepcopy(action))
 
             #Remove the previous old values of game state and action history
+            self.take_action_time.append(time.time() - action_time)
             return action
 
 
