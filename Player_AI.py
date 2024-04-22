@@ -190,7 +190,7 @@ class Dominion_reward():
             if card == 2:
                 gold_cards += 1
         
-        gold_reward = (300*gold_cards)
+        gold_reward = (800*gold_cards)
 
 
         # ---------------- reward for having alot of value (weighted by deck size) ----------------
@@ -1029,7 +1029,7 @@ class Deep_Q_learning(Deep_SARSA):
 
         start_time = time.time()
         alpha = 0.1 # Learning rate
-        gamma = 0.55 # Discount factor
+        gamma = 0.45 # Discount factor
 
 
         # SA -> State action
