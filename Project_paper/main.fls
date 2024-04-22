@@ -1,6 +1,6 @@
-PWD /home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI/Project_paper
+PWD /home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI_paper_branch/Dominion_AI/Project_paper
 INPUT /home/peter/.miktex/texmfs/data/miktex/data/le/pdftex/pdflatex.fmt
-INPUT /home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI/Project_paper/main.tex
+INPUT /home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI_paper_branch/Dominion_AI/Project_paper/main.tex
 OUTPUT main.log
 INPUT /home/peter/.miktex/texmfs/install/tex/latex/base/report.cls
 INPUT /home/peter/.miktex/texmfs/install/tex/latex/base/report.cls
@@ -548,6 +548,8 @@ INPUT /home/peter/.miktex/texmfs/install/fonts/tfm/public/newtx/ntx-Bold-tlf-t1.
 INPUT ./chapters/Dominion_engine/Dominion_engine.tex
 INPUT ./chapters/Dominion_engine/Dominion_engine.tex
 INPUT chapters/Dominion_engine/Dominion_engine.tex
+INPUT /home/peter/.miktex/texmfs/install/fonts/tfm/public/newtx/ntx-Regular-tlf-t1.tfm
+INPUT /home/peter/.miktex/texmfs/install/fonts/tfm/public/newtx/ntx-Bold-tlf-t1.tfm
 INPUT ./chapters/RL_methods/RL_methods.tex
 INPUT ./chapters/RL_methods/RL_methods.tex
 INPUT chapters/RL_methods/RL_methods.tex

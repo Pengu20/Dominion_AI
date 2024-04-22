@@ -1,6 +1,28 @@
 \chapter{Project specification} \label{ch:intro}
-\textcolor{red}{In this segment the specified assignment is explained. Both the general and the specification made by the student. Furthermore, all problem tasks will be listed. (Creating a dominion engine for the AI, determining, designing and creating the AI agent that must play the game, Implementing a deep learning approach for the Q-table, and finally, evaluation criteria for the AI agent, that will be used)}
+For this project, an AI agent must be designed, constructed and evaluated, based on a board game called "Dominion". The main problems posed, is the navigation and optimization of trajectories in large discrete state spaces. The aim for this project is therefore to construct a Reinforcement Learning method which can be used for large discrete spaces.\\\\
+3 Different methods will be used to train a Reinforcement Learning agent to play the game Dominion. These methods will then be compared to each other as the conclusion of this paper. The structure of the entire project is shown as following:
+The project is divided into the following tasks:
+\begin{itemize}
+    \item Create a Dominion engine that can be used to simulate games of Dominion.
+    \item Design and create an AI agent that can play the game Dominion.
+    \item Implement a deep learning approach for the Q-table.
+    \item Create a training scheme for the AI agent.
+    \item Evaluate the AI agent.
+    \item Discuss the results of the AI agent.
+    \item Conclude on the work.
+\end{itemize}
+
 
 
 \section{Problem constraint}
-\textcolor{red}{This section is dedicated to constraints that must be states about the agent that is created. Cant think of any constraints at the moment, but there might be some}
+For this project there are some constraints which must be taken into consideration. These constraints are:
+\begin{itemize}
+    \item The Dominion game can only support 2 players (The trained player, and the test player)
+    \item The tested method are all within the category of 1-step temporal difference learning methods.
+    \item The game normally varies for each game, as the cards present are randomized. For this project, the agent will train on a fixed set of cards.
+\end{itemize}
+
+The reason for only supporting 2 players, is that the game poses the problem of large variance due to the nature of the game. As the game already has large variance, it would be difficult to train and visualize progress, if the player had to battle more than one opponent. 
+The reason for only evaluating methods within the category of 1-step temporal difference learning methods, is due to the limits of the time frame of the project. Furthermore, the main focus is to evaluate the differences between 3 different methods. Diverging from the specified category comparing only 3 methods, would pose too many variables to consider, if the methods yield different results. It would therefore be difficult to determine the cause of the difference in results. Is the winrate affected by the use of 10 steps instead of 1-step SARSA? Is it because of the low bias of monte carlo non-bootstrapping methods? Or is it because of the high bias of the 1-step SARSA method? These are questions that would be difficult to answer if the methods were not within the same category. For future work, more methods can be evaluated, and the category can be expanded to include more methods.
+The game features randomization in the game setup, in which the AI must be capable of generalizing its knowledge to other domains which are similar the learned domain. Due to the time constraint of the project, and a lack of computational power, the game setup has been set to a  fixed game setup for the AI to train on. The concept of domain variation due to randomization in the board game, will be discussed at the rules of the game.
+

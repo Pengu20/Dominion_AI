@@ -1,11 +1,14 @@
 \babel@toc {english}{}\relax 
 \contentsline {chapter}{\numberline {1}Project specification}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Problem constraint}{1}{section.1.1}%
-\contentsline {chapter}{\numberline {2}Task: Creating a dominion engine suited for a RL agent}{2}{chapter.2}%
-\contentsline {chapter}{\numberline {3}Task: choosing and creating RL agents}{3}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Task: implementing a neural network Q-table}{4}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Task: Training scheme}{5}{chapter.5}%
-\contentsline {chapter}{\numberline {6}evaluation}{6}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Discussion}{7}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Conclusion}{8}{chapter.8}%
-\contentsline {chapter}{\numberline {9}Future work}{9}{chapter.9}%
+\contentsline {chapter}{\numberline {2}Task: Creating a dominion engine suited for a RL agent}{3}{chapter.2}%
+\contentsline {subsection}{\numberline {2.0.1}General rules of the board game Dominion}{3}{subsection.2.0.1}%
+\contentsline {subsection}{\numberline {2.0.2}Specifications of criteria for the Dominion engine}{4}{subsection.2.0.2}%
+\contentsline {subsection}{\numberline {2.0.3}Finished Implementation of the Dominion Engine}{4}{subsection.2.0.3}%
+\contentsline {chapter}{\numberline {3}Task: choosing and creating RL agents}{6}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Task: implementing a neural network Q-table}{7}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Task: Training scheme}{8}{chapter.5}%
+\contentsline {chapter}{\numberline {6}evaluation}{9}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Discussion}{10}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Conclusion}{11}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Future work}{12}{chapter.9}%
