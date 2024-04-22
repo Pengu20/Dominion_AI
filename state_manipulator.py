@@ -221,7 +221,9 @@ def supply2discard(game_state, player_state, card):
     ''' [Summary]
     This function will move a card from the supply pile to the discard pile.
     '''
+    set_index = card_idx_2_set_idx(card, game_state)
 
+    
     # Cannot gain card from supply if there is no more of them
     if game_state["supply_amount"][set_index] == 0:
         return game_state
@@ -234,7 +236,7 @@ def supply2discard(game_state, player_state, card):
     player_state["owned_cards"] = np.append(player_state["owned_cards"], card)
 
     # Remove a card from the supply pile
-    set_index = card_idx_2_set_idx(card, game_state)
+    
     game_state["supply_amount"][set_index] = str(int(game_state["supply_amount"][set_index]) - 1)
 
     game_state = merge_game_player_state(game_state, player_state)
