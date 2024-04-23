@@ -40,7 +40,7 @@ class Dominion_reward():
         # The rewards based on cards in deck, should only be given, 
         # when the card enters the deck, not at all times with the given cards
 
-        reward = -20
+        reward = -5
         Victory_reward = 0 #20 if won -100 if lost, extra 180, if won by provinces
 
         Victory_points_difference_reward = 0 # 10 per victory point difference
@@ -73,11 +73,11 @@ class Dominion_reward():
 
         # ---------------- Reward based on game end ----------------
         if   (game_state["main_Player_won"] == 1):
-            Victory_reward = 1000
+            Victory_reward = 500
 
             # If the province pile is empty, the player won by provinces and gets an extra reward
             if game_state["supply_amount"][5] == 0:
-                Victory_reward += 9000
+                Victory_reward += 50000
 
 
         elif (game_state["adv_Player_won"] == 1):
@@ -138,7 +138,7 @@ class Dominion_reward():
 
         Province_difference_reward = abs((province_main - province_adv)) * np.sign(province_main - province_adv)
 
-        Province_owned_reward = (new_province*500)
+        Province_owned_reward = (new_province*1000)
 
 
 
@@ -190,7 +190,7 @@ class Dominion_reward():
             if card == 2:
                 gold_cards += 1
         
-        gold_reward = (800*gold_cards)
+        gold_reward = (2000*gold_cards)
 
 
         # ---------------- reward for having alot of value (weighted by deck size) ----------------
@@ -1096,7 +1096,7 @@ class Deep_Q_learning(Deep_SARSA):
         if game_ended:
 
 
-            self.batch_size = 1
+            self.batch_size = 16
 
             input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
             output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
