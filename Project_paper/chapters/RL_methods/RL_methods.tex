@@ -1,2 +1,16 @@
 \chapter{Task: choosing and creating RL agents} \label{ch:RL_methods}
 
+For this part of the project, it has to be decided which kind of Reinforcement Learning method must be used. Due to the constraints of the assignment, it must either be a Monte Carlo based approach, or a Temporal Difference (TD) based approach. Between these to categories, it is decided that it would make more sense to focus on different Temporal Difference methods, since these offers more variety to work with. As stated earlier also, the project will focus on 1-step version of the most known TD-methods. The TD-methods that will be implemented are SARSA, Q-learning and Expected SARSA.
+A brief introduction to all three methods will be given in this section.
+
+\subsection{SARSA}
+This method is the most fundamental TD-method which will be the fundament which Q-learning and Expected SARSA will work on. SARSA is an on-policy method that introduces a concept called bootstrapping in comparison to Monte Carlo type methods. The bootstrapping concept works on updating the value function based on the estimation of the next state and action. Meaning that the value function is updated based on an estimate instead of the actual reward. This method theoretically lowers the variance of expected returns in comparison to Monte Carlo methods. The update function for SARSA is as follows:
+
+\begin{equation}
+    Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \left[ R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t) \right]
+\end{equation}
+
+Where $Q(S_t, A_t)$ is the value function for state $S_t$ and action $A_t$, $\alpha$ is the learning rate, $R_{t+1}$ is the reward received after taking action $A_t$ in state $S_t$, $\gamma$ is the discount factor, $Q(S_{t+1}, A_{t+1})$ is the value function for the next state and action.
+
+It should be noted, that for SARSA, then the next state is chosen based on an action taken with the current policy, hence making this method on-policy.
+
