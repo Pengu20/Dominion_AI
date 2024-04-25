@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.22)  24 APR 2024 19:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.22)  25 APR 2024 20:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1281,4 +1281,408 @@ Package: glossary-tree 2023/09/29 v4.53 (NLCT)
 )) (/home/peter/.miktex/texmfs/install/tex/latex/glossaries/styles/glossary-mcols.sty
 Package: glossary-mcols 2023/09/29 v4.53 (NLCT)
 )
-runsystem(makeinde
+runsystem(makeindex -s main.ist -t main.glg -o main.gls main.glo)...executed safely (allowed).
+
+runsystem(makeindex -s main.ist -t main.alg -o main.acr main.acn)...executed safely (allowed).
+
+\glswrite=\write4
+\glo@main@file=\write5
+\openout5 = `main.glo'.
+
+Package glossaries Info: Writing glossary file main.glo on input line 265.
+\glo@acronym@file=\write6
+\openout6 = `main.acn'.
+
+Package glossaries Info: Writing glossary file main.acn on input line 265.
+ (glossary.tex))
+runsystem(bash wc.sh)...disabled (restricted).
+
+LaTeX Font Info:    Trying to load font information for T1+ntxtlf on input line 8.
+ (/home/peter/.miktex/texmfs/install/tex/latex/newtx/t1ntxtlf.fd
+File: t1ntxtlf.fd 2021/05/24 v1.1 font definition file for T1/ntx/tlf
+)
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 10.0pt on input line 8.
+Package csquotes Info: Checking for multilingual support...
+Package csquotes Info: ... found 'babel' package.
+Package csquotes Info: Adjusting default style.
+Package csquotes Info: Redefining alias 'default' -> 'english'.
+ (main.aux
+
+LaTeX Warning: Label `ch:Dominion_engine' multiply defined.
+
+)
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 8.
+LaTeX Font Info:    Trying to load font information for OML+ntxmi on input line 8.
+ (/home/peter/.miktex/texmfs/install/tex/latex/newtx/omlntxmi.fd
+File: omlntxmi.fd 2015/08/25 Fontinst v1.933 font definitions for OML/ntxmi.
+)
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 8.
+LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 8.
+ (/home/peter/.miktex/texmfs/install/tex/latex/newtx/untxexa.fd
+File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
+)
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 8.
+LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line 8.
+ (/home/peter/.miktex/texmfs/install/tex/latex/newtx/lmsntxsy.fd
+File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
+)
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 8.
+LaTeX Font Info:    Trying to load font information for LMX+ntxexx on input line 8.
+ (/home/peter/.miktex/texmfs/install/tex/latex/newtx/lmxntxexx.fd
+File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
+)
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: includefoot 
+* h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
+* v-part:(T,H,B)=(71.13188pt, 702.78308pt, 71.13188pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=455.24411pt
+* \textheight=672.78308pt
+* \oddsidemargin=-1.1381pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-38.1381pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(/home/peter/.miktex/texmfs/install/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count530
+\scratchdimen=\dimen368
+\scratchbox=\box131
+\nofMPsegments=\count531
+\nofMParguments=\count532
+\everyMPshowfont=\toks68
+\MPscratchCnt=\count533
+\MPscratchDim=\dimen369
+\MPnumerator=\count534
+\makeMPintoPDFobject=\count535
+\everyMPtoPDFconversion=\toks69
+) (/home/peter/.miktex/texmfs/install/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (/home/peter/.miktex/texmfs/install/tex/latex/00miktex/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
+\c@mv@tabular=\count536
+\c@mv@boldtabular=\count537
+LaTeX Info: Command `\dddot' is already robust on input line 8.
+LaTeX Info: Command `\ddddot' is already robust on input line 8.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: longtable package is loaded.
+ (/home/peter/.miktex/texmfs/install/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
+)
+Package caption Info: supertabular package is loaded.
+Package caption Info: End \AtBeginDocument code.
+ (/home/peter/.miktex/texmfs/install/tex/latex/siunitx/siunitx-abbreviations.cfg
+File: siunitx-abbreviations.cfg 2021-04-17 v2.8e siunitx: Abbreviated units
+) (/home/peter/.miktex/texmfs/install/tex/latex/translator/translator-basic-dictionary-English.dict
+Dictionary: translator-basic-dictionary, Language: English 
+)
+\c@lstlisting=\count538
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+ (/home/peter/.miktex/texmfs/install/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2023/03/05 v3.19 biblatex localization (PK/MW)
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout3 = `main.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'main.bbl' found.
+ (main.bbl)
+Package biblatex Info: Reference section=0 on input line 8.
+Package biblatex Info: Reference segment=0 on input line 8.
+Package hyperref Info: Link coloring OFF on input line 8.
+ (main.out) (main.out)
+\@outlinefile=\write7
+\openout7 = `main.out'.
+
+ (/home/peter/.miktex/texmfs/install/tex/latex/siunitx/siunitx-binary.cfg
+File: siunitx-binary.cfg 2021-04-17 v2.8e siunitx: Binary units
+)
+LaTeX Font Info:    Trying to load font information for OT1+minntx on input line 8.
+ (/home/peter/.miktex/texmfs/install/tex/latex/newtx/ot1minntx.fd
+File: ot1minntx.fd 2023/09/09 v1.1 font definition file for OT1/minntx
+)
+LaTeX Font Info:    Trying to load font information for U+ntxmia on input line 8.
+ (/home/peter/.miktex/texmfs/install/tex/latex/newtx/untxmia.fd
+File: untxmia.fd 2018/04/14 Fontinst v1.933 font definitions for U/ntxmia.
+)
+LaTeX Font Info:    Trying to load font information for U+ntxsym on input line 8.
+ (/home/peter/.miktex/texmfs/install/tex/latex/newtx/untxsym.fd
+File: untxsym.fd 2023/08/16 Fontinst v1.933 font definitions for U/ntxsym.
+)
+LaTeX Font Info:    Trying to load font information for U+ntxsyc on input line 8.
+ (/home/peter/.miktex/texmfs/install/tex/latex/newtx/untxsyc.fd
+File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
+)
+LaTeX Font Info:    Trying to load font information for OT1+qhv on input line 8.
+ (/home/peter/.miktex/texmfs/install/tex/latex/tex-gyre/ot1qhv.fd
+File: ot1qhv.fd 2009/09/25 v1.2 font definition file for OT1/qhv
+)
+LaTeX Font Info:    Trying to load font information for T1+ntxtt on input line 8.
+ (/home/peter/.miktex/texmfs/install/tex/latex/newtx/t1ntxtt.fd
+File: t1ntxtt.fd 2012/04/20 v3.1
+)
+LaTeX Font Info:    Font shape `T1/ntxtt/m/n' will be
+(Font)              scaled to size 10.0pt on input line 8.
+LaTeX Font Info:    Font shape `T1/ntxtt/m/n' will be
+(Font)              scaled to size 7.3pt on input line 8.
+LaTeX Font Info:    Font shape `T1/ntxtt/m/n' will be
+(Font)              scaled to size 5.5pt on input line 8.
+ (titlepage.tex
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 17.28pt on input line 5.
+LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
+(Font)              scaled to size 10.0pt on input line 9.
+<img/SDU_logo.jpg, id=75, 1204.5pt x 632.3625pt>
+File: img/SDU_logo.jpg Graphic file (type jpg)
+<use img/SDU_logo.jpg>
+Package pdftex.def Info: img/SDU_logo.jpg  used on input line 24.
+(pdftex.def)             Requested size: 284.52756pt x 149.37714pt.
+ [1
+
+\openout4 = `main.ist'.
+
+{/home/peter/.miktex/texmfs/data/fonts/map/pdftex/pdftex.map}{/home/peter/.miktex/texmfs/install/fonts/enc/dvips/newtx/ntx-ec-tlf.enc} <./img/SDU_logo.jpg>])
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 14.4pt on input line 24.
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 20.74pt on input line 24.
+LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
+(Font)              scaled to size 20.74pt on input line 24.
+ (main.toc)
+\tf@toc=\write8
+\openout8 = `main.toc'.
+
+ [1
+
+
+] (chapters/Problem_formulation/problem_formulation.tex
+Chapter 1.
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--6
+
+ []
+
+LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
+(Font)              scaled to size 14.4pt on input line 17.
+)
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.37 
+      [1
+
+
+
+] [2] (chapters/Dominion_engine/Dominion_engine.tex
+Chapter 2.
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 12.0pt on input line 5.
+LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
+(Font)              scaled to size 12.0pt on input line 5.
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 5.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--29
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--29
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--29
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--29
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--29
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--29
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--29
+
+ []
+
+[3
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 43--45
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 48--51
+
+ []
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
+
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 76--40
+
+ []
+
+[5] (chapters/RL_methods/RL_methods.tex
+Chapter 3.
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 8.
+
+[6
+
+{/home/peter/.miktex/texmfs/install/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc}]) [7] (chapters/Neural_networks_integration/NN_integrations.tex
+Chapter 4.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 7--46
+
+ []
+
+[8
+
+] (chapters/RL_Training_scheme/Training_scheme.tex
+Chapter 5.
+) [9
+
+] (chapters/Evaluation/Evaluation.tex
+Chapter 6.
+) [10
+
+] (chapters/discussion/discussion.tex
+Chapter 7.
+) [11
+
+] (chapters/conclusion/conclusion.tex
+Chapter 8.
+) [12
+
+] (chapters/Future_work/future_work.tex
+Chapter 9.
+) [13
+
+]
+
+LaTeX Warning: Empty bibliography on input line 67.
+
+
+Package caption Warning: Unused \captionsetup[figure] on input line 8.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: Unused \captionsetup[subfigure] on input line 8.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: Unused \captionsetup[table] on input line 8.
+See the caption package documentation for explanation.
+
+
+Package glossaries Warning: No \printglossary or \printglossaries found. 
+(Remove \makeglossaries if you don't want any glossaries.) 
+This document will not have a glossary.
+
+[14
+
+] (main.aux)
+ ***********
+LaTeX2e <2023-06-01> patch level 1
+L3 programming layer <2020/03/25>
+ ***********
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 26F1EECBFD9145DCBF7F420093E8240D;3285.
+Package logreq Info: Writing requests to 'main.run.xml'.
+\openout1 = `main.run.xml'.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 39676 strings out of 476759
+ 724267 string characters out of 5802701
+ 1934040 words of memory out of 5000000
+ 60675 multiletter control sequences out of 15000+600000
+ 619492 words of font info for 102 fonts, out of 8000000 for 9000
+ 0 hyphenation exceptions out of 8191
+ 87i,6n,122p,2470b,1833s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/NewTXMI.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/NewTXMI7.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/txfonts/t1xtt.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/txexs.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/txsys.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/ztmb.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/ztmr.pfb>
+Output written on main.pdf (16 pages, 203463 bytes).
+PDF statistics:
+ 224 PDF objects out of 1000 (max. 8388607)
+ 39 named destinations out of 1000 (max. 500000)
+ 150 words of extra memory for PDF output out of 10000 (max. 10000000)
+

@@ -1,1 +1,8 @@
-\chapter{Task: implementing a neural network Q-table} \label{ch:NN_integration}
+\chapter{Task: implementing a neural network Q-table} \label{ch:neural_networks}
+For this project a neural network must be used to approximate the value function for the agent. This is due to the large size of the dominion state space as discussed in chapter \ref{sec:engine_implementation}. This chapter will discuss all the details of the implemented neural network, which is identical for all agents.
+
+\section{Neural network structure}
+\textcolor{red}{Make a drawing of the neural network}
+
+As shown in the neural network then the action values are fed into the neural network, as a residual connection. This is due to the fact, that it was observed that the actions has little value for the final result of the value function. As the actions are also passed in later in the neural network, the symbolic representation of the actions are represented stronger in the final output. Furthermore, it should also be noted, that a significant finding, was that the ReLU activation function was better than any other activation function tested. This is most likely due, to the fact, that the ReLU has an infinite range of positive values, which is beneficial for the value function. Though it should also be noticed, that the two last layers use linear layers, as the output of the value function should support being any number between -$\infty$ and $\infty$.\\\\
+Using this neural network structure then it is time for the agents to train on the Dominion game. This will be discussed in the next chapter.

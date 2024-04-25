@@ -39,7 +39,7 @@ The specific criteria for the Dominion engine are as follows:
     \item All actions that can be made in the game must exclusively be run by the agent that is inserted into the game.
 \end{itemize}
 
-\subsection{Finished Implementation of the Dominion Engine}
+\subsection{Finished Implementation of the Dominion Engine} \label{sec:engine_implementation}
 The finished implementation of the Dominion engine is a python class, which can input arbitrary players and simulate the game. An illustration of the class structure is shown below:\\\\
 \textcolor{red}{Show illustration of the class structure.}
 
@@ -70,6 +70,8 @@ The game state is a dictionary object, which contains the following keys:\\\\
     \item Treasure value
     \item Victory points
 \end{itemize}
+
+It should be observed that each listed key is a unique dimension that the value function must account for. As it is known that there are 17 piles in the game, then the first two keys correspond to 34 dimensions, with approximately 20 values for each. That in itself spans a state space that is 1.71e+44 unique states large. As a normal value function would be too impractical to train, a neural network must be used to approximate the value function. The neural network will be discussed in chapter \ref{ch:neural_networks}.\\\\
 
 An interesting note, is that information regarding the opponent player is partially observable. An example, is that cards in the opponent's hand is not shown, but the amount of cards in the hand is. In the same way, both the order of the cards in the opponent and the player's deck is not shown, but the amount of cards in the deck is.\\\\
 Another aspect of the Dominion game, is that since the game only had to support AI agent training, then no GUI is created. This in turn also makes the game go significantly faster than a normal average game. The average game length of the engine using two agents is around 5-10 seconds, instead of 20-30 minutes. The game engine is now ready to be used to train an AI.

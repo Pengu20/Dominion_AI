@@ -571,6 +571,9 @@ INPUT /home/peter/.miktex/texmfs/install/fonts/vf/public/newtx/ntx-Regular-tlf-o
 INPUT /home/peter/.miktex/texmfs/install/fonts/tfm/public/newtx/txmiaX.tfm
 INPUT /home/peter/.miktex/texmfs/install/fonts/tfm/public/newtx/ntx-Regular-tlf-ot1r.tfm
 INPUT /home/peter/.miktex/texmfs/install/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc
+INPUT /home/peter/.miktex/texmfs/install/fonts/vf/public/newtx/ntx-Regular-tlf-ot1.vf
+INPUT /home/peter/.miktex/texmfs/install/fonts/tfm/public/newtx/txmiaX.tfm
+INPUT /home/peter/.miktex/texmfs/install/fonts/tfm/public/newtx/ntx-Regular-tlf-ot1r.tfm
 INPUT ./chapters/Neural_networks_integration/NN_integrations.tex
 INPUT ./chapters/Neural_networks_integration/NN_integrations.tex
 INPUT chapters/Neural_networks_integration/NN_integrations.tex

@@ -1,7 +1,9 @@
 \chapter{Task: choosing and creating RL agents} \label{ch:RL_methods}
 
 For this part of the project, it has to be decided which kind of Reinforcement Learning method must be used. Due to the constraints of the assignment, it must either be a Monte Carlo based approach, or a Temporal Difference (TD) based approach. Between these to categories, it is decided that it would make more sense to focus on different Temporal Difference methods, since these offers more variety to work with. As stated earlier also, the project will focus on 1-step version of the most known TD-methods. The TD-methods that will be implemented are SARSA, Q-learning and Expected SARSA.
-A brief introduction to all three methods will be given in this section.
+Furthermore, due to the size of the state space of the board game Dominion. Then it is decided that the value function will be approximated using a neural network. This will be discussed further in chapter \ref{ch:neural_networks}.
+
+The next three are an introduction to all three methods, along with some implementation details.
 
 \subsection{SARSA}
 This method is the most fundamental TD-method which will be the fundament which Q-learning and Expected SARSA will work on. SARSA is an on-policy method that introduces a concept called bootstrapping in comparison to Monte Carlo type methods. The bootstrapping concept works on updating the value function based on the estimation of the next state and action. Meaning that the value function is updated based on an estimate instead of the actual reward. This method theoretically lowers the variance of expected returns in comparison to Monte Carlo methods. The update function for SARSA is as follows:
@@ -14,3 +16,23 @@ Where $Q(S_t, A_t)$ is the value function for state $S_t$ and action $A_t$, $\al
 
 It should be noted, that for SARSA, then the next state is chosen based on an action taken with the current policy, hence making this method on-policy.
 
+
+\subsection{Q-learning} \label{sec:Q-learning}
+Q-learning is an alternative to SARSA that was designed to be a temporal difference method that is off-policy. The term off-policy refers to the feature, that Q-learning can use a different policy to choose the next action, when updating the value function. This means that Q-learning can explore the environment more freely, and is not bound to the current policy. The trade off between exploration and exploitation, is then not as strict as in SARSA. The update function for Q-learning is as follows:
+
+\begin{equation}
+    Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \left[ R_{t+1} + \gamma \max_a Q(S_{t+1}, a) - Q(S_t, A_t) \right]
+\end{equation}
+
+In this instance, the update function is similar to SARSA, but the next action is determined by a greedy policy. In our implementation, an epsilon-greedy policy is chosen instead. This will be discussed further in chapter \ref{ch:discussion}. A noteworthy disadvantage with Q-learning, is that it can be more unstable than SARSA, as it be affected by maximization bias. This is due to the fact that the value function updated based on the best outcome in the next state. Therefore, due to Stochasticity, the value function will be overestimated. It will therefore need more training to converge to the optimal policy. To counter maximization bias, one can make use of something akin to double Q-learning. Double Q-learning is used to reduce the overestimation of the value function, by using two value functions instead of one. In our case, it would then mean that Q-learning will make use of both a Q-value approximator, and a target neural network which will serve as the target for the Q-value approximator. The effect of using a target neural network, compared to not using it, will also be documented in the results chapters.
+
+
+
+\subsection{Expected SARSA} \label{sec:expected_sarsa}
+Another way to avoid maximization bias, is to avoid using the maximum function all together. Expected SARSA is an off-policy method as Q-learning, that uses the average of all possible actions in the next state, instead of the maximum. For this project, it is used as midpoint, between SARSA and Q-learning. The update function for Expected SARSA is as follows:
+
+\begin{equation}
+    Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \left[ R_{t+1} + \gamma \sum_a \pi(a|S_{t+1}) Q(S_{t+1}, a) - Q(S_t, A_t) \right]
+\end{equation}
+
+As the equation shows. Instead of choosing an action, then the value function is updated based on the value of all actions multiplied by the probability of taking each action. Since the agent will be using an epsilon-greedy policy, then the probability value for each action will be, $\epsilon / |A|$ for all actions except the best action and $1 - \epsilon + \epsilon / |A|$ for the best action. Where |A| is the amount of actions given the state. 
