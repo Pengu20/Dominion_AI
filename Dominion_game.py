@@ -18,7 +18,7 @@ import state_manipulator as sm
 
 import copy
 
-import pickle
+import pickle   
 
 deck = deck_generator()
 
@@ -858,7 +858,8 @@ player_random1 = random_player(player_name="Ogus_bogus_man")
 # Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
 # sarsa_player2 = Deep_SARSA(player_name="Deep_sarsa_2")
 
-Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
+# Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
+Expected_SARSA_player = Deep_expected_sarsa(player_name="Deep_expected_sarsa")
 
 # DES_ai = Deep_expected_sarsa(player_name="Deep_expected_sarsa")
 
@@ -867,13 +868,17 @@ Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
 
 greedy_test_player = greedy_NN(player_name="Greedy_NN")
 # greedy_test_player.load_NN_from_file("NN_models/Deep_sarsa_2_model.keras")
-Dominion_game.set_players(Q_learning_player, greedy_test_player) # Training the first player, testing with the second player
+Dominion_game.set_players(Expected_SARSA_player, greedy_test_player) # Training the first player, testing with the second player
 
 
 trained_player_wins_in_row = 0
 test_player_wins_in_row = 0
 
-win_streak_limit = 50
+win_streak_limit = 7
+
+test_game_frequency = 5
+
+
 
 for i in range(100000):
     print(f"Game: {i}")
@@ -881,7 +886,7 @@ for i in range(100000):
 
     if trained_player_wins_in_row >= win_streak_limit:
         # All learned parameters from the trained player, is passed to the test player
-        greedy_test_player.model.set_weights(Q_learning_player.model.get_weights())
+        greedy_test_player.model.set_weights(Expected_SARSA_player.model.get_weights())
         print("Training player wins in a row: ", trained_player_wins_in_row)
         print("Giving weights of trained player to test player.")
         trained_player_wins_in_row = 0
@@ -904,27 +909,26 @@ for i in range(100000):
     else:
         print("Draw!")
 
+    if i % test_game_frequency == 0:
+        Dominion_game.set_player2test(player_random1)
+
+        Dominion_game.player1.greedy_mode = True
+        index_player_won = Dominion_game.play_loop_AI(f"test_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
 
 
-    Dominion_game.set_player2test(player_random1)
-
-    Dominion_game.player1.greedy_mode = True
-    index_player_won = Dominion_game.play_loop_AI(f"test_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
 
 
+        if index_player_won == 0:
+            print("Trained player won!")
+            trained_player_wins_in_row += 1
+            test_player_wins_in_row = 0
 
-
-    if index_player_won == 0:
-        print("Trained player won!")
-        trained_player_wins_in_row += 1
-        test_player_wins_in_row = 0
-
-    elif index_player_won == 1:
-        print("Test player won!")
-        trained_player_wins_in_row = 0
-        test_player_wins_in_row += 1
-    else:
-        print("Draw!")
+        elif index_player_won == 1:
+            print("Test player won!")
+            trained_player_wins_in_row = 0
+            test_player_wins_in_row += 1
+        else:
+            print("Draw!")
 
 
 

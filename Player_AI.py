@@ -81,7 +81,12 @@ class Dominion_reward():
 
 
         elif (game_state["adv_Player_won"] == 1):
-            Victory_reward = -1000
+            Victory_reward = -500
+
+            if game_state["supply_amount"][5] == 0:
+                Victory_reward -= 50000
+
+
 
 
         # ---------------- Gained card reward ----------------
@@ -169,6 +174,12 @@ class Dominion_reward():
         if coppers == 0:
             no_copper_reward = 50
         
+        
+        for card in new_cards:
+            if card == 0:
+                no_copper_reward -= 30
+
+
 
         # ---------------- reward for having no estates ----------------
         estates = 0
@@ -190,7 +201,7 @@ class Dominion_reward():
             if card == 2:
                 gold_cards += 1
         
-        gold_reward = (2000*gold_cards)
+        gold_reward = (1700*gold_cards)
 
 
         # ---------------- reward for having alot of value (weighted by deck size) ----------------
@@ -738,6 +749,8 @@ class Deep_SARSA:
         '''
         This function is used to get the action from the epsilon greedy policy
         '''
+
+
         if np.random.rand() < epsilon:
 
 
@@ -1241,17 +1254,31 @@ class Deep_Q_learning(Deep_SARSA):
 
 class Deep_expected_sarsa(Deep_SARSA):
     
-    def expected_sarsa_update(self, game_state, list_of_actions, game_ended=False):
+    def __init__(self, player_name) -> None:
+        super().__init__(player_name)
+        # Set epsilon randomly, such that the player sometimes learns using the known knowledge, and sometimes completely explores.
+        self.set_new_epsilon_value(min_val=0.4, max_val=1)
+
+    
+    def set_new_epsilon_value(self, min_val, max_val):
+        '''
+        this function is for updating the epsilon value randomly.
+        '''
+
+        self.epsilon_value = np.random.rand()*(max_val - min_val) + min_val
+
+    def expected_SARSA_update(self, game_state, list_of_actions, game_ended=False):
         '''
         This function is used to update the neural network based on the Q_learning_algorithm
         '''
 
         start_time = time.time()
         alpha = 0.1 # Learning rate
-        gamma = 0.95 # Discount factor
+        gamma = 0.45 # Discount factor
 
 
         # SA -> State action
+
 
         if game_ended:
             expected_return = 0
@@ -1259,21 +1286,24 @@ class Deep_expected_sarsa(Deep_SARSA):
 
             ## Take the next step based on an average.
             best_action = self.greedy_choice(list_of_actions, game_state)
-            all_expected_return_actions = self.NN_get_expected_return(game_state, list_of_actions)[0]
+            all_expected_return_actions = self.NN_get_expected_return(game_state, actions_list=list_of_actions)
 
-            expected_return_best_action = all_expected_return_actions[list_of_actions.index(best_action)]
+            expected_return_best_action = all_expected_return_actions[np.where(list_of_actions==best_action)[0][0]]
 
-            average_expected_return_weighted = expected_return_best_action*(1-self.epsilon)
+            average_expected_return_weighted = expected_return_best_action*(1-self.epsilon_value)
+
             for action_return in all_expected_return_actions:
-                average_expected_return_weighted += action_return*self.epsilon/len(list_of_actions)
+                average_expected_return_weighted += action_return*self.epsilon_value/len(list_of_actions)
+
+
+
 
             expected_return = average_expected_return_weighted
 
 
+
         old_expected_return = self.NN_get_expected_return(self.game_state_history[-1], [self.action_history[-1]])[0]
 
-
-        # Save the reward to be sure that they work
         reward_list = self.rf.get_reward_from_state(game_state, self.game_state_history[-1])
         reward = np.sum(reward_list)
         self.latest_reward = reward_list
@@ -1282,19 +1312,32 @@ class Deep_expected_sarsa(Deep_SARSA):
         self.NN_error.append(NN_error)
         self.all_returns.append(reward)
 
+        # Defining learning step - Is 0 if the only action available is the terminate action
+        learning_step = float(alpha * (reward + gamma*expected_return - old_expected_return))
 
-        old_expected_return_updated = old_expected_return + alpha * (reward + gamma*expected_return - old_expected_return)
-        self.all_expected_returns.append(old_expected_return_updated.astype(float)[0])
+
+        if not(not(self.greedy_mode) or game_ended):
+            learning_step = 0
+
+        # expected_SARSA_update update
+        old_expected_return_updated = old_expected_return + learning_step
+        self.all_expected_returns.append(old_expected_return_updated[0])
 
 
         old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))
         # Train the neural network with the new values
 
 
+        # Printing the reward update step.
+        self.latest_action = self.action_history[-1]
+        self.latest_updated_expected_return = learning_step
+        self.latest_action_type = self.game_state_history[-1]["Unique_actions"]
+        self.latest_desired_expected_return = self.all_expected_returns[-1]
+
+
+
         self.turns_in_game += 1
-
-
-        if self.greedy_mode == False:
+        if self.greedy_mode == False and not game_ended:
             # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
             self.batch_size = 16
@@ -1304,40 +1347,47 @@ class Deep_expected_sarsa(Deep_SARSA):
 
                 input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
                 output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
-                self.update_NN_np_mat(input_matrix, output_matrix)
+                
 
-        elif game_ended:
-            input_matrix = self.game_state_list2NN_input(self.game_state_history[-1:], self.action_history[-1:])
-            output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-1:])
-            self.update_NN_np_mat(input_matrix, output_matrix)
+                self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=4)
+
+
+        # Game end update
+        if game_ended:
+
+
+            self.batch_size = 16
+
+            input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
+            output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
+            self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=4)
+
 
 
         self.SARSA_update_time.append(time.time() - start_time)
 
 
 
-
-
-
     def choose_action(self, list_of_actions, game_state):
-
-        
         if self.game_state_history == []:
             self.game_state_history.append(copy.deepcopy(game_state))
             self.action_history.append(np.random.choice(list_of_actions))
             return self.action_history[-1]
         else:
+            action_time = time.time()
 
             if self.greedy_mode:
                 action = self.greedy_choice(list_of_actions, game_state)
             else:
-                action = self.epsilon_greedy_policy(list_of_actions, game_state, 0.7)
+                action = self.epsilon_greedy_policy(list_of_actions, game_state, self.epsilon_value)
+
+
+            self.expected_SARSA_update(game_state, list_of_actions, game_ended=False)
 
 
 
-            self.expected_sarsa_update(game_state, list_of_actions, game_ended=False)
-
-            if len(list_of_actions) == 1:
+            # Set boolean so the reward function is constricted for the next state
+            if len(list_of_actions) == 1 and action == -1:
                 self.only_terminate_action = True
             else:
                 self.only_terminate_action = False
@@ -1347,19 +1397,50 @@ class Deep_expected_sarsa(Deep_SARSA):
             self.action_history.append(copy.deepcopy(action))
 
             #Remove the previous old values of game state and action history
+            self.take_action_time.append(time.time() - action_time)
             return action
 
 
-    def game_end_update(self):
+    def game_end_update(self, game_state):
         '''
         This function is used to update the neural network with the new values
         '''
-        input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
-        output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
-        self.update_NN_np_mat(input_matrix, output_matrix)
+
+        self.expected_SARSA_update(game_state, None, game_ended=True)
+
+        # At game end, train the neural network with all the new values of the 10 past games.
+        input_matrix_gamestate, action_matrix = self.game_state_list2NN_input(self.game_state_history, self.action_history)
+        output_matrix = self.expected_return_list2NN_output(self.all_expected_returns)
 
 
-        self.expected_sarsa_update(self.game_state_history[-1], list_of_actions=None, game_ended=True)
+        self.input_data_past_game_states.append(input_matrix_gamestate)
+        self.input_data_past_actions.append(action_matrix)
+
+
+        self.output_label_past_games.append(output_matrix)
+        all_game_states = np.concatenate(self.input_data_past_game_states, axis=0)
+        all_actions = np.concatenate(self.input_data_past_actions, axis=0)
+        all_output = np.concatenate(self.output_label_past_games, axis=0)
+
+        self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=10, verybose=0, batch_size=32)
+
+
+
+        if len(self.input_data_past_game_states) >= 30:
+            self.input_data_past_game_states = self.input_data_past_game_states[1:]
+            self.input_data_past_actions = self.input_data_past_actions[1:]
+
+            self.output_label_past_games = self.output_label_past_games[1:]
+
+    
+
+        # Set new epsilon value.
+        self.set_new_epsilon_value(min_val=0.4, max_val=1)
+        print("Q-learning AI - New epsilon value: ", self.epsilon_value)
+
+
+
+
 
 
 
