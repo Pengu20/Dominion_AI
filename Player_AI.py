@@ -679,7 +679,8 @@ class Deep_SARSA:
 
         start_time = time.time()
         self.alpha = 0.1 # Learning rate
-        gamma = 0.9 # Discount factor
+        gamma = 0.45 # Discount factor
+        self.gamma = gamma
 
 
         # SA -> State action
@@ -695,9 +696,25 @@ class Deep_SARSA:
         reward = np.sum(reward_list)
         self.latest_reward = reward_list
 
+        NN_error = (reward + gamma*expected_return - old_expected_return)**2
+        self.NN_error.append(NN_error)
+        self.all_returns.append(reward)
 
-        # SARSA update
-        old_expected_return_updated = old_expected_return + self.alpha * (reward + gamma*expected_return - old_expected_return)
+
+        # Defining learning step - Is 0 if the only action available is the terminate action
+        learning_step = float(self.alpha * (reward + gamma*expected_return - old_expected_return))
+
+
+        if not(not(self.greedy_mode) or game_ended):
+            learning_step = 0
+
+        # Q_learning update
+        old_expected_return_updated = old_expected_return + learning_step
+        self.all_expected_returns.append(old_expected_return_updated[0])
+
+
+        old_expected_return_updated = np.array(old_expected_return_updated).reshape((1,1))
+        # Train the neural network with the new values
 
 
         NN_error = (reward + gamma*expected_return - old_expected_return)**2
@@ -707,27 +724,42 @@ class Deep_SARSA:
         # Train the neural network with the new values
 
 
-
-        self.all_expected_returns.append(old_expected_return_updated)
-        self.all_returns.append(reward)
+        # Printing the reward update step.
+        self.latest_action = self.action_history[-1]
+        self.latest_updated_expected_return = learning_step
+        self.latest_action_type = self.game_state_history[-1]["Unique_actions"]
+        self.latest_desired_expected_return = self.all_expected_returns[-1]
 
 
         self.turns_in_game += 1
         
 
-        if self.greedy_mode == False:
+        if self.greedy_mode == False and not game_ended:
             # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
             self.batch_size = 16
 
             # Every batch_size turns we will update the neural network with the batch_size new datasets
             if self.turns_in_game % self.batch_size == 0:
+
                 input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
                 output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
+                
+
+                self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=4)
 
 
-                self.update_NN_np_mat(input_matrix, output_matrix, epochs=4)
+        # Game end update
+        if game_ended:
+            self.batch_size = 16
 
+            input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
+            output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
+            self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=4)
+
+
+
+        self.SARSA_update_time.append(time.time() - start_time)
 
 
         self.SARSA_update_time.append(time.time() - start_time)
@@ -839,8 +871,14 @@ class Deep_SARSA:
         self.NN_error = []
 
 
+
+        # sum of discounted returns of from the game
+
+
+        discounted_returns = self.get_discounted_returns()
+        
         open_file = open(self.file_average_returns, "a")
-        open_file.write(f"{np.mean(self.all_returns)}\n")
+        open_file.write(f"{np.mean(discounted_returns)}\n")
         open_file.close()
 
         open_file = open(self.file_variance_returns, "a")
@@ -888,6 +926,18 @@ class Deep_SARSA:
             self.model.save(f"NN_models/{self.player_name}_model.keras")
 
 
+
+    def get_discounted_returns(self):
+        '''
+        This function is used to get the discounted returns from the reward list
+        '''
+
+        discounted_returns = 0
+
+        for i in range(len(self.all_returns)):
+            discounted_returns += self.all_returns[i] * self.gamma**i
+
+        return discounted_returns
 
     def game_end_update(self, game_state):
         '''
@@ -1043,6 +1093,7 @@ class Deep_Q_learning(Deep_SARSA):
         start_time = time.time()
         alpha = 0.1 # Learning rate
         gamma = 0.45 # Discount factor
+        self.gamma = gamma
 
 
         # SA -> State action
@@ -1273,9 +1324,9 @@ class Deep_expected_sarsa(Deep_SARSA):
         '''
 
         start_time = time.time()
-        alpha = 0.1 # Learning rate
+        alpha = 0.05 # Learning rate
         gamma = 0.45 # Discount factor
-
+        self.gamma = gamma
 
         # SA -> State action
 
