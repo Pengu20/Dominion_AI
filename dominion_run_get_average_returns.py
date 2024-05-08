@@ -31,9 +31,7 @@ deck = deck_generator()
 Dominion_game = Dominion()
 Dominion_game.card_set = make_card_set([16, 11, 8, 25, 29, 14, 23, 10, 22, 15])
 
-player_random1 = random_player(player_name="Ogus_bogus_man")
 
-Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
 # sarsa_player2 = Deep_SARSA(player_name="Deep_sarsa_2")
 
 # Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
@@ -44,9 +42,8 @@ Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
 
 # Deep sarsa 2 is trained to get provinces after 20 turns
 
-greedy_test_player = greedy_NN(player_name="Greedy_NN")
 # greedy_test_player.load_NN_from_file("NN_models/Deep_sarsa_2_model.keras")
-Dominion_game.set_players(Sarsa_player, player_random1) # Training the first player, testing with the second player
+
 
 
 trained_player_wins_in_row = 0
@@ -54,21 +51,27 @@ test_player_wins_in_row = 0
 
 win_streak_limit = 7
 
-test_game_frequency = 1 # Defines how often the test player should play a game
-games_per_epoch = 2 # Defines how many games per epoch
-N = 2 # defines how many epochs should be trained on
+test_game_frequency = 5 # Defines how often the test player should play a game
+games_per_epoch = 100 # Defines how many games per epoch
+N = 30 # defines how many epochs should be trained on
 
 list_discounted_returns = []
 
 
 for epoch in range(N):
 
+
+
+    player_random1 = random_player(player_name="Ogus_bogus_man")
+    Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
+    Dominion_game.set_players(Sarsa_player, player_random1) # Training the first player, testing with the second player
+
+
     discounted_returns = []
     for i in range(games_per_epoch):
-        print(f"Game: {i}")
+        print(f"Game: {i} --- Epoch: {epoch}")
 
 
-        Dominion_game.set_player2test(greedy_test_player)
 
 
         Dominion_game.player1.greedy_mode = False
