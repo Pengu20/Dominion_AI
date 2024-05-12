@@ -471,7 +471,7 @@ class Deep_SARSA:
         input_1 = keras.Input(shape=(110,))
         input_2 = keras.Input(shape=(8,))
 
-        weight_mean = 0.05
+        weight_mean = 0.03
         weight_dev = 0.01
 
         # action layer handling
@@ -731,7 +731,7 @@ class Deep_SARSA:
         if self.greedy_mode == False and not game_ended:
             # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
-            self.batch_size = 32
+            self.batch_size = 16
 
             # Every batch_size turns we will update the neural network with the batch_size new datasets
             if self.turns_in_game % self.batch_size == 0:
@@ -745,7 +745,7 @@ class Deep_SARSA:
 
         # Game end update
         if game_ended:
-            self.batch_size = 32
+            self.batch_size = 16
 
             input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
             output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
@@ -1077,7 +1077,7 @@ class Deep_Q_learning(Deep_SARSA):
 
         start_time = time.time()
         alpha = 0.1 # Learning rate
-        gamma = 0.45 # Discount factor
+        gamma = 0.35 # Discount factor
         self.gamma = gamma
 
 
@@ -1129,7 +1129,7 @@ class Deep_Q_learning(Deep_SARSA):
         if self.greedy_mode == False and not game_ended:
             # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
-            self.batch_size = 32
+            self.batch_size = 16
 
             # Every batch_size turns we will update the neural network with the batch_size new datasets
             if self.turns_in_game % self.batch_size == 0:
@@ -1145,7 +1145,7 @@ class Deep_Q_learning(Deep_SARSA):
         if game_ended:
 
 
-            self.batch_size = 32
+            self.batch_size = 16
 
             input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
             output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
@@ -1301,7 +1301,7 @@ class Deep_expected_sarsa(Deep_SARSA):
 
         start_time = time.time()
         alpha = 0.05 # Learning rate
-        gamma = 0.45 # Discount factor
+        gamma = 0.35 # Discount factor
         self.gamma = gamma
 
         # SA -> State action
@@ -1367,7 +1367,7 @@ class Deep_expected_sarsa(Deep_SARSA):
         if self.greedy_mode == False and not game_ended:
             # self.update_NN(self.game_state_history[-1], self.action_history[-1], old_expected_return_updated)
 
-            self.batch_size = 32
+            self.batch_size = 16
 
             # Every batch_size turns we will update the neural network with the batch_size new datasets
             if self.turns_in_game % self.batch_size == 0:
@@ -1383,7 +1383,7 @@ class Deep_expected_sarsa(Deep_SARSA):
         if game_ended:
 
 
-            self.batch_size = 32
+            self.batch_size = 16
 
             input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
             output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
@@ -1453,7 +1453,7 @@ class Deep_expected_sarsa(Deep_SARSA):
 
 
 
-        if len(self.input_data_past_game_states) >= 30:
+        if len(self.input_data_past_game_states) >= 10:
             self.input_data_past_game_states = self.input_data_past_game_states[1:]
             self.input_data_past_actions = self.input_data_past_actions[1:]
 
