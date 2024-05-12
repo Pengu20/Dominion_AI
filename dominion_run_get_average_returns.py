@@ -23,8 +23,7 @@ import copy
 import pickle   
 
 
-
-def Evaluate_agent(agent, agent_name, num_games = 100, epochs=30, test_game_frequency=5):
+def Evaluate_agent(agent, agent_name, num_games = 150, epochs=15, test_game_frequency=3):
     '''
     This function is made to evaluate three different agents, sarsa, Q-learning and expected SARSA
     '''
@@ -34,8 +33,6 @@ def Evaluate_agent(agent, agent_name, num_games = 100, epochs=30, test_game_freq
         "Expected SARSA": Deep_expected_sarsa
     }
 
-
-    deck = deck_generator()
 
     # This training python code is made to train Deep SARSA and cummulate the expected returns over 100 games. averaged over N epochs
     Dominion_game = Dominion()
@@ -49,6 +46,7 @@ def Evaluate_agent(agent, agent_name, num_games = 100, epochs=30, test_game_freq
     list_discounted_returns = []
     average_winrate = []
 
+
     for epoch in range(N):
 
         player_random1 = random_player(player_name="Ogus_bogus_man")
@@ -61,7 +59,7 @@ def Evaluate_agent(agent, agent_name, num_games = 100, epochs=30, test_game_freq
         discounted_returns = []
         wins = 0
         for i in range(games_per_epoch):
-            print(f"Game: {i} --- Epoch: {epoch}")
+            print(f"Epoch: {epoch}, Game: {i} ---- Agent: {agent_name}")
 
 
             Dominion_game.player1.greedy_mode = False
@@ -117,15 +115,24 @@ def Evaluate_agent(agent, agent_name, num_games = 100, epochs=30, test_game_freq
     open_file.close()
 
 
-    open_file = open(f"averaged_wins.txt_{agent_name}", "w")
+    open_file = open(f"averaged_wins.txt_{agent_name}.txt", "w")
     open_file.write(f"{winrate}\n")
     open_file.close()
 
+'''
+P1 = multiprocessing.Process(target=Evaluate_agent, args=("SARSA", "Deep_sarsa"))
+P2 = multiprocessing.Process(target=Evaluate_agent, args=("Q-learning", "Deep_Q_learning"))
+P3 = multiprocessing.Process(target=Evaluate_agent, args=("Expected SARSA", "Deep_expected_sarsa"))
+'''
 
-#agent = "SARSA"
-#Evaluate_agent(agent, agent_name="Deep_sarsa")
+'''
+"SARSA": Deep_SARSA,
+"Q-learning": Deep_Q_learning,
+"Expected SARSA": Deep_expected_sarsa
+'''
 
 
 agent = "Expected SARSA"
-Evaluate_agent(agent, agent_name="Deep_sarsa")
+agent_name = "Deep_expected_sarsa"
+Evaluate_agent(agent, agent_name)
 
