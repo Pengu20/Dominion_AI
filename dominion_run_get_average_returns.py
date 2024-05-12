@@ -22,108 +22,110 @@ import copy
 
 import pickle   
 
-deck = deck_generator()
-
-# This training python code is made to train Deep SARSA and cummulate the expected returns over 100 games. averaged over N epochs.
 
 
-
-Dominion_game = Dominion()
-Dominion_game.card_set = make_card_set([16, 11, 8, 25, 29, 14, 23, 10, 22, 15])
-
-
-# sarsa_player2 = Deep_SARSA(player_name="Deep_sarsa_2")
-
-# Q_learning_player = Deep_Q_learning(player_name="Deep_Q_learning")
-# Expected_SARSA_player = Deep_expected_sarsa(player_name="Deep_expected_sarsa")
-
-# DES_ai = Deep_expected_sarsa(player_name="Deep_expected_sarsa")
+def Evaluate_agent(agent, agent_name, num_games = 100, epochs=30, test_game_frequency=5):
+    '''
+    This function is made to evaluate three different agents, sarsa, Q-learning and expected SARSA
+    '''
+    agent_dict = {
+        "SARSA": Deep_SARSA,
+        "Q-learning": Deep_Q_learning,
+        "Expected SARSA": Deep_expected_sarsa
+    }
 
 
-# Deep sarsa 2 is trained to get provinces after 20 turns
+    deck = deck_generator()
 
-# greedy_test_player.load_NN_from_file("NN_models/Deep_sarsa_2_model.keras")
-
-
-
-trained_player_wins_in_row = 0
-test_player_wins_in_row = 0
-
-win_streak_limit = 7
-
-test_game_frequency = 5 # Defines how often the test player should play a game
-games_per_epoch = 100 # Defines how many games per epoch
-N = 30 # defines how many epochs should be trained on
-
-list_discounted_returns = []
+    # This training python code is made to train Deep SARSA and cummulate the expected returns over 100 games. averaged over N epochs
+    Dominion_game = Dominion()
+    Dominion_game.card_set = make_card_set([16, 11, 8, 25, 29, 14, 23, 10, 22, 15])
 
 
-for epoch in range(N):
+    test_game_frequency = test_game_frequency # Defines how often the test player should play a game
+    games_per_epoch = num_games # Defines how many games per epoch
+    N = epochs # defines how many epochs should be trained on
+
+    list_discounted_returns = []
+    average_winrate = []
+
+    for epoch in range(N):
+
+        player_random1 = random_player(player_name="Ogus_bogus_man")
+        agent_class = agent_dict[agent](player_name=agent_name)
 
 
-
-    player_random1 = random_player(player_name="Ogus_bogus_man")
-    Sarsa_player = Deep_SARSA(player_name="Deep_sarsa")
-    Dominion_game.set_players(Sarsa_player, player_random1) # Training the first player, testing with the second player
+        Dominion_game.set_players(agent_class, player_random1) # Training the first player, testing with the second player
 
 
-    discounted_returns = []
-    for i in range(games_per_epoch):
-        print(f"Game: {i} --- Epoch: {epoch}")
+        discounted_returns = []
+        wins = 0
+        for i in range(games_per_epoch):
+            print(f"Game: {i} --- Epoch: {epoch}")
 
 
-
-
-        Dominion_game.player1.greedy_mode = False
-        
-        # Dominion_game.set_player2test(Sarsa_player)
-        index_player_won = Dominion_game.play_loop_AI(f"trainer_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
-
-
-        if index_player_won == 0:
-            print("Trained player won!")
-        elif index_player_won == 1:
-            print("Test player won!")
-        else:
-            print("Draw!")
-
-        if i % test_game_frequency == 0:
-            Dominion_game.set_player2test(player_random1)
-
-            Dominion_game.player1.greedy_mode = True
-            index_player_won = Dominion_game.play_loop_AI(f"test_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
+            Dominion_game.player1.greedy_mode = False
+            index_player_won = Dominion_game.play_loop_AI(f"trainer_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=False)
 
 
             if index_player_won == 0:
                 print("Trained player won!")
-                trained_player_wins_in_row += 1
-                test_player_wins_in_row = 0
-
             elif index_player_won == 1:
                 print("Test player won!")
-                trained_player_wins_in_row = 0
-                test_player_wins_in_row += 1
             else:
                 print("Draw!")
 
-            
-            # Log the discounted return of the game
-            discounted_return = Dominion_game.trained_player_discounted_return
-
-            discounted_returns.append(discounted_return)
 
 
+            if i % test_game_frequency == 0:
 
-        print("\n")
-
-    list_discounted_returns.append(discounted_returns)
-
-# Average over the list of discounted returns
-    
-average_discounted_returns = np.mean(list_discounted_returns, axis=0)
+                Dominion_game.player1.greedy_mode = True
+                index_player_won = Dominion_game.play_loop_AI(f"test_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=False)
 
 
-open_file = open("averaged_discounted_rewards.txt", "w")
-for reward in average_discounted_returns:
-    open_file.write(f"{reward}\n")
-open_file.close()
+                if index_player_won == 0:
+                    print("Trained player won!")
+                    wins += 1
+                elif index_player_won == 1:
+                    print("Test player won!")
+                else:
+                    print("Draw!")
+
+                
+                # Log the discounted return of the game
+                discounted_return = Dominion_game.trained_player_discounted_return
+
+                discounted_returns.append(discounted_return)
+
+
+
+            print("\n")
+
+
+        average_winrate.append(wins/games_per_epoch)
+        list_discounted_returns.append(discounted_returns)
+
+    # Average over the list of discounted returns
+        
+    average_discounted_returns = np.mean(list_discounted_returns, axis=0)
+    winrate = np.mean(average_winrate)
+
+
+    open_file = open(f"averaged_discounted_rewards_{agent_name}.txt", "w")
+    for reward in average_discounted_returns:
+        open_file.write(f"{reward}\n")
+    open_file.close()
+
+
+    open_file = open(f"averaged_wins.txt_{agent_name}", "w")
+    open_file.write(f"{winrate}\n")
+    open_file.close()
+
+
+#agent = "SARSA"
+#Evaluate_agent(agent, agent_name="Deep_sarsa")
+
+
+agent = "Expected SARSA"
+Evaluate_agent(agent, agent_name="Deep_sarsa")
+

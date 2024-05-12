@@ -419,15 +419,9 @@ class Deep_SARSA:
         self.input_data_past_actions = []
         self.output_label_past_games = []
 
-        self.set_new_epsilon_value(min_val=0.8, max_val=1)
+        # self.set_new_epsilon_value(min_val=0.8, max_val=1)
 
 
-
-    def set_new_epsilon_value(self, min_val, max_val):
-        '''
-        this function is for updating the epsilon value randomly.
-        '''
-        self.epsilon_value = np.random.rand()*(max_val - min_val) + min_val
 
 
 
@@ -817,7 +811,7 @@ class Deep_SARSA:
             if self.greedy_mode:
                 action = self.greedy_choice(list_of_actions, game_state)
             else:
-                action = self.epsilon_greedy_policy(list_of_actions, copy.deepcopy(game_state), self.epsilon_value)
+                action = self.epsilon_greedy_policy(list_of_actions, copy.deepcopy(game_state), epsilon=0.2)
             
             self.SARSA_update(copy.deepcopy(game_state), action)
 
@@ -1014,7 +1008,6 @@ class greedy_NN(Deep_SARSA):
     def __init__(self, player_name) -> None:
         super().__init__(player_name)
         self.greedy_mode = True
-        self.set_new_epsilon_value(min_val=0.7, max_val=1.0)
 
     def greedy_choice(self, list_of_actions, game_state):
         '''
@@ -1046,11 +1039,10 @@ class greedy_NN(Deep_SARSA):
 
     def choose_action(self, list_of_actions, game_state):
         
-        # now... i know i'ts called a greedy agent, but lets just sweep under the rug, that it actually uses an epsilon greedy policy
         action_time = time.time()
 
-        action = self.epsilon_greedy_policy(list_of_actions=list_of_actions, game_state=game_state, epsilon=self.epsilon_value)
-        # action = self.greedy_choice(list_of_actions=list_of_actions, game_state=game_state)
+        # action = self.epsilon_greedy_policy(list_of_actions=list_of_actions, game_state=game_state, epsilon=self.epsilon_value)
+        action = self.greedy_choice(list_of_actions=list_of_actions, game_state=game_state)
 
 
         self.turns_in_game += 1
@@ -1065,7 +1057,7 @@ class greedy_NN(Deep_SARSA):
    
    
     def game_end_update(self, game_state):
-        self.set_new_epsilon_value(min_val=0.7, max_val=1.0)
+        # self.set_new_epsilon_value(min_val=0.7, max_val=1.0)
         pass
 
 
@@ -1075,15 +1067,9 @@ class Deep_Q_learning(Deep_SARSA):
         super().__init__(player_name)
         self.initialize_target_NN()
         # Set epsilon randomly, such that the player sometimes learns using the known knowledge, and sometimes completely explores.
-        self.set_new_epsilon_value(min_val=0.4, max_val=1)
+        # self.set_new_epsilon_value(min_val=0.4, max_val=1)
+        self.epsilon_value = 0.95
 
-    
-    def set_new_epsilon_value(self, min_val, max_val):
-        '''
-        this function is for updating the epsilon value randomly.
-        '''
-
-        self.epsilon_value = np.random.rand()*(max_val - min_val) + min_val
 
     def Q_learning_update(self, game_state, list_of_actions, game_ended=False):
         '''
@@ -1234,7 +1220,7 @@ class Deep_Q_learning(Deep_SARSA):
             if self.greedy_mode:
                 action = self.greedy_choice(list_of_actions, game_state)
             else:
-                action = self.epsilon_greedy_policy(list_of_actions, game_state, self.epsilon_value)
+                action = self.epsilon_greedy_policy(list_of_actions, game_state, epsilon=self.epsilon_value )
 
 
             self.Q_learning_update(game_state, list_of_actions, game_ended=False)
@@ -1293,9 +1279,6 @@ class Deep_Q_learning(Deep_SARSA):
             self.update_target_NN_np_mat((all_game_states, all_actions), all_output, epochs=10, verbose=0, batch_size=32)
 
 
-        # Set new epsilon value.
-        self.set_new_epsilon_value(min_val=0.4, max_val=1)
-        print("Q-learning AI - New epsilon value: ", self.epsilon_value)
 
 
 
@@ -1308,15 +1291,9 @@ class Deep_expected_sarsa(Deep_SARSA):
     def __init__(self, player_name) -> None:
         super().__init__(player_name)
         # Set epsilon randomly, such that the player sometimes learns using the known knowledge, and sometimes completely explores.
-        self.set_new_epsilon_value(min_val=0.4, max_val=1)
+        # self.set_new_epsilon_value(min_val=0.4, max_val=1)
+        self.epsilon_value = 0.80
 
-    
-    def set_new_epsilon_value(self, min_val, max_val):
-        '''
-        this function is for updating the epsilon value randomly.
-        '''
-
-        self.epsilon_value = np.random.rand()*(max_val - min_val) + min_val
 
     def expected_SARSA_update(self, game_state, list_of_actions, game_ended=False):
         '''
@@ -1485,9 +1462,7 @@ class Deep_expected_sarsa(Deep_SARSA):
 
     
 
-        # Set new epsilon value.
-        self.set_new_epsilon_value(min_val=0.4, max_val=1)
-        print("Q-learning AI - New epsilon value: ", self.epsilon_value)
+
 
 
 
