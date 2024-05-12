@@ -329,12 +329,21 @@ class Dominion:
 
                 game_state_player0["main_Player_won"] = main_player_won
                 game_state_player0["adv_Player_won"] = adv_player_won
-                self.trained_player_discounted_return = players_input[main].notify_game_end(game_state_player0)
+                if main == 0:
+                    discount_val = players_input[main].notify_game_end(game_state_player0)
+                else:
+                    players_input[main].notify_game_end(game_state_player0)
+      
       
 
                 game_state_player1["main_Player_won"] = adv_player_won
                 game_state_player1["adv_Player_won"] = main_player_won
-                players_input[advesary].notify_game_end(game_state_player1)
+                if advesary == 0:
+                    discount_val = players_input[advesary].notify_game_end(game_state_player1)
+                else:
+                    players_input[advesary].notify_game_end(game_state_player1)
+
+
 
 
 
