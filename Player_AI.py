@@ -942,11 +942,11 @@ class Deep_SARSA:
         '''
         This function is used to get the discounted returns from the reward list
         '''
-
         discounted_returns = 0
         for i in range(len(self.all_returns)):
             discounted_returns += self.all_returns[i] * self.gamma**i
 
+        
         return discounted_returns
 
     def game_end_update(self, game_state):
@@ -1372,6 +1372,9 @@ class Deep_expected_sarsa(Deep_SARSA):
 
         if not(not(self.greedy_mode) or game_ended):
             learning_step = 0
+
+
+
 
         # expected_SARSA_update update
         old_expected_return_updated = old_expected_return + learning_step

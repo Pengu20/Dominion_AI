@@ -334,7 +334,7 @@ class Dominion:
                 else:
                     players_input[main].notify_game_end(game_state_player0)
       
-      
+
 
                 game_state_player1["main_Player_won"] = adv_player_won
                 game_state_player1["adv_Player_won"] = main_player_won
@@ -344,7 +344,7 @@ class Dominion:
                     players_input[advesary].notify_game_end(game_state_player1)
 
 
-
+                self.trained_player_discounted_return = discount_val
 
 
                 if verbose:
