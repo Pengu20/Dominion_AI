@@ -327,14 +327,9 @@ class Dominion:
 
                     self.player0_bought_cards = np.array([0]*17)
 
-
-
-                self.trained_player_discounted_return = self.player1.get_discounted_returns()
-
-
                 game_state_player0["main_Player_won"] = main_player_won
                 game_state_player0["adv_Player_won"] = adv_player_won
-                players_input[main].notify_game_end(game_state_player0)
+                self.trained_player_discounted_return = players_input[main].notify_game_end(game_state_player0)
       
 
                 game_state_player1["main_Player_won"] = adv_player_won

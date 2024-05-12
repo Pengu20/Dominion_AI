@@ -73,7 +73,7 @@ class Dominion_reward():
 
         # ---------------- Reward based on game end ----------------
         if   (game_state["main_Player_won"] == 1):
-            Victory_reward = 500
+            Victory_reward = 30000
 
             # If the province pile is empty, the player won by provinces and gets an extra reward
             if game_state["supply_amount"][5] == 0:
@@ -81,8 +81,7 @@ class Dominion_reward():
 
 
         elif (game_state["adv_Player_won"] == 1):
-            Victory_reward = -500
-
+            Victory_reward = -30000
             if game_state["supply_amount"][5] == 0:
                 Victory_reward -= 50000
 
@@ -289,6 +288,27 @@ class Dominion_reward():
 
         if new_cards > 0 and deck_length > deck_limit:
             Too_many_cards_punishment = -(deck_length - deck_limit)
+
+
+
+        # Masked rewards for testing, lines that are commented out are rewards that are kept.
+            
+        #reward = -5
+        #Victory_reward = 0 #20 if won -100 if lost, extra 180, if won by provinces
+        Victory_points_difference_reward = 0 # 10 per victory point difference
+        Victory_points_reward = 0 # 5 per victory point
+        treasure_in_hand_reward = 0 # with 5 or more treasure in hand, gain 5 points for each treasure above 5.
+        #Province_owned_reward = 0 # 3 per province 
+        Province_difference_reward = 0 # 5 per province difference
+        #Cards_played_reward = 0 # 5 if you played more than 3 cards
+        no_copper_reward = 0 # 5 if you have no coppers
+        no_estates_reward = 0 # 5 if you have no estates
+        #gold_reward = 0 # get 3 point for each gold in deck
+        deck_value_reward = 0 # -10 if you have less than 3 in value
+        no_cards_punishment = 0 # -10 if you own less than 5 cards
+        #curses_owned = 0 # -10 point per curse
+        #Gained_expensive_cards_reward = 0 # Gain a reward based on the cost of the bought card to the power of 2
+        #Too_many_cards_punishment = 0 # after 30, give punishment for cards in deck
 
 
         reward_list = np.array([reward, Victory_reward, Victory_points_reward,
@@ -879,8 +899,6 @@ class Deep_SARSA:
         open_file.write(f"{np.var(self.all_returns)}\n")
         open_file.close()
 
-        self.all_returns = []
-
 
         open_file = open(self.file_games_won, "a")
         if game_state["main_Player_won"] == 1:
@@ -926,7 +944,6 @@ class Deep_SARSA:
         '''
 
         discounted_returns = 0
-
         for i in range(len(self.all_returns)):
             discounted_returns += self.all_returns[i] * self.gamma**i
 
@@ -966,6 +983,9 @@ class Deep_SARSA:
 
 
 
+
+
+
     def notify_game_end(self, game_state):
         ''' [summary]
             This function is used to notify the player that the game has ended
@@ -997,6 +1017,13 @@ class Deep_SARSA:
         self.turns_in_game = 0
 
         self.games_played += 1
+
+        discounted_returns = self.get_discounted_returns()
+        self.all_returns = []
+        
+
+        return discounted_returns
+
 
 
 
@@ -1300,7 +1327,7 @@ class Deep_expected_sarsa(Deep_SARSA):
         '''
 
         start_time = time.time()
-        alpha = 0.05 # Learning rate
+        alpha = 0.03 # Learning rate
         gamma = 0.35 # Discount factor
         self.gamma = gamma
 
