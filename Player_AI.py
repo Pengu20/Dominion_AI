@@ -73,17 +73,17 @@ class Dominion_reward():
 
         # ---------------- Reward based on game end ----------------
         if   (game_state["main_Player_won"] == 1):
-            Victory_reward = 30000
+            Victory_reward = 300000
 
             # If the province pile is empty, the player won by provinces and gets an extra reward
             if game_state["supply_amount"][5] == 0:
-                Victory_reward += 50000
+                Victory_reward += 500000
 
 
         elif (game_state["adv_Player_won"] == 1):
-            Victory_reward = -30000
+            Victory_reward = -300000
             if game_state["supply_amount"][5] == 0:
-                Victory_reward -= 50000
+                Victory_reward -= 500000
 
 
 
@@ -108,7 +108,7 @@ class Dominion_reward():
 
                 card_set_idx = sm.card_idx_2_set_idx(card, game_state=copy.deepcopy(game_state))
                 card_cost = int(card_set[card_set_idx][2])
-                Gained_expensive_cards_reward += card_cost**2
+                Gained_expensive_cards_reward += card_cost**3
 
             # Double reward, if the player spend all their money
             if game_state["value"] == 0 and game_state["buys"] == 0 and game_state["Unique_actions"] == "buy":
@@ -142,7 +142,7 @@ class Dominion_reward():
 
         Province_difference_reward = abs((province_main - province_adv)) * np.sign(province_main - province_adv)
 
-        Province_owned_reward = (new_province*1000)
+        Province_owned_reward = (new_province*10000)
 
 
 
@@ -160,7 +160,7 @@ class Dominion_reward():
 
 
         # ---------------- reward for playing many cards ----------------
-        Cards_played_reward = (len(game_state["played_cards"])*20)
+        Cards_played_reward = (len(game_state["played_cards"])*200)
 
 
         # ---------------- reward for having few/no coppers ----------------
@@ -200,7 +200,7 @@ class Dominion_reward():
             if card == 2:
                 gold_cards += 1
         
-        gold_reward = (1700*gold_cards)
+        gold_reward = (gold_cards*15000)
 
 
         # ---------------- reward for having alot of value (weighted by deck size) ----------------
@@ -279,7 +279,7 @@ class Dominion_reward():
             if card == 6:
                 curses += 1
 
-        curses_owned = -300 * curses
+        curses_owned = -3000 * curses
 
         # ---------------- Too many cards punishment ----------------
         deck_length = len(game_state["owned_cards"])
@@ -287,7 +287,7 @@ class Dominion_reward():
         deck_limit = 35
 
         if new_cards > 0 and deck_length > deck_limit:
-            Too_many_cards_punishment = -(deck_length - deck_limit)
+            Too_many_cards_punishment = -(deck_length - deck_limit)*100
 
 
 
