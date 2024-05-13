@@ -23,7 +23,7 @@ import copy
 import pickle   
 
 
-def Evaluate_agent(agent, agent_name, num_games = 150, epochs=15, test_game_frequency=3):
+def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_frequency=4):
     '''
     This function is made to evaluate three different agents, sarsa, Q-learning and expected SARSA
     '''
@@ -58,6 +58,7 @@ def Evaluate_agent(agent, agent_name, num_games = 150, epochs=15, test_game_freq
 
         discounted_returns = []
         wins = 0
+        test_games = 0
         for i in range(games_per_epoch):
             print(f"Epoch: {epoch}, Game: {i} ---- Agent: {agent_name}")
 
@@ -77,6 +78,7 @@ def Evaluate_agent(agent, agent_name, num_games = 150, epochs=15, test_game_freq
 
             if i % test_game_frequency == 0:
                 print("---- Testing agent policy ----")
+                test_games += 1
                 Dominion_game.player1.greedy_mode = True
                 index_player_won = Dominion_game.play_loop_AI(f"test_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
 
@@ -100,7 +102,7 @@ def Evaluate_agent(agent, agent_name, num_games = 150, epochs=15, test_game_freq
             print("\n")
 
 
-        average_winrate.append(wins/games_per_epoch)
+        average_winrate.append(wins/test_games)
         list_discounted_returns.append(discounted_returns)
 
     # Average over the list of discounted returns

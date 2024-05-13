@@ -73,17 +73,17 @@ class Dominion_reward():
 
         # ---------------- Reward based on game end ----------------
         if   (game_state["main_Player_won"] == 1):
-            Victory_reward = 300000
+            Victory_reward = 3000000
 
             # If the province pile is empty, the player won by provinces and gets an extra reward
             if game_state["supply_amount"][5] == 0:
-                Victory_reward += 500000
+                Victory_reward += 5000000
 
 
         elif (game_state["adv_Player_won"] == 1):
-            Victory_reward = -300000
+            Victory_reward = -3000000
             if game_state["supply_amount"][5] == 0:
-                Victory_reward -= 500000
+                Victory_reward -= 5000000
 
 
 
@@ -142,13 +142,13 @@ class Dominion_reward():
 
         Province_difference_reward = abs((province_main - province_adv)) * np.sign(province_main - province_adv)
 
-        Province_owned_reward = (new_province*10000)
+        Province_owned_reward = (new_province*1000)
 
 
 
         # ---------------- Points for having more victory points than the other players ----------------
         Victory_points_diff = copy.deepcopy(game_state["Victory_points"]) - copy.deepcopy( game_state["adv_Victory_points"])
-        Victory_points_difference_reward = np.real((10*Victory_points_diff))
+        Victory_points_difference_reward = np.real((30*Victory_points_diff))
 
 
         
@@ -160,7 +160,7 @@ class Dominion_reward():
 
 
         # ---------------- reward for playing many cards ----------------
-        Cards_played_reward = (len(game_state["played_cards"])*200)
+        Cards_played_reward = (len(game_state["played_cards"])*20)
 
 
         # ---------------- reward for having few/no coppers ----------------
@@ -200,7 +200,7 @@ class Dominion_reward():
             if card == 2:
                 gold_cards += 1
         
-        gold_reward = (gold_cards*15000)
+        gold_reward = (gold_cards*1500)
 
 
         # ---------------- reward for having alot of value (weighted by deck size) ----------------
@@ -279,7 +279,7 @@ class Dominion_reward():
             if card == 6:
                 curses += 1
 
-        curses_owned = -3000 * curses
+        curses_owned = -300 * curses
 
         # ---------------- Too many cards punishment ----------------
         deck_length = len(game_state["owned_cards"])
@@ -287,7 +287,7 @@ class Dominion_reward():
         deck_limit = 35
 
         if new_cards > 0 and deck_length > deck_limit:
-            Too_many_cards_punishment = -(deck_length - deck_limit)*100
+            Too_many_cards_punishment = -(deck_length - deck_limit)*10
 
 
 
@@ -295,7 +295,7 @@ class Dominion_reward():
             
         #reward = -5
         #Victory_reward = 0 #20 if won -100 if lost, extra 180, if won by provinces
-        Victory_points_difference_reward = 0 # 10 per victory point difference
+        #Victory_points_difference_reward = 0 # 10 per victory point difference
         Victory_points_reward = 0 # 5 per victory point
         treasure_in_hand_reward = 0 # with 5 or more treasure in hand, gain 5 points for each treasure above 5.
         #Province_owned_reward = 0 # 3 per province 
@@ -1327,8 +1327,8 @@ class Deep_expected_sarsa(Deep_SARSA):
         '''
 
         start_time = time.time()
-        alpha = 0.03 # Learning rate
-        gamma = 0.35 # Discount factor
+        alpha = 0.04 # Learning rate
+        gamma = 0.45 # Discount factor
         self.gamma = gamma
 
         # SA -> State action
