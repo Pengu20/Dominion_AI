@@ -47,6 +47,9 @@ def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_freq
     list_expected_returns = []
     list_discounted_returns = []
 
+    list_wins_at_index = []
+
+
     average_winrate = []
 
 
@@ -60,8 +63,11 @@ def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_freq
 
         expected_returns = []
         discounted_returns = []
-        wins = 0
+        wins_at_index = []*np.ceil((games_per_epoch / test_game_frequency))
+        win = 0
         test_games = 0
+
+
         for i in range(games_per_epoch):
             print(f"Epoch: {epoch}, Game: {i} ---- Agent: {agent_name}")
 
@@ -88,13 +94,14 @@ def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_freq
 
                 if index_player_won == 0:
                     print("Trained player won!")
-                    wins += 1
+                    win = 1
                 elif index_player_won == 1:
                     print("Test player won!")
+                    win = 0
                 else:
                     print("Draw!")
 
-                
+                wins_at_index[i/test_game_frequency] = win
                 # Log the discounted return of the game
 
                 discounted_returns.append(Dominion_game.trained_player_discounted_return)
@@ -105,7 +112,8 @@ def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_freq
             print("\n")
 
 
-        average_winrate.append(wins/test_games)
+
+        list_wins_at_index.append(wins_at_index)
 
         list_discounted_returns.append(discounted_returns)
         list_expected_returns.append(expected_returns)
@@ -114,7 +122,9 @@ def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_freq
         
     average_discounted_returns = np.mean(list_discounted_returns, axis=0)
     average_expected_returns = np.mean(list_expected_returns, axis=0)
-    winrate = np.mean(average_winrate)
+    
+    average_winrate = print(np.mean(np.asarray(list_wins_at_index), axis=0))
+
 
 
     open_file = open(f"averaged_discounted_rewards_{agent_name}.txt", "w")
@@ -130,8 +140,11 @@ def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_freq
 
 
     open_file = open(f"averaged_wins.txt_{agent_name}.txt", "w")
-    open_file.write(f"{winrate}\n")
+    for avg_win in average_winrate:
+        open_file.write(f"{avg_win}\n")
     open_file.close()
+
+
 
 '''
 P1 = multiprocessing.Process(target=Evaluate_agent, args=("SARSA", "Deep_sarsa"))
