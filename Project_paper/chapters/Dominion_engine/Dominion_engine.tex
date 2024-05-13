@@ -22,7 +22,12 @@ These cards have assigned a currency value, which is used to buy other cards. Th
 \textbf{Victory cards}:
 These cards are expensive card, which gives the player victory points. The cards hold no tactical value, other than to be bought to gain victory points.\\\\
 A turn consists of an action phase, and a buy phase. The player is granted a single action that the player can do, and a single buy action, which enables the player to buy a single card. It is possible, through, action cards to gain more actions, and more buys. The cards that can be bought are shown as a shared pool of cards that are structured as piles of cards. Every pile represents all the copies of a unique card which can be bought. A typical game setup is shown in the illustration below:\\\\
-\textcolor{red}{Insert image of a typical game setup}\\\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/Board_game_setup.png}
+    \caption{A typical setup of a Dominion game}
+    \label{fig:board_game}
+\end{figure}
 The usual process is a randomization of the action card piles present. Only 10 action card piles are at play at a time, but around 25 unique action cards exists. For the sake of simplicity, the game will be played with a unique set of cards, that is fixed.\\\\
 The process of buying a card in the buy phase, is done by showing the currency in hand that is enough to buy the specified card, and then putting the bought card into the discard pile, so it can be drawn in future turns. The treasure cards used does not disappear, and will be discarded at the end of your turn as all other cards.\\\\
 The game ends when the highest cost victory card pile is empty (Card is named "Province"), or when 3 piles of cards are empty. The player with the most victory points wins the game.\\\\
@@ -40,11 +45,26 @@ The specific criteria for the Dominion engine are as follows:
 \end{itemize}
 
 \subsection{Finished Implementation of the Dominion Engine} \label{sec:engine_implementation}
-The finished implementation of the Dominion engine is a python class, which can input arbitrary players and simulate the game. An illustration of the class structure is shown below:\\\\
-\textcolor{red}{Show illustration of the class structure.}
+The finished implementation of the Dominion engine is a python class, which can input arbitrary players and simulate the game. Figure \ref{fig:program structure} shows that structure of the entire progran. Essentially it consists of the Dominion engine, the AI agents, a deck generator and an evaluation program. Figure \ref{fig:Dominion_engine} is the class structure of the Dominion engine. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/program_structure.png}
+    \caption{This is the class structure for the entire project}
+    \label{fig:program structure}
+    
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/Dominion_game_structure.png}
+    \caption{The class structure of the Dominion engine.}
+    \label{fig:Dominion_engine}
+\end{figure}
 
 The only constriction for the player object, is that the player object must have a function called "choose\_action" with inputs action\_list and game\_state, that returns on of the actions.
-
+The game needs to auxiliary classes, that helps the class compute certain aspects of the game. An entire class has been dedicated to the manipulation of the state object. This might reflect the complexity and size of the programs that is needed to handle the state object.
+The card effects class is used to give each card their effect. Each card effect is exclusively limited to effects that alter the state object in some way or form.
+An explanation of the gamestate object is as follows:\\
 The game state is a dictionary object, which contains the following keys:\\\\
 \textbf{game\_state}:
 \begin{itemize}
