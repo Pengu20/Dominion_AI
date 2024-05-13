@@ -421,6 +421,7 @@ class Deep_SARSA:
         self.all_expected_returns = [] # This is used to keep track of the sum of expected returns gained by the players
         self.all_returns = []
 
+
         # DEBUG, so i can see the latest reward
 
         self.latest_reward = None
@@ -491,7 +492,7 @@ class Deep_SARSA:
         input_1 = keras.Input(shape=(110,))
         input_2 = keras.Input(shape=(8,))
 
-        weight_mean = 0.03
+        weight_mean = 0.04
         weight_dev = 0.01
 
         # action layer handling
@@ -713,7 +714,6 @@ class Deep_SARSA:
         NN_error = (reward + gamma*expected_return - old_expected_return)**2
         self.NN_error.append(NN_error)
         self.all_returns.append(reward)
-
 
         # Defining learning step - Is 0 if the only action available is the terminate action
         learning_step = float(self.alpha * (reward + gamma*expected_return - old_expected_return))
@@ -995,7 +995,6 @@ class Deep_SARSA:
         if self.greedy_mode:
             self.write_state_reward_to_file(game_state)
 
-
         # Deep sarsa will update its neural network with the new values
         self.game_end_update(game_state)
 
@@ -1019,10 +1018,12 @@ class Deep_SARSA:
         self.games_played += 1
 
         discounted_returns = self.get_discounted_returns()
-        self.all_returns = []
-        
+        expected_returns = np.sum(self.all_expected_returns) # Already discounted
 
-        return discounted_returns
+        self.all_returns = []
+
+
+        return discounted_returns, expected_returns
 
 
 
@@ -1127,6 +1128,7 @@ class Deep_Q_learning(Deep_SARSA):
         NN_error = (reward + gamma*expected_return - old_expected_return)**2
         self.NN_error.append(NN_error)
         self.all_returns.append(reward)
+
 
         # Defining learning step - Is 0 if the only action available is the terminate action
         learning_step = float(alpha * (reward + gamma*expected_return - old_expected_return))
@@ -1365,6 +1367,7 @@ class Deep_expected_sarsa(Deep_SARSA):
         NN_error = (reward + gamma*expected_return - old_expected_return)**2
         self.NN_error.append(NN_error)
         self.all_returns.append(reward)
+
 
         # Defining learning step - Is 0 if the only action available is the terminate action
         learning_step = float(alpha * (reward + gamma*expected_return - old_expected_return))

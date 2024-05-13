@@ -43,7 +43,10 @@ def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_freq
     games_per_epoch = num_games # Defines how many games per epoch
     N = epochs # defines how many epochs should be trained on
 
+
+    list_expected_returns = []
     list_discounted_returns = []
+
     average_winrate = []
 
 
@@ -55,7 +58,7 @@ def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_freq
 
         Dominion_game.set_players(agent_class, player_random1) # Training the first player, testing with the second player
 
-
+        expected_returns = []
         discounted_returns = []
         wins = 0
         test_games = 0
@@ -93,9 +96,9 @@ def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_freq
 
                 
                 # Log the discounted return of the game
-                discounted_return = Dominion_game.trained_player_discounted_return
 
-                discounted_returns.append(discounted_return)
+                discounted_returns.append(Dominion_game.trained_player_discounted_return)
+                expected_returns.append(Dominion_game.trained_player_expected_return)
 
 
 
@@ -103,11 +106,14 @@ def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_freq
 
 
         average_winrate.append(wins/test_games)
+
         list_discounted_returns.append(discounted_returns)
+        list_expected_returns.append(expected_returns)
 
     # Average over the list of discounted returns
         
     average_discounted_returns = np.mean(list_discounted_returns, axis=0)
+    average_expected_returns = np.mean(list_expected_returns, axis=0)
     winrate = np.mean(average_winrate)
 
 
@@ -115,6 +121,12 @@ def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_freq
     for reward in average_discounted_returns:
         open_file.write(f"{reward}\n")
     open_file.close()
+
+    open_file = open(f"averaged_expected_rewards_{agent_name}.txt", "w")
+    for reward in average_expected_returns:
+        open_file.write(f"{reward}\n")
+    open_file.close()
+
 
 
     open_file = open(f"averaged_wins.txt_{agent_name}.txt", "w")
