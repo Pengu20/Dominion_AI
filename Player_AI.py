@@ -1001,7 +1001,10 @@ class Deep_SARSA:
 
         # Saving the game data
 
-            
+        discounted_returns = self.get_discounted_returns()
+        expected_returns = np.sum(self.all_expected_returns) # Already discounted
+
+
         ''' Removed these so that we can see the last reward
         self.latest_reward = None
         self.latest_action = None
@@ -1017,11 +1020,8 @@ class Deep_SARSA:
 
         self.games_played += 1
 
-        discounted_returns = self.get_discounted_returns()
-        expected_returns = np.sum(self.all_expected_returns) # Already discounted
 
         self.all_returns = []
-
 
         return discounted_returns, expected_returns
 

@@ -63,7 +63,7 @@ def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_freq
 
         expected_returns = []
         discounted_returns = []
-        wins_at_index = []*np.ceil((games_per_epoch / test_game_frequency))
+        wins_at_index = [0]*np.ceil((games_per_epoch / test_game_frequency)).astype(int)
         win = 0
         test_games = 0
 
@@ -101,7 +101,7 @@ def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_freq
                 else:
                     print("Draw!")
 
-                wins_at_index[i/test_game_frequency] = win
+                wins_at_index[int(i/test_game_frequency)] = win
                 # Log the discounted return of the game
 
                 discounted_returns.append(Dominion_game.trained_player_discounted_return)
@@ -123,7 +123,7 @@ def Evaluate_agent(agent, agent_name, num_games = 200, epochs=10, test_game_freq
     average_discounted_returns = np.mean(list_discounted_returns, axis=0)
     average_expected_returns = np.mean(list_expected_returns, axis=0)
     
-    average_winrate = print(np.mean(np.asarray(list_wins_at_index), axis=0))
+    average_winrate = np.mean(np.asarray(list_wins_at_index), axis=0)
 
 
 
