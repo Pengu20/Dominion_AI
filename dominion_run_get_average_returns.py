@@ -73,7 +73,7 @@ def Evaluate_agent(agent, agent_name, num_games = 100, epochs=10, test_game_freq
 
 
             Dominion_game.player1.greedy_mode = False
-            index_player_won = Dominion_game.play_loop_AI(f"trainer_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=False)
+            index_player_won = Dominion_game.play_loop_AI(f"trainer_game_{agent_name}_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=False)
 
 
             if index_player_won == 0:
@@ -89,7 +89,7 @@ def Evaluate_agent(agent, agent_name, num_games = 100, epochs=10, test_game_freq
                 print("---- Testing agent policy ----")
                 test_games += 1
                 Dominion_game.player1.greedy_mode = True
-                index_player_won = Dominion_game.play_loop_AI(f"test_game_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
+                index_player_won = Dominion_game.play_loop_AI(f"test_game_{agent_name}_{i}",player_0_is_NN=True, player_1_is_NN=False, verbose=True)
 
 
                 if index_player_won == 0:
