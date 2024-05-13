@@ -1104,8 +1104,8 @@ class Deep_Q_learning(Deep_SARSA):
         '''
 
         start_time = time.time()
-        alpha = 0.1 # Learning rate
-        gamma = 0.35 # Discount factor
+        alpha = 0.04 # Learning rate
+        gamma = 0.45 # Discount factor
         self.gamma = gamma
 
 
@@ -1320,7 +1320,7 @@ class Deep_expected_sarsa(Deep_SARSA):
         super().__init__(player_name)
         # Set epsilon randomly, such that the player sometimes learns using the known knowledge, and sometimes completely explores.
         # self.set_new_epsilon_value(min_val=0.4, max_val=1)
-        self.epsilon_value = 0.80
+        self.epsilon_value = 0.95
 
 
     def expected_SARSA_update(self, game_state, list_of_actions, game_ended=False):
