@@ -23,7 +23,7 @@ import copy
 import pickle   
 
 
-def Evaluate_agent(agent, agent_name, num_games = 100, epochs=10, test_game_frequency=4):
+def Evaluate_agent(agent, agent_name, num_games = 100, epochs=20, test_game_frequency=2):
     '''
     This function is made to evaluate three different agents, sarsa, Q-learning and expected SARSA
     '''
@@ -159,10 +159,19 @@ P3 = multiprocessing.Process(target=Evaluate_agent, args=("Expected SARSA", "Dee
 '''
 
 
+agent = "Expected SARSA"
+agent_name = "Deep_expected_sarsa"
+Evaluate_agent(agent, agent_name)
+
+
 agent = "Q-learning"
 agent_name = "Deep_Q_learning"
 Evaluate_agent(agent, agent_name)
 
+
 agent = "SARSA"
-agent_name = "Deep_SARSA"
+agent_name = "Deep_sarsa"
 Evaluate_agent(agent, agent_name)
+
+
+
