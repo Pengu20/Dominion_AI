@@ -1,0 +1,6146 @@
+ --------- CARDS IN THIS GAME --------- 
+Game cards: [['Copper' '0' '0']
+ ['Silver' '1' '3']
+ ['Gold' '2' '6']
+ ['Estate' '3' '2']
+ ['Duchy' '4' '5']
+ ['Province' '5' '8']
+ ['Curse' '6' '0']
+ ['Remodel' '16' '4']
+ ['Workshop' '11' '3']
+ ['Chapel' '8' '2']
+ ['Witch' '25' '5']
+ ['Poacher' '29' '4']
+ ['Militia' '14' '4']
+ ['Market' '23' '5']
+ ['Village' '10' '3']
+ ['Library' '22' '5']
+ ['Moneylender' '15' '4']]
+
+
+
+
+
+
+         -------------------- Turn: 1 -------------------- 
+Player: 1 
+cards in hand: [3. 0. 0. 0. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [3. 0. 0. 0. 0.] 
+cards in discard: [] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [] 
+owned cards: [0 0 0 0 0 0 0 3 3 3] -> size -> 10 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [30. 30. 30. 30. 30.  8. 10. 10. 10. 10. 10. 10. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [3. 0. 0. 0. 3.] 
+adversary cards in discard: [] 
+adversary owned cards: [0 0 0 0 0 0 0 3 3 3] -> size -> 10 
+adversary victory points: 3
+player victory points: 3 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 16. 11.  8. 29. 14. 10. 15. -1.] 
+Chosen buy action: 29.0 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [3. 0. 0. 0. 0.] 
+cards in discard: [] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [] 
+owned cards: [0 0 0 0 0 0 0 3 3 3] -> size -> 10 
+action values: 0 
+buys: 1 
+player value: 4 
+card supply: [30. 30. 30. 30. 30.  8. 10. 10. 10. 10. 10. 10. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [3. 0. 0. 0. 3.] 
+adversary cards in discard: [] 
+adversary owned cards: [0 0 0 0 0 0 0 3 3 3] -> size -> 10 
+adversary victory points: 3
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [3. 0. 0. 0. 0.] 
+cards in discard: [29.] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29] -> size -> 11 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [30. 30. 30. 30. 30.  8. 10. 10. 10. 10. 10.  9. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [3. 0. 0. 0. 3.] 
+adversary cards in discard: [] 
+adversary owned cards: [0 0 0 0 0 0 0 3 3 3] -> size -> 10 
+adversary victory points: 3
+player victory points: 3 
+
+
+
+
+
+Player: 0 
+cards in hand: [3. 0. 0. 0. 3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+expected returns: [[102.06088]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [3. 0. 0. 0. 3.] 
+cards in discard: [] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [] 
+owned cards: [0 0 0 0 0 0 0 3 3 3] -> size -> 10 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [30. 30. 30. 30. 30.  8. 10. 10. 10. 10. 10.  9. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [0. 0. 3. 0. 3.] 
+adversary cards in discard: [29.  3.  0.  0.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29] -> size -> 11 
+adversary victory points: 3
+player victory points: 3 
+
+Reward from previous game state: 
+[      -5 -3000000        0      -60        0        0        0        0
+        0        0        0        0        0        0        0        0] 
+sum of rewards: -3000065 
+
+action type: buy - action -1
+Learning step: -119998.046875
+desired expected reward: -120111.8203125
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 11.  8. 10. -1.] 
+expected returns: [[ 82.11978 ]
+ [112.82118 ]
+ [ 94.31801 ]
+ [ 38.803173]
+ [116.34779 ]
+ [103.64957 ]
+ [ 85.500946]
+ [ 99.700516]]
+Chosen buy action: 11.0 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [3. 0. 0. 0. 3.] 
+cards in discard: [] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [] 
+owned cards: [0 0 0 0 0 0 0 3 3 3] -> size -> 10 
+action values: 0 
+buys: 1 
+player value: 3 
+card supply: [30. 30. 30. 30. 30.  8. 10. 10. 10. 10. 10.  9. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [0. 0. 3. 0. 3.] 
+adversary cards in discard: [29.  3.  0.  0.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29] -> size -> 11 
+adversary victory points: 3
+player victory points: 3 
+
+Reward from previous game state: 
+[-5  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0] 
+sum of rewards: -5 
+
+action type: take_action - action -1.0
+Learning step: 0
+desired expected reward: 102.76837158203125
+
+
+
+buy possibilites: [-1] 
+expected returns: [[98.631516]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [3. 0. 0. 0. 3.] 
+cards in discard: [11.] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11] -> size -> 11 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [30. 30. 30. 30. 30.  8. 10. 10.  9. 10. 10.  9. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [0. 0. 3. 0. 3.] 
+adversary cards in discard: [29.  3.  0.  0.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29] -> size -> 11 
+adversary victory points: 3
+player victory points: 3 
+
+Reward from previous game state: 
+[-5  0  0  0  0  0  0  0  0  0  0  0  0  0 54  0] 
+sum of rewards: 49 
+
+action type: buy - action 11.0
+Learning step: 0
+desired expected reward: 116.34780883789062
+
+
+
+
+
+
+         -------------------- Turn: 2 -------------------- 
+Player: 1 
+cards in hand: [0. 0. 3. 0. 3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [0. 0. 3. 0. 3.] 
+cards in discard: [29.  3.  0.  0.  0.  0.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29] -> size -> 11 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [30. 30. 30. 30. 30.  8. 10. 10.  9. 10. 10.  9. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [3. 0. 0. 0. 0.] 
+adversary cards in discard: [11.  3.  0.  0.  0.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11] -> size -> 11 
+adversary victory points: 3
+player victory points: 3 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 11.  8. 10. -1.] 
+Chosen buy action: 1.0 : ['Silver' '1' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 3. 0. 3.] 
+cards in discard: [29.  3.  0.  0.  0.  0.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29] -> size -> 11 
+action values: 0 
+buys: 1 
+player value: 3 
+card supply: [30. 30. 30. 30. 30.  8. 10. 10.  9. 10. 10.  9. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [3. 0. 0. 0. 0.] 
+adversary cards in discard: [11.  3.  0.  0.  0.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11] -> size -> 11 
+adversary victory points: 3
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 3. 0. 3.] 
+cards in discard: [29.  3.  0.  0.  0.  0.  1.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1] -> size -> 12 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [30. 29. 30. 30. 30.  8. 10. 10.  9. 10. 10.  9. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [3. 0. 0. 0. 0.] 
+adversary cards in discard: [11.  3.  0.  0.  0.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11] -> size -> 11 
+adversary victory points: 3
+player victory points: 3 
+
+
+
+
+
+Player: 0 
+cards in hand: [3. 0. 0. 0. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+expected returns: [[88.927444]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [3. 0. 0. 0. 0.] 
+cards in discard: [11.  3.  0.  0.  0.  3.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11] -> size -> 11 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [30. 29. 30. 30. 30.  8. 10. 10.  9. 10. 10.  9. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [ 0.  0.  3.  0. 29.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1] -> size -> 12 
+adversary victory points: 3
+player victory points: 3 
+
+Reward from previous game state: 
+[-5  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0] 
+sum of rewards: -5 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 98.63151550292969
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 16. 11.  8. 29. 14. 10. 15. -1.] 
+expected returns: [[ 72.12488 ]
+ [103.12149 ]
+ [ 84.780014]
+ [ 28.225708]
+ [ 93.28731 ]
+ [106.61249 ]
+ [ 94.033325]
+ [118.460434]
+ [ 49.001343]
+ [ 75.615036]
+ [ 79.01041 ]
+ [ 90.06485 ]]
+Chosen buy action: 29.0 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [3. 0. 0. 0. 0.] 
+cards in discard: [11.  3.  0.  0.  0.  3.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11] -> size -> 11 
+action values: 0 
+buys: 1 
+player value: 4 
+card supply: [30. 29. 30. 30. 30.  8. 10. 10.  9. 10. 10.  9. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [ 0.  0.  3.  0. 29.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1] -> size -> 12 
+adversary victory points: 3
+player victory points: 3 
+
+Reward from previous game state: 
+[-5  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0] 
+sum of rewards: -5 
+
+action type: take_action - action -1.0
+Learning step: 0
+desired expected reward: 88.09744262695312
+
+
+
+buy possibilites: [-1] 
+expected returns: [[77.30437]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [3. 0. 0. 0. 0.] 
+cards in discard: [11.  3.  0.  0.  0.  3. 29.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29] -> size -> 12 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [30. 29. 30. 30. 30.  8. 10. 10.  9. 10. 10.  8. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [ 0.  0.  3.  0. 29.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1] -> size -> 12 
+adversary victory points: 3
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0   0   0   0   0   0   0   0   0   0   0   0 128   0] 
+sum of rewards: 123 
+
+action type: buy - action 29.0
+Learning step: 0
+desired expected reward: 118.46046447753906
+
+
+
+
+
+
+         -------------------- Turn: 3 -------------------- 
+Player: 1 
+cards in hand: [ 0.  0.  3.  0. 29.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 29.] 
+Chosen action: 29 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0.  0.  3.  0. 29.] 
+cards in discard: [] 
+cards in deck: 7 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1] -> size -> 12 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [30. 29. 30. 30. 30.  8. 10. 10.  9. 10. 10.  8. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [ 0.  0.  3. 11.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29] -> size -> 12 
+adversary victory points: 3
+player victory points: 3 
+
+
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [0. 0. 3. 0. 0.] 
+cards in discard: [] 
+cards in deck: 6 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1] -> size -> 12 
+action values: 1 
+buys: 0 
+player value: 1 
+card supply: [30. 29. 30. 30. 30.  8. 10. 10.  9. 10. 10.  8. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [ 0.  0.  3. 11.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29] -> size -> 12 
+adversary victory points: 3
+player victory points: 3 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  4.  6. 16. 11.  8. 25. 29. 14. 23. 10. 22. 15. -1.] 
+Chosen buy action: 14.0 : ['Militia' '14' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 3. 0. 0.] 
+cards in discard: [] 
+cards in deck: 6 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1] -> size -> 12 
+action values: 0 
+buys: 1 
+player value: 5 
+card supply: [30. 29. 30. 30. 30.  8. 10. 10.  9. 10. 10.  8. 10. 10. 10. 10. 10.] 
+adversary cards in hand: [ 0.  0.  3. 11.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29] -> size -> 12 
+adversary victory points: 3
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 3. 0. 0.] 
+cards in discard: [14.] 
+cards in deck: 6 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14] -> size -> 13 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [30. 29. 30. 30. 30.  8. 10. 10.  9. 10. 10.  8.  9. 10. 10. 10. 10.] 
+adversary cards in hand: [ 0.  0.  3. 11.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29] -> size -> 12 
+adversary victory points: 3
+player victory points: 3 
+
+
+
+
+
+Player: 0 
+cards in hand: [ 0.  0.  3. 11.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 11.] 
+expected returns: [[ 97.03003]
+ [114.07982]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0.  0.  3. 11.  0.] 
+cards in discard: [] 
+cards in deck: 7 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29] -> size -> 12 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [30. 29. 30. 30. 30.  8. 10. 10.  9. 10. 10.  8.  9. 10. 10. 10. 10.] 
+adversary cards in hand: [3. 0. 1. 0. 0.] 
+adversary cards in discard: [14. 29.  0.  0.  3.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14] -> size -> 13 
+adversary victory points: 3
+player victory points: 3 
+
+Reward from previous game state: 
+[-5  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0] 
+sum of rewards: -5 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 77.30436706542969
+
+
+
+action possibilites: [-1] 
+expected returns: [[72.23802]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [0. 0. 3. 0.] 
+cards in discard: [10.] 
+cards in deck: 7 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10] -> size -> 13 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [30. 29. 30. 30. 30.  8. 10. 10.  9. 10. 10.  8.  9. 10.  9. 10. 10.] 
+adversary cards in hand: [3. 0. 1. 0. 0.] 
+adversary cards in discard: [14. 29.  0.  0.  3.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14] -> size -> 13 
+adversary victory points: 3
+player victory points: 3 
+
+Reward from previous game state: 
+[-5  0  0  0  0  0 20  0  0  0  0  0  0  0 27  0] 
+sum of rewards: 42 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 127.82246398925781
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 11.  8. 10. -1.] 
+expected returns: [[53.496685]
+ [81.50911 ]
+ [64.90224 ]
+ [13.861559]
+ [84.68236 ]
+ [73.27678 ]
+ [56.66994 ]
+ [69.79062 ]]
+Chosen buy action: 11.0 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 3. 0.] 
+cards in discard: [10.] 
+cards in deck: 7 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10] -> size -> 13 
+action values: 0 
+buys: 1 
+player value: 3 
+card supply: [30. 29. 30. 30. 30.  8. 10. 10.  9. 10. 10.  8.  9. 10.  9. 10. 10.] 
+adversary cards in hand: [3. 0. 1. 0. 0.] 
+adversary cards in discard: [14. 29.  0.  0.  3.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14] -> size -> 13 
+adversary victory points: 3
+player victory points: 3 
+
+Reward from previous game state: 
+[-5  0  0  0  0  0 20  0  0  0  0  0  0  0  0  0] 
+sum of rewards: 15 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 72.23802185058594
+
+
+
+buy possibilites: [-1] 
+expected returns: [[67.5683]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 3. 0.] 
+cards in discard: [10. 11.] 
+cards in deck: 7 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11] -> size -> 14 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [30. 29. 30. 30. 30.  8. 10. 10.  8. 10. 10.  8.  9. 10.  9. 10. 10.] 
+adversary cards in hand: [3. 0. 1. 0. 0.] 
+adversary cards in discard: [14. 29.  0.  0.  3.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14] -> size -> 13 
+adversary victory points: 3
+player victory points: 3 
+
+Reward from previous game state: 
+[-5  0  0  0  0  0 20  0  0  0  0  0  0  0 54  0] 
+sum of rewards: 69 
+
+action type: buy - action 11.0
+Learning step: 0
+desired expected reward: 84.68235778808594
+
+
+
+
+
+
+         -------------------- Turn: 4 -------------------- 
+Player: 1 
+cards in hand: [3. 0. 1. 0. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [3. 0. 1. 0. 0.] 
+cards in discard: [14. 29.  0.  0.  3.  0.  0.] 
+cards in deck: 1 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14] -> size -> 13 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [30. 29. 30. 30. 30.  8. 10. 10.  8. 10. 10.  8.  9. 10.  9. 10. 10.] 
+adversary cards in hand: [0. 0. 3. 0. 3.] 
+adversary cards in discard: [10. 11. 11.  0.  0.  3.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11] -> size -> 14 
+adversary victory points: 3
+player victory points: 3 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  4.  6. 16. 11.  8. 25. 29. 14. 23. 10. 22. 15. -1.] 
+Chosen buy action: 3.0 : ['Estate' '3' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [3. 0. 1. 0. 0.] 
+cards in discard: [14. 29.  0.  0.  3.  0.  0.] 
+cards in deck: 1 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14] -> size -> 13 
+action values: 0 
+buys: 1 
+player value: 5 
+card supply: [30. 29. 30. 30. 30.  8. 10. 10.  8. 10. 10.  8.  9. 10.  9. 10. 10.] 
+adversary cards in hand: [0. 0. 3. 0. 3.] 
+adversary cards in discard: [10. 11. 11.  0.  0.  3.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11] -> size -> 14 
+adversary victory points: 3
+player victory points: 3 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [3. 0. 1. 0. 0.] 
+cards in discard: [14. 29.  0.  0.  3.  0.  0.  3.] 
+cards in deck: 1 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3] -> size -> 14 
+action values: 0 
+buys: 0 
+player value: 3 
+card supply: [30. 29. 30. 29. 30.  8. 10. 10.  8. 10. 10.  8.  9. 10.  9. 10. 10.] 
+adversary cards in hand: [0. 0. 3. 0. 3.] 
+adversary cards in discard: [10. 11. 11.  0.  0.  3.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11] -> size -> 14 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+
+Player: 0 
+cards in hand: [0. 0. 3. 0. 3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+expected returns: [[56.9383]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [0. 0. 3. 0. 3.] 
+cards in discard: [10. 11. 11.  0.  0.  3.  0.] 
+cards in deck: 2 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11] -> size -> 14 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [30. 29. 30. 29. 30.  8. 10. 10.  8. 10. 10.  8.  9. 10.  9. 10. 10.] 
+adversary cards in hand: [ 3.  3.  3. 29.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3] -> size -> 14 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -35 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 67.56829833984375
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 11.  8. 10. -1.] 
+expected returns: [[43.674896 ]
+ [69.76254  ]
+ [54.239876 ]
+ [ 6.1126432]
+ [72.70732  ]
+ [62.072277 ]
+ [46.59184  ]
+ [58.64136  ]]
+Chosen buy action: 11.0 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 3. 0. 3.] 
+cards in discard: [10. 11. 11.  0.  0.  3.  0.] 
+cards in deck: 2 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11] -> size -> 14 
+action values: 0 
+buys: 1 
+player value: 3 
+card supply: [30. 29. 30. 29. 30.  8. 10. 10.  8. 10. 10.  8.  9. 10.  9. 10. 10.] 
+adversary cards in hand: [ 3.  3.  3. 29.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3] -> size -> 14 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -35 
+
+action type: take_action - action -1.0
+Learning step: 0
+desired expected reward: 56.91916275024414
+
+
+
+buy possibilites: [-1] 
+expected returns: [[59.353992]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 3. 0. 3.] 
+cards in discard: [10. 11. 11.  0.  0.  3.  0. 11.] 
+cards in deck: 2 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11] -> size -> 15 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [30. 29. 30. 29. 30.  8. 10. 10.  7. 10. 10.  8.  9. 10.  9. 10. 10.] 
+adversary cards in hand: [ 3.  3.  3. 29.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3] -> size -> 14 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0   0   0   0   0   0   0   0   0  54   0] 
+sum of rewards: 19 
+
+action type: buy - action 11.0
+Learning step: 0
+desired expected reward: 72.70732116699219
+
+
+
+
+
+
+         -------------------- Turn: 5 -------------------- 
+Player: 1 
+cards in hand: [ 3.  3.  3. 29.  3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 29.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 3.  3.  3. 29.  3.] 
+cards in discard: [] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3] -> size -> 14 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [30. 29. 30. 29. 30.  8. 10. 10.  7. 10. 10.  8.  9. 10.  9. 10. 10.] 
+adversary cards in hand: [ 0. 11.  3. 29.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11] -> size -> 15 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+Chosen buy action: -1.0 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 3.  3.  3. 29.  3.] 
+cards in discard: [] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3] -> size -> 14 
+action values: 1 
+buys: 1 
+player value: 0 
+card supply: [30. 29. 30. 29. 30.  8. 10. 10.  7. 10. 10.  8.  9. 10.  9. 10. 10.] 
+adversary cards in hand: [ 0. 11.  3. 29.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11] -> size -> 15 
+adversary victory points: 3
+player victory points: 4 
+
+
+ --------- NOTHING HAPPENED --------- 
+
+
+
+Player: 0 
+cards in hand: [ 0. 11.  3. 29.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 11. 29.] 
+expected returns: [[73.66284]
+ [88.15488]
+ [98.74794]]
+Chosen action: 29 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0. 11.  3. 29.  0.] 
+cards in discard: [] 
+cards in deck: 10 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11] -> size -> 15 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [30. 29. 30. 29. 30.  8. 10. 10.  7. 10. 10.  8.  9. 10.  9. 10. 10.] 
+adversary cards in hand: [ 0.  0. 14.  0.  1.] 
+adversary cards in discard: [ 3.  3.  3. 29.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3] -> size -> 14 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -35 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 59.3539924621582
+
+
+
+action possibilites: [-1. 11.] 
+expected returns: [[51.192825]
+ [64.425354]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0. 11.  3.  0.  3.] 
+cards in discard: [] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11] -> size -> 15 
+action values: 1 
+buys: 0 
+player value: 1 
+card supply: [30. 29. 30. 29. 30.  8. 10. 10.  7. 10. 10.  8.  9. 10.  9. 10. 10.] 
+adversary cards in hand: [ 0.  0. 14.  0.  1.] 
+adversary cards in discard: [ 3.  3.  3. 29.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3] -> size -> 14 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -15 
+
+action type: take_action - action 29.0
+Learning step: 0
+desired expected reward: 98.16510009765625
+
+
+
+action possibilites: [-1] 
+expected returns: [[66.61957]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [0. 3. 0. 3.] 
+cards in discard: [10.] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10] -> size -> 16 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [30. 29. 30. 29. 30.  8. 10. 10.  7. 10. 10.  8.  9. 10.  8. 10. 10.] 
+adversary cards in hand: [ 0.  0. 14.  0.  1.] 
+adversary cards in discard: [ 3.  3.  3. 29.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3] -> size -> 14 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  40   0   0   0   0   0   0   0  27   0] 
+sum of rewards: 32 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 79.50494384765625
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 11.  8. 10. -1.] 
+expected returns: [[52.25243 ]
+ [79.09709 ]
+ [63.18939 ]
+ [13.466431]
+ [82.14534 ]
+ [71.20839 ]
+ [55.300667]
+ [67.94905 ]]
+Chosen buy action: 11.0 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 3. 0. 3.] 
+cards in discard: [10.] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10] -> size -> 16 
+action values: 0 
+buys: 1 
+player value: 3 
+card supply: [30. 29. 30. 29. 30.  8. 10. 10.  7. 10. 10.  8.  9. 10.  8. 10. 10.] 
+adversary cards in hand: [ 0.  0. 14.  0.  1.] 
+adversary cards in discard: [ 3.  3.  3. 29.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3] -> size -> 14 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  40   0   0   0   0   0   0   0   0   0] 
+sum of rewards: 5 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 66.61956787109375
+
+
+
+buy possibilites: [-1] 
+expected returns: [[63.472813]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 3. 0. 3.] 
+cards in discard: [10. 11.] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11] -> size -> 17 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [30. 29. 30. 29. 30.  8. 10. 10.  6. 10. 10.  8.  9. 10.  8. 10. 10.] 
+adversary cards in hand: [ 0.  0. 14.  0.  1.] 
+adversary cards in discard: [ 3.  3.  3. 29.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3] -> size -> 14 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  40   0   0   0   0   0   0   0  54   0] 
+sum of rewards: 59 
+
+action type: buy - action 11.0
+Learning step: 0
+desired expected reward: 82.14533996582031
+
+
+
+
+
+
+         -------------------- Turn: 6 -------------------- 
+Player: 1 
+cards in hand: [ 0.  0. 14.  0.  1.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 14.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0.  0. 14.  0.  1.] 
+cards in discard: [ 3.  3.  3. 29.  3.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3] -> size -> 14 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [30. 29. 30. 29. 30.  8. 10. 10.  6. 10. 10.  8.  9. 10.  8. 10. 10.] 
+adversary cards in hand: [ 0. 11.  0.  0.  0.] 
+adversary cards in discard: [10. 11. 29. 11.  0.  3.  0.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11] -> size -> 17 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  4.  6. 16. 11.  8. 25. 29. 14. 23. 10. 22. 15. -1.] 
+Chosen buy action: 1.0 : ['Silver' '1' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0.  0. 14.  0.  1.] 
+cards in discard: [ 3.  3.  3. 29.  3.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3] -> size -> 14 
+action values: 0 
+buys: 1 
+player value: 5 
+card supply: [30. 29. 30. 29. 30.  8. 10. 10.  6. 10. 10.  8.  9. 10.  8. 10. 10.] 
+adversary cards in hand: [ 0. 11.  0.  0.  0.] 
+adversary cards in discard: [10. 11. 29. 11.  0.  3.  0.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11] -> size -> 17 
+adversary victory points: 3
+player victory points: 4 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0.  0. 14.  0.  1.] 
+cards in discard: [ 3.  3.  3. 29.  3.  1.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1] -> size -> 15 
+action values: 0 
+buys: 0 
+player value: 2 
+card supply: [30. 28. 30. 29. 30.  8. 10. 10.  6. 10. 10.  8.  9. 10.  8. 10. 10.] 
+adversary cards in hand: [ 0. 11.  0.  0.  0.] 
+adversary cards in discard: [10. 11. 29. 11.  0.  3.  0.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11] -> size -> 17 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+
+Player: 0 
+cards in hand: [ 0. 11.  0.  0.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 11.] 
+expected returns: [[35.495316]
+ [49.766224]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0. 11.  0.  0.  0.] 
+cards in discard: [10. 11. 29. 11.  0.  3.  0.  3.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11] -> size -> 17 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [30. 28. 30. 29. 30.  8. 10. 10.  6. 10. 10.  8.  9. 10.  8. 10. 10.] 
+adversary cards in hand: [3. 0. 0. 0. 0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1] -> size -> 15 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -35 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 63.47281265258789
+
+
+
+action possibilites: [-1] 
+expected returns: [[66.540924]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [0. 0. 0. 0.] 
+cards in discard: [10. 11. 29. 11.  0.  3.  0.  3. 10.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10] -> size -> 18 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [30. 28. 30. 29. 30.  8. 10. 10.  6. 10. 10.  8.  9. 10.  7. 10. 10.] 
+adversary cards in hand: [3. 0. 0. 0. 0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1] -> size -> 15 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0  27   0] 
+sum of rewards: 12 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 66.15805053710938
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 16. 11.  8. 29. 14. 10. 15. -1.] 
+expected returns: [[57.651943]
+ [83.21268 ]
+ [68.05121 ]
+ [19.746288]
+ [75.08646 ]
+ [86.10251 ]
+ [75.70151 ]
+ [95.902954]
+ [37.75914 ]
+ [60.540043]
+ [63.30524 ]
+ [72.43465 ]]
+Chosen buy action: 29.0 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 0. 0.] 
+cards in discard: [10. 11. 29. 11.  0.  3.  0.  3. 10.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10] -> size -> 18 
+action values: 0 
+buys: 1 
+player value: 4 
+card supply: [30. 28. 30. 29. 30.  8. 10. 10.  6. 10. 10.  8.  9. 10.  7. 10. 10.] 
+adversary cards in hand: [3. 0. 0. 0. 0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1] -> size -> 15 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -15 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 66.54092407226562
+
+
+
+buy possibilites: [-1] 
+expected returns: [[53.110325]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 0. 0.] 
+cards in discard: [10. 11. 29. 11.  0.  3.  0.  3. 10. 29.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29] -> size -> 19 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [30. 28. 30. 29. 30.  8. 10. 10.  6. 10. 10.  7.  9. 10.  7. 10. 10.] 
+adversary cards in hand: [3. 0. 0. 0. 0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1] -> size -> 15 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0 128   0] 
+sum of rewards: 113 
+
+action type: buy - action 29.0
+Learning step: 0
+desired expected reward: 95.9029541015625
+
+
+
+
+
+
+         -------------------- Turn: 7 -------------------- 
+Player: 1 
+cards in hand: [3. 0. 0. 0. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [3. 0. 0. 0. 0.] 
+cards in discard: [] 
+cards in deck: 10 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1] -> size -> 15 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [30. 28. 30. 29. 30.  8. 10. 10.  6. 10. 10.  7.  9. 10.  7. 10. 10.] 
+adversary cards in hand: [ 0. 10. 11.  3.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29] -> size -> 19 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 16. 11.  8. 29. 14. 10. 15. -1.] 
+Chosen buy action: 0.0 : ['Copper' '0' '0']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [3. 0. 0. 0. 0.] 
+cards in discard: [] 
+cards in deck: 10 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1] -> size -> 15 
+action values: 0 
+buys: 1 
+player value: 4 
+card supply: [30. 28. 30. 29. 30.  8. 10. 10.  6. 10. 10.  7.  9. 10.  7. 10. 10.] 
+adversary cards in hand: [ 0. 10. 11.  3.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29] -> size -> 19 
+adversary victory points: 3
+player victory points: 4 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [3. 0. 0. 0. 0.] 
+cards in discard: [0.] 
+cards in deck: 10 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0] -> size -> 16 
+action values: 0 
+buys: 0 
+player value: 4 
+card supply: [29. 28. 30. 29. 30.  8. 10. 10.  6. 10. 10.  7.  9. 10.  7. 10. 10.] 
+adversary cards in hand: [ 0. 10. 11.  3.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29] -> size -> 19 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+
+Player: 0 
+cards in hand: [ 0. 10. 11.  3.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 10. 11.] 
+expected returns: [[44.085293]
+ [32.07596 ]
+ [57.28056 ]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0. 10. 11.  3.  0.] 
+cards in discard: [] 
+cards in deck: 14 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29] -> size -> 19 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [29. 28. 30. 29. 30.  8. 10. 10.  6. 10. 10.  7.  9. 10.  7. 10. 10.] 
+adversary cards in hand: [ 0.  1.  0. 29.  3.] 
+adversary cards in discard: [0. 3. 0. 0. 0. 0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0] -> size -> 16 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -35 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 53.11032485961914
+
+
+
+action possibilites: [-1] 
+expected returns: [[40.689198]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0. 10.  3.  0.] 
+cards in discard: [10.] 
+cards in deck: 14 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10] -> size -> 20 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [29. 28. 30. 29. 30.  8. 10. 10.  6. 10. 10.  7.  9. 10.  6. 10. 10.] 
+adversary cards in hand: [ 0.  1.  0. 29.  3.] 
+adversary cards in discard: [0. 3. 0. 0. 0. 0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0] -> size -> 16 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0  27   0] 
+sum of rewards: 12 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 70.71418762207031
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  3.  6.  8. -1.] 
+expected returns: [[28.695183 ]
+ [38.903786 ]
+ [-7.8148394]
+ [46.44189  ]
+ [43.36551  ]]
+Chosen buy action: 8.0 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0. 10.  3.  0.] 
+cards in discard: [10.] 
+cards in deck: 14 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10] -> size -> 20 
+action values: 0 
+buys: 1 
+player value: 2 
+card supply: [29. 28. 30. 29. 30.  8. 10. 10.  6. 10. 10.  7.  9. 10.  6. 10. 10.] 
+adversary cards in hand: [ 0.  1.  0. 29.  3.] 
+adversary cards in discard: [0. 3. 0. 0. 0. 0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0] -> size -> 16 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -15 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 40.6891975402832
+
+
+
+buy possibilites: [-1] 
+expected returns: [[60.890087]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0. 10.  3.  0.] 
+cards in discard: [10.  8.] 
+cards in deck: 14 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8] -> size -> 21 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [29. 28. 30. 29. 30.  8. 10. 10.  6.  9. 10.  7.  9. 10.  6. 10. 10.] 
+adversary cards in hand: [ 0.  1.  0. 29.  3.] 
+adversary cards in discard: [0. 3. 0. 0. 0. 0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0] -> size -> 16 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0  16   0] 
+sum of rewards: 1 
+
+action type: buy - action 8.0
+Learning step: 0
+desired expected reward: 46.4418830871582
+
+
+
+
+
+
+         -------------------- Turn: 8 -------------------- 
+Player: 1 
+cards in hand: [ 0.  1.  0. 29.  3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 29.] 
+Chosen action: 29 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0.  1.  0. 29.  3.] 
+cards in discard: [0. 3. 0. 0. 0. 0.] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0] -> size -> 16 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [29. 28. 30. 29. 30.  8. 10. 10.  6.  9. 10.  7.  9. 10.  6. 10. 10.] 
+adversary cards in hand: [29. 11.  0.  0.  0.] 
+adversary cards in discard: [10.  8. 11.  0. 10.  3.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8] -> size -> 21 
+adversary victory points: 3
+player victory points: 4 
+
+
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [0. 1. 0. 3. 0.] 
+cards in discard: [0. 3. 0. 0. 0. 0.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0] -> size -> 16 
+action values: 1 
+buys: 0 
+player value: 1 
+card supply: [29. 28. 30. 29. 30.  8. 10. 10.  6.  9. 10.  7.  9. 10.  6. 10. 10.] 
+adversary cards in hand: [29. 11.  0.  0.  0.] 
+adversary cards in discard: [10.  8. 11.  0. 10.  3.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8] -> size -> 21 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  2.  3.  4.  6. 16. 11.  8. 25. 29. 14. 23. 10. 22. 15. -1.] 
+Chosen buy action: 16.0 : ['Remodel' '16' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 1. 0. 3. 0.] 
+cards in discard: [0. 3. 0. 0. 0. 0.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0] -> size -> 16 
+action values: 0 
+buys: 1 
+player value: 6 
+card supply: [29. 28. 30. 29. 30.  8. 10. 10.  6.  9. 10.  7.  9. 10.  6. 10. 10.] 
+adversary cards in hand: [29. 11.  0.  0.  0.] 
+adversary cards in discard: [10.  8. 11.  0. 10.  3.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8] -> size -> 21 
+adversary victory points: 3
+player victory points: 4 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 1. 0. 3. 0.] 
+cards in discard: [ 0.  3.  0.  0.  0.  0. 16.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16] -> size -> 17 
+action values: 0 
+buys: 0 
+player value: 2 
+card supply: [29. 28. 30. 29. 30.  8. 10.  9.  6.  9. 10.  7.  9. 10.  6. 10. 10.] 
+adversary cards in hand: [29. 11.  0.  0.  0.] 
+adversary cards in discard: [10.  8. 11.  0. 10.  3.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8] -> size -> 21 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+
+Player: 0 
+cards in hand: [29. 11.  0.  0.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 29. 11.] 
+expected returns: [[53.40982 ]
+ [73.89259 ]
+ [64.423676]]
+Chosen action: 29 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [29. 11.  0.  0.  0.] 
+cards in discard: [10.  8. 11.  0. 10.  3.  0.] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8] -> size -> 21 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [29. 28. 30. 29. 30.  8. 10.  9.  6.  9. 10.  7.  9. 10.  6. 10. 10.] 
+adversary cards in hand: [ 0.  1.  3. 14.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16] -> size -> 17 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -35 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 60.89008712768555
+
+
+
+action possibilites: [-1. 11. 10.] 
+expected returns: [[124.36128]
+ [138.05374]
+ [112.53192]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [11.  0.  0.  0. 10.] 
+cards in discard: [10.  8. 11.  0. 10.  3.  0.] 
+cards in deck: 8 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8] -> size -> 21 
+action values: 1 
+buys: 0 
+player value: 1 
+card supply: [29. 28. 30. 29. 30.  8. 10.  9.  6.  9. 10.  7.  9. 10.  6. 10. 10.] 
+adversary cards in hand: [ 0.  1.  3. 14.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16] -> size -> 17 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -15 
+
+action type: take_action - action 29.0
+Learning step: 0
+desired expected reward: 70.18315124511719
+
+
+
+action possibilites: [-1] 
+expected returns: [[114.43796]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0.  0.  0. 10.] 
+cards in discard: [10.  8. 11.  0. 10.  3.  0. 10.] 
+cards in deck: 8 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10] -> size -> 22 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [29. 28. 30. 29. 30.  8. 10.  9.  6.  9. 10.  7.  9. 10.  5. 10. 10.] 
+adversary cards in hand: [ 0.  1.  3. 14.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16] -> size -> 17 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  40   0   0   0   0   0   0   0  27   0] 
+sum of rewards: 32 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 153.55992126464844
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 16. 11.  8. 29. 14. 10. 15. -1.] 
+expected returns: [[105.847275]
+ [132.06717 ]
+ [116.52809 ]
+ [ 66.96828 ]
+ [123.72354 ]
+ [135.07736 ]
+ [124.3658  ]
+ [145.65851 ]
+ [ 85.46146 ]
+ [108.82672 ]
+ [111.681366]
+ [121.153366]]
+Chosen buy action: 29.0 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0.  0.  0. 10.] 
+cards in discard: [10.  8. 11.  0. 10.  3.  0. 10.] 
+cards in deck: 8 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10] -> size -> 22 
+action values: 0 
+buys: 1 
+player value: 4 
+card supply: [29. 28. 30. 29. 30.  8. 10.  9.  6.  9. 10.  7.  9. 10.  5. 10. 10.] 
+adversary cards in hand: [ 0.  1.  3. 14.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16] -> size -> 17 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  40   0   0   0   0   0   0   0   0   0] 
+sum of rewards: 5 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 114.43795776367188
+
+
+
+buy possibilites: [-1] 
+expected returns: [[98.37514]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0.  0.  0. 10.] 
+cards in discard: [10.  8. 11.  0. 10.  3.  0. 10. 29.] 
+cards in deck: 8 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29] -> size -> 23 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [29. 28. 30. 29. 30.  8. 10.  9.  6.  9. 10.  6.  9. 10.  5. 10. 10.] 
+adversary cards in hand: [ 0.  1.  3. 14.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16] -> size -> 17 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  40   0   0   0   0   0   0   0 128   0] 
+sum of rewards: 133 
+
+action type: buy - action 29.0
+Learning step: 0
+desired expected reward: 145.6584930419922
+
+
+
+
+
+
+         -------------------- Turn: 9 -------------------- 
+Player: 1 
+cards in hand: [ 0.  1.  3. 14.  3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 14.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0.  1.  3. 14.  3.] 
+cards in discard: [] 
+cards in deck: 12 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16] -> size -> 17 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [29. 28. 30. 29. 30.  8. 10.  9.  6.  9. 10.  6.  9. 10.  5. 10. 10.] 
+adversary cards in hand: [ 3.  0. 11.  0. 29.] 
+adversary cards in discard: [10.  8. 11.  0. 10.  3.  0. 10. 29. 29. 11.  0.  0.  0. 10.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29] -> size -> 23 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 11.  8. 10. -1.] 
+Chosen buy action: 1.0 : ['Silver' '1' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0.  1.  3. 14.  3.] 
+cards in discard: [] 
+cards in deck: 12 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16] -> size -> 17 
+action values: 0 
+buys: 1 
+player value: 3 
+card supply: [29. 28. 30. 29. 30.  8. 10.  9.  6.  9. 10.  6.  9. 10.  5. 10. 10.] 
+adversary cards in hand: [ 3.  0. 11.  0. 29.] 
+adversary cards in discard: [10.  8. 11.  0. 10.  3.  0. 10. 29. 29. 11.  0.  0.  0. 10.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29] -> size -> 23 
+adversary victory points: 3
+player victory points: 4 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0.  1.  3. 14.  3.] 
+cards in discard: [1.] 
+cards in deck: 12 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1] -> size -> 18 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  6.  9. 10.  6.  9. 10.  5. 10. 10.] 
+adversary cards in hand: [ 3.  0. 11.  0. 29.] 
+adversary cards in discard: [10.  8. 11.  0. 10.  3.  0. 10. 29. 29. 11.  0.  0.  0. 10.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29] -> size -> 23 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+
+Player: 0 
+cards in hand: [ 3.  0. 11.  0. 29.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 11. 29.] 
+expected returns: [[74.8857 ]
+ [86.51944]
+ [94.9713 ]]
+Chosen action: 29 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 3.  0. 11.  0. 29.] 
+cards in discard: [10.  8. 11.  0. 10.  3.  0. 10. 29. 29. 11.  0.  0.  0. 10.] 
+cards in deck: 3 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29] -> size -> 23 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  6.  9. 10.  6.  9. 10.  5. 10. 10.] 
+adversary cards in hand: [ 0.  0.  0.  0. 29.] 
+adversary cards in discard: [ 1.  0.  1.  3. 14.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1] -> size -> 18 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -35 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 98.37513732910156
+
+
+
+action possibilites: [-1. 11. 11.] 
+expected returns: [[73.28201]
+ [85.45674]
+ [85.45674]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 3.  0. 11.  0. 11.] 
+cards in discard: [10.  8. 11.  0. 10.  3.  0. 10. 29. 29. 11.  0.  0.  0. 10.] 
+cards in deck: 2 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29] -> size -> 23 
+action values: 1 
+buys: 0 
+player value: 1 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  6.  9. 10.  6.  9. 10.  5. 10. 10.] 
+adversary cards in hand: [ 0.  0.  0.  0. 29.] 
+adversary cards in discard: [ 1.  0.  1.  3. 14.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1] -> size -> 18 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -15 
+
+action type: take_action - action 29.0
+Learning step: 0
+desired expected reward: 94.66920471191406
+
+
+
+action possibilites: [-1] 
+expected returns: [[108.38464]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 3.  0.  0. 11.] 
+cards in discard: [10.  8. 11.  0. 10.  3.  0. 10. 29. 29. 11.  0.  0.  0. 10. 10.] 
+cards in deck: 2 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10] -> size -> 24 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  6.  9. 10.  6.  9. 10.  4. 10. 10.] 
+adversary cards in hand: [ 0.  0.  0.  0. 29.] 
+adversary cards in discard: [ 1.  0.  1.  3. 14.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1] -> size -> 18 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  40   0   0   0   0   0   0   0  27   0] 
+sum of rewards: 32 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 99.91925048828125
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 11.  8. 10. -1.] 
+expected returns: [[ 93.12288 ]
+ [117.10086 ]
+ [102.83748 ]
+ [ 57.832302]
+ [119.85817 ]
+ [110.02237 ]
+ [ 95.844406]
+ [107.21394 ]]
+Chosen buy action: 11.0 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 3.  0.  0. 11.] 
+cards in discard: [10.  8. 11.  0. 10.  3.  0. 10. 29. 29. 11.  0.  0.  0. 10. 10.] 
+cards in deck: 2 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10] -> size -> 24 
+action values: 0 
+buys: 1 
+player value: 3 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  6.  9. 10.  6.  9. 10.  4. 10. 10.] 
+adversary cards in hand: [ 0.  0.  0.  0. 29.] 
+adversary cards in discard: [ 1.  0.  1.  3. 14.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1] -> size -> 18 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  40   0   0   0   0   0   0   0   0   0] 
+sum of rewards: 5 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 108.3846435546875
+
+
+
+buy possibilites: [-1] 
+expected returns: [[74.112335]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 3.  0.  0. 11.] 
+cards in discard: [10.  8. 11.  0. 10.  3.  0. 10. 29. 29. 11.  0.  0.  0. 10. 10. 11.] 
+cards in deck: 2 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11] -> size -> 25 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  5.  9. 10.  6.  9. 10.  4. 10. 10.] 
+adversary cards in hand: [ 0.  0.  0.  0. 29.] 
+adversary cards in discard: [ 1.  0.  1.  3. 14.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1] -> size -> 18 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  40   0   0   0   0   0   0   0  54   0] 
+sum of rewards: 59 
+
+action type: buy - action 11.0
+Learning step: 0
+desired expected reward: 119.85816955566406
+
+
+
+
+
+
+         -------------------- Turn: 10 -------------------- 
+Player: 1 
+cards in hand: [ 0.  0.  0.  0. 29.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 29.] 
+Chosen action: 29 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0.  0.  0.  0. 29.] 
+cards in discard: [ 1.  0.  1.  3. 14.  3.] 
+cards in deck: 7 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1] -> size -> 18 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  5.  9. 10.  6.  9. 10.  4. 10. 10.] 
+adversary cards in hand: [ 0. 29. 10. 10.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11] -> size -> 25 
+adversary victory points: 3
+player victory points: 4 
+
+
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [0. 0. 0. 0. 0.] 
+cards in discard: [ 1.  0.  1.  3. 14.  3.] 
+cards in deck: 6 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1] -> size -> 18 
+action values: 1 
+buys: 0 
+player value: 1 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  5.  9. 10.  6.  9. 10.  4. 10. 10.] 
+adversary cards in hand: [ 0. 29. 10. 10.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11] -> size -> 25 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  2.  3.  4.  6. 16. 11.  8. 25. 29. 14. 23. 10. 22. 15. -1.] 
+Chosen buy action: 10.0 : ['Village' '10' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 0. 0. 0.] 
+cards in discard: [ 1.  0.  1.  3. 14.  3.] 
+cards in deck: 6 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1] -> size -> 18 
+action values: 0 
+buys: 1 
+player value: 6 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  5.  9. 10.  6.  9. 10.  4. 10. 10.] 
+adversary cards in hand: [ 0. 29. 10. 10.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11] -> size -> 25 
+adversary victory points: 3
+player victory points: 4 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 0. 0. 0.] 
+cards in discard: [ 1.  0.  1.  3. 14.  3. 10.] 
+cards in deck: 6 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10] -> size -> 19 
+action values: 0 
+buys: 0 
+player value: 3 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  5.  9. 10.  6.  9. 10.  3. 10. 10.] 
+adversary cards in hand: [ 0. 29. 10. 10.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11] -> size -> 25 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+
+Player: 0 
+cards in hand: [ 0. 29. 10. 10.  3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 29. 10. 10.] 
+expected returns: [[54.172966]
+ [71.91644 ]
+ [44.794006]
+ [44.794006]]
+Chosen action: 29 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0. 29. 10. 10.  3.] 
+cards in discard: [] 
+cards in deck: 20 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11] -> size -> 25 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  5.  9. 10.  6.  9. 10.  3. 10. 10.] 
+adversary cards in hand: [ 0.  3.  0. 16.  1.] 
+adversary cards in discard: [ 1.  0.  1.  3. 14.  3. 10. 29.  0.  0.  0.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10] -> size -> 19 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -35 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 74.11233520507812
+
+
+
+action possibilites: [-1. 10. 10.] 
+expected returns: [[66.26378]
+ [56.08851]
+ [56.08851]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0. 10. 10.  3.  3.] 
+cards in discard: [] 
+cards in deck: 19 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11] -> size -> 25 
+action values: 1 
+buys: 0 
+player value: 1 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  5.  9. 10.  6.  9. 10.  3. 10. 10.] 
+adversary cards in hand: [ 0.  3.  0. 16.  1.] 
+adversary cards in discard: [ 1.  0.  1.  3. 14.  3. 10. 29.  0.  0.  0.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10] -> size -> 19 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -15 
+
+action type: take_action - action 29.0
+Learning step: 0
+desired expected reward: 70.15701293945312
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  3.  6.  8. -1.] 
+expected returns: [[56.439095]
+ [64.7294  ]
+ [31.051418]
+ [71.42964 ]
+ [68.81035 ]]
+Chosen buy action: 8.0 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0. 10. 10.  3.  3.] 
+cards in discard: [] 
+cards in deck: 19 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11] -> size -> 25 
+action values: 0 
+buys: 1 
+player value: 2 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  5.  9. 10.  6.  9. 10.  3. 10. 10.] 
+adversary cards in hand: [ 0.  3.  0. 16.  1.] 
+adversary cards in discard: [ 1.  0.  1.  3. 14.  3. 10. 29.  0.  0.  0.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10] -> size -> 19 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -15 
+
+action type: take_action - action -1.0
+Learning step: 0
+desired expected reward: 66.26376342773438
+
+
+
+buy possibilites: [-1] 
+expected returns: [[105.02461]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0. 10. 10.  3.  3.] 
+cards in discard: [8.] 
+cards in deck: 19 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8] -> size -> 26 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  5.  8. 10.  6.  9. 10.  3. 10. 10.] 
+adversary cards in hand: [ 0.  3.  0. 16.  1.] 
+adversary cards in discard: [ 1.  0.  1.  3. 14.  3. 10. 29.  0.  0.  0.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10] -> size -> 19 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0  16   0] 
+sum of rewards: 1 
+
+action type: buy - action 8.0
+Learning step: 0
+desired expected reward: 71.42962646484375
+
+
+
+
+
+
+         -------------------- Turn: 11 -------------------- 
+Player: 1 
+cards in hand: [ 0.  3.  0. 16.  1.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 16.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0.  3.  0. 16.  1.] 
+cards in discard: [ 1.  0.  1.  3. 14.  3. 10. 29.  0.  0.  0.  0.  0.] 
+cards in deck: 1 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10] -> size -> 19 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  5.  8. 10.  6.  9. 10.  3. 10. 10.] 
+adversary cards in hand: [11. 11.  3.  0. 11.] 
+adversary cards in discard: [ 8. 29.  0. 10. 10.  3.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8] -> size -> 26 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 16. 11.  8. 29. 14. 10. 15. -1.] 
+Chosen buy action: 16.0 : ['Remodel' '16' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0.  3.  0. 16.  1.] 
+cards in discard: [ 1.  0.  1.  3. 14.  3. 10. 29.  0.  0.  0.  0.  0.] 
+cards in deck: 1 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10] -> size -> 19 
+action values: 0 
+buys: 1 
+player value: 4 
+card supply: [29. 27. 30. 29. 30.  8. 10.  9.  5.  8. 10.  6.  9. 10.  3. 10. 10.] 
+adversary cards in hand: [11. 11.  3.  0. 11.] 
+adversary cards in discard: [ 8. 29.  0. 10. 10.  3.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8] -> size -> 26 
+adversary victory points: 3
+player victory points: 4 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0.  3.  0. 16.  1.] 
+cards in discard: [ 1.  0.  1.  3. 14.  3. 10. 29.  0.  0.  0.  0.  0. 16.] 
+cards in deck: 1 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16] -> size -> 20 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 29. 30.  8. 10.  8.  5.  8. 10.  6.  9. 10.  3. 10. 10.] 
+adversary cards in hand: [11. 11.  3.  0. 11.] 
+adversary cards in discard: [ 8. 29.  0. 10. 10.  3.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8] -> size -> 26 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+
+Player: 0 
+cards in hand: [11. 11.  3.  0. 11.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 11. 11. 11.] 
+expected returns: [[61.232975]
+ [72.72789 ]
+ [72.72789 ]
+ [72.72789 ]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [11. 11.  3.  0. 11.] 
+cards in discard: [ 8. 29.  0. 10. 10.  3.  3.] 
+cards in deck: 14 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8] -> size -> 26 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 29. 30.  8. 10.  8.  5.  8. 10.  6.  9. 10.  3. 10. 10.] 
+adversary cards in hand: [ 1.  0.  0. 16.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16] -> size -> 20 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -35 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 105.02461242675781
+
+
+
+action possibilites: [-1] 
+expected returns: [[66.52278]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [11.  3.  0. 11.] 
+cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10.] 
+cards in deck: 14 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10] -> size -> 27 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 29. 30.  8. 10.  8.  5.  8. 10.  6.  9. 10.  2. 10. 10.] 
+adversary cards in hand: [ 1.  0.  0. 16.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16] -> size -> 20 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0  27   0] 
+sum of rewards: 12 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 83.25434875488281
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+expected returns: [[55.296635]
+ [25.934948]
+ [67.111374]]
+Chosen buy action: -1.0 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [11.  3.  0. 11.] 
+cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10.] 
+cards in deck: 14 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10] -> size -> 27 
+action values: 0 
+buys: 1 
+player value: 1 
+card supply: [29. 27. 30. 29. 30.  8. 10.  8.  5.  8. 10.  6.  9. 10.  2. 10. 10.] 
+adversary cards in hand: [ 1.  0.  0. 16.  3.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16] -> size -> 20 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -15 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 66.52278137207031
+
+
+
+
+
+
+         -------------------- Turn: 12 -------------------- 
+Player: 1 
+cards in hand: [ 1.  0.  0. 16.  3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 16.] 
+Chosen action: 16 : ['Remodel' '16' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 1.  0.  0. 16.  3.] 
+cards in discard: [] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16] -> size -> 20 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 29. 30.  8. 10.  8.  5.  8. 10.  6.  9. 10.  2. 10. 10.] 
+adversary cards in hand: [ 8. 11.  0. 29. 10.] 
+adversary cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10] -> size -> 27 
+adversary victory points: 3
+player victory points: 4 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [1. 0. 3.] 
+cards in discard: [3.] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [16.] 
+owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3] -> size -> 20 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  5.  8. 10.  6.  9. 10.  2. 10. 10.] 
+adversary cards in hand: [ 8. 11.  0. 29. 10.] 
+adversary cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10] -> size -> 27 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 11.  8. 10. -1.] 
+Chosen buy action: 8.0 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [1. 0. 3.] 
+cards in discard: [3.] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [16.] 
+owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3] -> size -> 20 
+action values: 0 
+buys: 1 
+player value: 3 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  5.  8. 10.  6.  9. 10.  2. 10. 10.] 
+adversary cards in hand: [ 8. 11.  0. 29. 10.] 
+adversary cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10] -> size -> 27 
+adversary victory points: 3
+player victory points: 5 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [1. 0. 3.] 
+cards in discard: [3. 8.] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [16.] 
+owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8] -> size -> 21 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  5.  7. 10.  6.  9. 10.  2. 10. 10.] 
+adversary cards in hand: [ 8. 11.  0. 29. 10.] 
+adversary cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10] -> size -> 27 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+
+Player: 0 
+cards in hand: [ 8. 11.  0. 29. 10.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  8. 11. 29. 10.] 
+expected returns: [[58.053776]
+ [60.541973]
+ [69.03932 ]
+ [77.03195 ]
+ [48.196377]]
+Chosen action: 29 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 8. 11.  0. 29. 10.] 
+cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11.] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10] -> size -> 27 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  5.  7. 10.  6.  9. 10.  2. 10. 10.] 
+adversary cards in hand: [ 3.  0.  3. 10. 16.] 
+adversary cards in discard: [ 3.  8. 16.  1.  0.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8] -> size -> 21 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -65 
+
+action type: buy - action -1.0
+Learning step: 0
+desired expected reward: 67.11134338378906
+
+
+
+action possibilites: [-1.  8. 11. 10.] 
+expected returns: [[71.16301 ]
+ [73.86125 ]
+ [83.05713 ]
+ [60.571148]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 8. 11.  0. 10.  0.] 
+cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11.] 
+cards in deck: 8 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10] -> size -> 27 
+action values: 1 
+buys: 0 
+player value: 1 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  5.  7. 10.  6.  9. 10.  2. 10. 10.] 
+adversary cards in hand: [ 3.  0.  3. 10. 16.] 
+adversary cards in discard: [ 3.  8. 16.  1.  0.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8] -> size -> 21 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -45 
+
+action type: take_action - action 29.0
+Learning step: 0
+desired expected reward: 77.03193664550781
+
+
+
+action possibilites: [-1] 
+expected returns: [[52.281338]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 8.  0. 10.  0.] 
+cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11. 10.] 
+cards in deck: 8 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10] -> size -> 28 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  5.  7. 10.  6.  9. 10.  1. 10. 10.] 
+adversary cards in hand: [ 3.  0.  3. 10. 16.] 
+adversary cards in discard: [ 3.  8. 16.  1.  0.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8] -> size -> 21 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  40   0   0   0   0   0   0   0  27   0] 
+sum of rewards: 2 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 94.35255432128906
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 11.  8. 10. -1.] 
+expected returns: [[39.213516]
+ [63.837116]
+ [48.690323]
+ [ 9.578754]
+ [66.77588 ]
+ [56.254135]
+ [41.516212]
+ [53.14596 ]]
+Chosen buy action: 11.0 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 8.  0. 10.  0.] 
+cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11. 10.] 
+cards in deck: 8 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10] -> size -> 28 
+action values: 0 
+buys: 1 
+player value: 3 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  5.  7. 10.  6.  9. 10.  1. 10. 10.] 
+adversary cards in hand: [ 3.  0.  3. 10. 16.] 
+adversary cards in discard: [ 3.  8. 16.  1.  0.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8] -> size -> 21 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  40   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -25 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 52.28133773803711
+
+
+
+buy possibilites: [-1] 
+expected returns: [[44.834064]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 8.  0. 10.  0.] 
+cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11. 10. 11.] 
+cards in deck: 8 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11] -> size -> 29 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  4.  7. 10.  6.  9. 10.  1. 10. 10.] 
+adversary cards in hand: [ 3.  0.  3. 10. 16.] 
+adversary cards in discard: [ 3.  8. 16.  1.  0.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8] -> size -> 21 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  40   0   0   0   0   0   0   0  54   0] 
+sum of rewards: 29 
+
+action type: buy - action 11.0
+Learning step: 0
+desired expected reward: 66.77586364746094
+
+
+
+
+
+
+         -------------------- Turn: 13 -------------------- 
+Player: 1 
+cards in hand: [ 3.  0.  3. 10. 16.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 10. 16.] 
+Chosen action: 10 : ['Village' '10' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 3.  0.  3. 10. 16.] 
+cards in discard: [ 3.  8. 16.  1.  0.  3.] 
+cards in deck: 10 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8] -> size -> 21 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  4.  7. 10.  6.  9. 10.  1. 10. 10.] 
+adversary cards in hand: [ 0. 10. 10. 10. 29.] 
+adversary cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11. 10. 11. 29. 11.  8.
+  0. 10.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11] -> size -> 29 
+adversary victory points: 3
+player victory points: 5 
+
+
+action possibilites: [-1. 16.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 3.  0.  3. 16.  1.] 
+cards in discard: [ 3.  8. 16.  1.  0.  3.] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [10.] 
+owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8] -> size -> 21 
+action values: 2 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  4.  7. 10.  6.  9. 10.  1. 10. 10.] 
+adversary cards in hand: [ 0. 10. 10. 10. 29.] 
+adversary cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11. 10. 11. 29. 11.  8.
+  0. 10.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11] -> size -> 29 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 11.  8. 10. -1.] 
+Chosen buy action: 11.0 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 3.  0.  3. 16.  1.] 
+cards in discard: [ 3.  8. 16.  1.  0.  3.] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [10.] 
+owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8] -> size -> 21 
+action values: 0 
+buys: 1 
+player value: 3 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  4.  7. 10.  6.  9. 10.  1. 10. 10.] 
+adversary cards in hand: [ 0. 10. 10. 10. 29.] 
+adversary cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11. 10. 11. 29. 11.  8.
+  0. 10.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11] -> size -> 29 
+adversary victory points: 3
+player victory points: 5 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 3.  0.  3. 16.  1.] 
+cards in discard: [ 3.  8. 16.  1.  0.  3. 11.] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [10.] 
+owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8 11] -> size -> 22 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  3.  7. 10.  6.  9. 10.  1. 10. 10.] 
+adversary cards in hand: [ 0. 10. 10. 10. 29.] 
+adversary cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11. 10. 11. 29. 11.  8.
+  0. 10.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11] -> size -> 29 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+
+Player: 0 
+cards in hand: [ 0. 10. 10. 10. 29.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 10. 10. 10. 29.] 
+expected returns: [[16.05944 ]
+ [ 9.077534]
+ [ 9.077534]
+ [ 9.077534]
+ [29.81247 ]]
+Chosen action: 29 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0. 10. 10. 10. 29.] 
+cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11. 10. 11. 29. 11.  8.
+  0. 10.  0.] 
+cards in deck: 3 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11] -> size -> 29 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  3.  7. 10.  6.  9. 10.  1. 10. 10.] 
+adversary cards in hand: [ 0.  3.  1. 14.  0.] 
+adversary cards in discard: [ 3.  8. 16.  1.  0.  3. 11. 10.  3.  0.  3. 16.  1.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8 11] -> size -> 22 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -65 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 44.83406448364258
+
+
+
+action possibilites: [-1. 10. 10. 10. 11.] 
+expected returns: [[32.13913 ]
+ [23.33142 ]
+ [23.33142 ]
+ [23.33142 ]
+ [43.354473]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0. 10. 10. 10. 11.] 
+cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11. 10. 11. 29. 11.  8.
+  0. 10.  0.] 
+cards in deck: 2 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11] -> size -> 29 
+action values: 1 
+buys: 0 
+player value: 1 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  3.  7. 10.  6.  9. 10.  1. 10. 10.] 
+adversary cards in hand: [ 0.  3.  1. 14.  0.] 
+adversary cards in discard: [ 3.  8. 16.  1.  0.  3. 11. 10.  3.  0.  3. 16.  1.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8 11] -> size -> 22 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -45 
+
+action type: take_action - action 29.0
+Learning step: 0
+desired expected reward: 29.812477111816406
+
+
+
+action possibilites: [-1] 
+expected returns: [[21.593914]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0. 10. 10. 10.] 
+cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11. 10. 11. 29. 11.  8.
+  0. 10.  0. 10.] 
+cards in deck: 2 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10] -> size -> 30 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  3.  7. 10.  6.  9. 10.  0. 10. 10.] 
+adversary cards in hand: [ 0.  3.  1. 14.  0.] 
+adversary cards in discard: [ 3.  8. 16.  1.  0.  3. 11. 10.  3.  0.  3. 16.  1.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8 11] -> size -> 22 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  40   0   0   0   0   0   0   0  27   0] 
+sum of rewards: 2 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 56.70681381225586
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  3.  6.  8. -1.] 
+expected returns: [[  9.953621]
+ [ 18.412354]
+ [-19.801542]
+ [ 24.869154]
+ [ 22.283657]]
+Chosen buy action: 8.0 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0. 10. 10. 10.] 
+cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11. 10. 11. 29. 11.  8.
+  0. 10.  0. 10.] 
+cards in deck: 2 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10] -> size -> 30 
+action values: 0 
+buys: 1 
+player value: 2 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  3.  7. 10.  6.  9. 10.  0. 10. 10.] 
+adversary cards in hand: [ 0.  3.  1. 14.  0.] 
+adversary cards in discard: [ 3.  8. 16.  1.  0.  3. 11. 10.  3.  0.  3. 16.  1.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8 11] -> size -> 22 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  40   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -25 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 21.593914031982422
+
+
+
+buy possibilites: [-1] 
+expected returns: [[36.940166]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0. 10. 10. 10.] 
+cards in discard: [ 8. 29.  0. 10. 10.  3.  3. 10. 11. 11.  3.  0. 11. 10. 11. 29. 11.  8.
+  0. 10.  0. 10.  8.] 
+cards in deck: 2 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8] -> size -> 31 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  3.  6. 10.  6.  9. 10.  0. 10. 10.] 
+adversary cards in hand: [ 0.  3.  1. 14.  0.] 
+adversary cards in discard: [ 3.  8. 16.  1.  0.  3. 11. 10.  3.  0.  3. 16.  1.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8 11] -> size -> 22 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  40   0   0   0   0   0   0   0  16   0] 
+sum of rewards: -9 
+
+action type: buy - action 8.0
+Learning step: 0
+desired expected reward: 24.869163513183594
+
+
+
+
+
+
+         -------------------- Turn: 14 -------------------- 
+Player: 1 
+cards in hand: [ 0.  3.  1. 14.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 14.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0.  3.  1. 14.  0.] 
+cards in discard: [ 3.  8. 16.  1.  0.  3. 11. 10.  3.  0.  3. 16.  1.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8 11] -> size -> 22 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  3.  6. 10.  6.  9. 10.  0. 10. 10.] 
+adversary cards in hand: [11. 11.  8.  0.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8] -> size -> 31 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 16. 11.  8. 29. 14. 15. -1.] 
+Chosen buy action: 0.0 : ['Copper' '0' '0']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0.  3.  1. 14.  0.] 
+cards in discard: [ 3.  8. 16.  1.  0.  3. 11. 10.  3.  0.  3. 16.  1.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8 11] -> size -> 22 
+action values: 0 
+buys: 1 
+player value: 4 
+card supply: [29. 27. 30. 28. 30.  8. 10.  8.  3.  6. 10.  6.  9. 10.  0. 10. 10.] 
+adversary cards in hand: [11. 11.  8.  0.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8] -> size -> 31 
+adversary victory points: 3
+player victory points: 5 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0.  3.  1. 14.  0.] 
+cards in discard: [ 3.  8. 16.  1.  0.  3. 11. 10.  3.  0.  3. 16.  1.  0.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8 11  0] -> size -> 23 
+action values: 0 
+buys: 0 
+player value: 4 
+card supply: [28. 27. 30. 28. 30.  8. 10.  8.  3.  6. 10.  6.  9. 10.  0. 10. 10.] 
+adversary cards in hand: [11. 11.  8.  0.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8] -> size -> 31 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+
+Player: 0 
+cards in hand: [11. 11.  8.  0.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 11. 11.  8.] 
+expected returns: [[35.72697]
+ [45.6114 ]
+ [45.6114 ]
+ [37.88796]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [11. 11.  8.  0.  0.] 
+cards in discard: [] 
+cards in deck: 26 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8] -> size -> 31 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 30. 28. 30.  8. 10.  8.  3.  6. 10.  6.  9. 10.  0. 10. 10.] 
+adversary cards in hand: [16.  0.  0. 29.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8 11  0] -> size -> 23 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -65 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 36.94016647338867
+
+
+
+action possibilites: [-1] 
+expected returns: [[41.983707]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [11.  8.  0.  0.] 
+cards in discard: [15.] 
+cards in deck: 26 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15] -> size -> 32 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 30. 28. 30.  8. 10.  8.  3.  6. 10.  6.  9. 10.  0. 10.  9.] 
+adversary cards in hand: [16.  0.  0. 29.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8 11  0] -> size -> 23 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  20   0   0   0   0   0   0   0  64   0] 
+sum of rewards: 19 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 55.014835357666016
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  3.  6.  8. -1.] 
+expected returns: [[31.400745]
+ [39.40327 ]
+ [ 3.276536]
+ [45.246853]
+ [43.052685]]
+Chosen buy action: 8.0 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [11.  8.  0.  0.] 
+cards in discard: [15.] 
+cards in deck: 26 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15] -> size -> 32 
+action values: 0 
+buys: 1 
+player value: 2 
+card supply: [28. 27. 30. 28. 30.  8. 10.  8.  3.  6. 10.  6.  9. 10.  0. 10.  9.] 
+adversary cards in hand: [16.  0.  0. 29.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8 11  0] -> size -> 23 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -45 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 41.983707427978516
+
+
+
+buy possibilites: [-1] 
+expected returns: [[65.48143]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [11.  8.  0.  0.] 
+cards in discard: [15.  8.] 
+cards in deck: 26 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8] -> size -> 33 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 30. 28. 30.  8. 10.  8.  3.  5. 10.  6.  9. 10.  0. 10.  9.] 
+adversary cards in hand: [16.  0.  0. 29.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8 11  0] -> size -> 23 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  20   0   0   0   0   0   0   0  16   0] 
+sum of rewards: -29 
+
+action type: buy - action 8.0
+Learning step: 0
+desired expected reward: 45.2468376159668
+
+
+
+
+
+
+         -------------------- Turn: 15 -------------------- 
+Player: 1 
+cards in hand: [16.  0.  0. 29.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 16. 29.] 
+Chosen action: 16 : ['Remodel' '16' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [16.  0.  0. 29.  0.] 
+cards in discard: [] 
+cards in deck: 18 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  3  3 29  1 14  3  1  0 16  1 10 16  3  8 11  0] -> size -> 23 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 30. 28. 30.  8. 10.  8.  3.  5. 10.  6.  9. 10.  0. 10.  9.] 
+adversary cards in hand: [10.  0.  3.  0. 11.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8] -> size -> 33 
+adversary victory points: 3
+player victory points: 5 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [0. 0. 0.] 
+cards in discard: [2.] 
+cards in deck: 18 
+card top of deck: [] 
+played cards: [16.] 
+owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2] -> size -> 23 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 29. 28. 30.  8. 10.  8.  3.  5. 10.  6.  9. 10.  0. 10.  9.] 
+adversary cards in hand: [10.  0.  3.  0. 11.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8] -> size -> 33 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 11.  8. -1.] 
+Chosen buy action: 3.0 : ['Estate' '3' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 0.] 
+cards in discard: [2.] 
+cards in deck: 18 
+card top of deck: [] 
+played cards: [16.] 
+owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2] -> size -> 23 
+action values: 0 
+buys: 1 
+player value: 3 
+card supply: [28. 27. 29. 28. 30.  8. 10.  8.  3.  5. 10.  6.  9. 10.  0. 10.  9.] 
+adversary cards in hand: [10.  0.  3.  0. 11.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8] -> size -> 33 
+adversary victory points: 3
+player victory points: 5 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 0.] 
+cards in discard: [2. 3.] 
+cards in deck: 18 
+card top of deck: [] 
+played cards: [16.] 
+owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3] -> size -> 24 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [28. 27. 29. 27. 30.  8. 10.  8.  3.  5. 10.  6.  9. 10.  0. 10.  9.] 
+adversary cards in hand: [10.  0.  3.  0. 11.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8] -> size -> 33 
+adversary victory points: 3
+player victory points: 6 
+
+
+
+
+
+Player: 0 
+cards in hand: [10.  0.  3.  0. 11.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 10. 11.] 
+expected returns: [[57.34004 ]
+ [47.718674]
+ [67.980225]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [10.  0.  3.  0. 11.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0.] 
+cards in deck: 21 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8] -> size -> 33 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 29. 27. 30.  8. 10.  8.  3.  5. 10.  6.  9. 10.  0. 10.  9.] 
+adversary cards in hand: [ 1. 14.  0.  1.  3.] 
+adversary cards in discard: [ 2.  3. 16.  0.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3] -> size -> 24 
+adversary victory points: 6
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -90   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -95 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 65.48143005371094
+
+
+
+action possibilites: [-1] 
+expected returns: [[55.44654]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [10.  0.  3.  0.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.] 
+cards in deck: 21 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15] -> size -> 34 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 29. 27. 30.  8. 10.  8.  3.  5. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [ 1. 14.  0.  1.  3.] 
+adversary cards in discard: [ 2.  3. 16.  0.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3] -> size -> 24 
+adversary victory points: 6
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -90   0   0  20   0   0   0   0   0   0   0  64   0] 
+sum of rewards: -11 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 82.49961853027344
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  3.  6.  8. -1.] 
+expected returns: [[44.824253]
+ [52.04967 ]
+ [19.291948]
+ [57.330612]
+ [55.320435]]
+Chosen buy action: 8.0 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [10.  0.  3.  0.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.] 
+cards in deck: 21 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15] -> size -> 34 
+action values: 0 
+buys: 1 
+player value: 2 
+card supply: [28. 27. 29. 27. 30.  8. 10.  8.  3.  5. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [ 1. 14.  0.  1.  3.] 
+adversary cards in discard: [ 2.  3. 16.  0.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3] -> size -> 24 
+adversary victory points: 6
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -90   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -75 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 55.44654083251953
+
+
+
+buy possibilites: [-1] 
+expected returns: [[53.447422]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [10.  0.  3.  0.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8.] 
+cards in deck: 21 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8] -> size -> 35 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 29. 27. 30.  8. 10.  8.  3.  4. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [ 1. 14.  0.  1.  3.] 
+adversary cards in discard: [ 2.  3. 16.  0.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3] -> size -> 24 
+adversary victory points: 6
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -90   0   0  20   0   0   0   0   0   0   0  16   0] 
+sum of rewards: -59 
+
+action type: buy - action 8.0
+Learning step: 0
+desired expected reward: 57.33059310913086
+
+
+
+
+
+
+         -------------------- Turn: 16 -------------------- 
+Player: 1 
+cards in hand: [ 1. 14.  0.  1.  3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 14.] 
+Chosen action: 14 : ['Militia' '14' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 1. 14.  0.  1.  3.] 
+cards in discard: [ 2.  3. 16.  0.  0.  0.] 
+cards in deck: 13 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3] -> size -> 24 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 29. 27. 30.  8. 10.  8.  3.  4. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [29. 11.  0. 29.  0.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8] -> size -> 35 
+adversary victory points: 3
+player victory points: 6 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [1. 0. 1. 3.] 
+cards in discard: [ 2.  3. 16.  0.  0.  0.] 
+cards in deck: 13 
+card top of deck: [] 
+played cards: [14.] 
+owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3] -> size -> 24 
+action values: 0 
+buys: 0 
+player value: 2 
+card supply: [28. 27. 29. 27. 30.  8. 10.  8.  3.  4. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [ 0. 29.  0.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8] -> size -> 35 
+adversary victory points: 3
+player victory points: 6 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  2.  3.  4.  6. 16. 11.  8. 25. 29. 14. 23. 22. 15. -1.] 
+Chosen buy action: 16.0 : ['Remodel' '16' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [1. 0. 1. 3.] 
+cards in discard: [ 2.  3. 16.  0.  0.  0.] 
+cards in deck: 13 
+card top of deck: [] 
+played cards: [14.] 
+owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3] -> size -> 24 
+action values: 0 
+buys: 1 
+player value: 7 
+card supply: [28. 27. 29. 27. 30.  8. 10.  8.  3.  4. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [ 0. 29.  0.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8] -> size -> 35 
+adversary victory points: 3
+player victory points: 6 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [1. 0. 1. 3.] 
+cards in discard: [ 2.  3. 16.  0.  0.  0. 16.] 
+cards in deck: 13 
+card top of deck: [] 
+played cards: [14.] 
+owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3
+ 16] -> size -> 25 
+action values: 0 
+buys: 0 
+player value: 3 
+card supply: [28. 27. 29. 27. 30.  8. 10.  7.  3.  4. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [ 0. 29.  0.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8] -> size -> 35 
+adversary victory points: 3
+player victory points: 6 
+
+
+
+
+
+Player: 0 
+cards in hand: [ 0. 29.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 29.] 
+expected returns: [[45.3956  ]
+ [63.804836]]
+Chosen action: 29 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0. 29.  0.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29.] 
+cards in deck: 16 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8] -> size -> 35 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 29. 27. 30.  8. 10.  7.  3.  4. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [ 0.  3. 11. 16.  0.] 
+adversary cards in discard: [ 2.  3. 16.  0.  0.  0. 16. 14.  1.  0.  1.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3
+ 16] -> size -> 25 
+adversary victory points: 6
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -90   0   0   0   0   0   0   0   0   0   0 703   0] 
+sum of rewards: 608 
+
+action type: discard_down_to_3_cards - action 1
+Learning step: 0
+desired expected reward: -9.653899192810059
+
+
+
+action possibilites: [-1.] 
+expected returns: [[83.458984]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [0. 0.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29.] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8] -> size -> 35 
+action values: 1 
+buys: 0 
+player value: 1 
+card supply: [28. 27. 29. 27. 30.  8. 10.  7.  3.  4. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [ 0.  3. 11. 16.  0.] 
+adversary cards in discard: [ 2.  3. 16.  0.  0.  0. 16. 14.  1.  0.  1.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3
+ 16] -> size -> 25 
+adversary victory points: 6
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -90   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -75 
+
+action type: discard_n_cards - action 1
+Learning step: 0
+desired expected reward: 53.73169708251953
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 11.  8. -1.] 
+expected returns: [[66.95984 ]
+ [94.02701 ]
+ [77.83508 ]
+ [31.505886]
+ [97.18587 ]
+ [85.99872 ]
+ [82.57268 ]]
+Chosen buy action: 11.0 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29.] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8] -> size -> 35 
+action values: 0 
+buys: 1 
+player value: 3 
+card supply: [28. 27. 29. 27. 30.  8. 10.  7.  3.  4. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [ 0.  3. 11. 16.  0.] 
+adversary cards in discard: [ 2.  3. 16.  0.  0.  0. 16. 14.  1.  0.  1.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3
+ 16] -> size -> 25 
+adversary victory points: 6
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -90   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -75 
+
+action type: take_action - action -1.0
+Learning step: 0
+desired expected reward: 83.458984375
+
+
+
+buy possibilites: [-1] 
+expected returns: [[69.51691]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11] -> size -> 36 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 29. 27. 30.  8. 10.  7.  2.  4. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [ 0.  3. 11. 16.  0.] 
+adversary cards in discard: [ 2.  3. 16.  0.  0.  0. 16. 14.  1.  0.  1.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3
+ 16] -> size -> 25 
+adversary victory points: 6
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -90   0   0  20   0   0   0   0 -10   0   0  54   0] 
+sum of rewards: -31 
+
+action type: buy - action 11.0
+Learning step: 0
+desired expected reward: 97.18585205078125
+
+
+
+
+
+
+         -------------------- Turn: 17 -------------------- 
+Player: 1 
+cards in hand: [ 0.  3. 11. 16.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 11. 16.] 
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0.  3. 11. 16.  0.] 
+cards in discard: [ 2.  3. 16.  0.  0.  0. 16. 14.  1.  0.  1.  3.] 
+cards in deck: 8 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3
+ 16] -> size -> 25 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 29. 27. 30.  8. 10.  7.  2.  4. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [10. 11. 10. 10. 10.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11] -> size -> 36 
+adversary victory points: 3
+player victory points: 6 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0.  3. 16.  0.] 
+cards in discard: [ 2.  3. 16.  0.  0.  0. 16. 14.  1.  0.  1.  3.  8.] 
+cards in deck: 8 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3
+ 16  8] -> size -> 26 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [10. 11. 10. 10. 10.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11] -> size -> 36 
+adversary victory points: 3
+player victory points: 6 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  3.  6.  8. -1.] 
+Chosen buy action: -1.0 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0.  3. 16.  0.] 
+cards in discard: [ 2.  3. 16.  0.  0.  0. 16. 14.  1.  0.  1.  3.  8.] 
+cards in deck: 8 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3
+ 16  8] -> size -> 26 
+action values: 0 
+buys: 1 
+player value: 2 
+card supply: [28. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [10. 11. 10. 10. 10.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11] -> size -> 36 
+adversary victory points: 3
+player victory points: 6 
+
+
+
+
+
+Player: 0 
+cards in hand: [10. 11. 10. 10. 10.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 10. 11. 10. 10. 10.] 
+expected returns: [[20.830378]
+ [10.509945]
+ [32.358147]
+ [10.509945]
+ [10.509945]
+ [10.509945]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [10. 11. 10. 10. 10.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0.] 
+cards in deck: 10 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11] -> size -> 36 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  9. 10.  0. 10.  8.] 
+adversary cards in hand: [ 3.  3. 10.  3.  8.] 
+adversary cards in discard: [ 2.  3. 16.  0.  0.  0. 16. 14.  1.  0.  1.  3.  8. 11.  0.  3. 16.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3
+ 16  8] -> size -> 26 
+adversary victory points: 6
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -90   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -95 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 69.51690673828125
+
+
+
+action possibilites: [-1] 
+expected returns: [[48.06309]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [10. 10. 10. 10.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15.] 
+cards in deck: 10 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11 15] -> size -> 37 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  9. 10.  0. 10.  7.] 
+adversary cards in hand: [ 3.  3. 10.  3.  8.] 
+adversary cards in discard: [ 2.  3. 16.  0.  0.  0. 16. 14.  1.  0.  1.  3.  8. 11.  0.  3. 16.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3
+ 16  8] -> size -> 26 
+adversary victory points: 6
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -90   0   0  20   0   0   0   0 -20   0   0  64   0] 
+sum of rewards: -31 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 46.589229583740234
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+expected returns: [[37.54275 ]
+ [ 8.805582]
+ [48.155483]]
+Chosen buy action: -1.0 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [10. 10. 10. 10.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15.] 
+cards in deck: 10 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11 15] -> size -> 37 
+action values: 0 
+buys: 1 
+player value: 0 
+card supply: [28. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  9. 10.  0. 10.  7.] 
+adversary cards in hand: [ 3.  3. 10.  3.  8.] 
+adversary cards in discard: [ 2.  3. 16.  0.  0.  0. 16. 14.  1.  0.  1.  3.  8. 11.  0.  3. 16.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3
+ 16  8] -> size -> 26 
+adversary victory points: 6
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -90   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -75 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 48.06309127807617
+
+
+
+
+
+
+         -------------------- Turn: 18 -------------------- 
+Player: 1 
+cards in hand: [ 3.  3. 10.  3.  8.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 10.  8.] 
+Chosen action: 8 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 3.  3. 10.  3.  8.] 
+cards in discard: [ 2.  3. 16.  0.  0.  0. 16. 14.  1.  0.  1.  3.  8. 11.  0.  3. 16.  0.] 
+cards in deck: 3 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  3  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3
+ 16  8] -> size -> 26 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  9. 10.  0. 10.  7.] 
+adversary cards in hand: [ 0.  8. 10.  3. 11.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15. 11. 10. 10. 10. 10.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11 15] -> size -> 37 
+adversary victory points: 3
+player victory points: 6 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [10.  3.] 
+cards in discard: [ 2.  3. 16.  0.  0.  0. 16. 14.  1.  0.  1.  3.  8. 11.  0.  3. 16.  0.] 
+cards in deck: 3 
+card top of deck: [] 
+played cards: [8.] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8] -> size -> 24 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [28. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  9. 10.  0. 10.  7.] 
+adversary cards in hand: [ 0.  8. 10.  3. 11.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15. 11. 10. 10. 10. 10.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11 15] -> size -> 37 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+Chosen buy action: 0.0 : ['Copper' '0' '0']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [10.  3.] 
+cards in discard: [ 2.  3. 16.  0.  0.  0. 16. 14.  1.  0.  1.  3.  8. 11.  0.  3. 16.  0.] 
+cards in deck: 3 
+card top of deck: [] 
+played cards: [8.] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8] -> size -> 24 
+action values: 0 
+buys: 1 
+player value: 0 
+card supply: [28. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  9. 10.  0. 10.  7.] 
+adversary cards in hand: [ 0.  8. 10.  3. 11.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15. 11. 10. 10. 10. 10.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11 15] -> size -> 37 
+adversary victory points: 3
+player victory points: 4 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [10.  3.] 
+cards in discard: [ 2.  3. 16.  0.  0.  0. 16. 14.  1.  0.  1.  3.  8. 11.  0.  3. 16.  0.
+  0.] 
+cards in deck: 3 
+card top of deck: [] 
+played cards: [8.] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0] -> size -> 25 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [27. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  9. 10.  0. 10.  7.] 
+adversary cards in hand: [ 0.  8. 10.  3. 11.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15. 11. 10. 10. 10. 10.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11 15] -> size -> 37 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+
+Player: 0 
+cards in hand: [ 0.  8. 10.  3. 11.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  8. 10. 11.] 
+expected returns: [[ 6.596464 ]
+ [ 9.803356 ]
+ [-5.6656914]
+ [20.504856 ]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0.  8. 10.  3. 11.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15. 11. 10. 10. 10. 10.] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11 15] -> size -> 37 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  9. 10.  0. 10.  7.] 
+adversary cards in hand: [3. 1. 0. 0. 1.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0] -> size -> 25 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -35 
+
+action type: buy - action -1.0
+Learning step: 0
+desired expected reward: 48.15547180175781
+
+
+
+action possibilites: [-1] 
+expected returns: [[30.588226]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0.  8. 10.  3.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15. 11. 10. 10. 10. 10. 15.] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11 15 15] -> size -> 38 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [27. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  9. 10.  0. 10.  6.] 
+adversary cards in hand: [3. 1. 0. 0. 1.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0] -> size -> 25 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0 -30   0   0  64   0] 
+sum of rewards: 19 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 37.52983856201172
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+expected returns: [[17.539825]
+ [-6.789248]
+ [30.111721]]
+Chosen buy action: -1.0 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 0.  8. 10.  3.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15. 11. 10. 10. 10. 10. 15.] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11 15 15] -> size -> 38 
+action values: 0 
+buys: 1 
+player value: 1 
+card supply: [27. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  9. 10.  0. 10.  6.] 
+adversary cards in hand: [3. 1. 0. 0. 1.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0] -> size -> 25 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -15 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 30.588226318359375
+
+
+
+
+
+
+         -------------------- Turn: 19 -------------------- 
+Player: 1 
+cards in hand: [3. 1. 0. 0. 1.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [3. 1. 0. 0. 1.] 
+cards in discard: [] 
+cards in deck: 20 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0] -> size -> 25 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  9. 10.  0. 10.  6.] 
+adversary cards in hand: [10. 10.  3.  8. 10.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15. 11. 10. 10. 10. 10. 15. 11.  0.  8. 10.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11 15 15] -> size -> 38 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  2.  3.  4.  6. 16. 11.  8. 25. 29. 14. 23. 22. 15. -1.] 
+Chosen buy action: 14.0 : ['Militia' '14' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [3. 1. 0. 0. 1.] 
+cards in discard: [] 
+cards in deck: 20 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0] -> size -> 25 
+action values: 0 
+buys: 1 
+player value: 6 
+card supply: [27. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  9. 10.  0. 10.  6.] 
+adversary cards in hand: [10. 10.  3.  8. 10.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15. 11. 10. 10. 10. 10. 15. 11.  0.  8. 10.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11 15 15] -> size -> 38 
+adversary victory points: 3
+player victory points: 4 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [3. 1. 0. 0. 1.] 
+cards in discard: [14.] 
+cards in deck: 20 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14] -> size -> 26 
+action values: 0 
+buys: 0 
+player value: 2 
+card supply: [27. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  8. 10.  0. 10.  6.] 
+adversary cards in hand: [10. 10.  3.  8. 10.] 
+adversary cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15. 11. 10. 10. 10. 10. 15. 11.  0.  8. 10.  3.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11 15 15] -> size -> 38 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+
+Player: 0 
+cards in hand: [10. 10.  3.  8. 10.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 10. 10.  8. 10.] 
+expected returns: [[36.467945]
+ [30.32302 ]
+ [30.32302 ]
+ [37.987476]
+ [30.32302 ]]
+Chosen action: 8 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [10. 10.  3.  8. 10.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15. 11. 10. 10. 10. 10. 15. 11.  0.  8. 10.  3.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 10 11 11 10 11 10 29 10  8 10 29 10
+ 11  8 10 10 11 10  8 15  8 15  8 11 15 15] -> size -> 38 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  8. 10.  0. 10.  6.] 
+adversary cards in hand: [ 3. 16. 16.  2.  0.] 
+adversary cards in discard: [14.  3.  1.  0.  0.  1.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14] -> size -> 26 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -35 
+
+action type: buy - action -1.0
+Learning step: 0
+desired expected reward: 30.111724853515625
+
+
+
+action possibilites: [-1] 
+expected returns: [[35.16292]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [10.  3. 10.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15. 11. 10. 10. 10. 10. 15. 11.  0.  8. 10.  3.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [8.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15] -> size -> 37 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [27. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  8. 10.  0. 10.  6.] 
+adversary cards in hand: [ 3. 16. 16.  2.  0.] 
+adversary cards in discard: [14.  3.  1.  0.  0.  1.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14] -> size -> 26 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -15 
+
+action type: trash_cards_n_from_hand - action 1
+Learning step: 0
+desired expected reward: 42.03073501586914
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+expected returns: [[25.708294 ]
+ [-4.4980707]
+ [35.162945 ]]
+Chosen buy action: -1.0 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [10.  3. 10.] 
+cards in discard: [15.  8. 11. 11.  8.  0.  0. 15.  8. 11. 10.  0.  3.  0. 11. 29. 29. 11.
+ 29.  0.  0. 15. 11. 10. 10. 10. 10. 15. 11.  0.  8. 10.  3.] 
+cards in deck: 0 
+card top of deck: [] 
+played cards: [8.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15] -> size -> 37 
+action values: 0 
+buys: 1 
+player value: 0 
+card supply: [27. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  8. 10.  0. 10.  6.] 
+adversary cards in hand: [ 3. 16. 16.  2.  0.] 
+adversary cards in discard: [14.  3.  1.  0.  0.  1.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14] -> size -> 26 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -15 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 35.16292190551758
+
+
+
+
+
+
+         -------------------- Turn: 20 -------------------- 
+Player: 1 
+cards in hand: [ 3. 16. 16.  2.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 16. 16.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 3. 16. 16.  2.  0.] 
+cards in discard: [14.  3.  1.  0.  0.  1.] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14] -> size -> 26 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  8. 10.  0. 10.  6.] 
+adversary cards in hand: [ 8. 29. 10. 11.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15] -> size -> 37 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 16. 11.  8. 29. 14. 15. -1.] 
+Chosen buy action: 1.0 : ['Silver' '1' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 3. 16. 16.  2.  0.] 
+cards in discard: [14.  3.  1.  0.  0.  1.] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14] -> size -> 26 
+action values: 0 
+buys: 1 
+player value: 4 
+card supply: [27. 27. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  8. 10.  0. 10.  6.] 
+adversary cards in hand: [ 8. 29. 10. 11.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15] -> size -> 37 
+adversary victory points: 3
+player victory points: 4 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 3. 16. 16.  2.  0.] 
+cards in discard: [14.  3.  1.  0.  0.  1.  1.] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1] -> size -> 27 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [27. 26. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  8. 10.  0. 10.  6.] 
+adversary cards in hand: [ 8. 29. 10. 11.  0.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15] -> size -> 37 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+
+Player: 0 
+cards in hand: [ 8. 29. 10. 11.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  8. 29. 10. 11.] 
+expected returns: [[60.800884]
+ [62.8605  ]
+ [77.64517 ]
+ [51.80836 ]
+ [70.489914]]
+Chosen action: 29 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 8. 29. 10. 11.  0.] 
+cards in discard: [] 
+cards in deck: 32 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15] -> size -> 37 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  8. 10.  0. 10.  6.] 
+adversary cards in hand: [ 3. 10.  0. 14.  0.] 
+adversary cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1] -> size -> 27 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -35 
+
+action type: buy - action -1.0
+Learning step: 0
+desired expected reward: 35.16292190551758
+
+
+
+action possibilites: [-1. 10. 11. 11.] 
+expected returns: [[ 93.462326]
+ [ 83.055756]
+ [104.683304]
+ [104.683304]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [10. 11.  0. 11.] 
+cards in discard: [8.] 
+cards in deck: 31 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15] -> size -> 37 
+action values: 1 
+buys: 0 
+player value: 1 
+card supply: [27. 26. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  8. 10.  0. 10.  6.] 
+adversary cards in hand: [ 3. 10.  0. 14.  0.] 
+adversary cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1] -> size -> 27 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -15 
+
+action type: discard_n_cards - action 1
+Learning step: 0
+desired expected reward: 68.34259033203125
+
+
+
+action possibilites: [-1] 
+expected returns: [[74.895935]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [10.  0. 11.] 
+cards in discard: [ 8. 15.] 
+cards in deck: 31 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15] -> size -> 38 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [27. 26. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  8. 10.  0. 10.  5.] 
+adversary cards in hand: [ 3. 10.  0. 14.  0.] 
+adversary cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1] -> size -> 27 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  40   0   0   0   0 -30   0   0  64   0] 
+sum of rewards: 39 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 119.36726379394531
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  3.  6.  8. -1.] 
+expected returns: [[65.01021 ]
+ [71.88382 ]
+ [39.28571 ]
+ [76.93683 ]
+ [75.070755]]
+Chosen buy action: 8.0 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [10.  0. 11.] 
+cards in discard: [ 8. 15.] 
+cards in deck: 31 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15] -> size -> 38 
+action values: 0 
+buys: 1 
+player value: 2 
+card supply: [27. 26. 29. 27. 30.  8. 10.  7.  2.  3. 10.  6.  8. 10.  0. 10.  5.] 
+adversary cards in hand: [ 3. 10.  0. 14.  0.] 
+adversary cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1] -> size -> 27 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  40   0   0   0   0   0   0   0   0   0] 
+sum of rewards: 5 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 74.89593505859375
+
+
+
+buy possibilites: [-1] 
+expected returns: [[70.739105]]
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [10.  0. 11.] 
+cards in discard: [ 8. 15.  8.] 
+cards in deck: 31 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8] -> size -> 39 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 27. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  5.] 
+adversary cards in hand: [ 3. 10.  0. 14.  0.] 
+adversary cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1] -> size -> 27 
+adversary victory points: 4
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -30   0   0  40   0   0   0   0 -40   0   0  16   0] 
+sum of rewards: -19 
+
+action type: buy - action 8.0
+Learning step: 0
+desired expected reward: 76.93681335449219
+
+
+
+
+
+
+         -------------------- Turn: 21 -------------------- 
+Player: 1 
+cards in hand: [ 3. 10.  0. 14.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 10. 14.] 
+Chosen action: 10 : ['Village' '10' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 3. 10.  0. 14.  0.] 
+cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0.] 
+cards in deck: 10 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1] -> size -> 27 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 27. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  5.] 
+adversary cards in hand: [11.  8.  8. 10. 29.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8] -> size -> 39 
+adversary victory points: 3
+player victory points: 4 
+
+
+action possibilites: [-1. 14. 11.] 
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 3.  0. 14.  0. 11.] 
+cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0.] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [10.] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1] -> size -> 27 
+action values: 2 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 27. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  5.] 
+adversary cards in hand: [11.  8.  8. 10. 29.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8] -> size -> 39 
+adversary victory points: 3
+player victory points: 4 
+
+
+action possibilites: [-1. 14.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 3.  0. 14.  0.] 
+cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0. 15.] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [10. 11.] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1 15] -> size -> 28 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 27. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  4.] 
+adversary cards in hand: [11.  8.  8. 10. 29.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8] -> size -> 39 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  3.  6.  8. -1.] 
+Chosen buy action: 3.0 : ['Estate' '3' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 3.  0. 14.  0.] 
+cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0. 15.] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [10. 11.] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1 15] -> size -> 28 
+action values: 0 
+buys: 1 
+player value: 2 
+card supply: [27. 26. 29. 27. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  4.] 
+adversary cards in hand: [11.  8.  8. 10. 29.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8] -> size -> 39 
+adversary victory points: 3
+player victory points: 4 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 3.  0. 14.  0.] 
+cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0. 15.  3.] 
+cards in deck: 9 
+card top of deck: [] 
+played cards: [10. 11.] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1 15  3] -> size -> 29 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 26. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  4.] 
+adversary cards in hand: [11.  8.  8. 10. 29.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8] -> size -> 39 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+
+Player: 0 
+cards in hand: [11.  8.  8. 10. 29.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 11.  8.  8. 10. 29.] 
+expected returns: [[ 88.50992 ]
+ [ 98.5428  ]
+ [ 90.698654]
+ [ 90.698654]
+ [ 79.3246  ]
+ [106.25775 ]]
+Chosen action: 29 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [11.  8.  8. 10. 29.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.] 
+cards in deck: 26 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8] -> size -> 39 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 26. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  4.] 
+adversary cards in hand: [0. 0. 8. 3. 0.] 
+adversary cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0. 15.  3. 10. 11.  3.  0.
+ 14.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1 15  3] -> size -> 29 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -65 
+
+action type: buy - action -1
+Learning step: 0
+desired expected reward: 70.73910522460938
+
+
+
+action possibilites: [-1. 11.  8. 10. 11.] 
+expected returns: [[82.73901 ]
+ [92.749435]
+ [84.90161 ]
+ [73.69017 ]
+ [92.749435]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [11.  8. 10. 11.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8.] 
+cards in deck: 25 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8] -> size -> 39 
+action values: 1 
+buys: 0 
+player value: 1 
+card supply: [27. 26. 29. 26. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  4.] 
+adversary cards in hand: [0. 0. 8. 3. 0.] 
+adversary cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0. 15.  3. 10. 11.  3.  0.
+ 14.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1 15  3] -> size -> 29 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -45 
+
+action type: discard_n_cards - action 1
+Learning step: 0
+desired expected reward: 96.33830261230469
+
+
+
+action possibilites: [-1] 
+expected returns: [[103.64049]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 8. 10. 11.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15.] 
+cards in deck: 25 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15] -> size -> 40 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [27. 26. 29. 26. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  3.] 
+adversary cards in hand: [0. 0. 8. 3. 0.] 
+adversary cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0. 15.  3. 10. 11.  3.  0.
+ 14.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1 15  3] -> size -> 29 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  40   0   0   0   0 -50   0   0  64   0] 
+sum of rewards: -11 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 104.47624206542969
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+expected returns: [[ 93.82399 ]
+ [ 70.35771 ]
+ [104.060776]]
+Chosen buy action: -1.0 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 8. 10. 11.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15.] 
+cards in deck: 25 
+card top of deck: [] 
+played cards: [29. 11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15] -> size -> 40 
+action values: 0 
+buys: 1 
+player value: 1 
+card supply: [27. 26. 29. 26. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  3.] 
+adversary cards in hand: [0. 0. 8. 3. 0.] 
+adversary cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0. 15.  3. 10. 11.  3.  0.
+ 14.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1 15  3] -> size -> 29 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  40   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -25 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 103.64048767089844
+
+
+
+
+
+
+         -------------------- Turn: 22 -------------------- 
+Player: 1 
+cards in hand: [0. 0. 8. 3. 0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  8.] 
+Chosen action: 8 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [0. 0. 8. 3. 0.] 
+cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0. 15.  3. 10. 11.  3.  0.
+ 14.  0.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  3  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8
+  0 14  1 15  3] -> size -> 29 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 26. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  3.] 
+adversary cards in hand: [15. 10. 11.  3. 11.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15] -> size -> 40 
+adversary victory points: 3
+player victory points: 5 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [0. 0. 0.] 
+cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0. 15.  3. 10. 11.  3.  0.
+ 14.  0.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [8.] 
+owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8  0
+ 14  1 15  3] -> size -> 28 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 26. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  3.] 
+adversary cards in hand: [15. 10. 11.  3. 11.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15] -> size -> 40 
+adversary victory points: 3
+player victory points: 4 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 11.  8. -1.] 
+Chosen buy action: 3.0 : ['Estate' '3' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 0.] 
+cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0. 15.  3. 10. 11.  3.  0.
+ 14.  0.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [8.] 
+owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8  0
+ 14  1 15  3] -> size -> 28 
+action values: 0 
+buys: 1 
+player value: 3 
+card supply: [27. 26. 29. 26. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  3.] 
+adversary cards in hand: [15. 10. 11.  3. 11.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15] -> size -> 40 
+adversary victory points: 3
+player victory points: 4 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 0. 0.] 
+cards in discard: [14.  3.  1.  0.  0.  1.  1.  3. 16. 16.  2.  0. 15.  3. 10. 11.  3.  0.
+ 14.  0.  3.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [8.] 
+owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8  0
+ 14  1 15  3  3] -> size -> 29 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  3.] 
+adversary cards in hand: [15. 10. 11.  3. 11.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15] -> size -> 40 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+
+Player: 0 
+cards in hand: [15. 10. 11.  3. 11.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 15. 10. 11. 11.] 
+expected returns: [[80.67674 ]
+ [73.949875]
+ [71.922165]
+ [90.502594]
+ [90.502594]]
+Chosen action: 11 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [15. 10. 11.  3. 11.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11.] 
+cards in deck: 20 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15] -> size -> 40 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  3.] 
+adversary cards in hand: [ 0.  1.  0.  8. 16.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8  0
+ 14  1 15  3  3] -> size -> 29 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -65 
+
+action type: buy - action -1.0
+Learning step: 0
+desired expected reward: 104.06074523925781
+
+
+
+action possibilites: [-1] 
+expected returns: [[77.404785]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [15. 10.  3. 11.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15.] 
+cards in deck: 20 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 41 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [ 0.  1.  0.  8. 16.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8  0
+ 14  1 15  3  3] -> size -> 29 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  20   0   0   0   0 -60   0   0  64   0] 
+sum of rewards: -41 
+
+action type: gain_card_n - action 9
+Learning step: 0
+desired expected reward: 101.65182495117188
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+expected returns: [[66.08476 ]
+ [37.789364]
+ [77.135544]]
+Chosen buy action: -1.0 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [15. 10.  3. 11.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15.] 
+cards in deck: 20 
+card top of deck: [] 
+played cards: [11.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 41 
+action values: 0 
+buys: 1 
+player value: 0 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [ 0.  1.  0.  8. 16.] 
+adversary cards in discard: [] 
+adversary owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8  0
+ 14  1 15  3  3] -> size -> 29 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -45 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 77.40478515625
+
+
+
+
+
+
+         -------------------- Turn: 23 -------------------- 
+Player: 1 
+cards in hand: [ 0.  1.  0.  8. 16.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  8. 16.] 
+Chosen action: 16 : ['Remodel' '16' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 0.  1.  0.  8. 16.] 
+cards in discard: [] 
+cards in deck: 24 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3  8 11  0  2  3 16  8  0
+ 14  1 15  3  3] -> size -> 29 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  2.  2. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [15.  8. 15. 10. 10.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 41 
+adversary victory points: 3
+player victory points: 5 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [0. 1. 0.] 
+cards in discard: [11.] 
+cards in deck: 24 
+card top of deck: [] 
+played cards: [16.] 
+owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11] -> size -> 29 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  1.  2. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [15.  8. 15. 10. 10.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 41 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  6. 16. 11.  8. 29. 14. 15. -1.] 
+Chosen buy action: 11.0 : ['Workshop' '11' '3']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 1. 0.] 
+cards in discard: [11.] 
+cards in deck: 24 
+card top of deck: [] 
+played cards: [16.] 
+owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11] -> size -> 29 
+action values: 0 
+buys: 1 
+player value: 4 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  1.  2. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [15.  8. 15. 10. 10.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 41 
+adversary victory points: 3
+player victory points: 5 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0. 1. 0.] 
+cards in discard: [11. 11.] 
+cards in deck: 24 
+card top of deck: [] 
+played cards: [16.] 
+owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11] -> size -> 30 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  0.  2. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [15.  8. 15. 10. 10.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 41 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+
+Player: 0 
+cards in hand: [15.  8. 15. 10. 10.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 15.  8. 15. 10. 10.] 
+expected returns: [[35.533302]
+ [28.973225]
+ [37.47412 ]
+ [28.973225]
+ [27.018238]
+ [27.018238]]
+Chosen action: 8 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [15.  8. 15. 10. 10.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 10 11 10 29 10  8 10 29 10 11
+  8 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 41 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  0.  2. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [ 1. 14.  0. 14. 16.] 
+adversary cards in discard: [11. 11. 16.  0.  1.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11] -> size -> 30 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -65 
+
+action type: buy - action -1.0
+Learning step: 0
+desired expected reward: 77.13555908203125
+
+
+
+action possibilites: [-1] 
+expected returns: [[74.39133]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [15. 15. 10.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [8.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 10 29 10  8 10 29 10 11  8
+ 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 40 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  0.  2. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [ 1. 14.  0. 14. 16.] 
+adversary cards in discard: [11. 11. 16.  0.  1.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11] -> size -> 30 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -45 
+
+action type: trash_cards_n_from_hand - action 1
+Learning step: 0
+desired expected reward: 44.875465393066406
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+expected returns: [[60.513615]
+ [34.50911 ]
+ [72.12828 ]]
+Chosen buy action: -1.0 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [15. 15. 10.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.] 
+cards in deck: 15 
+card top of deck: [] 
+played cards: [8.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 10 29 10  8 10 29 10 11  8
+ 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 40 
+action values: 0 
+buys: 1 
+player value: 0 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  0.  2. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [ 1. 14.  0. 14. 16.] 
+adversary cards in discard: [11. 11. 16.  0.  1.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11] -> size -> 30 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -45 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 74.39132690429688
+
+
+
+
+
+
+         -------------------- Turn: 24 -------------------- 
+Player: 1 
+cards in hand: [ 1. 14.  0. 14. 16.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 14. 14. 16.] 
+Chosen action: 14 : ['Militia' '14' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 1. 14.  0. 14. 16.] 
+cards in discard: [11. 11. 16.  0.  1.  0.] 
+cards in deck: 19 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11] -> size -> 30 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  0.  2. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [11.  8. 10.  0.  0.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.  8. 15. 15. 10.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 10 29 10  8 10 29 10 11  8
+ 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 40 
+adversary victory points: 3
+player victory points: 5 
+
+
+action possibilites: [-1] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 1.  0. 14. 16.] 
+cards in discard: [11. 11. 16.  0.  1.  0.] 
+cards in deck: 19 
+card top of deck: [] 
+played cards: [14.] 
+owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11] -> size -> 30 
+action values: 0 
+buys: 0 
+player value: 2 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  0.  2. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [ 8. 10.  0.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.  8. 15. 15. 10. 11.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 10 29 10  8 10 29 10 11  8
+ 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 40 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  1.  3.  4.  6. 16.  8. 25. 29. 14. 23. 22. 15. -1.] 
+Chosen buy action: 8.0 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 1.  0. 14. 16.] 
+cards in discard: [11. 11. 16.  0.  1.  0.] 
+cards in deck: 19 
+card top of deck: [] 
+played cards: [14.] 
+owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11] -> size -> 30 
+action values: 0 
+buys: 1 
+player value: 5 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  0.  2. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [ 8. 10.  0.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.  8. 15. 15. 10. 11.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 10 29 10  8 10 29 10 11  8
+ 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 40 
+adversary victory points: 3
+player victory points: 5 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [ 1.  0. 14. 16.] 
+cards in discard: [11. 11. 16.  0.  1.  0.  8.] 
+cards in deck: 19 
+card top of deck: [] 
+played cards: [14.] 
+owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11  8] -> size -> 31 
+action values: 0 
+buys: 0 
+player value: 3 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  0.  1. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [ 8. 10.  0.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.  8. 15. 15. 10. 11.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 10 29 10  8 10 29 10 11  8
+ 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 40 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+
+Player: 0 
+cards in hand: [ 8. 10.  0.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  8. 10.] 
+expected returns: [[16.190903 ]
+ [17.97493  ]
+ [ 9.1596985]]
+Chosen action: 8 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [ 8. 10.  0.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.  8. 15. 15. 10. 11.  0.] 
+cards in deck: 10 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 10 29 10  8 10 29 10 11  8
+ 10 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 40 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  0.  1. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [3. 3. 0. 3. 8.] 
+adversary cards in discard: [11. 11. 16.  0.  1.  0.  8. 14.  1.  0. 14. 16.] 
+adversary owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11  8] -> size -> 31 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0   0   0   0   0   0 -50   0   0 886   0] 
+sum of rewards: 771 
+
+action type: discard_down_to_3_cards - action 1
+Learning step: 0
+desired expected reward: -16.21381378173828
+
+
+
+action possibilites: [-1] 
+expected returns: [[21.278423]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [0.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.  8. 15. 15. 10. 11.  0.] 
+cards in deck: 10 
+card top of deck: [] 
+played cards: [8.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 29 10  8 10 29 10 11  8 10
+ 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 39 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  0.  1. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [3. 3. 0. 3. 8.] 
+adversary cards in discard: [11. 11. 16.  0.  1.  0.  8. 14.  1.  0. 14. 16.] 
+adversary owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11  8] -> size -> 31 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -45 
+
+action type: trash_cards_n_from_hand - action 1
+Learning step: 0
+desired expected reward: 22.617238998413086
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+expected returns: [[ 12.393211]
+ [-10.508339]
+ [ 21.458252]]
+Chosen buy action: -1.0 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [0.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.  8. 15. 15. 10. 11.  0.] 
+cards in deck: 10 
+card top of deck: [] 
+played cards: [8.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 29 10  8 10 29 10 11  8 10
+ 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 39 
+action values: 0 
+buys: 1 
+player value: 1 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  0.  1. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [3. 3. 0. 3. 8.] 
+adversary cards in discard: [11. 11. 16.  0.  1.  0.  8. 14.  1.  0. 14. 16.] 
+adversary owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11  8] -> size -> 31 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -45 
+
+action type: take_action - action -1
+Learning step: 0
+desired expected reward: 21.278423309326172
+
+
+
+
+
+
+         -------------------- Turn: 25 -------------------- 
+Player: 1 
+cards in hand: [3. 3. 0. 3. 8.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1.  8.] 
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [3. 3. 0. 3. 8.] 
+cards in discard: [11. 11. 16.  0.  1.  0.  8. 14.  1.  0. 14. 16.] 
+cards in deck: 14 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11  8] -> size -> 31 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  0.  1. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [15. 10.  0. 29.  3.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.  8. 15. 15. 10. 11.  0.  8.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 29 10  8 10 29 10 11  8 10
+ 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 39 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  6. -1.] 
+Chosen buy action: 0.0 : ['Copper' '0' '0']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [3. 3. 0. 3. 8.] 
+cards in discard: [11. 11. 16.  0.  1.  0.  8. 14.  1.  0. 14. 16.] 
+cards in deck: 14 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11  8] -> size -> 31 
+action values: 0 
+buys: 1 
+player value: 1 
+card supply: [27. 26. 29. 25. 30.  8. 10.  7.  0.  1. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [15. 10.  0. 29.  3.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.  8. 15. 15. 10. 11.  0.  8.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 29 10  8 10 29 10 11  8 10
+ 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 39 
+adversary victory points: 3
+player victory points: 5 
+
+
+buy possibilites: [-1] 
+Chosen buy action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [3. 3. 0. 3. 8.] 
+cards in discard: [11. 11. 16.  0.  1.  0.  8. 14.  1.  0. 14. 16.  0.] 
+cards in deck: 14 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11  8  0] -> size -> 32 
+action values: 0 
+buys: 0 
+player value: 1 
+card supply: [26. 26. 29. 25. 30.  8. 10.  7.  0.  1. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [15. 10.  0. 29.  3.] 
+adversary cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.  8. 15. 15. 10. 11.  0.  8.  0.] 
+adversary owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 29 10  8 10 29 10 11  8 10
+ 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 39 
+adversary victory points: 3
+player victory points: 5 
+
+
+
+
+
+Player: 0 
+cards in hand: [15. 10.  0. 29.  3.] 
+----------- ACTION PHASE ----------- 
+action possibilites: [-1. 15. 10. 29.] 
+expected returns: [[17.698284]
+ [12.348526]
+ [10.744045]
+ [31.17369 ]]
+Chosen action: 29 : ['Poacher' '29' '4']
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [15. 10.  0. 29.  3.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.  8. 15. 15. 10. 11.  0.  8.  0.] 
+cards in deck: 5 
+card top of deck: [] 
+played cards: [] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 29 10  8 10 29 10 11  8 10
+ 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 39 
+action values: 1 
+buys: 0 
+player value: 0 
+card supply: [26. 26. 29. 25. 30.  8. 10.  7.  0.  1. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [ 0.  3. 16.  0.  0.] 
+adversary cards in discard: [11. 11. 16.  0.  1.  0.  8. 14.  1.  0. 14. 16.  0.  3.  3.  0.  3.  8.] 
+adversary owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11  8  0] -> size -> 32 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0   0   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -65 
+
+action type: buy - action -1.0
+Learning step: 0
+desired expected reward: 21.458240509033203
+
+
+
+action possibilites: [-1. 15. 10.] 
+expected returns: [[ -6.031626]
+ [ -9.728846]
+ [-10.833637]]
+Chosen action: -1 : None
+
+
+ --- GAME STATE ---
+Action that is taken: take_action 
+cards in hand: [15. 10.  0.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.  8. 15. 15. 10. 11.  0.  8.  0.  0.  3.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 29 10  8 10 29 10 11  8 10
+ 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 39 
+action values: 1 
+buys: 0 
+player value: 1 
+card supply: [26. 26. 29. 25. 30.  8. 10.  7.  0.  1. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [ 0.  3. 16.  0.  0.] 
+adversary cards in discard: [11. 11. 16.  0.  1.  0.  8. 14.  1.  0. 14. 16.  0.  3.  3.  0.  3.  8.] 
+adversary owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11  8  0] -> size -> 32 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -45 
+
+action type: discard_n_cards - action 1
+Learning step: 0
+desired expected reward: 23.709985733032227
+
+
+
+
+
+----------- BUY PHASE ----------- 
+buy possibilites: [ 0.  3.  6.  8. -1.] 
+expected returns: [[-11.986984 ]
+ [ -7.8991914]
+ [-26.80006  ]
+ [ -4.91397  ]
+ [ -6.0316257]]
+Chosen buy action: 8.0 : ['Chapel' '8' '2']
+
+
+ --- GAME STATE ---
+Action that is taken: buy 
+cards in hand: [15. 10.  0.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.  8. 15. 15. 10. 11.  0.  8.  0.  0.  3.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 29 10  8 10 29 10 11  8 10
+ 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15] -> size -> 39 
+action values: 0 
+buys: 1 
+player value: 2 
+card supply: [26. 26. 29. 25. 30.  8. 10.  7.  0.  1. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [ 0.  3. 16.  0.  0.] 
+adversary cards in discard: [11. 11. 16.  0.  1.  0.  8. 14.  1.  0. 14. 16.  0.  3.  3.  0.  3.  8.] 
+adversary owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11  8  0] -> size -> 32 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[ -5   0   0 -60   0   0  20   0   0   0   0   0   0   0   0   0] 
+sum of rewards: -45 
+
+action type: take_action - action -1.0
+Learning step: 0
+desired expected reward: -6.031625747680664
+
+
+
+Player 1 won the game! 
+
+
+
+Player 0 bought cards:
+Copper: 0 
+Silver: 0 
+Gold: 0 
+Estate: 0 
+Duchy: 0 
+Province: 0 
+Curse: 0 
+
+Remodel: 0 
+Workshop: 7 
+Chapel: 7 
+Witch: 0 
+Poacher: 3 
+Militia: 0 
+Market: 0 
+Village: 0 
+Library: 0 
+Moneylender: 0 
+
+
+ --- GAME STATE ---
+Action that is taken: None 
+cards in hand: [15. 10.  0.] 
+cards in discard: [ 8. 15.  8. 29. 11. 10.  0. 11.  8. 15. 29. 11.  8. 10. 11. 15. 11. 15.
+ 10.  3. 11.  8. 15. 15. 10. 11.  0.  8.  0.  0.  3.  8.] 
+cards in deck: 4 
+card top of deck: [] 
+played cards: [29.] 
+owned cards: [ 0  0  0  0  0  0  0  3  3  3 11 29 11 11 11 29 10  8 10 29 10 11  8 10
+ 10 11 10  8 15  8 15  8 11 15 15 15  8 15 15  8] -> size -> 40 
+action values: 0 
+buys: 0 
+player value: 0 
+card supply: [26. 26. 29. 25. 30.  8. 10.  7.  0.  0. 10.  6.  8. 10.  0. 10.  2.] 
+adversary cards in hand: [ 0.  3. 16.  0.  0.] 
+adversary cards in discard: [11. 11. 16.  0.  1.  0.  8. 14.  1.  0. 14. 16.  0.  3.  3.  0.  3.  8.] 
+adversary owned cards: [ 0  0  0  0  0  0  1 14  3  1  0 16  1 10 16  3 11  0  2  3 16  8  0 14
+  1 15  3  3 11 11  8  0] -> size -> 32 
+adversary victory points: 5
+player victory points: 3 
+
+Reward from previous game state: 
+[      -5 -3000000        0      -60        0        0       20        0
+        0        0        0      -50        0        0        8        0] 
+sum of rewards: -3000087 
+
+action type: buy - action 8.0
+Learning step: -120003.2734375
+desired expected reward: -120008.1875
+
+
+

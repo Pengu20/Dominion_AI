@@ -540,7 +540,7 @@ class Deep_SARSA:
 
 
         NN_input_state, NN_input_action = self.game_state2list_NN_input(game_state, [action])
-        self.model.fit((NN_input_state, NN_input_action), np.array([[expected_return_updated]]), epochs=3, verbose=0)
+        self.model.fit((NN_input_state, NN_input_action), np.array([[expected_return_updated]]), epochs=6, verbose=0)
 
     
     def game_state_list2NN_input(self, game_state_list, action_list):
@@ -760,7 +760,7 @@ class Deep_SARSA:
                 output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
                 
 
-                self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=4)
+                self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=6)
 
 
         # Game end update
@@ -769,7 +769,7 @@ class Deep_SARSA:
 
             input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
             output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
-            self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=4)
+            self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=6)
 
 
 
@@ -971,7 +971,7 @@ class Deep_SARSA:
         all_actions = np.concatenate(self.input_data_past_actions, axis=0)
         all_output = np.concatenate(self.output_label_past_games, axis=0)
 
-        self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=5, verybose=0, batch_size=32)
+        self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=6, verybose=0, batch_size=32)
 
 
 
@@ -1167,7 +1167,7 @@ class Deep_Q_learning(Deep_SARSA):
                 output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
                 
 
-                self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=4)
+                self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=6)
 
 
         # Game end update
@@ -1178,7 +1178,7 @@ class Deep_Q_learning(Deep_SARSA):
 
             input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
             output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
-            self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=4)
+            self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=6)
 
 
 
@@ -1228,11 +1228,11 @@ class Deep_Q_learning(Deep_SARSA):
 
         return list_of_actions[np.argmax(expected_return)]
 
-    def update_target_NN_np_mat(self, input_matrix, output_matrix, epochs=1, verbose=0, batch_size=16):
+    def update_target_NN_np_mat(self, input_matrix, output_matrix, epochs=6, verbose=0, batch_size=16):
         '''
         This function is used to update the neural network using a list of all the values used in the game
         '''
-        self.target_model.fit(input_matrix, output_matrix, epochs=3, verbose=0, batch_size=16)
+        self.target_model.fit(input_matrix, output_matrix, epochs=6, verbose=0, batch_size=16)
 
 
 
@@ -1291,7 +1291,7 @@ class Deep_Q_learning(Deep_SARSA):
         all_actions = np.concatenate(self.input_data_past_actions, axis=0)
         all_output = np.concatenate(self.output_label_past_games, axis=0)
 
-        self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=3, verybose=0, batch_size=32)
+        self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=6, verybose=0, batch_size=32)
 
 
 
@@ -1304,7 +1304,7 @@ class Deep_Q_learning(Deep_SARSA):
         
         # If n games has passed, then update the target neural network
         if self.games_played % 15 == 0:
-            self.update_target_NN_np_mat((all_game_states, all_actions), all_output, epochs=3, verbose=0, batch_size=32)
+            self.update_target_NN_np_mat((all_game_states, all_actions), all_output, epochs=6, verbose=0, batch_size=32)
 
 
 
@@ -1409,7 +1409,7 @@ class Deep_expected_sarsa(Deep_SARSA):
                 output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
                 
 
-                self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=4)
+                self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=6)
 
 
         # Game end update
@@ -1420,7 +1420,7 @@ class Deep_expected_sarsa(Deep_SARSA):
 
             input_matrix = self.game_state_list2NN_input(self.game_state_history[-self.batch_size:], self.action_history[-self.batch_size:])
             output_matrix = self.expected_return_list2NN_output(self.all_expected_returns[-self.batch_size:])
-            self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=4)
+            self.update_NN_np_mat(input_matrix, output_matrix, batch_size=self.batch_size, epochs=6)
 
 
 
@@ -1482,7 +1482,7 @@ class Deep_expected_sarsa(Deep_SARSA):
         all_actions = np.concatenate(self.input_data_past_actions, axis=0)
         all_output = np.concatenate(self.output_label_past_games, axis=0)
 
-        self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=3, verybose=0, batch_size=32)
+        self.update_NN_np_mat((all_game_states, all_actions), all_output, epochs=6, verybose=0, batch_size=32)
 
 
 
