@@ -1,7 +1,0 @@
-\chapter{Task: Training scheme} \label{ch:Dominion_engine}
-For this section, the general training structure will be discussed. This training scheme serves the purpose of training the agent, such that its value function will converge at an optimal policy. The agent was faced with a random walk policy at each game. But to even the odds then the random walk policy was never allowed to buy curses which significantly boosted its win chance. 
-
-
-
-\section{Training amounts}
-Training a dominion gamed until convergence usually lasted around 48 hours. This meant that training was doable, but not replicable, as it would take too long. Convergence happened at around 2000 games. To get reliable data, then instead of training a single agent op to 2000 games, the agent is trained in 20 epochs with 150 games. The return gained from each game will then be averaged to reduce variance in the results of the methods.

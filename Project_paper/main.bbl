@@ -16,5 +16,46 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{Deep_Q_learning}{misc}{}
+      \name{author}{3}{}{%
+        {{hash=9012cea67d18f211fde43dcf34baf36b}{%
+           family={Roderick},
+           familyi={R\bibinitperiod},
+           given={Melrose},
+           giveni={M\bibinitperiod}}}%
+        {{hash=3bc4b9e764095b08f84964d3e75467b6}{%
+           family={MacGlashan},
+           familyi={M\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3247d4b31b59515aa3a980b53ca555cd}{%
+           family={Tellex},
+           familyi={T\bibinitperiod},
+           given={Stefanie},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{f5814a9f23426389c63c4abe50c3d027}
+      \strng{fullhash}{f5814a9f23426389c63c4abe50c3d027}
+      \strng{bibnamehash}{f5814a9f23426389c63c4abe50c3d027}
+      \strng{authorbibnamehash}{f5814a9f23426389c63c4abe50c3d027}
+      \strng{authornamehash}{f5814a9f23426389c63c4abe50c3d027}
+      \strng{authorfullhash}{f5814a9f23426389c63c4abe50c3d027}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cs.LG}
+      \field{eprinttype}{arXiv}
+      \field{title}{Implementing the Deep Q-Network}
+      \field{year}{2017}
+      \verb{eprint}
+      \verb 1711.07478
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

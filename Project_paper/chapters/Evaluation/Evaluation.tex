@@ -1,3 +1,8 @@
 \chapter{evaluation \& Discussion} \label{ch:eval}
 
-It can be shown, that the most superior algorithm which trained, is Q-learning. Another interesting fact, is that the target neural network had little to no effect on the performance of the agent. It is observed that the winning strategy of the game, is to recognize the value of the standard cards (Copper, silver, gold, estate, duchy, province and curse!). This is especially the case with high reward cards, as gold and provinces. But by the nature of the game, it is very rare, that the AI experiences buying gold and provinces, so each event in which the agent gains the given cards, must be learned from as much as possible. Since Q-learning bootstraps based on the maximal action possible in the next state, then the value of buying gold and province is better learned, than with the other agents.
+It can be shown, that the most superior algorithm which trained, is Q-learning. Another interesting fact, is that the target neural network had little to no effect on the performance of the agent. 
+
+
+
+
+It is observed that the winning strategy of the game, is to recognize the value of the standard cards (Copper, silver, gold, estate, duchy, province and curse!). This is especially the case with high reward cards, as gold and provinces. But by the nature of the game, it is very rare, that the AI experiences buying gold and provinces, so each event in which the agent gains the given cards, must be learned from as much as possible. Since Q-learning bootstraps based on the maximal action possible in the next state, then the value of buying gold and province is better learned, than with the other agents.

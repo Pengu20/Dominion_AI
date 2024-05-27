@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.22)  27 MAY 2024 13:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.22)  27 MAY 2024 14:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1307,11 +1307,7 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
- (main.aux
-
-LaTeX Warning: Label `ch:Dominion_engine' multiply defined.
-
-)
+ (main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 8.
@@ -1624,7 +1620,7 @@ Chapter 4.
 
 
 pdfTeX warning: pdflatex (file ./img/NN_model.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
-<img/NN_model.pdf, id=175, 796.67719pt x 448.1309pt>
+<img/NN_model.pdf, id=177, 796.67719pt x 448.1309pt>
 File: img/NN_model.pdf Graphic file (type pdf)
 <use img/NN_model.pdf>
 Package pdftex.def Info: img/NN_model.pdf  used on input line 7.
@@ -1641,31 +1637,38 @@ Underfull \hbox (badness 10000) in paragraph at lines 19--20
 
  []
 
-) [10] (chapters/RL_Training_scheme/Training_scheme.tex
+) [10] (chapters/results/results.tex
 Chapter 5.
-) [11
-
-] (chapters/results/results.tex
-Chapter 6.
-<img/Win_rate_graph.png, id=203, 1533.73pt x 884.30376pt>
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 7.3pt on input line 11.
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 8.0pt on input line 11.
+LaTeX Font Info:    Font shape `T1/ntxtt/m/n' will be
+(Font)              scaled to size 8.0pt on input line 11.
+LaTeX Font Info:    Font shape `T1/ntxtt/m/n' will be
+(Font)              scaled to size 6.2pt on input line 11.
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 6.2pt on input line 11.
+<img/Win_rate_graph.png, id=202, 1533.73pt x 884.30376pt>
 File: img/Win_rate_graph.png Graphic file (type png)
 <use img/Win_rate_graph.png>
-Package pdftex.def Info: img/Win_rate_graph.png  used on input line 8.
+Package pdftex.def Info: img/Win_rate_graph.png  used on input line 23.
 (pdftex.def)             Requested size: 455.24411pt x 262.47305pt.
-<img/Discounted_rewards.png, id=205, 1533.73pt x 884.30376pt>
+[11
+
+]
+<img/Discounted_rewards.png, id=212, 1533.73pt x 884.30376pt>
 File: img/Discounted_rewards.png Graphic file (type png)
 <use img/Discounted_rewards.png>
-Package pdftex.def Info: img/Discounted_rewards.png  used on input line 17.
+Package pdftex.def Info: img/Discounted_rewards.png  used on input line 31.
 (pdftex.def)             Requested size: 455.24411pt x 262.47305pt.
-) [12
-
- <./img/Win_rate_graph.png>] [13 <./img/Discounted_rewards.png>] (chapters/Evaluation/Evaluation.tex
-Chapter 7.
-) [14
+) [12 <./img/Win_rate_graph.png> <./img/Discounted_rewards.png>] (chapters/Evaluation/Evaluation.tex
+Chapter 6.
+) [13
 
 ] (chapters/conclusion/conclusion.tex
-Chapter 8.
-) [15
+Chapter 7.
+) [14
 
 ]
 
@@ -1686,28 +1689,27 @@ This document will not have a glossary.
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2020/03/25>
  ***********
-
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: C7B29BB413542417677D30B3D449D4F0;3920.
+(rerunfilecheck)             Checksum: 6A904A18475494FF3A26660735E92AE3;3855.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 39734 strings out of 476759
- 725300 string characters out of 5802701
+ 39964 strings out of 476759
+ 729500 string characters out of 5802701
  1934040 words of memory out of 5000000
- 60729 multiletter control sequences out of 15000+600000
- 625438 words of font info for 105 fonts, out of 8000000 for 9000
+ 60963 multiletter control sequences out of 15000+600000
+ 653172 words of font info for 136 fonts, out of 8000000 for 9000
  0 hyphenation exceptions out of 8191
- 87i,7n,122p,2463b,1833s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,8n,122p,2463b,1833s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{cite.0@Deep_Q_learning} has been referenced but does not exist, replaced by a fixed one
+
 </home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/NewTXMI.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/NewTXMI7.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/txfonts/t1xtt.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/txexs.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/txmiaX.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/txsys.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/ztmb.pfb></home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/ztmr.pfb>
-Output written on main.pdf (17 pages, 1056104 bytes).
+Output written on main.pdf (16 pages, 1055154 bytes).
 PDF statistics:
  278 PDF objects out of 1000 (max. 8388607)
- 47 named destinations out of 1000 (max. 500000)
+ 48 named destinations out of 1000 (max. 500000)
  196 words of extra memory for PDF output out of 10000 (max. 10000000)
 
