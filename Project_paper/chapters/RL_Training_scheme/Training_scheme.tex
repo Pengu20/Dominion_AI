@@ -1,10 +1,7 @@
 \chapter{Task: Training scheme} \label{ch:Dominion_engine}
-For this section, the general training structure will be discussed. This training scheme serves the purpose of training the agent, such that its value function will converge at an optimal policy. The training scheme will be the same for all agents, and will be discussed in the following sections.
-
-\section{Training structure}
-The agents were trained on an epsilon greedy agent with a value function that was randomly initiated. If the agent won 10 games in a row, then it would mean, that the agent had learned to beat the given opponent, and that a stronger opponent would challenge the agent more. Therefore, if the agent won 10 games in a row, then all the weights that the agent had trained would be transferred to the test player. The agent therefore had to find a method for beating the strategy it just used. The game that was used to visualize all the data was used by playing the agent against random walk.
+For this section, the general training structure will be discussed. This training scheme serves the purpose of training the agent, such that its value function will converge at an optimal policy. The agent was faced with a random walk policy at each game. But to even the odds then the random walk policy was never allowed to buy curses which significantly boosted its win chance. 
 
 
 
 \section{Training amounts}
-Training a dominion gamed until convergence usually lasted around 48 hours. This meant that training was doable, but not replicable, as it would take too long. Replicable training which represents the different methods will only be trained on 100 games instead of 2000 (which represents the 48 hours of training). The return gained from each game will then be averaged to reduce variance in the results of the methods.
+Training a dominion gamed until convergence usually lasted around 48 hours. This meant that training was doable, but not replicable, as it would take too long. Convergence happened at around 2000 games. To get reliable data, then instead of training a single agent op to 2000 games, the agent is trained in 20 epochs with 150 games. The return gained from each game will then be averaged to reduce variance in the results of the methods.

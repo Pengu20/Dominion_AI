@@ -15,7 +15,7 @@
 \contentsline {subsection}{\numberline {4.1.2}Binarization of the action layer input}{10}{subsection.4.1.2}%
 \contentsline {subsection}{\numberline {4.1.3}Optimistic initialization}{10}{subsection.4.1.3}%
 \contentsline {chapter}{\numberline {5}Task: Training scheme}{11}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Training structure}{11}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Training amounts}{11}{section.5.2}%
-\contentsline {chapter}{\numberline {6}evaluation \& Discussion}{12}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Conclusion}{13}{chapter.7}%
+\contentsline {section}{\numberline {5.1}Training amounts}{11}{section.5.1}%
+\contentsline {chapter}{\numberline {6}Results}{12}{chapter.6}%
+\contentsline {chapter}{\numberline {7}evaluation \& Discussion}{14}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Conclusion}{15}{chapter.8}%
