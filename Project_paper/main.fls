@@ -1,6 +1,6 @@
-PWD /home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI_paper_branch/Dominion_AI/Project_paper
+PWD /home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI_paper/Dominion_AI/Project_paper
 INPUT /home/peter/.miktex/texmfs/data/miktex/data/le/pdftex/pdflatex.fmt
-INPUT /home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI_paper_branch/Dominion_AI/Project_paper/main.tex
+INPUT /home/peter/OneDrive/Skrivebord/Uni_code/2. Masters/Dominion_AI_paper/Dominion_AI/Project_paper/main.tex
 OUTPUT main.log
 INPUT /home/peter/.miktex/texmfs/install/tex/latex/base/report.cls
 INPUT /home/peter/.miktex/texmfs/install/tex/latex/base/report.cls
@@ -609,6 +609,25 @@ INPUT ./img/NN_model.pdf
 INPUT ./chapters/RL_Training_scheme/Training_scheme.tex
 INPUT ./chapters/RL_Training_scheme/Training_scheme.tex
 INPUT chapters/RL_Training_scheme/Training_scheme.tex
+INPUT ./chapters/results/results.tex
+INPUT ./chapters/results/results.tex
+INPUT chapters/results/results.tex
+INPUT ./img/Win_rate_graph.png
+INPUT ./img/Win_rate_graph.png
+INPUT ./img/Win_rate_graph.png
+INPUT ./img/Win_rate_graph.png
+INPUT ./img/Win_rate_graph.png
+INPUT ./img/Win_rate_graph.png
+INPUT ./img/Win_rate_graph.png
+INPUT ./img/Discounted_rewards.png
+INPUT ./img/Discounted_rewards.png
+INPUT ./img/Discounted_rewards.png
+INPUT ./img/Discounted_rewards.png
+INPUT ./img/Discounted_rewards.png
+INPUT ./img/Discounted_rewards.png
+INPUT ./img/Discounted_rewards.png
+INPUT /home/peter/.miktex/texmfs/install/fonts/vf/public/newtx/ntxmia.vf
+INPUT /home/peter/.miktex/texmfs/install/fonts/tfm/public/newtx/txmiaSTbb.tfm
 INPUT ./chapters/Evaluation/Evaluation.tex
 INPUT ./chapters/Evaluation/Evaluation.tex
 INPUT chapters/Evaluation/Evaluation.tex
@@ -628,6 +647,8 @@ INPUT /home/peter/.miktex/texmfs/install/fonts/type1/public/txfonts/t1xtt.pfb
 INPUT /home/peter/.miktex/texmfs/install/fonts/type1/public/txfonts/t1xtt.pfb
 INPUT /home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/txexs.pfb
 INPUT /home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/txexs.pfb
+INPUT /home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/txmiaX.pfb
+INPUT /home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/txmiaX.pfb
 INPUT /home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/txsys.pfb
 INPUT /home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/txsys.pfb
 INPUT /home/peter/.miktex/texmfs/install/fonts/type1/public/newtx/ztmb.pfb
